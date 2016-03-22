@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1= title
+	p Welcome to #{title}
+block form
+	#login_form
+		form
+			input#mem_acc(type='text', placeholder='Please enter your account here')
+			input#mem_psw(type='text', placeholder='Please enter your password here')
+			a(href='/login') Login
+
