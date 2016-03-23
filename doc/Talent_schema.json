@@ -1,0 +1,115 @@
+{	
+	//Phase1
+	//Info while submitting 
+	
+	"name":"",
+	"email":"",
+	"phone":"",
+	"position":"",
+	"skill":[{}],
+	"note":"",
+	"agree":false,
+	
+	//Phase2
+	//Info to complete after login
+	"address":"",
+	"education":[],
+	"biography":"",
+
+	"working_experience":[{
+		"company":"",
+		"position":"",
+		"onboard_date":"timestamp",
+		"leave_date":"timestamp",
+		"description":"",
+		"neccesary_skills":[],
+	}],
+
+
+	//Phase3
+	//Info when processing the project
+	"running_project":"",
+	"finished_project":"",
+
+}
+
+{
+
+	//system info
+	// Date of Entry
+
+	// Last Login Time
+
+	// Last Contacted On
+
+	// Application Progress(1st interview, 2nd interview, 3rd interview, On trial, Active)
+	// #might have a apply btn to verify their new skill
+	//"uid":"",
+	//"authority":"user",
+
+	"Basic_Information":{
+		"Name":"",
+		"Photo":"",
+		"Gender":"",
+		"Location(Basedat)":"",
+		"Religion":"",
+		"Nationality":"",
+		"English_Proficiency_Level":"" ,
+		"Email":"",
+		"Contact_No":"" ,
+		"Occupation":"",
+		"Brief_Introduction":"" ,
+		"Relocation_Preference":"" ,
+	},
+	"Education_Information":{
+		"Institution_name(Highest Relevant Education)":"",
+		"Start_Date":,
+		"End_Date":
+	},
+	"Talent_Information":{
+		Talent Type
+
+		Talent In
+
+		Skills
+
+		Certification(Git, Hacktrail, Codility)
+
+		Choice of Work(Contract Work / Full Time)
+
+		Portfolio
+
+		Resume
+	}
+
+	
+
+	Work Experiences
+
+	Years of RelevantExperience
+
+	Last Held Position / Job
+
+	Last Drawn Salary
+
+	Reasons for Leaving(Change of Job Role, Company Reorg, etc)
+
+	Referee's Name
+
+	Referee's Contact Details
+
+	Point of Contact
+
+	Awards/Races
+
+	Date
+
+	Name
+
+	Description
+
+	DOB?
+
+
+
+}
