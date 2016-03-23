@@ -7,7 +7,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('Login successfully');
+    res.send('Login successfully');
 });
 
 module.exports = router;
