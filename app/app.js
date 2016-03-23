@@ -63,6 +63,7 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(3000,function(){
+  console.log(app.get('env'));
   console.log("Express server is running on port 3000");
 });
 // module.exports = app;
