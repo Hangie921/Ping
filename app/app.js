@@ -6,10 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 //Above is to require the express and other related node modules.
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var login = require('./routes/login');
-var logout = require('./routes/logout');
+var router_index = require('./routes/index');
+var router_users = require('./routes/users');
+var router_login = require('./routes/login');
+var router_logout = require('./routes/logout');
 
 
 var app = express();
@@ -26,10 +26,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/login',login);
-app.use('/logout',logout);
+app.use('/', router_index);
+app.use('/users', router_users);
+app.use('/login',router_login);
+app.use('/logout',router_logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

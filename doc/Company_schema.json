@@ -1,0 +1,18 @@
+{	
+	"Authority":"user",
+	"Company_name":"",
+	"Area":"",
+	"Description":"",
+	"Contact":{
+		"name":"",
+		"phone":"",
+		"email":"",
+	},
+	"Projecs":["Objectid"],
+
+
+
+
+	//company_sub_account:
+
+}
