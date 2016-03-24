@@ -19,26 +19,29 @@ function getDbConnection() {
     return mongoose.connection;
 }
 
-function findUser(acc, psw, res) {
+function findUser(acc, psw, cb) {
     console.log("findUser")
     var db = getDbConnection();
     db.on('error', console.error.bind(console, 'connection error:'));
 
     db.once('open', function() {
         console.log("connected")
-        console.log(acc);
 
-        User.find({ 'acc': acc }, function(err, users) {
+        User.find({ 'acc': acc,'psw':psw },'acc psw mem_type', function(err, users) {
             if (err) console.log(err);
             console.log("all");
             console.log(users);
             if (users.length == 0) {
-                console.log("insert company")
+                console.log("Please insert company account");
+            }else{
+                cb(true,acc);
+                console.log("closed");
+                db.close();
             }
         });
 
-        console.log("closed");
-        // db.close();
+
+        
     });
 
 }
