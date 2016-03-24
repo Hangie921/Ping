@@ -5,11 +5,10 @@ block content
 	p Welcome to #{title}
 block form
 	#login_form
-		form
-			input#mem_acc(type='text', placeholder='Please enter your account here')
+		form(type='multipart/form-data',method="post", action='/login')
+			input#mem_acc(type='text',name="mem_acc", placeholder='Please enter your account here')
 			br
-			input#mem_psw(type='text', placeholder='Please enter your password here')
+			input#mem_psw(type='text',name="mem_psw", placeholder='Please enter your password here')
 			br
-			button
-				a(href='/login') Login
+			input(type='submit',value='hi')
 

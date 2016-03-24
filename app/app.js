@@ -6,10 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 //Above is to require the express and other related node modules.
 
-var router_index = require('./routes/index');
-var router_users = require('./routes/users');
-var router_login = require('./routes/login');
-var router_logout = require('./routes/logout');
+var index_router = require('./routes/index_router');
+var users_router = require('./routes/users_router');
+var login_router = require('./routes/login_router');
+var logout_router = require('./routes/logout_router');
+var dashboard_router = require('./routes/dashboard_router');
 
 
 var app = express();
@@ -22,14 +23,14 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', router_index);
-app.use('/users', router_users);
-app.use('/login',router_login);
-app.use('/logout',router_logout);
+app.use('/', index_router);
+app.use('/login',login_router);
+app.use('/logout',logout_router);
+app.use('/dashboard',dashboard_router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
