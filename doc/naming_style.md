@@ -9,3 +9,5 @@ xxx.js,name the module accroding to the name of the related DB collection
 #view
 xxx.jade
 
+#Other
+http://nodeguide.com/style.html
