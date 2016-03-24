@@ -34,7 +34,6 @@ function findUser(acc, psw, res) {
             console.log(users);
             if (users.length == 0) {
                 console.log("insert company")
-
             }
         });
 
