@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 //Above is to require the express and other related node modules.
 
 var index_router = require('./routes/index_router');
-var users_router = require('./routes/users_router');
 var login_router = require('./routes/login_router');
 var logout_router = require('./routes/logout_router');
 var dashboard_router = require('./routes/dashboard_router');
