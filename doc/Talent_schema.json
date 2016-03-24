@@ -1,57 +1,28 @@
 {	
-	//Phase1
-	//Info while submitting 
-	
-	"name":"",
-	"email":"",
-	"phone":"",
-	"position":"",
-	"skill":[{}],
-	"note":"",
-	"agree":false,
-	
-	//Phase2
-	//Info to complete after login
-	"address":"",
-	"education":[],
-	"biography":"",
-
-	"working_experience":[{
-		"company":"",
-		"position":"",
-		"onboard_date":"timestamp",
-		"leave_date":"timestamp",
-		"description":"",
-		"neccesary_skills":[],
-	}],
-
-
 	//Phase3
 	//Info when processing the project
 	"running_project":"",
 	"finished_project":"",
-
 }
 
 {
 
-	//system info
-	// Date of Entry
-
-	// Last Login Time
-
-	// Last Contacted On
-
-	// Application Progress(1st interview, 2nd interview, 3rd interview, On trial, Active)
-	// #might have a apply btn to verify their new skill
-	//"uid":"",
-	//"authority":"user",
-
+	"System_Info":{
+		"Date_of_Entry":"",
+		"Last_Login_Time":"",
+		"Last_Contacted_On":"",
+		"uid":"",
+		"authority":"user",
+		// Application Progress(1st interview, 2nd interview, 3rd interview, On trial, Active)
+		// #might have a apply btn to verify their new skill
+	},
+	
 	"Basic_Information":{
 		"Name":"",
 		"Photo":"",
 		"Gender":"",
-		"Location(Basedat)":"",
+		"DOB":"",
+		"Location(Based at)":"",
 		"Religion":"",
 		"Nationality":"",
 		"English_Proficiency_Level":"" ,
@@ -60,6 +31,7 @@
 		"Occupation":"",
 		"Brief_Introduction":"" ,
 		"Relocation_Preference":"" ,
+		"agree":"",
 	},
 	"Education_Information":{
 		"Institution_name(Highest Relevant Education)":"",
@@ -67,49 +39,35 @@
 		"End_Date":
 	},
 	"Talent_Information":{
-		Talent Type
+		"Talent_Type":,
+		"Talent_In":,
+		"Skills":[{
+					"skill":"javascript",
+					"Certification()":[{"Git":""},{"Hacktrail":""},{"Codility":""}],	
+				}
 
-		Talent In
+		],
+		
+		"Choice of Work(Contract Work / Full Time)":"",
+		"Portfolio":"",
+		"Resume":""
+	},
 
-		Skills
+	"Work_Experiences":{
+		"Years_of_RelevantExperience":,
+		"Last_Held_Position/Job":,
+		"Last_Drawn_Salary":,
+		"Reasons_for_Leaving":,
+		"Referee's_Name":,
+		"Referee's_Contact_Details":,
+		"Point_of_Contact":,
+	},
 
-		Certification(Git, Hacktrail, Codility)
-
-		Choice of Work(Contract Work / Full Time)
-
-		Portfolio
-
-		Resume
+	"Awards/Races":{
+		"Date":"",
+		"Name":"",
+		"Description":"",
 	}
-
-	
-
-	Work Experiences
-
-	Years of RelevantExperience
-
-	Last Held Position / Job
-
-	Last Drawn Salary
-
-	Reasons for Leaving(Change of Job Role, Company Reorg, etc)
-
-	Referee's Name
-
-	Referee's Contact Details
-
-	Point of Contact
-
-	Awards/Races
-
-	Date
-
-	Name
-
-	Description
-
-	DOB?
-
 
 
 }

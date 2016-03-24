@@ -1,14 +1,24 @@
 {	
 	"Authority":"user",
-	"Company_name":"",
+	
 	"Area":"",
-	"Description":"",
-	"Contact":{
-		"name":"",
-		"phone":"",
-		"email":"",
+	"Info":{
+		"Brief_Profile":{
+				"Pic":"",
+				"Name":"",
+				"Industries":"",
+			}
+		},
+	"Profile":{
+		"Company_name":"",
+		"Pic":,
+		""
 	},
-	"Projecs":["Objectid"],
+	"Projects":["ObjectId"],
+
+
+
+
 
 
 

@@ -7,7 +7,12 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.send('Login successfully');
+	if(1 == 1){ // temp
+		res.render('com_dashboard',{member:"company"});
+	}else{
+		res.render('com_dashboard',{member:"talent"});
+	}
+    
 });
 
 module.exports = router;
