@@ -17,13 +17,22 @@ function findUser(acc, psw, cb) {
         // User.find( function(err, users) {
         if (err) console.log(err);
         if (users.length == 0) {
-            console.log("Please insert company account");
+            console.log("users.length == 0");
             cb(false, acc);
         } else {
             cb(true, users);
         }
     });
+}
 
+function findUsers(cb) {
+    console.log("findUsers")
+
+    var conn = mongoose.connection;
+    User.find(function(err, users) {
+        if (err) console.log(err);
+        cb(true, users);
+    });
 }
 
 // 0 = disconnected
@@ -31,29 +40,16 @@ function findUser(acc, psw, cb) {
 // 2 = connecting
 // 3 = disconnecting
 function insertCompany(acc, pwd) {
-    var db = getDbConnection();
-    // console.log(mongoose.connection);
-    // console.log(mongoose.connection.db);
-    console.log('insertCompany', mongoose.connection.readyState);
-    db.on('error', console.error.bind(console, 'connection error:'));
-
-    db.once('open', function() {
-        var newUser = new User({ acc: acc, pwd: pwd });
-        newUser.save(function(err, user) {
-            if (err) return console.error(err);
-            db.close();
-            console.log(mongoose.connection.readyState);
-            console.log(user);
-        });
+    var newUser = new User({ acc: acc, pwd: pwd });
+    newUser.save(function(err, user) {
+        if (err) return console.error(err);
+        db.close();
+        console.log(mongoose.connection.readyState);
+        console.log(user);
     });
 
-    db.once('connected', function() {
-        console.log('connected', mongoose.connection.readyState);
-    });
-    db.once('disconnected', function() {
-        console.log('disconnected', mongoose.connection.readyState);
-    });
 }
 
-// exports.findUser = insertCompany;
+exports.insertCompany = insertCompany;
 exports.findUser = findUser;
+exports.findUsers = findUsers;

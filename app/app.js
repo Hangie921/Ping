@@ -6,8 +6,19 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+
+// mongodb setup
 var mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/ping");
+
+db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('connected', function() {
+    console.log('connected', mongoose.connection.readyState);
+});
+db.once('disconnected', function() {
+    console.log('disconnected', mongoose.connection.readyState);
+});
 
 //Above is to require the express and other related node modules.
 
@@ -30,10 +41,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({
-    secret: 'keyboard cat', 
+    secret: 'keyboard cat',
     cookie: { maxAge: 3600000 },
     resave: true,
-    saveUninitialized:true
+    saveUninitialized: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
