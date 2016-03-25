@@ -10,21 +10,14 @@ router.use(require('./login_router'));
 router.use(require('./logout_router'));
 router.use(require('./dashboard_router'));
 router.use(require('./find_talent_router'));
-
-// router.use('/dashboard',require('./dashboard_router'));
+router.use(require('./user_router.js'));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Ping' });
 });
 
-var user = require('../module/user.js');
 router.get('/users', function(req, res, next) {
-    user.findUsers(function(status, users) {
-        res.render('users', { member: users });
-        console.log("status ", status);
-
-    });
 });
 
 
