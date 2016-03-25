@@ -10,4 +10,10 @@ router.get('/users', function(req, res, next) {
     });
 });
 
+router.post('/user', function(req, res, next) {
+    user.addDefaultCompany(function(status, users) {
+        res.render('users', { users: users });
+        console.log("status ", status);
+    });
+});
 module.exports = router;

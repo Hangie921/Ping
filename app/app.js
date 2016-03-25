@@ -11,6 +11,10 @@ var session = require('express-session');
 var mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/ping");
 
+// 0 = disconnected
+// 1 = connected
+// 2 = connecting
+// 3 = disconnecting
 db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('connected', function() {
