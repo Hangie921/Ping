@@ -10,12 +10,14 @@ var session = require('express-session');
 
 /* GET users listing. */
 
-router.post('/', upload.array(), function(req, res, next) {
+router.post('/login', upload.array(), function(req, res, next) {
     // console.log("hi");
     var acc = req.body.mem_acc,
         pwd = req.body.mem_pwd;
     user.findUser(acc, pwd, function(status, users) {
         if (status) {
+            console.log(acc);
+            //  If login success, save session in req, and direct to /dashboard
             req.session.user_acc = acc;
             req.session.user_pwd = pwd;
             res.redirect('/dashboard');
