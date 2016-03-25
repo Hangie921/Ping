@@ -10,23 +10,23 @@ var session = require('express-session');
 
 /* GET users listing. */
 
-router.post('/',upload.array(), function(req, res, next) {
-	// console.log("hi");
-	var acc=req.body.mem_acc,
-		pwd=req.body.mem_pwd;
-	user.findUser(acc,pwd,function(status,acc){
-		if(status){
-			req.session.user_acc = acc;
-			req.session.user_pwd = pwd;
-			res.redirect('/dashboard');		
-		}else{
-			console.log("sth happened");
-			res.redirect('/');
-		}
-		
-	});
-	
-    
+router.post('/', upload.array(), function(req, res, next) {
+    // console.log("hi");
+    var acc = req.body.mem_acc,
+        pwd = req.body.mem_pwd;
+    user.findUser(acc, pwd, function(status, users) {
+        if (status) {
+            req.session.user_acc = acc;
+            req.session.user_pwd = pwd;
+            res.redirect('/dashboard');
+        } else {
+            console.log("sth happened");
+            res.redirect('/');
+        }
+
+    });
+
+
 });
 
 

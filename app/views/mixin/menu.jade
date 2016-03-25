@@ -1,7 +1,9 @@
 //- This file needs member role from DB to show the different menu function list 
-
 #menu
-	ul
-		li Profile
+	h1 #{member}
+	li Info
+	if (member == "company")
 		li Find Talent
-		li Setting
+	else 
+		li Find Project
+	li Setting

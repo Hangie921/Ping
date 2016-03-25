@@ -16,10 +16,9 @@ function findUser(acc, psw, cb) {
     User.find({ 'acc': acc }, function(err, users) {
         // User.find( function(err, users) {
         if (err) console.log(err);
-        console.log(acc, "all");
-        console.log(users);
         if (users.length == 0) {
             console.log("Please insert company account");
+            cb(false, acc);
         } else {
             cb(true, users);
         }
