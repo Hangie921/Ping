@@ -4,18 +4,7 @@ var user = require('../module/user.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	var acc="company",
-	pwd="company";
-	user.findUser(acc,pwd,function(status,acc){
-		if(status){
-			res.render('dashboard', { member: acc });		
-		}else{
-			console.log("sth happened");
-		}
-		
-	});
-
-    
+	res.render('dashboard', { member: req.session.user_acc });
 });
 
 module.exports = router;

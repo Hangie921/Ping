@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 //Above is to require the express and other related node modules.
 
 var index_router = require('./routes/index_router');
@@ -24,6 +25,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'keyboard cat', 
+    cookie: { maxAge: 3600000 },
+    resave: true,
+    saveUninitialized:true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index_router);

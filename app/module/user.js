@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 var userSchema = mongoose.Schema({
     acc: String,
-    psw: String
+    pwd: String
 });
 
 var User = mongoose.model('User', userSchema);
@@ -19,7 +19,7 @@ function getDbConnection() {
     return mongoose.connection;
 }
 
-function findUser(acc, psw, cb) {
+function findUser(acc, pwd, cb) {
     console.log("findUser")
     var db = getDbConnection();
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -27,27 +27,24 @@ function findUser(acc, psw, cb) {
     db.once('open', function() {
         console.log("connected")
 
-        User.find({ 'acc': acc,'psw':psw },'acc psw mem_type', function(err, users) {
+        User.find({ 'acc': acc,'pwd':pwd },'acc pwd mem_type', function(err, users) {
             if (err) console.log(err);
             console.log("all");
             console.log(users);
             if (users.length == 0) {
                 console.log("Please insert company account");
+                cb(false,acc);
             }else{
                 cb(true,acc);
                 console.log("closed");
                 db.close();
             }
         });
-
-
-        
     });
 
 }
 
 function insertCompany(acc, pwd) {
-    mongoose.connect("mongodb://localhost/ping");
     var db = getDbConnection();
     db.on('error', console.error.bind(console, 'connection error:'));
 
