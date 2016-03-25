@@ -26,6 +26,7 @@ var index_router = require('./routes/index_router');
 var login_router = require('./routes/login_router');
 var logout_router = require('./routes/logout_router');
 var dashboard_router = require('./routes/dashboard_router');
+var find_talent_router = require('./routes/find_talent_router');
 
 
 var app = express();
@@ -52,6 +53,7 @@ app.use('/', index_router);
 app.use('/login', login_router);
 app.use('/logout', logout_router);
 app.use('/dashboard', dashboard_router);
+app.use('/find_talent', find_talent_router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,9 +1,9 @@
 extends ../default/layout
 
-
-
+block main_menu
+	include ../mixin/menu.jade
 block content
-	case member
+	case user
 		when "company"
 			h1 Welcome to Company Dashboard
 
@@ -12,12 +12,14 @@ block content
 			
 		default
 			h1 hi
-	include ../mixin/menu.jade
-
 block form
 	#logout_form
 		form(method="post",action='logout')
 			input(type='submit',value='bye')
+	#show_users
+		a(href='/dashboard/users') show users
+
+
 
 
 	

@@ -7,7 +7,12 @@ var router = express.Router();
 
 /* GET users listing. */
 router.post('/', function(req, res, next) {
-    res.redirect("/");
+	req.session.destroy(function(){
+		req.session = null;
+		res.clearCookie('connect.sid',{"path":'/'});
+		res.redirect("/");
+	});
+    
 });
 
 module.exports = router;
