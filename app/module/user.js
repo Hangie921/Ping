@@ -43,7 +43,7 @@ exports.create = function create(acc, pwd, cb) {
     var newUser = new User({ acc: acc, pwd: pwd });
     newUser.save(function(err, user) {
         if (err) return console.error(err);
-    });
+    }); 
 }
 
 exports.destroy = function destroy(acc) {

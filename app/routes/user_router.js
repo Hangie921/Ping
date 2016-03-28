@@ -15,9 +15,9 @@ router.get('/users', function(req, res) {
 // 	next();
 // });
 
-router.get('/user/:id', function (req, res) {
-	console.log(req.params.id);
-	res.send(req.params.id);
+router.get('/user/:id', function(req, res) {
+    console.log(req.params.id);
+    res.send(req.params.id + "<button> Edit </button>");
 })
 
 router.post('/user', function(req, res) {
@@ -33,7 +33,12 @@ router.post('/user', function(req, res) {
 });
 
 router.delete('/user', function(req, res) {
-	user.destroy();
-	res.send("This is Delete");
+    user.destroy();
+    res.send("This is Delete");
+});
+
+router.put('/user', function(req, res) {
+    user.update();
+    res.send("This is PUT");
 });
 module.exports = router;
