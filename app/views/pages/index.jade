@@ -15,7 +15,22 @@ block form
 
 block test
 	h1 Testing
-	a(href="users") Users
-	a(href="user") Users
-	input(type="button" name="_method" value="post")
+	ul
+		li 
+			a(href="users") Users
+		li 
+			a(href="user/?id=company") Find User
+		li Create User
+			form(method="post", action='/user')
+				input(type='text',name="acc", placeholder='Please enter your account here' value='company')
+				br
+				input(type='text',name="pwd", placeholder='Please enter your password here' value='company')
+				br
+				input(type='submit',value='Create')
+		li Delete User
+			form(method="post", action='/user')
+				input(type="hidden" name="_method" value="delete")
+				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
+				button(type='submit') Delete
+	input(type="button" action='/user' name="_method" value="Send")
 

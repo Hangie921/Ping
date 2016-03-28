@@ -3,12 +3,12 @@ var mongoose = require("mongoose");
 var userSchema = mongoose.Schema({
     acc: String,
     pwd: String
-});
+}, { autoIndex: true });
 
 var User = mongoose.model('User', userSchema);
 
 
-function findUser(acc, psw, cb) {
+exports.find = function find(acc, psw, cb) {
     var conn = mongoose.connection;
     User.find({ 'acc': acc }, function(err, users) {
         // User.find( function(err, users) {
@@ -22,7 +22,7 @@ function findUser(acc, psw, cb) {
     });
 }
 
-function findUsers(cb) {
+exports.show = function show(cb) {
     var conn = mongoose.connection;
     User.find(function(err, users) {
         if (err) console.log(err);
@@ -30,23 +30,28 @@ function findUsers(cb) {
     });
 }
 
-function addDefaultCompany(cb) {
+exports.createDefaultCompany = function createDefaultCompany(cb) {
     var defaultCompany = new User({ acc: "company", pwd: "company" });
     defaultCompany.save(function(err, user) {
         if (err) return console.error(err);
-        console.log("addDefaultCompany")
+        console.log("createDefaultCompany")
         cb(true);
     });
 }
 
-function addUser (acc,pwd) {
+exports.create = function create(acc, pwd, cb) {
     var newUser = new User({ acc: acc, pwd: pwd });
     newUser.save(function(err, user) {
         if (err) return console.error(err);
     });
 }
 
-exports.addDefaultCompany = addDefaultCompany;
-exports.findUser = findUser;
-exports.findUsers = findUsers;
-exports.addUser = addUser;
+exports.destroy = function destroy(acc) {
+    // find and delelte
+    console.log("destroy");
+}
+
+exports.update = function upate(acc) {
+    console.log("update");
+    // find and update
+}

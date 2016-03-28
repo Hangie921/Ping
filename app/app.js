@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
+var methodOverride = require('method-override');
 
 // mongodb setup
 var mongoose = require("mongoose");
@@ -42,6 +42,18 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
+// // override with POST having ?_method=DELETE
+app.use(methodOverride(function(req, res){
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('./routes'));
