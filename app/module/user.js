@@ -2,7 +2,8 @@ var mongoose = require("mongoose");
 
 var userSchema = mongoose.Schema({
     acc: String,
-    pwd: String
+    pwd: String,
+    mem_type: String
 }, { autoIndex: true });
 
 var User = mongoose.model('User', userSchema);
@@ -10,14 +11,13 @@ var User = mongoose.model('User', userSchema);
 
 exports.find = function find(acc, psw, cb) {
     var conn = mongoose.connection;
-    User.find({ 'acc': acc }, function(err, users) {
+    User.findOne({ 'acc': acc }, function(err, user) {
         // User.find( function(err, users) {
-        if (err) console.log(err);
-        if (users.length == 0) {
-            console.log("users.length == 0");
-            cb(false, acc);
+        if (err) {
+            console.log(err);
+
         } else {
-            cb(true, users);
+            cb(true, user);
         }
     });
 }

@@ -14,12 +14,12 @@ router.post('/login', upload.array(), function(req, res, next) {
     // console.log("hi");
     var acc = req.body.mem_acc,
         pwd = req.body.mem_pwd;
-    user.findUser(acc, pwd, function(status, users) {
+    user.find(acc, pwd, function(status, user) {
         if (status) {
-            console.log(acc);
             //  If login success, save session in req, and direct to /dashboard
-            req.session.user_acc = acc;
-            req.session.user_pwd = pwd;
+            req.session.user_acc = user.acc;
+            req.session.user_pwd = user.pwd;
+            req.session.mem_type = user.mem_type
             res.redirect('/dashboard');
         } else {
             console.log("sth happened");

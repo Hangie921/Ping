@@ -4,7 +4,8 @@ block main_menu
 	include ../mixin/menu.jade
 block content
 	#content
-		case user
+		h6 mem_type is #{mem_type}
+		case mem_type
 			when "company"
 				h1 Welcome to Company Dashboard
 			when "talent"
