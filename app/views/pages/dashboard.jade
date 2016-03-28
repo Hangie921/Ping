@@ -3,29 +3,28 @@ extends ../default/layout
 block main_menu
 	include ../mixin/menu.jade
 block content
-	case user
-		when "company"
-			h1 Welcome to Company Dashboard
-
-		when "talent"
-			h1 Welcome to Talent Dashboard
-			
-		default
-			h1 hi
-
-	#info
-		h1 Info
-		.brief_profile
-			ul
-				li Pic: I am pic
-				li Name: I am your father
-				li Industries: Star Wars
+	#content
+		case user
+			when "company"
+				h1 Welcome to Company Dashboard
+			when "talent"
+				h1 Welcome to Talent Dashboard
+			default
+				h1 Hi Stranger
+		#info
+			h1 Info
+			.brief_profile
+				ul
+					li Pic: I am pic
+					li Name: I am your father
+					li Industries: Star Wars
 block form
-	#logout_form
-		form(method="post",action='logout')
-			input(type='submit',value='bye')
-	#show_users
-		a(href='/dashboard/users') show users
+	#form_container
+		#logout_form
+			form(method="post",action='logout')
+				input(type='submit',value='bye')
+		#show_users
+			a(href='/users') show users
 
 
 

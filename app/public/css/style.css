@@ -6,3 +6,23 @@ body {
 a {
   color: #00B7FF;
 }
+#menu,#content{
+	float: left;
+	height: 500px;
+}
+#menu{
+	width: 20%;
+	border-right:1px solid #eee;
+}
+#content{
+	width: 79%;
+}
+#content table{
+	width: 100%;
+	border:1px solid #ccc;
+}
+#content table th,#content table td{
+	width: 10%;
+	border:1px solid #ccc;
+}
+

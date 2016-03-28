@@ -2,17 +2,38 @@
 #menu
 	h1 Menu for #{user}
 	li Profile
+		.profile
+			if (user == "company")
+				ul
+					li Company Name
+					li Pic
+					li Description
+					li Give a Star & Comments
+					li Post a Job
+			else if (user == "talent")
+				ul
+					li Sys Information
+					li Basic Profile Information
+					li Education Information
+					li Talent Information
+					li Work Experience
+					li Awards/Races
+					li Project History
 	if (user == "company")
 		li 
 			a(href='/find_talent') Find Talent
-	else 
+	else if (user == "talent")
 		li 
 			a(href='/find_project') Find Project
 	li 
-		ul 
-			h2 Setting
-			li My account
-			li Terns&Condition
-			li Version
-			li 
-				a(href='/logout') Log out
+		.setting
+			span Setting
+			ul
+				li My Account
+					#MyAccount
+						ul
+							li Change PWD
+				li Terns&Condition
+				li Version
+				li 
+					a(href='/logout') Log out

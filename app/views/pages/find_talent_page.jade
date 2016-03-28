@@ -1,0 +1,32 @@
+extends ../default/find_xxx_page_layout
+
+block main_menu
+	include ../mixin/menu.jade
+block content
+	#content
+		h2 Find the Talent
+		form(action='/talent_result',method='post')
+			table
+				tr
+					th Talent in
+					th Choice of Work
+					th Years of Experience
+				tr
+					td 
+						select(name='talent_type')
+							option Develope
+							option Designer
+							option PM
+					td
+						select(name='work_type')
+							option Full-Time
+							option Secondment
+					td
+						select(name='experience')
+							option 0~1Y
+							option 1~3Y
+							option 3~5Y
+			input(type='submit',value='Find Talent!')
+
+block form
+	#form_container
