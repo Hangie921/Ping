@@ -1,0 +1,13 @@
+{
+	"acc" : "talent@ping.com.sg",
+	"pwd" : "talent",
+	"mem_type":"talent"
+},{
+	"acc" : "company@ping.com.sg",
+	"pwd" : "company",
+	"mem_type":"company"
+},{
+	"acc" : "admin@ping.com.sg",
+	"pwd" : "admin",
+	"mem_type":"admin"
+}
