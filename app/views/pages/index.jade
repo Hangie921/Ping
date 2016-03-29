@@ -32,5 +32,10 @@ block test
 				input(type="hidden" name="_method" value="delete")
 				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
 				button(type='submit') Delete
+		li Update User
+			form(method="post", action='/user')
+				input(type="hidden" name="_method" value="put")
+				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
+				button(type='submit') Update
 	input(type="button" action='/user' name="_method" value="Send")
 

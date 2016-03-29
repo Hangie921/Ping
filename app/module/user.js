@@ -11,13 +11,15 @@ var User = mongoose.model('User', userSchema);
 
 exports.find = function find(acc, psw, cb) {
     var conn = mongoose.connection;
+    // @Feature: Does it need to check psw !?
     User.findOne({ 'acc': acc }, function(err, user) {
-        // User.find( function(err, users) {
         if (err) {
             console.log(err);
 
-        } else {
+        } else if (user !== null) {
             cb(true, user);
+        } else {
+            cb(false);
         }
     });
 }
@@ -43,7 +45,7 @@ exports.create = function create(acc, pwd, cb) {
     var newUser = new User({ acc: acc, pwd: pwd });
     newUser.save(function(err, user) {
         if (err) return console.error(err);
-    }); 
+    });
 }
 
 exports.destroy = function destroy(acc) {

@@ -17,8 +17,19 @@ router.get('/users', function(req, res) {
 
 router.get('/user/:id', function(req, res) {
     console.log(req.params.id);
-    res.send(req.params.id + "<button> Edit </button>");
-})
+    var returnString = `<button> <a href="${req.params.id}/edit">Edit <a></button>`;
+    res.send(req.params.id + returnString);
+});
+
+//  @Feature: 可以放更改密碼或個人資料的東西
+router.get('/user/:id/edit', function(req, res) {
+    res.send('<h1>Edit ' + req.params.id + '</h1><input type="text",name="mem_pwd" placeholder="Please enter your password here">' + '<br><button> Update </button>');
+});
+
+// @Feature送出資料後,做db操作
+router.put('/user/:id/edit', function(req, res) {
+	console.log(`put #{req.params.id}/edit`);
+});
 
 router.post('/user', function(req, res) {
     var acc = req.body.acc,
