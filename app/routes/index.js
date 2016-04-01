@@ -20,8 +20,4 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Ping' });
 });
 
-router.get('/users', function(req, res, next) {
-});
-
-
 module.exports = router;
