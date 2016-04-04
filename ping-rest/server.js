@@ -1,0 +1,204 @@
+var express = require('express'),
+    wines = require('./routes/employee'),
+    wines2 = require('./routes/employee2');
+var memberobj = require('./bean/member');
+var session = require('express-session');
+// var roleobj = require('./bean/role');
+
+var memberService = require('./service/memberService');
+// var roleService = require('./service/roleService');
+
+
+var sessionManager = require('./manager/session');
+ 
+var app = express();
+
+//-------mongodb setup  start ---------------
+var mongoose = require("mongoose");
+//set PORT = 3000,set IP = 192.168.60.56,set DBNAME = test
+// mongoose.connect("mongodb://"+process.env.IP+":"+process.env.PORT+"/"+process.env.DBNAME);
+mongoose.connect("mongodb://192.168.60.65:3000/test");
+
+// 0 = disconnected
+// 1 = connected
+// 2 = connecting
+// 3 = disconnecting
+db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('connected', function() {
+    console.log('connected', mongoose.connection.readyState);
+});
+db.once('disconnected', function() {
+    console.log('disconnected', mongoose.connection.readyState);
+});
+//-------mongodb setup  end ---------------
+
+var assert = require('assert');
+var Schema = mongoose.Schema;
+
+
+app.get('/employees/:id/reports', wines.findByManager);
+app.get('/employees/:id', wines.findById);
+app.get('/employees', wines.findAll);
+
+
+//http://localhost:3000/employees2?name=j
+app.post('/employees2/:id/reports', wines2.findByManager);
+
+//http://localhost:3000/employees
+
+//http://localhost:3000/employees/1
+
+//http://localhost:3000/employees/1/reports
+
+
+//remeber npm install --save body-parser
+//http://stackoverflow.com/questions/5710358/how-to-retrieve-post-query-parameters-in-express
+
+
+//------configure start------------------------
+
+// app.configure(function(){
+//   app.set('port', process.env.PORT || 3000);
+//   app.set('views', __dirname + '/views');
+//   app.set('view engine', 'jade');
+//   app.use(express.favicon());
+//   app.use(express.logger('dev'));
+//   app.use(express.bodyParser());
+//   app.use(express.methodOverride());
+//   app.use(app.router);
+//   app.use(express.static(path.join(__dirname, 'public')));
+// });
+
+// app.configure('development', function() {
+//   console.log('Using development settings.');
+//   app.set('connection', mysql.createConnection({
+//     host: '',
+//     user: '',
+//     port: '',
+//     password: ''}));
+//   app.use(express.errorHandler());
+// });
+
+// app.configure('production', function() {
+//   console.log('Using production settings.');
+//   app.set('connection', mysql.createConnection({
+//     host: process.env.RDS_HOSTNAME,
+//     user: process.env.RDS_USERNAME,
+//     password: process.env.RDS_PASSWORD,
+//     port: process.env.RDS_PORT}));
+// });
+
+//------configure end--------------------------
+
+
+
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
+
+app.use(express.multipart());
+
+app.post('/test-page', function(req, res) {
+        console.log(req);
+});
+
+//mytest
+// var test = wines2.sys_findMember('1234');
+
+//https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
+
+
+// call the custom method. this will just add -dude to his name
+// user will now be Chris-dude
+// mbs001.dudify(function(err, name) {
+//   if (err) throw err;
+//   console.log('Your new name is ' + name);
+// });
+
+//--save
+// mbs001.save(function(err) {
+//   if (err) throw err;
+//   console.log('User saved successfully!');
+//});
+
+//--get all the users
+//findAll
+// memberobj.find({}, function(err, members) {
+//   if (err) throw err;
+//   // object of all the users
+//   console.log(members);
+// });
+
+//findOne
+// get the user starlord55
+// memberobj.find({ firstName: 'Amy' }, function(err, member) {
+//   if (err) throw err;
+//   // object of the user
+//   console.log("findOne="+member);
+// });
+var mbsSearch = new memberobj({
+  system_parameter: 0,
+  email: 'mbs001@ping.com.sg',
+  pwd:'ABCDEFG'
+});
+
+//呼叫API
+// memberService.getMember(mbsSearch, function (err, data) {
+// 	if (err) return console.error(err);
+// 	console.log("mbsSearch is "+data);
+// });
+
+// var roleSearch = new roleobj({
+//   system_parameter: 0,
+//   email: 'mbs001@ping.com.sg',
+//   pwd:'ABCDEFG'
+// });
+
+// roleService.getRole(roleSearch,function (err,data) {
+// 	if (err) return console.error(err);
+// 	console.log("roleSearch is "+data);
+// });
+
+//var test5 = memberService.getMember(mbs005);
+//console.log("test5 is "+test5);
+
+//sessionManager test
+sessionManager.registered(mbsSearch,function (err,data) {
+	if (err) return console.error(err);
+	console.log("session log..."+data);
+
+	sessionManager.sessionExist(session.memberobj,function (err2,data2) {
+		console.log("sessionExist return..."+data2);
+
+		sessionManager.cleanSession(session.memberobj,function (err3,data3) {
+			console.log("cleanSession return..."+data3);
+
+				sessionManager.sessionExist(session.memberobj,function (err4,data4) {
+					console.log("sessionExist return..."+data4);
+				});
+		});
+	});
+});
+
+//sessionManager getManager()
+// sessionManager.getMember(mbsSearch, function (err, data) {
+// 	if (err) return console.error(err);
+// 	console.log("mbsSearch is "+data);
+// });
+
+var server = app.listen(3000, function () {
+
+  var host = server.address().address
+  var port = server.address().port
+
+  console.log('Example app listening at http://%s:%s ', host, port);
+  console.log('IP:'+process.env.IP);
+  console.log('PORT:'+process.env.PORT);
+  console.log('DBNAME:'+process.env.DBNAME);
+
+})

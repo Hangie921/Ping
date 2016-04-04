@@ -4,14 +4,16 @@ block main_menu
 	include ../mixin/menu.jade
 block content
 	#content
-		h6 mem_type is #{mem_type}
-		case mem_type
+		h6 user type is #{type} #{_id} #{pwd}
+		case pwd
 			when "company"
 				h1 Welcome to Company Dashboard
 			when "talent"
 				h1 Welcome to Talent Dashboard
+			when "walter"
+				h1 Welcome to Talent Dashboard
 			default
-				h1 Hi Stranger , you don't have a mem_type
+				h1 Hi Stranger , you don't have a user_type
 		#info
 			h1 Info
 			.brief_profile

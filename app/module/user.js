@@ -6,16 +6,16 @@ var userSchema = mongoose.Schema({
     mem_type: String
 }, { autoIndex: true });
 
-var User = mongoose.model('User', userSchema);
+var User = mongoose.model('users', userSchema);
 
 
 exports.find = function find(acc, psw, cb) {
     var conn = mongoose.connection;
     // @Feature: Does it need to check psw !?
-    User.findOne({ 'acc': acc }, function(err, user) {
+    User.findOne({ 'email': acc }, function(err, user) {
+    // User.findOne({ 'email': acc }, function(err, user) {
         if (err) {
             console.log(err);
-
         } else if (user !== null) {
             cb(true, user);
         } else {

@@ -50,8 +50,8 @@ app.use(methodOverride(function(req, res){
     var method = req.body._method
     delete req.body._method
     return method
-  }
-}))
+  }else{}
+}));
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -89,8 +89,8 @@ app.use(function(err, req, res, next) {
     });
 });
 
-app.listen(3000, function() {
+app.listen(3001, function() {
     console.log(app.get('env'));
-    console.log("Express server is running on port 3000");
+    console.log("Express server is running on port 3001");
 });
 // module.exports = app;
