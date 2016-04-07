@@ -5,7 +5,7 @@
 var express = require('express');
 var router = express.Router();
 var upload = require('multer')();
-var user = require('../module/user.js');
+var User = require('../module/user.js');
 var session = require('express-session');
 // var userobj = require('../module/hr-sys/bean/users.js');
 // var sessionManager = require('../module/hr-sys/interface/session.js');
@@ -14,7 +14,7 @@ var session = require('express-session');
 process.on('uncaughtException', function(err) {
     console.info(err);
     console.error('Error caught in uncaughtException event:', err.Error);
-    sessionManager.cleanSession(function (err,data) {});
+    // sessionManager.cleanSession(function(err, data) {});
 });
 
 /* GET users listing. */
@@ -25,7 +25,7 @@ router.post('/login', upload.single(), function(req, res, next) {
     // console.log(req.body.mem_pwd); OOO
     var acc = req.body.mem_acc,
         pwd = req.body.mem_pwd;
-    
+
     // var usrSearch = new userobj({
     //     system_parameter: 0,
     //     email: acc,
@@ -41,28 +41,28 @@ router.post('/login', upload.single(), function(req, res, next) {
     //     }else{
     //         res.render('index',{title:"Ping",feedback_msg:"Cant find your email or password!"});
     //     }
-        
+
     // });
-    
+
     //攔截錯誤
-    
 
-
-    user.find(acc, pwd, function(status, user) {
-        if (status) {
-            //  If login success, save session in req, and direct to /dashboard
+    User.findOne({ acc: acc, pwd: pwd }, function(err, user) {
+        if (err) {
+            console.log(err);
+        } else if (user === null) {
+            console.log('"login_router.js"', `User:${acc} not found`);
+            res.redirect('/');
+        } else {
+            //  If login success, save session in req, and direct to / dashboard
             req.session.user_acc = user.email;
             req.session.user_pwd = user.pwd;
             req.session.mem_type = user.mem_type
-            res.render('dashboard',user);
-        } else {
-            console.log(status);
-            console.log("sth happened");
-            res.redirect('/');
-        }
+            res.render('dashboard', user);
+            cb(true, user);
 
+        }
     });
-    
+
 });
 
 

@@ -44,13 +44,13 @@ app.use(session({
 }));
 
 // // override with POST having ?_method=DELETE
-app.use(methodOverride(function(req, res){
-  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-    // look in urlencoded POST bodies and delete it
-    var method = req.body._method
-    delete req.body._method
-    return method
-  }else{}
+app.use(methodOverride(function(req, res) {
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+        // look in urlencoded POST bodies and delete it
+        var method = req.body._method
+        delete req.body._method
+        return method
+    } else {}
 }));
 
 
@@ -93,4 +93,3 @@ app.listen(3001, function() {
     console.log(app.get('env'));
     console.log("Express server is running on port 3001");
 });
-// module.exports = app;

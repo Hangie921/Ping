@@ -1,43 +1,18 @@
 extends ../default/layout
 
-
 block content
 	h1= title
 	p Welcome to #{title}
-block form
+	
 	#login_form
 		form(type='multipart/form-data',method="post", action='/login')
 			input#mem_acc(type='email',name="mem_acc", placeholder='Please enter your account here')
 			br
 			input#mem_pwd(type='password',name="mem_pwd", placeholder='Please enter your password here')
 			br
-			input(type='submit',value='hi')
+			input(type='submit',value='Login')
 	#feedback
+		a(href="/users/new") 
+			button Register
 		span #{feedback_msg}
-
-block test
-	h1 Testing
-	ul
-		li 
-			a(href="users") Users
-		li 
-			a(href="user/company") Find User
-		li Create User
-			form(method="post", action='/user')
-				input(type='text',name="acc", placeholder='Please enter your account here' value='company')
-				br
-				input(type='text',name="pwd", placeholder='Please enter your password here' value='company')
-				br
-				input(type='submit',value='Create')
-		li Delete User
-			form(method="post", action='/user')
-				input(type="hidden" name="_method" value="delete")
-				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
-				button(type='submit') Delete
-		li Update User
-			form(method="post", action='/user')
-				input(type="hidden" name="_method" value="put")
-				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
-				button(type='submit') Update
-	input(type="button" action='/user' name="_method" value="Send")
 
