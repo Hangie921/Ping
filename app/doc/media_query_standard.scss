@@ -1,0 +1,53 @@
+// set general breakpoints
+$lg-media:1200px;
+$md-media:$lg-media - 1px;  //1199px
+$mds-media:992px;
+$sm-media: $md-media - 1px; //991px
+$sms-media:768px;
+$xs-media:$sm-media - 1px; //767px
+
+//phone
+
+
+// set specific devices
+//Apple
+$ipad-pro-width:1024px
+$ipad-pro-height:1366px
+
+$ipad-width:768px
+$ipad-height:1024px
+
+$i6p-width:414px
+$i6p-height:736px
+
+$i6-width:375px
+$i6-height:667px
+
+$i5-width:320px
+$i5-height:568px
+
+//Samsung
+$galaxy-tab-width:800px
+$galaxy-tab-height:1200px
+
+$galaxy-note-width:360px
+$galaxy-note-height:640px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
