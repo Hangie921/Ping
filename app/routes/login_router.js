@@ -7,8 +7,8 @@ var router = express.Router();
 var upload = require('multer')();
 var user = require('../module/user.js');
 var session = require('express-session');
-var userobj = require('../module/hr-sys/bean/users.js');
-var sessionManager = require('../module/hr-sys/interface/session.js');
+// var userobj = require('../module/hr-sys/bean/users.js');
+// var sessionManager = require('../module/hr-sys/interface/session.js');
 
 
 process.on('uncaughtException', function(err) {
