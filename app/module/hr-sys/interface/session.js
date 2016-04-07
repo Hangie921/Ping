@@ -38,6 +38,7 @@ var session_login = function(usersobj,callback){
 	userService.getUser(usersobj,function (err,data) {
 		if(null!=data){
 			//寫入session
+			console.log("data is",data);
 			session.usersobj = data;
 			callback(null,data);
 		}else{

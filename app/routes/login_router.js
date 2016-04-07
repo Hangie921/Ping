@@ -26,42 +26,42 @@ router.post('/login', upload.single(), function(req, res, next) {
     var acc = req.body.mem_acc,
         pwd = req.body.mem_pwd;
     
-    var usrSearch = new userobj({
-        system_parameter: 0,
-        email: acc,
-        pwd:pwd
-    });
+    // var usrSearch = new userobj({
+    //     system_parameter: 0,
+    //     email: acc,
+    //     pwd:pwd
+    // });
 
-    sessionManager.login(usrSearch,function (err,data) {
-        if(data[0]!== undefined){
-            console.log(typeof data[0]);
-            console.log(data[0].email);
-            res.render('dashboard',data[0]);  
-            // res.render('dashboard',{type:"talent"});
-        }else{
-            res.render('index',{title:"Ping",feedback_msg:"Cant find your email or password!"});
-        }
+    // sessionManager.login(usrSearch,function (err,data) {
+    //     if(data[0]!== undefined){
+    //         console.log("2345678",typeof data[0]);
+    //         console.log(data[0].email);
+    //         res.render('dashboard',data[0]);  
+    //         // res.render('dashboard',{type:"talent"});
+    //     }else{
+    //         res.render('index',{title:"Ping",feedback_msg:"Cant find your email or password!"});
+    //     }
         
-    });
+    // });
     
     //攔截錯誤
     
 
 
-    // user.find(acc, pwd, function(status, user) {
-    //     if (status) {
-    //         //  If login success, save session in req, and direct to /dashboard
-    //         req.session.user_acc = user.acc;
-    //         req.session.user_pwd = user.pwd;
-    //         req.session.mem_type = user.mem_type
-    //         res.redirect('/dashboard');
-    //     } else {
-    //         console.log(status);
-    //         console.log("sth happened");
-    //         res.redirect('/');
-    //     }
+    user.find(acc, pwd, function(status, user) {
+        if (status) {
+            //  If login success, save session in req, and direct to /dashboard
+            req.session.user_acc = user.email;
+            req.session.user_pwd = user.pwd;
+            req.session.mem_type = user.mem_type
+            res.render('dashboard',user);
+        } else {
+            console.log(status);
+            console.log("sth happened");
+            res.redirect('/');
+        }
 
-    // });
+    });
     
 });
 
