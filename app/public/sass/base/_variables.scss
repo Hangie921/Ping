@@ -1,0 +1,445 @@
+// Variables
+
+
+
+//test
+
+.color{
+	color:#fff;
+}
+
+// == Colors ==============================
+//
+//## Define all the colors here
+
+$brand-primary:     ;
+$brand-success:     ;
+$brand-info:        ;
+$brand-warning:     ;
+$brand-danger:      ;
+
+
+//== Scaffolding ============================== 
+//
+//## Setting for global styles
+
+//** Background color for `<body>`.
+$body-bg:               ;
+//** Global text color on `<body>`.
+$text-color:            ;
+
+//** Global textual link color.
+$link-color:            ;
+//** Link hover color set via `darken()` function.
+$link-hover-color:      ;
+//** Link hover decoration.
+$link-hover-decoration: ;
+
+
+//== Typography ==============================
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family-base:        $font-family-sans-serif !default;
+
+$font-size-base:            ;
+$font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
+
+$font-size-h1:            floor(($font-size-base * 2.6)) !default; // ~36px
+$font-size-h2:            floor(($font-size-base * 2.15)) !default; // ~30px
+$font-size-h3:            ceil(($font-size-base * 1.7)) !default; // ~24px
+$font-size-h4:            ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-h5:            $font-size-base !default;
+$font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
+
+//** Unit-less `line-height` for use in components like buttons.
+$line-height-base:         !default; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+$line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
+
+//** By default, this inherits from the `<body>`.
+$headings-font-family:    ;
+$headings-font-weight:    ;
+$headings-line-height:    ;
+$headings-color:          ;
+
+
+//========== Components ==============================
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+
+$padding-base-vertical:     ;
+$padding-base-horizontal:   ;
+
+$padding-large-vertical:    ;
+$padding-large-horizontal:  ;
+
+$padding-small-vertical:    ;
+$padding-small-horizontal:  ;
+
+$padding-xs-vertical:       ;
+$padding-xs-horizontal:     ;
+
+$line-height-large:         ;
+$line-height-small:         ;
+
+$border-radius-base:        ;
+$border-radius-large:       ;
+$border-radius-small:       ;
+
+//** Global color for active items (e.g., navs or dropdowns).
+$component-active-color:    ;
+//** Global background color for active items (e.g., navs or dropdowns).
+$component-active-bg:       $brand-primary !default;
+
+
+// ================================ Buttons ==============================
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-font-weight:                normal !default;
+
+$btn-default-color:              ;
+$btn-default-bg:                 ;
+$btn-default-border:             ;
+
+$btn-primary-color:              ;
+$btn-primary-bg:                 $brand-primary !default;
+$btn-primary-border:             darken($btn-primary-bg, 5%) !default;
+
+$btn-success-color:              ;
+$btn-success-bg:                 $brand-success !default;
+$btn-success-border:             darken($btn-success-bg, 5%) !default;
+
+$btn-info-color:                 ;
+$btn-info-bg:                    $brand-info !default;
+$btn-info-border:                darken($btn-info-bg, 5%) !default;
+
+$btn-warning-color:              ;
+$btn-warning-bg:                 $brand-warning !default;
+$btn-warning-border:             darken($btn-warning-bg, 5%) !default;
+
+$btn-danger-color:               ;
+$btn-danger-bg:                  $brand-danger !default;
+$btn-danger-border:              darken($btn-danger-bg, 5%) !default;
+
+$btn-link-disabled-color:        $gray-light !default;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius-base:         $border-radius-base !default;
+$btn-border-radius-large:        $border-radius-large !default;
+$btn-border-radius-small:        $border-radius-small !default;
+
+
+//====== Forms ==============================
+//
+//##
+
+//** `<input>` background color
+$input-bg:                       ;
+//** `<input disabled>` background color
+$input-bg-disabled:              ;
+
+//** Text color for `<input>`s
+$input-color:                    ;
+//** `<input>` border color
+$input-border:                   ;
+
+// TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
+//** Default `.form-control` border radius
+// This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
+$input-border-radius:            $border-radius-base !default;
+//** Large `.form-control` border radius
+$input-border-radius-large:      $border-radius-large !default;
+//** Small `.form-control` border radius
+$input-border-radius-small:      $border-radius-small !default;
+
+//** Border color for inputs on focus
+$input-border-focus:             ;
+
+//** Placeholder text color
+$input-color-placeholder:        ;
+
+//** Default `.form-control` height
+$input-height-base:              ($line-height-computed + ($padding-base-vertical * 2) + 2) !default;
+//** Large `.form-control` height
+$input-height-large:             (ceil($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2) !default;
+//** Small `.form-control` height
+$input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2) !default;
+
+//** `.form-group` margin
+$form-group-margin-bottom:       15px !default;
+
+$legend-color:                   ;
+$legend-border-color:            ;
+
+//** Background color for textual input addons
+$input-group-addon-bg:           $gray-lighter !default;
+//** Border color for textual input addons
+$input-group-addon-border-color: $input-border !default;
+
+//** Disabled cursor for form controls and buttons.
+$cursor-disabled:                not-allowed !default;
+
+
+
+//== Dropdowns ==============================
+//
+//## Dropdown menu container and contents.
+
+//** Background for the dropdown menu.
+$dropdown-bg:                    ;
+//** Dropdown menu `border-color`.
+$dropdown-border:                ;
+//** Dropdown menu `border-color` **for IE8**.
+$dropdown-fallback-border:       ;
+//** Divider color for between dropdown items.
+$dropdown-divider-bg:            ;
+
+//** Dropdown link text color.
+$dropdown-link-color:            ;
+//** Hover color for dropdown links.
+$dropdown-link-hover-color:      ;
+//** Hover background for dropdown links.
+$dropdown-link-hover-bg:         ;
+
+//** Active dropdown menu item text color.
+$dropdown-link-active-color:     ;
+//** Active dropdown menu item background color.
+$dropdown-link-active-bg:        ;
+
+//** Disabled dropdown menu item background color.
+$dropdown-link-disabled-color:   ;
+
+//** Text color for headers within dropdown menus.
+$dropdown-header-color:          ;
+
+//** Deprecated `$dropdown-caret-color` as of v3.1.0
+$dropdown-caret-color:           ;
+
+
+//-- Z-index master list ==============================
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+//
+// Note: These variables are not generated into the Customizer.
+
+$zindex-tooltip:           1070 !default;
+$zindex-popover:           1060 !default;
+$zindex-modal:             1050 !default;
+$zindex-modal-background:  1040 !default;
+$zindex-navbar-fixed:      1030 !default;
+$zindex-navbar:            1000 !default;
+$zindex-dropdown:          1000 !default;
+
+
+
+//== Media queries breakpoints ==============================
+//
+//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
+
+// Extra small screen / phone
+//** Deprecated `$screen-xs` as of v3.0.1
+$screen-xs:                  480px !default;
+//** Deprecated `$screen-xs-min` as of v3.2.0
+$screen-xs-min:              $screen-xs !default;
+//** Deprecated `$screen-phone` as of v3.0.1
+$screen-phone:               $screen-xs-min !default;
+
+// Small screen / tablet
+//** Deprecated `$screen-sm` as of v3.0.1
+$screen-sm:                  768px !default;
+$screen-sm-min:              $screen-sm !default;
+//** Deprecated `$screen-tablet` as of v3.0.1
+$screen-tablet:              $screen-sm-min !default;
+
+// Medium screen / desktop
+//** Deprecated `$screen-md` as of v3.0.1
+$screen-md:                  992px !default;
+$screen-md-min:              $screen-md !default;
+//** Deprecated `$screen-desktop` as of v3.0.1
+$screen-desktop:             $screen-md-min !default;
+
+// Large screen / wide desktop
+//** Deprecated `$screen-lg` as of v3.0.1
+$screen-lg:                  1200px !default;
+$screen-lg-min:              $screen-lg !default;
+//** Deprecated `$screen-lg-desktop` as of v3.0.1
+$screen-lg-desktop:          $screen-lg-min !default;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max:              ($screen-sm-min - 1) !default;
+$screen-sm-max:              ($screen-md-min - 1) !default;
+$screen-md-max:              ($screen-lg-min - 1) !default;
+
+
+//== Grid system ==============================
+//
+//## Define your custom responsive grid.
+
+//** Number of columns in the grid.
+$grid-columns:              12 !default;
+//** Padding between columns. Gets divided in half for the left and right.
+$grid-gutter-width:         30px !default;
+// Navbar collapse
+//** Point at which the navbar becomes uncollapsed.
+$grid-float-breakpoint:     $screen-sm-min !default;
+//** Point at which the navbar begins collapsing.
+$grid-float-breakpoint-max: ($grid-float-breakpoint - 1) !default;
+
+
+
+//== Containers ==============================
+//
+//## Define the max and min of your '.container' for different screen size
+
+// Small screen / tablet
+$container-tablet:             (720px + $grid-gutter-width) !default;
+//** For `$screen-sm-min` and up.
+$container-sm:                 $container-tablet !default;
+
+// Medium screen / desktop
+$container-desktop:            (940px + $grid-gutter-width) !default;
+//** For `$screen-md-min` and up.
+$container-md:                 $container-desktop !default;
+
+// Large screen / wide desktop
+$container-large-desktop:      (1140px + $grid-gutter-width) !default;
+//** For `$screen-lg-min` and up.
+$container-lg:
+
+
+
+
+
+//== Nav Bar ==============================
+//
+//## As title,the styles of nav bar, like links,label,inverted .etc
+// Basics of a navbar
+$navbar-height:                    ;
+$navbar-margin-bottom:             ;
+$navbar-border-radius:             ;
+$navbar-padding-horizontal:        ;
+$navbar-padding-vertical:          ;
+$navbar-collapse-max-height:       ;
+
+
+// Navbar links
+$navbar-default-link-color:                ;
+$navbar-default-link-hover-color:          ;
+$navbar-default-link-hover-bg:             ;
+$navbar-default-link-active-color:         ;
+$navbar-default-link-active-bg:            ;
+$navbar-default-link-disabled-color:       ;
+$navbar-default-link-disabled-bg:          ;
+
+
+
+//== Navs ==============================
+//
+//## Shared nav styles, tabs
+$nav-link-padding:                          ;
+$nav-link-hover-bg:                         ;
+
+$nav-disabled-link-color:                   ;
+$nav-disabled-link-hover-color:             ;
+
+
+
+
+//== Jumbotron ==============================
+//
+//## paddings for the super large screen like TVs,
+$jumbotron-padding:              ;
+$jumbotron-color:                ;
+$jumbotron-bg:                   ;
+$jumbotron-heading-color:        ;
+$jumbotron-font-size:            ;
+$jumbotron-heading-font-size:    ;
+
+
+
+
+
+//== Form states and feedback messages ==============================
+//
+//## Define colors for form feedback states and, by default, alerts.
+
+$state-success-text:             ;
+$state-success-bg:               ;
+$state-success-border:           ;
+
+$state-info-text:                ;
+$state-info-bg:                  ;
+$state-info-border:              ;
+
+$state-warning-text:             ;
+$state-warning-bg:               ;
+$state-warning-border:           ;
+
+$state-danger-text:              ;
+$state-danger-bg:                ;
+$state-danger-border:            ;
+
+
+
+
+
+
+//== Labels ==============================
+//
+//## 
+
+//** Default label background color
+$label-default-bg:            ;
+//** Primary label background color
+$label-primary-bg:            ;
+//** Success label background color
+$label-success-bg:            ;
+//** Info label background color
+$label-info-bg:               ;
+//** Warning label background color
+$label-warning-bg:            ;
+//** Danger label background color
+$label-danger-bg:             ;
+
+//** Default label text color
+$label-color:                 ;
+//** Default text color of a linked label
+$label-link-hover-color:      ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

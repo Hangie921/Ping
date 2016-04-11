@@ -32,9 +32,9 @@ gulp.task('lint',function(){ //hint the .js code
 // });
 
 gulp.task('sass',function(){   // to transfer the .scss to .css
-	gulp.src("public/stylesheets/sass/main.scss")
+	gulp.src("public/sass/main.scss")
 		.pipe(sass())
-		.pipe(gulp.dest("public/stylesheets/"));
+		.pipe(gulp.dest("public/css/"));
 });
 
 gulp.task('default',function(){

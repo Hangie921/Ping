@@ -36,6 +36,8 @@ defaultCompany.save(function(err, user) {
     if (err) return console.error(err);
     console.log("createDefaultCompany")
 });
+
+
 //create default talent
 var defaultTalent = new User({ 
     email: "talent@ping.com.sg", 
