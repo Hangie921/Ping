@@ -10,13 +10,6 @@ router.get('/users', function(req, res) {
     });
 });
 
-router.get('/api/users', function(req, res) {
-    User.find(function(err, users) {
-        if (err) console.log(err);
-        res.json(users);
-    });
-});
-
 router.get('/users/new', function(req, res) {
     res.render('users_new');
 });
@@ -59,6 +52,31 @@ router.put('/users', function(req, res) {
 
 router.delete('/users', function(req, res) {
     res.send("This is Delete");
+});
+
+// APIs
+router.get('/api/users', function(req, res) {
+    User.find(function(err, users) {
+        if (err) console.log(err);
+        res.json(users);
+    });
+});
+
+router.post('/api/users', function(req, res) {
+    var acc = req.body.acc,
+        pwd = req.body.pwd;
+    console.log(__filename, acc, pwd)
+    if (acc == null || pwd == null) {
+        console.log(__filename, "NULLL");
+        res.status(400);
+        res.json({ msg: "wrong form", data: null });
+    } else {
+        var newUser = new User({ acc: acc, pwd: pwd });
+        newUser.save(function(err, user) {
+            if (err) return console.error(err);
+            res.json({ msg: "succuss", data: user });
+        });
+    }
 });
 
 module.exports = router;
