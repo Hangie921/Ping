@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../module/user.js');
+var mailer = require('../module/utils/mailer.js')
 
 router.get('/users', function(req, res) {
     User.find(function(err, users) {

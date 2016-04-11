@@ -4,7 +4,7 @@ h1 Testing
 		li 
 			a(href="/users") Users
 		li 
-			a(href="/users/company") Find User
+			a(href="/users/new") New User
 		li Create User
 			form(method="post", action='/users')
 				input(type='text',name="acc", placeholder='Please enter your account here' value='company@gogo')
@@ -19,6 +19,28 @@ h1 Testing
 				button(type='submit') Delete
 		li Update User
 			form(method="post", action='/users')
+				input(type="hidden" name="_method" value="put")
+				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
+				button(type='submit') Update
+
+	h2 Company
+	ul 
+		li 
+			a(href="/companies") companies
+		li Create company
+			form(method="post", action='/companies')
+				input(type='text',name="acc", placeholder='Please enter your account here' value='company@gogo')
+				br
+				input(type='text',name="pwd", placeholder='Please enter your password here' value='company@gogo')
+				br
+				input(type='submit',value='Create')
+		li Delete company
+			form(method="post", action='/companies')
+				input(type="hidden" name="_method" value="delete")
+				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
+				button(type='submit') Delete
+		li Update company
+			form(method="post", action='/companies')
 				input(type="hidden" name="_method" value="put")
 				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
 				button(type='submit') Update
