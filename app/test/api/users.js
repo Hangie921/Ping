@@ -1,18 +1,18 @@
-var request = require('supertest');
-var should = require('should');
+var request = require('supertest'); // For HTTP request
+var should = require('should'); // BDD 
 
 request = request('http://localhost:3001');
 
-describe('GET /api/users', function() {
-    it('respond a json showing all users', function(done) {
+describe('GET /api/users', function() { // Test title
+    it('respond a json showing all users', function(done) { // sub-title
         request
-            .get('/api/users')
-            .expect(200)
-            .expect('Content-Type', /json/)
+            .get('/api/users') // HTTP:GET(url)
+            .expect(200) // status code
+            .expect('Content-Type', /json/) 
             .end(function(err, res) {
-                var data = res.body;
+                var data = res.body; // can get resonse data
                 // console.log(data);
-                done(err);
+                done(err); // if err, print log and see it as fail
             });
     })
 });

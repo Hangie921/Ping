@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../module/user.js');
+var Company = require('../module/company.js');
 var mailer = require('../module/utils/mailer.js')
 
-var routerName = 'users';
+var routerName = 'companies';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
 
 router.get(url, function(req, res) {
-    User.find(function(err, users) {
+    Company.find(function(err, companies) {
         if (err) console.log(err);
-        res.render(routerName, { users: users });
+        res.render(routerName, { companies: companies });
     });
 });
 
@@ -38,8 +38,8 @@ router.post(url, function(req, res) {
     var acc = req.body.acc,
         pwd = req.body.pwd;
 
-    var newUser = new User({ acc: acc, pwd: pwd });
-    newUser.save(function(err, user) {
+    var newCompany = new Company({ acc: acc, pwd: pwd });
+    newCompany.save(function(err, user) {
         if (err) return console.error(err);
         mailer.send(acc, function(err, msg) {
             if (err) return console.error(err);
@@ -60,7 +60,7 @@ router.delete(url, function(req, res) {
 
 // APIs
 router.get(urlApi, function(req, res) {
-    User.find(function(err, users) {
+    Company.find(function(err, users) {
         if (err) console.log(err);
         res.json(users);
     });
@@ -75,8 +75,8 @@ router.post(urlApi, function(req, res) {
         res.status(400);
         res.json({ msg: "wrong form", data: null });
     } else {
-        var newUser = new User({ acc: acc, pwd: pwd });
-        newUser.save(function(err, user) {
+        var newCompany = new Company({ acc: acc, pwd: pwd });
+        newCompany.save(function(err, user) {
             if (err) return console.error(err);
             res.json({ msg: "succuss", data: user });
         });

@@ -9,12 +9,13 @@ var router = express.Router();
 router.use(require('./login_router'));
 router.use(require('./logout_router'));
 router.use(require('./dashboard_router'));
-router.use(require('./user_router.js'));
+router.use(require('./user_router'));
 router.use(require('./find_talent_router'));
 router.use(require('./result_talent_router'));
 router.use(require('./find_project_router'));
 router.use(require('./result_project_router'));
 router.use(require('./test_router'));
+router.use(require('./company_router'));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
