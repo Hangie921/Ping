@@ -1,14 +1,27 @@
+//variable naming rule ==============>TODO
+//$Description-css_style_name
+
 // Variables
 
 // == Colors ==============================
 //
 //## Define all the colors here
 
-$brand-primary:     ;
-$brand-success:     ;
-$brand-info:        ;
-$brand-warning:     ;
-$brand-danger:      ;
+$pri-cl:    	    	#6BB4AD;  //primary color
+$pri-light-cl:      	#8DD4CD;
+$pri-dark-cl:       	#498D86;
+
+
+$sec-cl:				#D95161;
+$sec-dark-cl:       	#BC414F; 
+
+$grayscale-cl:			#929292;
+$grayscale-light-cl:	#DBD9D8;
+$grayscale-dark-cl: 	#4B4B4B;
+$base-white: 				#ffffff;
+
+
+
 
 
 //== Scaffolding ============================== 
@@ -16,16 +29,21 @@ $brand-danger:      ;
 //## Setting for global styles
 
 //** Background color for `<body>`.
-$body-bg:               ;
+$body-bg:               #F5F3F2;
 //** Global text color on `<body>`.
-$text-color:            ;
+$text-color:            #4B4B4B;
+
+$remind-text-color:		#D95161;
+
 
 //** Global textual link color.
-$link-color:            ;
+$link-color:            #6BB4AD;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      ;
+$link-hover-color:      #599993;
 //** Link hover decoration.
 $link-hover-decoration: ;
+
+
 
 
 //== Typography ==============================
@@ -36,61 +54,56 @@ $font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !defaul
 $font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
-$font-family-base:       ;
 
-$font-size-base:14px;
-$font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
-$font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
+$base-font-family:       'Avenir';
 
-$font-size-h1:            floor(($font-size-base * 2.6)) !default; // ~36px
-$font-size-h2:            floor(($font-size-base * 2.15)) !default; // ~30px
-$font-size-h3:            ceil(($font-size-base * 1.7)) !default; // ~24px
-$font-size-h4:            ceil(($font-size-base * 1.25)) !default; // ~18px
-$font-size-h5:            $font-size-base !default;
-$font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
+
+$base-font-size:		  16px;
+$large-font-size:         ceil(($base-font-size * 1.25)) !default; // ~18px
+$small-font-size:         ceil(($base-font-size * 0.85)) !default; // ~12px
+
+$h1-font-size:            floor(($base-font-size * 1.875)) !default; // ~36px
+$h2-font-size:            floor(($base-font-size * 1.75)) !default; // ~28px
+$h3-font-size:            ceil(($base-font-size * 1.25)) !default; // ~20px
+$h4-font-size:            ;
+$h5-font-size:            $base-font-size !default;
+$h6-font-size:            ceil(($base-font-size * 0.85)) !default; // ~12px
 
 // //** Unit-less `line-height` for use in components like buttons.
-$line-height-base:         !default; // 20/14
+$base-line-height:         !default; // 20/14
 // //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
-// $line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
+// $line-height-computed:    floor(($base-font-size * $line-height-base)) !default; // ~20px
 
 //******** Don't uncomment above line temporarily because it will cause error ********************
-
-
-// //** By default, this inherits from the `<body>`.
-$headings-font-family:    ;
-$headings-font-weight:    ;
-$headings-line-height:    ;
-$headings-color:          ;
 
 
 //========== Components ==============================
 //
 //## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
 
-$padding-base-vertical:     ;
-$padding-base-horizontal:   ;
+$base-padding-vertical:     ;
+$base-padding-horizontal:   ;
 
-$padding-large-vertical:    ;
-$padding-large-horizontal:  ;
+$large-padding-vertical:    ;
+$large-padding-horizontal:  ;
 
-$padding-small-vertical:    ;
-$padding-small-horizontal:  ;
+$small-padding-vertical:    ;
+$small-padding-horizontal:  ;
 
-$padding-xs-vertical:       ;
-$padding-xs-horizontal:     ;
+$xs-padding-vertical:       ;
+$xs-padding-horizontal:     ;
 
-$line-height-large:         ;
-$line-height-small:         ;
+$large-line-height:         ;
+$small-line-height:         ;
 
-$border-radius-base:        ;
-$border-radius-large:       ;
-$border-radius-small:       ;
+$base-border-radius:        ;
+$large-border-radius:       ;
+$small-border-radius:       ;
 
 //** Global color for active items (e.g., navs or dropdowns).
 $component-active-color:    ;
 //** Global background color for active items (e.g., navs or dropdowns).
-$component-active-bg:       $brand-primary !default;
+$component-active-bg:       ;;
 
 
 // ================================ Buttons ==============================
@@ -103,32 +116,19 @@ $btn-default-color:              ;
 $btn-default-bg:                 ;
 $btn-default-border:             ;
 
-$btn-primary-color:              ;
-$btn-primary-bg:                 ;
-$btn-primary-border:             ;
+$pri-btn-color:              #6BB4AD;
+$pri-btn-hover-color:		 #599993;
 
-$btn-success-color:              ;
-$btn-success-bg:                 ;
-$btn-success-border:             ;
+$sec-btn-color:				 #D95161;
+$sec-btn-hover-color:;
 
-$btn-info-color:                 ;
-$btn-info-bg:                    ;
-$btn-info-border:                ;
-
-$btn-warning-color:              ;
-$btn-warning-bg:                 ;
-$btn-warning-border:             ;
-
-$btn-danger-color:               ;
-$btn-danger-bg:                  ;
-$btn-danger-border:              ;
 
 $btn-link-disabled-color:        ;
 
 // Allows for customizing button radius independently from global border radius
-$btn-border-radius-base:         $border-radius-base !default;
-$btn-border-radius-large:        $border-radius-large !default;
-$btn-border-radius-small:        $border-radius-small !default;
+$btn-border-radius-base:         ;
+$btn-border-radius-large:        ;
+$btn-border-radius-small:        ;
 
 
 //====== Forms ==============================
@@ -136,23 +136,26 @@ $btn-border-radius-small:        $border-radius-small !default;
 //##
 
 //** `<input>` background color
-$input-bg:                       ;
+$input-bg:                       #ffffff;
 //** `<input disabled>` background color
-$input-bg-disabled:              ;
+$input-bg-disabled:              #4b4b4b;
 
 //** Text color for `<input>`s
-$input-color:                    ;
+$input-color:                    #ffffff;
 //** `<input>` border color
 $input-border:                   ;
 
 // TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
 //** Default `.form-control` border radius
 // This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
-$input-border-radius:            $border-radius-base !default;
+$input-border-radius:            5%;
 //** Large `.form-control` border radius
-$input-border-radius-large:      $border-radius-large !default;
+$input-border-radius-large:      ;
 //** Small `.form-control` border radius
-$input-border-radius-small:      $border-radius-small !default;
+$input-border-radius-small:      ;
+
+$input-require-message-cl:		#4b4b4b;
+$input-require-message-bg-cl:	#FDF694;
 
 //** Border color for inputs on focus
 $input-border-focus:             ;
@@ -339,6 +342,10 @@ $navbar-default-link-disabled-bg:          ;
 //== Navs ==============================
 //
 //## Shared nav styles, tabs
+
+$tab-active-cl:		#4B4B4B;
+$tab-disable-cl:	#ADAAA7;
+
 $nav-link-padding:                          ;
 $nav-link-hover-bg:                         ;
 
@@ -415,7 +422,7 @@ $label-link-hover-color:      ;
 
 .color{
 	color:#fff;
-	font-size: $font-size-base;
+	font-size: $base-font-size;
 }
 
 

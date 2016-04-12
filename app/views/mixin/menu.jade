@@ -1,16 +1,16 @@
 //- This file needs member role from DB to show the different menu function list 
 #menu
-	h1 Menu for #{pwd}
+	h1 Menu for #{mem_type}
 	li Profile
 		.profile
-			if (pwd == "company")
+			if (mem_type == "company")
 				ul
 					li Company Name
 					li Pic
 					li Description
 					li Give a Star & Comments
 					li Post a Job
-			else if (pwd == "talent")
+			else if (mem_type == "talent")
 				ul
 					li Sys Information
 					li Basic Profile Information
@@ -19,10 +19,10 @@
 					li Work Experience
 					li Awards/Races
 					li Project History
-	if (pwd == "company")
+	if (mem_type == "company")
 		li 
 			a(href='/find_talent') Find Talent
-	else if (pwd == "talent")
+	else if (mem_type == "talent")
 		li 
 			a(href='/find_project') Find Project
 	li 

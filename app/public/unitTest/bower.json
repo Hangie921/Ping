@@ -1,0 +1,21 @@
+{
+  "name": "Test",
+  "main": "test.js",
+  "homepage": "none",
+  "authors": [
+    "Walter <hangie921@gmail.com>"
+  ],
+  "description": "Mocha test",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
