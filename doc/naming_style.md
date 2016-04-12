@@ -11,3 +11,4 @@ xxx.jade
 
 #Other
 http://nodeguide.com/style.html
+http://rammusxu.logdown.com/posts/708477-nodejs-naming-style
