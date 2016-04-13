@@ -6,6 +6,7 @@ var mongoose = require("../app/node_modules/mongoose");
 	
 
 var userSchema = mongoose.Schema({
+    acc:String,
     email: String,
     pwd: String,
     mem_type: String,
@@ -25,7 +26,8 @@ db.once('disconnected', function() {
 });
 
 //create default company 
-var defaultCompany = new User({ 
+var defaultCompany = new User({
+        acc: "company@ping.com.sg", 
         email: "company@ping.com.sg", 
         pwd: "company",
         mem_type:"company",
@@ -40,6 +42,7 @@ defaultCompany.save(function(err, user) {
 
 //create default talent
 var defaultTalent = new User({ 
+    acc: "talent@ping.com.sg", 
     email: "talent@ping.com.sg", 
     pwd: "talent",
     mem_type:"talent",

@@ -6,6 +6,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var path = require("path");
 var nodemon = require("gulp-nodemon");
+var sourcemaps = require("gulp-sourcemaps");
 
 gulp.task("develop",function(){ //shut and restart the server
 	nodemon({
@@ -33,12 +34,14 @@ gulp.task('lint',function(){ //hint the .js code
 
 gulp.task('sass',function(){   // to transfer the .scss to .css
 	gulp.src("public/sass/main.scss")
-		.pipe(sass())
+		.pipe(sourcemaps.init())
+		.pipe(sass().on('error',sass.logError))
+		.pipe(sourcemaps.write())
 		.pipe(gulp.dest("public/css/"));
 });
 
 gulp.task('default',function(){
-	gulp.run('lint','develop');
+	gulp.start('lint','develop','sass');
 
 	gulp.watch('public/javascripts/js/*.js',function(){
 		gulp.run('lint');
