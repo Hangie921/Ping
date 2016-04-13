@@ -1,0 +1,17 @@
+//====== Classes about color & bg color =====
+
+
+//Generate the class dynamically following variable names
+//Example:
+//$pri_cl => .pri_cl{ color:$pri_cl; }
+//		  => .pri_cl_bg{ background-color:$pri_cl ;}
+
+@each $i in $colors{
+  .#{nth($i, 1)}_bg {
+    background-color: nth($i, 2);
+  }
+  .#{nth($i, 1)} {
+    color:nth($i, 2);
+  }
+}
+

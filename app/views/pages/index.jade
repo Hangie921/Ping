@@ -1,18 +1,20 @@
 extends ../default/layout
 
 block content
-	h1= title
-	p Welcome to #{title}
-	
-	#login_form
-		form(type='multipart/form-data',method="post", action='/login')
-			input#mem_acc(type='email',name="mem_acc", placeholder='Please enter your account here')
-			br
-			input#mem_pwd(type='password',name="mem_pwd", placeholder='Please enter your password here')
-			br
-			input(type='submit',value='Login')
-	#feedback
-		a(href="/users/new") 
-			button Register
-		span #{feedback_msg}
+	.container
+		.brand_container.col-centered
+			img(src='../img/branding.png')
+		#login_form.col-md-8.col-centered
+			form(type='multipart/form-data',method="post", action='/login')
+				.input_text_container
+					input#mem_acc(type='email',name="mem_acc", placeholder='username')
+				.input_text_container
+					input#mem_pwd(type='password',name="mem_pwd", placeholder='password')
+				a.btn.btn_pri(href='/login') Login
+			span.forget_pwd
+				a.sec_cl(href='#') forget password
+		#feedback
+			//- a(href="/users/new") 
+				button Register
+			span #{feedback_msg}
 

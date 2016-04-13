@@ -1,0 +1,36 @@
+.ping_header{
+	background-color: $grayscale_dark_cl;
+	box-sizing:border-box;
+	height: 14%;
+	padding:10px 20px;
+	& div{
+		overflow:hidden;
+	}
+	& .logo{
+		width: 50px;
+		height: 61px;
+		display:inline-block;
+		vertical-align:middle;
+		& img{
+			width: 100%;
+			height: auto;
+		}
+	}
+	& .account{
+		vertical-align:middle;
+		display:inline-block;
+		width: 180px;
+		height: 61px;
+		& img{
+			width: 61px;
+			height: 61px;
+			display:inline-block;
+		}
+		& a{
+			width: 100px;
+			display:inline-block;
+			vertical-align:top;
+		}
+	}
+}//end of the .ping_header
+

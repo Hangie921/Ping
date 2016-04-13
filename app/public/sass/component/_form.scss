@@ -1,0 +1,101 @@
+//Initial the universal style
+
+[type="text"],[type='email'],[type='password']{
+	outline:none;
+	border-radius:$input_border_radius;
+	min-height:$input_height_base;
+	border:none;
+	font-size: $base_input_font_size;
+	padding:$base_padding_vertical $base_padding_horizontal;
+	width: inherit;
+	height:$btn_pri_height;
+	box-sizing:border-box;
+}
+
+.input_text_container{
+	box-sizing:border-box;
+	width: 200px;
+	& label{
+		font-size: $base_input_font_size;
+		width: 100%;
+		display:inline-block;
+		margin-bottom:8px;
+	}
+	& input[type='text']{
+		display:inline-block;
+	}
+}
+
+// If you wanna use a checkbox or radio btn, have a <label> followed and 
+//assign the Id of the checkbox or radio to the <label> 
+//
+// Example :
+// <input type='checkbox', id='test1'>
+// <label for='test1'>
+//
+[type='checkbox'],[type="radio"]{  
+	&:checked,&:not(:checked){
+		position: absolute;
+		left: -9999px;
+	}
+	&:checked + label,&:not(:checked) + label{
+		position: relative;
+		padding-left: 25px;
+		cursor: pointer;
+		&:before{ //make it frame
+			content: '';
+			position: absolute;
+			left:0; 
+			top: 2px;
+			width: $check_box_size_base; 
+			height: $check_box_size_base;
+			background: $input_bg;
+			border-radius: 50%; // make it circle
+		}
+	    &:after{  //make it check
+			content: '✔';
+			position: absolute;
+			top: 3px; left: 4px;
+			font-size: 18px;
+			line-height: 0.8;
+			transition: all .2s;
+			-ms-transition: all .2s;
+	    }
+	}//end of the :checked + label & :not(:checked) + label
+  
+	&:checked + label:after{
+		opacity: 1;
+		transform: scale(1);
+	}
+	&:not(:checked) + label:after{
+		opacity: 0;
+		transform: scale(0);
+	}
+}//end of the [type='checkbox']
+
+
+//If you wanna use a select,use a container to contain <select>
+//to customize it
+.select_container{
+	width: 120px;
+	padding: 0;
+	margin: 0;
+	border-radius:$input_border_radius;
+	overflow:hidden;
+	background-color:#ccc;
+	background:#fff url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") no-repeat 90% 50%;
+	& select{
+		padding: 5px 10px;
+		width: 100%;
+		border: none;
+		box-shadow: none;
+		background-color: transparent;
+		background-image: none;
+		-webkit-appearance: none;
+		   -moz-appearance: none;
+		        appearance: none;
+		&:focus{
+		  outline:none;
+		}
+	}
+}

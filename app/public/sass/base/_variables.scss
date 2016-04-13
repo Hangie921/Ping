@@ -7,20 +7,32 @@
 //
 //## Define all the colors here
 
-$pri-cl:    	    	#6BB4AD;  //primary color
-$pri-light-cl:      	#8DD4CD;
-$pri-dark-cl:       	#498D86;
+//Define a variable to contain all main colors to
+//generate the class dynamically
+$colors:
+"pri_cl" #6BB4AD,
+"pri_light_cl" #8DD4CD,
+"pri_dark_cl" #498D86,
+"sec_cl" #D95161,
+"sec_dark_cl" #BC414F,
+"grayscale_cl" #929292,
+"grayscale_light_cl" #DBD9D8,
+"grayscale_dark_cl" #4B4B4B,
+"base_white" #ffffff;
 
 
-$sec-cl:				#D95161;
-$sec-dark-cl:       	#BC414F; 
-
-$grayscale-cl:			#929292;
-$grayscale-light-cl:	#DBD9D8;
-$grayscale-dark-cl: 	#4B4B4B;
-$base-white: 				#ffffff;
+$pri_cl:    	    	#6BB4AD;  //primary color
+$pri_light_cl:      	#8DD4CD;
+$pri_dark_cl:       	#498D86;
 
 
+$sec_cl:				#D95161;
+$sec_dark_cl:       	#BC414F; 
+
+$grayscale_cl:			#929292;
+$grayscale_light_cl:	#DBD9D8;
+$grayscale_dark_cl: 	#4B4B4B;
+$base_white: 			#ffffff;
 
 
 
@@ -29,19 +41,19 @@ $base-white: 				#ffffff;
 //## Setting for global styles
 
 //** Background color for `<body>`.
-$body-bg:               #F5F3F2;
+$body_bg:               #F5F3F2;
 //** Global text color on `<body>`.
-$text-color:            #4B4B4B;
+$text_color:            $grayscale_dark_cl;
 
-$remind-text-color:		#D95161;
+$remind_text_color:		$sec_cl;
 
 
 //** Global textual link color.
-$link-color:            #6BB4AD;
+$link_color:            $pri_cl;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      #599993;
+$link_hover_color:      #599993;
 //** Link hover decoration.
-$link-hover-decoration: ;
+$link_hover_decoration: ;
 
 
 
@@ -50,27 +62,28 @@ $link-hover-decoration: ;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+$font_family_sans_serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font_family_serif:       Georgia, "Times New Roman", Times, serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font_family_monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
 
-$base-font-family:       'Avenir';
+$base_font_family:       'Avenir';
 
 
-$base-font-size:		  16px;
-$large-font-size:         ceil(($base-font-size * 1.25)) !default; // ~18px
-$small-font-size:         ceil(($base-font-size * 0.85)) !default; // ~12px
+$base_font_size:			16px;
+$base_input_font_size:		ceil(($base_font_size * 0.875)) !default; // ~14px
+$large_font_size:         	ceil(($base_font_size * 1.25)) !default; // ~18px
+$small_font_size:         	ceil(($base_font_size * 0.85)) !default; // ~12px
 
-$h1-font-size:            floor(($base-font-size * 1.875)) !default; // ~36px
-$h2-font-size:            floor(($base-font-size * 1.75)) !default; // ~28px
-$h3-font-size:            ceil(($base-font-size * 1.25)) !default; // ~20px
-$h4-font-size:            ;
-$h5-font-size:            $base-font-size !default;
-$h6-font-size:            ceil(($base-font-size * 0.85)) !default; // ~12px
+$h1_font_size:            floor(($base_font_size * 1.875)) !default; // ~36px
+$h2_font_size:            floor(($base_font_size * 1.75)) !default; // ~28px
+$h3_font_size:            ceil(($base_font_size * 1.25)) !default; // ~20px
+$h4_font_size:            ;
+$h5_font_size:            $base_font_size !default;
+$h6_font_size:            ceil(($base_font_size * 0.85)) !default; // ~12px
 
 // //** Unit-less `line-height` for use in components like buttons.
-$base-line-height:         !default; // 20/14
+$base_line_height:         !default; // 20/14
 // //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
 // $line-height-computed:    floor(($base-font-size * $line-height-base)) !default; // ~20px
 
@@ -81,54 +94,49 @@ $base-line-height:         !default; // 20/14
 //
 //## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
 
-$base-padding-vertical:     ;
-$base-padding-horizontal:   ;
+$base_padding_vertical:     8px;
+$base_padding_horizontal:   11px;
 
-$large-padding-vertical:    ;
-$large-padding-horizontal:  ;
+$large_padding_vertical:    ;
+$large_padding_horizontal:  ;
 
-$small-padding-vertical:    ;
-$small-padding-horizontal:  ;
+$small_padding_vertical:    ;
+$small_padding_horizontal:  ;
 
-$xs-padding-vertical:       ;
-$xs-padding-horizontal:     ;
+$xs_padding_vertical:       ;
+$xs_padding_horizontal:     ;
 
-$large-line-height:         ;
-$small-line-height:         ;
+$large_line_height:         ;
+$small_line_height:         ;
 
-$base-border-radius:        ;
-$large-border-radius:       ;
-$small-border-radius:       ;
+$base_border_radius:        ;
+$large_border_radius:       ;
+$small_border_radius:       ;
 
 //** Global color for active items (e.g., navs or dropdowns).
-$component-active-color:    ;
+$component_active_color:    ;
 //** Global background color for active items (e.g., navs or dropdowns).
-$component-active-bg:       ;;
+$component_active_bg:       ;;
 
 
 // ================================ Buttons ==============================
 //
 //## For each of Bootstrap's buttons, define text, background and border color.
 
-$btn-font-weight:                normal !default;
+$btn_font_weight:           bold !default;
 
-$btn-default-color:              ;
-$btn-default-bg:                 ;
-$btn-default-border:             ;
+$btn_pri_height:			50px;
+$btn_pri_color:				$pri_cl;
 
-$pri-btn-color:              #6BB4AD;
-$pri-btn-hover-color:		 #599993;
+$btn_sec_height:			31px;
+$btn_sec_color:				$sec_cl;
 
-$sec-btn-color:				 #D95161;
-$sec-btn-hover-color:;
-
-
-$btn-link-disabled-color:        ;
+$btn_link_disabled_color:        ;
 
 // Allows for customizing button radius independently from global border radius
-$btn-border-radius-base:         ;
-$btn-border-radius-large:        ;
-$btn-border-radius-small:        ;
+$btn_border_radius_base:         5px;
+$btn_border_radius_large:        ;
+$btn_border_radius_small:        ;
 
 
 //====== Forms ==============================
@@ -136,53 +144,51 @@ $btn-border-radius-small:        ;
 //##
 
 //** `<input>` background color
-$input-bg:                       #ffffff;
+$input_bg:                       $base_white;
 //** `<input disabled>` background color
-$input-bg-disabled:              #4b4b4b;
+$input_bg_disabled:              ;
+
+$input_warning_bg:				#FDF694;
 
 //** Text color for `<input>`s
-$input-color:                    #ffffff;
+$input_color:                    $base_white;
 //** `<input>` border color
-$input-border:                   ;
+$input_border:                   ;
 
 // TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
 //** Default `.form-control` border radius
 // This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
-$input-border-radius:            5%;
-//** Large `.form-control` border radius
-$input-border-radius-large:      ;
-//** Small `.form-control` border radius
-$input-border-radius-small:      ;
+$input_border_radius:            5px;
+//** Large `.form_control` border radius
+$input_border_radius_large:      ;
+//** Small `.form_control` border radius
+$input_border_radius_small:      ;
 
-$input-require-message-cl:		#4b4b4b;
-$input-require-message-bg-cl:	#FDF694;
+$check_box_size_base:		17px; //for both checkbox and radio
 
 //** Border color for inputs on focus
-$input-border-focus:             ;
-
+$input_border_focus:             ;
 //** Placeholder text color
-$input-color-placeholder:        ;
+$input_color_placeholder:        ;
 
-//** Default `.form-control` height
-$input-height-base:              ;
-//** Large `.form-control` height
-$input-height-large:             ;
-//** Small `.form-control` height
-$input-height-small:             ;
+//** Default `.form_control` height
+$input_height_base:              31px;
+//** Large `.form_control` height
+$input_height_large:             ;
+//** Small `.form_control` height
+$input_height_small:             ;
 
-//** `.form-group` margin
-$form-group-margin-bottom:       15px !default;
+//** `.form_group` margin
+$form_group_margin_bottom:       15px !default;
 
-$legend-color:                   ;
-$legend-border-color:            ;
 
 //** Background color for textual input addons
-$input-group-addon-bg:           ;
+$input_group_addon_bg:           ;
 //** Border color for textual input addons
-$input-group-addon-border-color: ;
+$input_group_addon_border_color: ;
 
 //** Disabled cursor for form controls and buttons.
-$cursor-disabled:                not-allowed !default;
+$cursor_disabled:                not-allowed !default;
 
 
 
@@ -228,13 +234,13 @@ $dropdown-caret-color:           ;
 //
 // Note: These variables are not generated into the Customizer.
 
-$zindex-tooltip:           1070 !default;
-$zindex-popover:           1060 !default;
-$zindex-modal:             1050 !default;
-$zindex-modal-background:  1040 !default;
-$zindex-navbar-fixed:      1030 !default;
-$zindex-navbar:            1000 !default;
-$zindex-dropdown:          1000 !default;
+$zindex_tooltip:           1070 !default;
+$zindex_popover:           1060 !default;
+$zindex_modal:             1050 !default;
+$zindex_modal-background:  1040 !default;
+$zindex_navbar-fixed:      1030 !default;
+$zindex_navbar:            1000 !default;
+$zindex_dropdown:          1000 !default;
 
 
 
@@ -244,37 +250,37 @@ $zindex-dropdown:          1000 !default;
 
 // Extra small screen / phone
 //** Deprecated `$screen-xs` as of v3.0.1
-$screen-xs:                  480px !default;
-//** Deprecated `$screen-xs-min` as of v3.2.0
-$screen-xs-min:              $screen-xs !default;
-//** Deprecated `$screen-phone` as of v3.0.1
-$screen-phone:               $screen-xs-min !default;
+$screen_xs:                  480px !default;
+//** Deprecated `$screen_xs_min` as of v3.2.0
+$screen_xs_min:              $screen_xs !default;
+//** Deprecated `$screen_phone` as of v3.0.1
+$screen_phone:               $screen_xs_min !default;
 
 // Small screen / tablet
-//** Deprecated `$screen-sm` as of v3.0.1
-$screen-sm:                  768px !default;
-$screen-sm-min:              $screen-sm !default;
-//** Deprecated `$screen-tablet` as of v3.0.1
-$screen-tablet:              $screen-sm-min !default;
+//** Deprecated `$screen_sm` as of v3.0.1
+$screen_sm:                  768px !default;
+$screen_sm_min:              $screen_sm !default;
+//** Deprecated `$screen_tablet` as of v3.0.1
+$screen_tablet:              $screen_sm_min !default;
 
 // Medium screen / desktop
-//** Deprecated `$screen-md` as of v3.0.1
-$screen-md:                  992px !default;
-$screen-md-min:              $screen-md !default;
-//** Deprecated `$screen-desktop` as of v3.0.1
-$screen-desktop:             $screen-md-min !default;
+//** Deprecated `$screen_md` as of v3.0.1
+$screen_md:                  992px !default;
+$screen_md_min:              $screen_md !default;
+//** Deprecated `$screen_desktop` as of v3.0.1
+$screen_desktop:             $screen_md_min !default;
 
 // Large screen / wide desktop
-//** Deprecated `$screen-lg` as of v3.0.1
-$screen-lg:                  1200px !default;
-$screen-lg-min:              $screen-lg !default;
-//** Deprecated `$screen-lg-desktop` as of v3.0.1
-$screen-lg-desktop:          $screen-lg-min !default;
+//** Deprecated `$screen_lg` as of v3.0.1
+$screen_lg:                  1200px !default;
+$screen_lg_min:              $screen_lg !default;
+//** Deprecated `$screen_lg_desktop` as of v3.0.1
+$screen_lg_desktop:          $screen_lg_min !default;
 
 // So media queries don't overlap when required, provide a maximum
-$screen-xs-max:              ($screen-sm-min - 1) !default;
-$screen-sm-max:              ($screen-md-min - 1) !default;
-$screen-md-max:              ($screen-lg-min - 1) !default;
+$screen_xs_max:              ($screen_sm_min - 1) !default;
+$screen_sm_max:              ($screen_md_min - 1) !default;
+$screen_md_max:              ($screen_lg_min - 1) !default;
 
 
 //== Grid system ==============================
@@ -282,14 +288,14 @@ $screen-md-max:              ($screen-lg-min - 1) !default;
 //## Define your custom responsive grid.
 
 //** Number of columns in the grid.
-$grid-columns:              12 !default;
+$grid_columns:              12 !default;
 //** Padding between columns. Gets divided in half for the left and right.
-$grid-gutter-width:         30px !default;
+$grid_gutter_width:         30px !default;
 // Navbar collapse
 //** Point at which the navbar becomes uncollapsed.
-$grid-float-breakpoint:     $screen-sm-min !default;
+$grid_float_breakpoint:     $screen_sm_min !default;
 //** Point at which the navbar begins collapsing.
-$grid-float-breakpoint-max: ($grid-float-breakpoint - 1) !default;
+$grid_float_breakpoint_max: ($grid_float_breakpoint - 1) !default;
 
 
 
@@ -298,19 +304,19 @@ $grid-float-breakpoint-max: ($grid-float-breakpoint - 1) !default;
 //## Define the max and min of your '.container' for different screen size
 
 // Small screen / tablet
-$container-tablet:             (720px + $grid-gutter-width) !default;
+$container_tablet:             (720px + $grid_gutter_width) !default;
 //** For `$screen-sm-min` and up.
-$container-sm:                 $container-tablet !default;
+$container_sm:                 $container_tablet !default;
 
 // Medium screen / desktop
-$container-desktop:            (940px + $grid-gutter-width) !default;
-//** For `$screen-md-min` and up.
-$container-md:                 $container-desktop !default;
+$container_desktop:            (940px + $grid_gutter_width) !default;
+//** For `$screen_md_min` and up.
+$container_md:                 $container_desktop !default;
 
 // Large screen / wide desktop
-$container-large-desktop:      (1140px + $grid-gutter-width) !default;
-//** For `$screen-lg-min` and up.
-$container-lg:;
+$container_large_desktop:      (1140px + $grid_gutter_width) !default;
+//** For `$screen_lg_min` and up.
+$container_lg:;
 
 
 
@@ -320,22 +326,24 @@ $container-lg:;
 //
 //## As title,the styles of nav bar, like links,label,inverted .etc
 // Basics of a navbar
-$navbar-height:25px;
-$navbar-margin-bottom:             ;
-$navbar-border-radius:             ;
-$navbar-padding-horizontal:        ;
-$navbar-padding-vertical:          ;
-$navbar-collapse-max-height:       ;
+$navbar_height:					80px;
+$navbar_bg:						#5F5E5E;
+$navbar_color:					$base_white;
+$navbar_margin_bottom:             ;
+$navbar_border_radius:             ;
+$navbar_padding_horizontal:        ;
+$navbar_padding_vertical:          ;
+$navbar_collapse_max_height:       ;
 
 
 // Navbar links
-$navbar-default-link-color:                ;
-$navbar-default-link-hover-color:          ;
-$navbar-default-link-hover-bg:             ;
-$navbar-default-link-active-color:         ;
-$navbar-default-link-active-bg:            ;
-$navbar-default-link-disabled-color:       ;
-$navbar-default-link-disabled-bg:          ;
+$navbar_default_link_color:                ;
+$navbar_default_link_hover_color:          ;
+$navbar_default_link_hover_bg:             ;
+$navbar_default_link_active_color:         ;
+$navbar_default_link_active_bg:            ;
+$navbar_default_link_disabled_color:       ;
+$navbar_default_link_disabled_bg:          ;
 
 
 
@@ -343,14 +351,14 @@ $navbar-default-link-disabled-bg:          ;
 //
 //## Shared nav styles, tabs
 
-$tab-active-cl:		#4B4B4B;
-$tab-disable-cl:	#ADAAA7;
+$tab_active_cl:		$grayscale_dark_cl;
+$tab_disable_cl:	#adaaa7;
 
-$nav-link-padding:                          ;
-$nav-link-hover-bg:                         ;
+$nav_link_padding:                          ;
+$nav_link_hover_bg:                         ;
 
-$nav-disabled-link-color:                   ;
-$nav-disabled-link-hover-color:             ;
+$nav_disabled_link_color:                   ;
+$nav_disabled_link_hover_color:             ;
 
 
 
@@ -358,12 +366,12 @@ $nav-disabled-link-hover-color:             ;
 //== Jumbotron ==============================
 //
 //## paddings for the super large screen like TVs,
-$jumbotron-padding:              ;
-$jumbotron-color:                ;
-$jumbotron-bg:                   ;
-$jumbotron-heading-color:        ;
-$jumbotron-font-size:            ;
-$jumbotron-heading-font-size:    ;
+$jumbotron_padding:              ;
+$jumbotron_color:                ;
+$jumbotron_bg:                   ;
+$jumbotron_heading_color:        ;
+$jumbotron_font_size:            ;
+$jumbotron_heading_font_size:    ;
 
 
 
@@ -373,21 +381,21 @@ $jumbotron-heading-font-size:    ;
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-$state-success-text:             ;
-$state-success-bg:               ;
-$state-success-border:           ;
+$state_success_text:             ;
+$state_success_bg:               ;
+$state_success_border:           ;
 
-$state-info-text:                ;
-$state-info-bg:                  ;
-$state-info-border:              ;
+$state_info_text:                ;
+$state_info_bg:                  ;
+$state_info_border:              ;
 
-$state-warning-text:             ;
-$state-warning-bg:               ;
-$state-warning-border:           ;
+$state_warning_text:             ;
+$state_warning_bg:               ;
+$state_warning_border:           ;
 
-$state-danger-text:              ;
-$state-danger-bg:                ;
-$state-danger-border:            ;
+$state_danger_text:              ;
+$state_danger_bg:                ;
+$state_danger_border:            ;
 
 
 
@@ -399,31 +407,26 @@ $state-danger-border:            ;
 //## 
 
 //** Default label background color
-$label-default-bg:            ;
+$label_default_bg:            ;
 //** Primary label background color
-$label-primary-bg:            ;
+$label_primary_bg:            ;
 //** Success label background color
-$label-success-bg:            ;
+$label_success_bg:            ;
 //** Info label background color
-$label-info-bg:               ;
+$label_info_bg:               ;
 //** Warning label background color
-$label-warning-bg:            ;
+$label_warning_bg:            ;
 //** Danger label background color
-$label-danger-bg:             ;
+$label_danger_bg:             ;
 
 //** Default label text color
-$label-color:                 ;
+$label_color:                 ;
 //** Default text color of a linked label
-$label-link-hover-color:      ;
+$label_link_hover_color:      ;
 
 
 
-// //test
 
-.color{
-	color:#fff;
-	font-size: $base-font-size;
-}
 
 
 

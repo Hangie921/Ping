@@ -1,0 +1,39 @@
+.btn{
+  display:block;
+  box-sizing:border-box;
+  width: 200px;
+  text-align:center;
+  border-radius:$btn_border_radius_base;
+  padding:15px 0px;
+  font-weight:900;
+  cursor:pointer;
+}
+.btn_pri{
+	background-color:$pri_cl;
+	color:#ffffff;
+	min-height:$btn_pri_height;
+	&:hover{
+    	background-color:$pri_dark_cl;
+  	}
+}
+.btn_sec{
+	border-radius:$btn_border_radius_base;
+	position: relative;
+	min-height:$btn_sec_height;
+	border-bottom:3px solid $sec_cl;
+	color:$sec_cl;
+	overflow:hidden;
+	&:hover:after{
+		transition: all .3s;
+		right:20px;
+	}
+	&:after{
+		position: absolute;
+		content:">";
+		transition: all .3s;
+		right:-20px;
+	}
+}
+
+
+

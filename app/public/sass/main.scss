@@ -1,16 +1,22 @@
 //include base
 
+
+@import "base/_variables.scss";
+@import "base/_mixins.scss";
 @import "base/_reset.scss";
 @import "base/_normalize.scss";
+@import "base/_mixins.scss";
 @import "base/_grid.scss";
-@import "base/_variables.scss";
+
 @import "base/_typography.scss";
-@import "base/_responsive.scs";
+@import "base/_responsive.scss";
+@import "base/_color.scss";
 
 //include component
 @import "component/_button.scss";
 @import "component/_form.scss";
 @import "component/_image.scss";
+@import "component/_animations.scss";
 
 
 //include layout
@@ -18,10 +24,11 @@
 @import "layout/_header.scss";
 @import "layout/_nav.scss";
 @import "layout/_sideBar.scss";
+@import "layout/_position.scss";
 
 
 //include module
-
+@import "module/login_page.scss";
 
 
 
