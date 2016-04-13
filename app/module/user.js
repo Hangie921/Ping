@@ -6,4 +6,4 @@ var userSchema = mongoose.Schema({
     mem_type: String
 });
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('my_user', userSchema);

@@ -10,6 +10,10 @@ var session = require('express-session');
 // var userobj = require('../module/hr-sys/bean/users.js');
 // var sessionManager = require('../module/hr-sys/interface/session.js');
 
+// pinglib
+var pinglib = require('pinglib');
+var PingUser = pinglib.User;
+var UserService = pinglib.UserService;
 
 process.on('uncaughtException', function(err) {
     console.info(err);
@@ -21,16 +25,20 @@ process.on('uncaughtException', function(err) {
 
 router.post('/login', upload.single(), function(req, res, next) {
 
-    // console.log(req.body.mem_acc); OOOO
-    // console.log(req.body.mem_pwd); OOO
     var acc = req.body.mem_acc,
         pwd = req.body.mem_pwd;
 
-    // var usrSearch = new userobj({
-    //     system_parameter: 0,
-    //     email: acc,
-    //     pwd:pwd
-    // });
+    var user = new PingUser();
+    user.system_parameter = 1;
+    user.name = acc;
+    user.email = acc;
+    user.pwd = pwd;
+    console.log("user= ", user)
+        // var usrSearch = new userobj({
+        //     system_parameter: 0,
+        //     email: acc,
+        //     pwd:pwd
+        // });
 
     // sessionManager.login(usrSearch,function (err,data) {
     //     if(data[0]!== undefined){
@@ -45,23 +53,32 @@ router.post('/login', upload.single(), function(req, res, next) {
     // });
 
     //攔截錯誤
-
-    User.findOne({ acc: acc, pwd: pwd }, function(err, user) {
-        if (err) {
-            console.log(err);
-        } else if (user === null) {
-            console.log('"login_router.js"', `User:${acc} not found`);
-            res.redirect('/');
+    UserService.getUser(user, function(data) {
+        console.log("userData", data);
+        if (data !== null) {
+            console.log("data = ", data);
+            res.render('dashboard', data);
         } else {
-            //  If login success, save session in req, and direct to / dashboard
-            req.session.user_acc = user.email;
-            req.session.user_pwd = user.pwd;
-            req.session.mem_type = user.mem_type
-            res.render('dashboard', user);
-            cb(true, user);
-
+            console.log("data = ", data);
+            res.redirect('/');
         }
     });
+
+    // User.findOne({ acc: acc, pwd: pwd }, function(err, user) {
+    //     if (err) {
+    //         console.log(err);
+    //         res.end();
+    //     } else if (user === null) {
+    //         console.log('"login_router.js"', `User:${acc} not found`);
+    //         res.redirect('/');
+    //     } else {
+    //         //  If login success, save session in req, and direct to / dashboard
+    //         req.session.user_acc = user.email;
+    //         req.session.user_pwd = user.pwd;
+    //         req.session.mem_type = user.mem_type
+    //         res.render('dashboard', user);
+    //     }
+    // });
 
 });
 

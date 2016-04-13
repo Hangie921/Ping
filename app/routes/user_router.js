@@ -1,8 +1,17 @@
+// express
 var express = require('express');
 var router = express.Router();
+
+// module
 var User = require('../module/user.js');
 var mailer = require('../module/utils/mailer.js')
 
+// pinglib
+var pinglib = require('pinglib');
+var PingUser = pinglib.User;
+var UserService = pinglib.UserService;
+
+// varaiables
 var routerName = 'users';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
@@ -38,16 +47,29 @@ router.post(url, function(req, res) {
     var acc = req.body.acc,
         pwd = req.body.pwd;
 
-    var newUser = new User({ acc: acc, pwd: pwd });
-    newUser.save(function(err, user) {
-        if (err) return console.error(err);
-        mailer.send(acc, function(err, msg) {
-            if (err) return console.error(err);
-            console.log(msg);
-        });
-        res.redirect(routerName);
+    var newPingUser = new PingUser();
+    newPingUser.system_parameter = 1;
+    newPingUser.name = acc;
+    newPingUser.email = acc;
+    newPingUser.pwd = pwd;
 
+    // var errors = newPingUser.validateSync();
+    // console.log("error",error.errors['system_parameter'].message);
+    UserService.registered(newPingUser, function(data) {
+        console.log(status);
+        console.log(data);
     });
+    res.redirect('/test');
+    // var newUser = new User({ acc: acc, pwd: pwd });
+    // newUser.save(function(err, user) {
+    //     if (err) return console.error(err);
+    //     mailer.send(acc, function(err, msg) {
+    //         if (err) return console.error(err);
+    //         console.log(msg);
+    //     });
+    //     res.redirect(routerName);
+
+    // });
 });
 
 router.put(url, function(req, res) {
