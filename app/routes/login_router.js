@@ -30,7 +30,6 @@ router.post('/login', upload.single(), function(req, res, next) {
 
     // req.session.user = user;
     // console.log("s1",req.session.user)
-
     // UserService.getUser(user, function(data) {
     SessionService.login(req, res, user, function(data) {
         if (data.code === 200) {

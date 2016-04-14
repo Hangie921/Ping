@@ -6,35 +6,44 @@
     <link rel="stylesheet" href="css/main.css">
     <title></title>
     <style>
-    body {
-        background-color: #F5F3F2;
-    }
     .section{
+        outline:1px solid #ccc;
     	width: 90%;
+        padding:30px 0px;
     	min-height:60px;
     	height: 10%;
     	margin-left: auto;
     	margin-right: auto;
     }
+    .img_container{
+        width: 58px;
+        height: 58px;
+    }
     </style>
 </head>
 
 <body>
-    <div class="section ping_header">
-        <div class="logo pull_left">
-        	<img alt="I am logo img" />
-        </div>
-        <div class="account pull_right">
-        	<img alt="I am user profile img" />
-        	<a class="btn">User setting</a>
+    <div class="section">
+        <div class="ping_header">
+            <div class="logo pull_left">
+                <img alt="I am logo img" />
+            </div>
+            <div class="account pull_right">
+                <div class="img_container round_container">
+                    <img alt="I am user profile img" />
+                </div>
+                <a class="btn">User setting</a>
+            </div>
         </div>
     </div>
-    <div class="section main_menu">
-        <ul class="menu_ul pull_left">
-            <li class="btn"> <a href="#">123</a></li>
-            <li class="btn"> <a href="#">456</a></li>
-            <li class="btn"> <a href="#">789</a></li>
+    <div class="section">
+        <div class="main_menu">
+            <ul class="menu_ul pull_left">
+            <li> <a class="btn" href="#">123</a></li>
+            <li> <a class="btn" href="#">456</a></li>
+            <li> <a class="btn" href="#">789</a></li>
         </ul>
+        </div>
     </div>
     <div class="section">
     	<a class="btn btn_pri">button</a>
@@ -71,6 +80,9 @@
                 <option>3</option>
             </select>
         </div>
+    </div>
+    <div class="section">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum modi architecto voluptas minima iste minus sint quas, asperiores ab accusamus odio corporis aliquid dolorum assumenda quidem non cumque nihil repellendus!</p>
     </div>
 </body>
 

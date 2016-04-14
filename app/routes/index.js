@@ -23,11 +23,11 @@ router.get('/', function(req, res, next) {
     var renderData = {
         title: 'Ping'
     }
-
     if (req.session.error) {
         renderData.error = req.session.error;
         delete req.session.error;
     }
+    console.log(renderData)
     res.render('index', renderData);
 });
 

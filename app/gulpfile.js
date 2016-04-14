@@ -38,6 +38,11 @@ gulp.task('sass',function(){   // to transfer the .scss to .css
 		.pipe(sass().on('error',sass.logError))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest("public/css/"));
+	gulp.src("public/sass/module/login_page.scss")
+		.pipe(sourcemaps.init())
+		.pipe(sass().on('error',sass.logError))
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest("public/css/"));
 });
 
 gulp.task('default',function(){

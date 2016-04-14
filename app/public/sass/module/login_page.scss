@@ -1,6 +1,6 @@
-body{
-	background:$body_bg;
-}
+@import "../base/_variables.scss";
+
+
 .container{
 	min-height:875px;
 	height: 100%;
@@ -20,7 +20,7 @@ body{
 	padding-top: 50px;
 	text-align:center;
 	& .input_text_container{
-		width: 300px;
+		width: 100%;
 		margin-left: auto;
 		margin-right: auto;
 		margin-bottom: 20px;
@@ -29,12 +29,10 @@ body{
 		}
 	}
 	& .btn{
-		width: 300px;
 		margin-left: auto;
 		margin-right: auto;
 	}
 	& .forget_pwd{
-		font-weight: medium;
 		width: 300px;
 		display:block;
 		margin-top: 20px;
@@ -43,6 +41,9 @@ body{
 		font-size: $base_input_font_size;
 		@media (min-width:768px){
 			margin-left:31%;
+		}
+		@media(max-width:480px){
+			margin-left:10%;
 		}
 	}
 }

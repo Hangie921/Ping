@@ -1,4 +1,5 @@
-extends ../default/layout
+include ../modules/header
+		link(rel='stylesheet', href='/css/login_page.css')
 
 block content
 	.container
@@ -10,11 +11,12 @@ block content
 					input#mem_acc(type='email',name="mem_acc", placeholder='username')
 				.input_text_container
 					input#mem_pwd(type='password',name="mem_pwd", placeholder='password')
-				a.btn.btn_pri(href='/login') Login
+				input(type='submit')
+				//- a.btn.btn_pri(href='/login') Login
 			span.forget_pwd
 				a.sec_cl(href='#') forget password
 		#feedback
 			//- a(href="/users/new") 
 				button Register
-			span #{feedback_msg}
+			span.sec_cl #{feedback_msg}
 

@@ -1,6 +1,13 @@
 //- This file needs member role from DB to show the different menu function list 
-#menu
-	h1 Menu for #{mem_type}
+
+header.ping_header
+	.logo.pull_left
+		img(alt='logo')
+	.account.pull_right
+		.img_container.round_container
+			img(alt='profile')
+		a.btn User setting
+.main_menu
 	li Profile
 		.profile
 			if (mem_type == "company")

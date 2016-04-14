@@ -3,6 +3,7 @@
 //
 
 var mongoose = require("../app/node_modules/mongoose");
+var Schema = mongoose.Schema;
 	
 
 var userSchema = mongoose.Schema({
@@ -10,7 +11,8 @@ var userSchema = mongoose.Schema({
     email: String,
     pwd: String,
     mem_type: String,
-    system_parameter: 0
+    system_parameter: 0,
+    custom:Schema.Types.Mixed
 }, { autoIndex: true });
 
 var User = mongoose.model('users',userSchema);
@@ -31,7 +33,10 @@ var defaultCompany = new User({
         email: "company@ping.com.sg", 
         pwd: "company",
         mem_type:"company",
-        system_parameter: 0 
+        system_parameter: 1 ,
+        custom:{
+            _company:"safsaf;j",
+        }
     });
 
 defaultCompany.save(function(err, user) {
@@ -46,7 +51,10 @@ var defaultTalent = new User({
     email: "talent@ping.com.sg", 
     pwd: "talent",
     mem_type:"talent",
-    system_parameter: 0 
+    system_parameter: 1,
+    custom:{
+        _talent:"safsaf;j",
+    }
 });
 defaultTalent.save(function(err, user) {
     if (err) return console.error(err);

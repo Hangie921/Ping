@@ -1,7 +1,7 @@
 .ping_header{
 	background-color: $grayscale_dark_cl;
 	box-sizing:border-box;
-	height: 14%;
+	height: 80px;
 	padding:10px 20px;
 	& div{
 		overflow:hidden;
@@ -24,7 +24,8 @@
 		& img{
 			width: 61px;
 			height: 61px;
-			display:inline-block;
+			margin-left: auto;
+			margin-right: auto;
 		}
 		& a{
 			width: 100px;

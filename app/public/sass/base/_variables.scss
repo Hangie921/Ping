@@ -61,29 +61,28 @@ $link_hover_decoration: ;
 //== Typography ==============================
 //
 //## Font, line-height, and color for body text, headings, and more.
-
-$font_family_sans_serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-$font_family_serif:       Georgia, "Times New Roman", Times, serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-$font_family_monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
 
-$base_font_family:       'Avenir';
-
+$base_font_family:       'Avenir',Helvetica, Arial, sans-serif !default;
+$base_font_weight:		 500; // normal
 
 $base_font_size:			16px;
 $base_input_font_size:		ceil(($base_font_size * 0.875)) !default; // ~14px
 $large_font_size:         	ceil(($base_font_size * 1.25)) !default; // ~18px
 $small_font_size:         	ceil(($base_font_size * 0.85)) !default; // ~12px
 
-$h1_font_size:            floor(($base_font_size * 1.875)) !default; // ~36px
+
+
+
+$h1_font_size:            floor(($base_font_size * 2.25)) !default; // ~36px
 $h2_font_size:            floor(($base_font_size * 1.75)) !default; // ~28px
 $h3_font_size:            ceil(($base_font_size * 1.25)) !default; // ~20px
-$h4_font_size:            ;
-$h5_font_size:            $base_font_size !default;
-$h6_font_size:            ceil(($base_font_size * 0.85)) !default; // ~12px
+$h4_font_size:			  $base_font_size !default;
+$h5_font_size:            ;
+$h6_font_size:            ; // ~12px
 
 // //** Unit-less `line-height` for use in components like buttons.
-$base_line_height:         !default; // 20/14
+$base_line_height:        22 / 16 !default; // 20/14
 // //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
 // $line-height-computed:    floor(($base-font-size * $line-height-base)) !default; // ~20px
 

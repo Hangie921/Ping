@@ -14,7 +14,7 @@
 
 .input_text_container{
 	box-sizing:border-box;
-	width: 200px;
+	max-width: 300px;
 	& label{
 		font-size: $base_input_font_size;
 		width: 100%;
