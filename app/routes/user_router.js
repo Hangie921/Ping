@@ -56,7 +56,6 @@ router.post(url, function(req, res) {
     // var errors = newPingUser.validateSync();
     // console.log("error",error.errors['system_parameter'].message);
     UserService.registered(newPingUser, function(data) {
-        console.log(status);
         console.log(data);
     });
     res.redirect('/test');
