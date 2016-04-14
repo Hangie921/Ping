@@ -1,18 +1,50 @@
 extends ../templates/layout
 
+-
+	var type;
+	if(typeof user.custom._company !== undefined){
+		type = 'company';
+	}else if(typeof user.custom._talent!== undefined){
+		type = 'talent';
+	}else{
+		type = 'default';
+	}
 block main_menu
+	-
+		var type;
+		if(typeof user.custom._company !== undefined){
+			type = 'company';
+		}else if(typeof user.custom._talent!== undefined){
+			type = 'talent';
+		}else{
+			type = 'default';
+		}
 	include ../modules/menu.jade
 block content
-	p=user
+	//- // p=user
 	#content
 		//- @Todo(20160414): 判斷user.custom裡面是不是有_company或_talent
-		h6 user type is #{mem_type} #{_id} #{pwd}
-		case pwd
-			when "company"
+		//- { custom: { _company: '132' },
+		//- pwd: 'company@gogo',
+		//- email: 'company@gogo',
+		//- name: 'company@gogo',
+		//- system_parameter: 1,
+		//- _id: '570f70b71cae405b0e8eca17',
+		//- function_crud: [] }
+		-
+			var type;
+			if(typeof user.custom._company !== undefined){
+				type = 'company';
+			}else if(typeof user.custom._talent!== undefined){
+				type = 'talent';
+			}else{
+				type = 'default';
+			}
+
+		case type
+			when 'company'
 				h1 Welcome to Company Dashboard
-			when "talent"
-				h1 Welcome to Talent Dashboard
-			when "walter"
+			when 'talent'
 				h1 Welcome to Talent Dashboard
 			default
 				h1 Hi Stranger , you don't have a user_type
@@ -23,6 +55,7 @@ block content
 					li Pic: I am pic
 					li Name: I am your father
 					li Industries: Star Wars
+
 block form
 	#form_container
 		#logout_form

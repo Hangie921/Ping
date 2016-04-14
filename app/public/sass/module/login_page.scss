@@ -4,12 +4,22 @@
 .container{
 	min-height:875px;
 	height: 100%;
-	background:url('../../img/login_background.png') no-repeat center;
+	background:url('../../img/login_background.png') no-repeat top;
+	background-size:cover;
 
 }
 .brand_container{
-	padding:100px 0px;
+	width: 48%;
+	min-width:300px;
+	padding:50px 0px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align:center;
 	& img{
+		width:100%;
+		max-width:187px;
+		min-width:130px;
+		height: auto;
 		display:block;
 		margin-left: auto;
 		margin-right: auto;

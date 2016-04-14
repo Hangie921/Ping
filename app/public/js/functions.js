@@ -9,3 +9,6 @@ function isNum(num){
 		return false;
 	}
 }
+function sendAjax(){
+	
+}

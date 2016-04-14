@@ -1,18 +1,19 @@
 include ../modules/header
 		link(rel='stylesheet', href='/css/login_page.css')
+		script(src='../../js/login_page.js')
 
 block content
 	.container
-		.brand_container.col-centered
+		.brand_container
 			img(src='../img/branding.png')
 		#login_form.col-md-8.col-centered
-			form(type='multipart/form-data',method="post", action='/login')
+			form(type='multipart/form-data',method="post", action='/login',id='login_form1')
 				.input_text_container
 					input#mem_acc(type='email',name="mem_acc", placeholder='username')
 				.input_text_container
 					input#mem_pwd(type='password',name="mem_pwd", placeholder='password')
-				input(type='submit')
-				//- a.btn.btn_pri(href='/login') Login
+				//- input(type='submit')
+				a.btn.btn_pri#login_btn(href='javascript:void(0);') Login
 			span.forget_pwd
 				a.sec_cl(href='#') forget password
 		#feedback

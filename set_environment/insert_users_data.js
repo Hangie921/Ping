@@ -31,11 +31,10 @@ db.once('disconnected', function() {
 var defaultCompany = new User({
         acc: "company@ping.com.sg", 
         email: "company@ping.com.sg", 
-        pwd: "company",
-        mem_type:"company",
+        pwd: "company@ping.com.sg",
         system_parameter: 1 ,
         custom:{
-            _company:"safsaf;j",
+            _company:"123",
         }
     });
 
@@ -49,11 +48,10 @@ defaultCompany.save(function(err, user) {
 var defaultTalent = new User({ 
     acc: "talent@ping.com.sg", 
     email: "talent@ping.com.sg", 
-    pwd: "talent",
-    mem_type:"talent",
+    pwd: "talent@ping.com.sg",
     system_parameter: 1,
     custom:{
-        _talent:"safsaf;j",
+        _talent:"456",
     }
 });
 defaultTalent.save(function(err, user) {

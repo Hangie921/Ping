@@ -19,6 +19,7 @@ router.post('/login', upload.single(), function(req, res, next) {
 
     var acc = req.body.mem_acc,
         pwd = req.body.mem_pwd;
+    console.log(req.body);
 
     var user = new PingUser();
     user.system_parameter = 1;
@@ -28,13 +29,15 @@ router.post('/login', upload.single(), function(req, res, next) {
     user.custom = { _company: "132" };
     // console.log("user= ", user);
 
-    // req.session.user = user;
     // console.log("s1",req.session.user)
     // UserService.getUser(user, function(data) {
     SessionService.login(req, res, user, function(data) {
         if (data.code === 200) {
             // @Temp : 暫時redirect, 之後改ajax, res.json(...)
-            res.redirect('dashboard');
+            // res.redirect('dashboard');
+            req.session.user = user;
+
+            res.json("hello");
         } else {
             req.session.error = 'Incorrect username or password';
             // @Temp : 暫時show error, 之後改ajax, res.json(...)

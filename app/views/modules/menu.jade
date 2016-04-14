@@ -10,14 +10,14 @@ header.ping_header
 .main_menu
 	li Profile
 		.profile
-			if (mem_type == "company")
+			if (type == "company")
 				ul
 					li Company Name
 					li Pic
 					li Description
 					li Give a Star & Comments
 					li Post a Job
-			else if (mem_type == "talent")
+			else if (type == "talent")
 				ul
 					li Sys Information
 					li Basic Profile Information
@@ -26,6 +26,8 @@ header.ping_header
 					li Work Experience
 					li Awards/Races
 					li Project History
+			else 
+				h2 nothing la
 	if (mem_type == "company")
 		li 
 			a(href='/find_talent') Find Talent
