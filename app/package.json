@@ -19,7 +19,7 @@
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
     "nodemailer": "^2.3.1",
-    "pinglib": "file:../../Ping_Library",
+    "pinglib": "git+https://github.com/Hangie921/Ping_Library.git",
     "rootpath": "^0.1.2",
     "serve-favicon": "~2.3.0"
   },
