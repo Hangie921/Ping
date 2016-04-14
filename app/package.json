@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha $(find test -name '*.js' ! -path '*try*')"
+    "test": "mocha $(find test -name '*.js' ! -path '*try*')",
+    "updateping": "npm install ../../Ping_Library"
   },
   "dependencies": {
     "body-parser": "~1.13.2",

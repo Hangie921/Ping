@@ -3,7 +3,9 @@ extends ../default/layout
 block main_menu
 	include ../mixin/menu.jade
 block content
+	p=user
 	#content
+		//- @Todo(20160414): 判斷user.custom裡面是不是有_company或_talent
 		h6 user type is #{mem_type} #{_id} #{pwd}
 		case pwd
 			when "company"
