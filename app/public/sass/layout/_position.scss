@@ -1,8 +1,10 @@
 .pull_right{
 	float:right;
+	clear:right;
 }
 .pull_left{
 	float:left;
+	clear:both;
 }
 .col-centered{
 	float: none;

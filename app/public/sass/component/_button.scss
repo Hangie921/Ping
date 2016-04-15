@@ -2,17 +2,18 @@
   display:block;
   box-sizing:border-box;
   width: 100%;
-  max-width:300px;
+  max-width:204px;
   text-align:center;
   border-radius:$btn_border_radius_base;
   padding:15px 0px;
   font-weight:900;
   cursor:pointer;
+  line-height:$base_line_height;
 }
 .btn_pri{
 	background-color:$pri_cl;
 	color:#ffffff;
-	min-height:$btn_pri_height;
+	min-height:$btn_base_height;
 	&:hover{
     	background-color:$pri_dark_cl;
   	}
@@ -20,7 +21,7 @@
 .btn_sec{
 	border-radius:$btn_border_radius_base;
 	position: relative;
-	min-height:$btn_sec_height;
+	min-height:$btn_base_height;
 	border-bottom:3px solid $sec_cl;
 	color:$sec_cl;
 	overflow:hidden;

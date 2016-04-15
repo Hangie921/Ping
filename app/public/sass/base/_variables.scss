@@ -137,6 +137,12 @@ $btn_border_radius_base:         5px;
 $btn_border_radius_large:        ;
 $btn_border_radius_small:        ;
 
+$btn_base_width:204px;
+$btn_base_height:50px;
+$btn_lg_width:;
+$btn_md_width:;
+$btn_sm_width:;
+$btn_xs_width:;
 
 //====== Forms ==============================
 //
@@ -195,35 +201,38 @@ $cursor_disabled:                not-allowed !default;
 //
 //## Dropdown menu container and contents.
 
+
+$dropdown_base_height: 41px;
+$dropdwon_base_width: 162px;
 //** Background for the dropdown menu.
-$dropdown-bg:                    ;
-//** Dropdown menu `border-color`.
-$dropdown-border:                ;
-//** Dropdown menu `border-color` **for IE8**.
-$dropdown-fallback-border:       ;
+$dropdown_bg:                    ;
+//** Dropdown menu `border_color`.
+$dropdown_border:                ;
+//** Dropdown menu `border_color` **for IE8**.
+$dropdown_fallback_border:       ;
 //** Divider color for between dropdown items.
-$dropdown-divider-bg:            ;
+$dropdown_divider_bg:            ;
 
 //** Dropdown link text color.
-$dropdown-link-color:            ;
+$dropdown_link_color:            ;
 //** Hover color for dropdown links.
-$dropdown-link-hover-color:      ;
+$dropdown_link_hover_color:      ;
 //** Hover background for dropdown links.
-$dropdown-link-hover-bg:         ;
+$dropdown_link_hover_bg:         ;
 
 //** Active dropdown menu item text color.
-$dropdown-link-active-color:     ;
+$dropdown_link_active_color:     ;
 //** Active dropdown menu item background color.
-$dropdown-link-active-bg:        ;
+$dropdown_link_active_bg:        ;
 
 //** Disabled dropdown menu item background color.
-$dropdown-link-disabled-color:   ;
+$dropdown_link_disabled_color:   ;
 
 //** Text color for headers within dropdown menus.
-$dropdown-header-color:          ;
+$dropdown_header_color:          ;
 
-//** Deprecated `$dropdown-caret-color` as of v3.1.0
-$dropdown-caret-color:           ;
+//** Deprecated `$dropdown_caret_color` as of v3.1.0
+$dropdown_caret_color:           ;
 
 
 //-- Z-index master list ==============================
@@ -319,13 +328,16 @@ $container_lg:;
 
 
 
+//== header ========================
+$header_height:			80px;
 
 
 //== Nav Bar ==============================
 //
 //## As title,the styles of nav bar, like links,label,inverted .etc
 // Basics of a navbar
-$navbar_height:					80px;
+
+$navbar_height:					60px;
 $navbar_bg:						#5F5E5E;
 $navbar_color:					$base_white;
 $navbar_margin_bottom:             ;

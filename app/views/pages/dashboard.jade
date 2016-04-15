@@ -2,7 +2,7 @@ include ../modules/head
 		link(rel="stylesheet"  href="/css/dashboard.css")
 	body.dashboard
 -
-	var type;
+	var type = 'company';
 	// if(typeof user.custom === Object){
 	// 	if(user.custom._company){
 	// 		type = 'company';	
@@ -24,7 +24,7 @@ block main_menu
 	//- // 	type = 'default';
 	//- // }
 	include ../modules/menu.jade
-block content
+//- block content
 	//- // p=user
 	#content
 		//- @Todo(20160414): 判斷user.custom裡面是不是有_company或_talent
@@ -62,7 +62,7 @@ block content
 					li Name: I am your father
 					li Industries: Star Wars
 
-block form
+//- block form
 	#form_container
 		#logout_form
 			form(method="post",action='logout')

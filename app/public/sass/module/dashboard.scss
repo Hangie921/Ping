@@ -1,1 +1,16 @@
 @import "../base/_variables.scss";
+
+//mark the body with class name "dashboard"
+.dashboard{ 
+	& .menu_container{
+		.menu{
+			width: 70%;
+		}
+		.btn{
+			width: 151px;
+			height: 40px;
+			padding: 10px 0;
+			margin-top: 6px;
+		}
+	}
+}
