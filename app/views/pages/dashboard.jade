@@ -2,16 +2,16 @@ include ../modules/head
 		link(rel="stylesheet"  href="/css/dashboard.css")
 	body.dashboard
 -
-	var type = 'company';
-	// if(typeof user.custom === Object){
-	// 	if(user.custom._company){
-	// 		type = 'company';	
-	// 	}else if(user.custom._talent){
-	// 		type = 'talent';	
-	// 	}
-	// }else{
-	// 	type = 'default';
-	// }
+	var type;
+	if(typeof user.custom == 'object'){
+		if(user.custom._company){
+			type = 'company';	
+		}else if(user.custom._talent){
+			type = 'talent';	
+		}
+	}else{
+		type = 'default';
+	}
 block main_menu
 	//- // -
 	//- // 	if(typeof user.custom === Object){
