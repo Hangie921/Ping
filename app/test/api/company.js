@@ -1,6 +1,8 @@
 var request = require('supertest');
 request = request('http://localhost:3001');
 
+var should = require('chai').should();
+
 describe.skip('GET /api/companies', function() {
     it('respond a json showing all companies', function(done) {
         request
@@ -29,13 +31,28 @@ describe('POST /companies/company@gogo', function() {
             });
     })
 
-    it('POST /companies/company@gogo', function(done) {
+    it('POST { culture: \'company\' }', function(done) {
         request
             .post('/companies/company@gogo/edit')
             .send({ culture: 'company' })
             .set('Accept', 'application/json')
             // .expect('Content-Type', /json/)
             .expect(200, function(err, res) {
+                done(err);
+            });
+    })
+
+    it('POST { culture: \'company\', try: \'should not exist\' }', function(done) {
+        request
+            .post('/companies/company@gogo/edit')
+            .send({ culture: 'company', try: 'should not exist' })
+            .set('Accept', 'application/json')
+            // .expect('Content-Type', /json/)
+            .expect(200, function(err, res) {
+                (res.body.ok).should.be.equal(1);
+                (res.body.nModified).should.be.equal(0);
+                (res.body.n).should.be.equal(1);
+
                 done(err);
             });
     })

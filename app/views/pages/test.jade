@@ -12,6 +12,12 @@ h1 Testing
 				input(type='text',name="pwd", placeholder='Please enter your password here' value='company@gogo')
 				br
 				input(type='submit',value='Create')
+				br
+				| Type:
+				input(type="radio" name="member_type" value="company" checked)
+				| Company
+				input(type="radio" name="member_type" value="talent")
+				| Telent
 		li Delete User
 			form(method="post", action='/users')
 				input(type="hidden" name="_method" value="delete")

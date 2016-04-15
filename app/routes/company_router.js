@@ -17,7 +17,7 @@ var url = '/' + routerName;
 var urlApi = '/api' + url;
 router.get(url + '/:name', function(req, res) {
     console.log("msg", req.params.name);
-    Company.find({ name: req.params.name }, function(err, company) {
+    Company.findOne({ name: req.params.name }, function(err, company) {
         if (err) console.log(err);
         console.log(company);
         res.json(company);
@@ -30,10 +30,10 @@ router.post(url + '/:name/edit', function(req, res) {
         if (err) console.log(err);
 
 
-        console.log("msg", req.params);
-        for (key in req.params) {
-            if(originCompany.key)
-                originCompany.key = req.params.key;
+        console.log("msg", req.body);
+        for (key in req.body) {
+            if(originCompany[key])
+                originCompany[key] = req.body[key];
 
         }
         // originCompany.culture = ["Sleepy"];
@@ -43,6 +43,8 @@ router.post(url + '/:name/edit', function(req, res) {
             // { ok: 1, nModified: 1, n: 1 }
             // if not change
             // { ok: 0, n: 0, nModified: 0 }
+            // get data but not change
+            // { ok: 1, nModified: 0, n: 1 }
             console.log("company", status);
             res.json(status);
 

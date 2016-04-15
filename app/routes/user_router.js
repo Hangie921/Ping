@@ -45,27 +45,38 @@ router.put(url + '/:id/edit', function(req, res) {
     console.log(`put #{req.params.id}/edit`);
 });
 
-function createUserAndCompany(acc, pwd, callback) {
+function createUser(acc, pwd, type, callback) {
     var newPingUser = new PingUser();
     newPingUser.system_parameter = 1;
     newPingUser.name = acc;
     newPingUser.email = acc;
     newPingUser.pwd = pwd;
+    var companyOrTelent;
 
 
-    var newCompany = new Company();
-    newCompany.name = acc;
-    newCompany.description = "Nice Company";
-    newCompany.location = "TW";
-    newCompany.culture = "Fun in life";
-    newPingUser.custom = { _company: newCompany._id };
+    if (type === "company") {
+        companyOrTelent = new Company();
+        companyOrTelent.name = acc;
+        companyOrTelent.description = "Nice Company";
+        companyOrTelent.location = "TW";
+        companyOrTelent.culture = "Fun in life";
+        newPingUser.custom = { _company: companyOrTelent._id };
+
+    } else if (type === "talent") {
+        // companyOrTelent = new Talent();
+        // companyOrTelent.name = acc;
+        // companyOrTelent.description = "Nice Company";
+        // companyOrTelent.location = "TW";
+        // companyOrTelent.culture = "Fun in life";
+        newPingUser.custom = { _telent: "nothing for now(0415)" };
+    }
 
     // var errors = newPingUser.validateSync();
     // console.log("error",error.errors['system_parameter'].message);
     UserService.registered(newPingUser, function(resStatus) {
         if (resStatus.code === resCode.OK) {
-            console.log(__filename, "newCompany.save()");
-            newCompany.save(function(err, company) {
+            console.log(__filename, "companyOrTelent.save()");
+            companyOrTelent.save(function(err, company) {
                 console.log(__filename, company);
                 mailer.send(acc, function(err, msg) {
                     if (err) return console.error(err);
@@ -83,18 +94,13 @@ function createUserAndCompany(acc, pwd, callback) {
 router.post(url, function(req, res) {
     var acc = req.body.acc,
         pwd = req.body.pwd,
-        type = "company";
+        type = req.body.member_type;
 
-    if (type === "company") {
-        createUserAndCompany(acc, pwd, function(err) {
-            if (err)
-                console.log("createUserAndCompany", err);
-            res.redirect('/test');
-        });
-    } else if (type === "talent") {
-
+    createUser(acc, pwd, type, function(err) {
+        if (err)
+            console.log("createUserAndCompany", err);
         res.redirect('/test');
-    }
+    });
 
 });
 
@@ -103,17 +109,13 @@ router.post(url, function(req, res) {
         pwd = req.body.pwd,
         type = "company";
 
-    if (type === "company") {
-        createUserAndCompany(acc, pwd, function(err) {
-            if (err) {
-                console.log("createUserAndCompany", err);
-                res.json(err);
-            }
-            res.json();
-        });
-    } else if (type === "talent") {
+    createUser(acc, pwd, function(err) {
+        if (err) {
+            console.log("createUserAndCompany", err);
+            res.json(err);
+        }
         res.json();
-    }
+    });
 
 });
 
