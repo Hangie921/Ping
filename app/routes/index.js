@@ -19,16 +19,12 @@ router.use(require('./company_router'));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var error = "";
-    var renderData = {
-        title: 'Ping'
+    console.log(__filename,req.session.user);
+    if (req.session.user) {
+        res.redirect('/dashboard');
+    }else{
+        res.redirect('/login');
     }
-    if (req.session.error) {
-        renderData.error = req.session.error;
-        delete req.session.error;
-    }
-    console.log(renderData)
-    res.render('index', renderData);
 });
 
 module.exports = router;

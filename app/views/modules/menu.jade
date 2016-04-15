@@ -2,21 +2,25 @@
 
 header.ping_header
 	.logo.pull_left
-		img(alt='logo')
+		img(src='../img/logo.png',alt='logo')
 	.account.pull_right
 		.img_container.round_container
-			img(alt='profile')
+			img(src='../img/profile_img.jpg',alt='profile')
 		a.btn User setting
 .main_menu
 	li Profile
 		.profile
 			if (type == "company")
 				ul
-					li Company Name
-					li Pic
-					li Description
-					li Give a Star & Comments
-					li Post a Job
+					li Profile
+					li Find Pingers
+					li Projects
+					li Resources
+					li 
+						ul
+							li More
+							li More1
+							li More2
 			else if (type == "talent")
 				ul
 					li Sys Information

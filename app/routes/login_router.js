@@ -11,10 +11,20 @@ var UserService = pinglib.UserService;
 var SessionService = pinglib.SessionService;
 
 router.get('/login', function(req, res, next) {
-    res.render('index', {
+    console.log(__filename,req.session.user);
+    var error = "";
+    var renderData = {
         title: 'Ping'
-    });
+    }
+    if (req.session.error) {
+        renderData.error = req.session.error;
+        delete req.session.error;
+    }
+    console.log(renderData)
+    res.render('login', renderData);
 });
+
+
 router.post('/login', upload.single(), function(req, res, next) {
 
     var acc = req.body.mem_acc,

@@ -1,24 +1,28 @@
-extends ../templates/layout
-
+include ../modules/head
+		link(rel="stylesheet"  href="/css/dashboard.css")
+	body.dashboard
 -
 	var type;
-	if(typeof user.custom._company !== undefined){
-		type = 'company';
-	}else if(typeof user.custom._talent!== undefined){
-		type = 'talent';
-	}else{
-		type = 'default';
-	}
+	// if(typeof user.custom === Object){
+	// 	if(user.custom._company){
+	// 		type = 'company';	
+	// 	}else if(user.custom._talent){
+	// 		type = 'talent';	
+	// 	}
+	// }else{
+	// 	type = 'default';
+	// }
 block main_menu
-	-
-		var type;
-		if(typeof user.custom._company !== undefined){
-			type = 'company';
-		}else if(typeof user.custom._talent!== undefined){
-			type = 'talent';
-		}else{
-			type = 'default';
-		}
+	//- // -
+	//- // 	if(typeof user.custom === Object){
+	//- // 	if(user.custom._company){
+	//- // 		type = 'company';	
+	//- // 	}else if(user.custom._talent){
+	//- // 		type = 'talent';	
+	//- // 	}
+	//- // }else{
+	//- // 	type = 'default';
+	//- // }
 	include ../modules/menu.jade
 block content
 	//- // p=user
