@@ -1,8 +1,7 @@
 var request = require('supertest');
-
 request = request('http://localhost:3001');
 
-describe('GET /api/companies', function() {
+describe.skip('GET /api/companies', function() {
     it('respond a json showing all companies', function(done) {
         request
             .get('/api/companies')
@@ -17,23 +16,23 @@ describe('GET /api/companies', function() {
     })
 });
 
-describe.skip('POST /api/companies', function() {
-    it('create a user with wrong form', function(done) {
+describe('POST /companies/company@gogo', function() {
+    it.skip('create a user with wrong form', function(done) {
         request
             .post('/api/companies')
             .send({ acc: '123' })
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(400, function(err, res) {
-            	console.log(res.body.msg)
+                console.log(res.body.msg)
                 done(err);
             });
     })
 
-    it('create a user with correct form', function(done) {
+    it('POST /companies/company@gogo', function(done) {
         request
-            .post('/api/companies')
-            .send({ acc: '123', pwd: '233' })
+            .post('/companies/company@gogo/edit')
+            .send({ culture: 'company' })
             .set('Accept', 'application/json')
             // .expect('Content-Type', /json/)
             .expect(200, function(err, res) {

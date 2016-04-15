@@ -36,16 +36,19 @@ router.post('/login', upload.single(), function(req, res, next) {
     user.name = acc;
     user.email = acc;
     user.pwd = pwd;
-    user.custom = { _company: "132" };
     // console.log("user= ", user);
 
     // console.log("s1",req.session.user)
     // UserService.getUser(user, function(data) {
     SessionService.login(req, res, user, function(data) {
+        console.log(__filename,data);
+        console.log(__filename,data.values);
+        console.log(__filename,data.values[0].custom);
         if (data.code === 200) {
+
             // @Temp : 暫時redirect, 之後改ajax, res.json(...)
             // res.redirect('dashboard');
-            req.session.user = user;
+            req.session.user = data.values[0];
 
             res.json("hello");
         } else {

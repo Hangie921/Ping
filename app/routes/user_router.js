@@ -4,10 +4,12 @@ var router = express.Router();
 
 // module
 var User = require('../module/user.js');
+var Company = require('../module/schema/company.js');
 var mailer = require('../module/utils/mailer.js')
 
 // pinglib
 var pinglib = require('pinglib');
+var resCode = pinglib.response.codeEnum;
 var PingUser = pinglib.User;
 var UserService = pinglib.UserService;
 
@@ -43,32 +45,76 @@ router.put(url + '/:id/edit', function(req, res) {
     console.log(`put #{req.params.id}/edit`);
 });
 
-router.post(url, function(req, res) {
-    var acc = req.body.acc,
-        pwd = req.body.pwd;
-
+function createUserAndCompany(acc, pwd, callback) {
     var newPingUser = new PingUser();
     newPingUser.system_parameter = 1;
     newPingUser.name = acc;
     newPingUser.email = acc;
     newPingUser.pwd = pwd;
 
+
+    var newCompany = new Company();
+    newCompany.name = acc;
+    newCompany.description = "Nice Company";
+    newCompany.location = "TW";
+    newCompany.culture = "Fun in life";
+    newPingUser.custom = { _company: newCompany._id };
+
     // var errors = newPingUser.validateSync();
     // console.log("error",error.errors['system_parameter'].message);
-    UserService.registered(newPingUser, function(data) {
-        console.log(data);
+    UserService.registered(newPingUser, function(resStatus) {
+        if (resStatus.code === resCode.OK) {
+            console.log(__filename, "newCompany.save()");
+            newCompany.save(function(err, company) {
+                console.log(__filename, company);
+                mailer.send(acc, function(err, msg) {
+                    if (err) return console.error(err);
+                    console.log(msg);
+                });
+                callback();
+            });
+        } else {
+            callback(resStatus);
+        }
     });
-    res.redirect('/test');
-    // var newUser = new User({ acc: acc, pwd: pwd });
-    // newUser.save(function(err, user) {
-    //     if (err) return console.error(err);
-    //     mailer.send(acc, function(err, msg) {
-    //         if (err) return console.error(err);
-    //         console.log(msg);
-    //     });
-    //     res.redirect(routerName);
 
-    // });
+}
+
+router.post(url, function(req, res) {
+    var acc = req.body.acc,
+        pwd = req.body.pwd,
+        type = "company";
+
+    if (type === "company") {
+        createUserAndCompany(acc, pwd, function(err) {
+            if (err)
+                console.log("createUserAndCompany", err);
+            res.redirect('/test');
+        });
+    } else if (type === "talent") {
+
+        res.redirect('/test');
+    }
+
+});
+
+router.post(url, function(req, res) {
+    var acc = req.body.acc,
+        pwd = req.body.pwd,
+        type = "company";
+
+    if (type === "company") {
+        createUserAndCompany(acc, pwd, function(err) {
+            if (err) {
+                console.log("createUserAndCompany", err);
+                res.json(err);
+            }
+            res.json();
+        });
+    } else if (type === "talent") {
+        res.json();
+    }
+
 });
 
 router.put(url, function(req, res) {
