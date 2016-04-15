@@ -42,17 +42,17 @@ header.ping_header
 							a(href='#') More1
 						li.menu_item 
 							a(href='#') More2
+				li.menu_item
+					a(href='/logout') Logout
 			.pull_right
 				a.btn.pri_cl_bg.base_white(href='#') Edit Profile
 		else if (type == "talent")
-			ul
-				li Sys Information
-				li Basic Profile Information
-				li Education Information
-				li Talent Information
-				li Work Experience
-				li Awards/Races
-				li Project History
+			ul.menu
+				li.menu_item Awards/Races
+				li.menu_item Project History
+				li.menu_item
+					a(href='/logout') Logout
+
 		else 
 			h2 nothing la
 //- if (mem_type == "company")
