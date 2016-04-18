@@ -81,6 +81,12 @@ $h4_font_size:			  $base_font_size !default;
 $h5_font_size:            ;
 $h6_font_size:            ; // ~12px
 
+
+$profile_h1_font_size:		48px;
+$profile_h2_font_size:		36px;
+$profile_basic_font_size:		18px;
+
+
 // //** Unit-less `line-height` for use in components like buttons.
 $base_line_height:        22 / 16 !default; // 20/14
 // //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
