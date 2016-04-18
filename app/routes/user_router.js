@@ -4,6 +4,7 @@ var router = express.Router();
 
 // module
 // var User = require('../module/user.js');
+var Profile = require('../module/schema/profile.js');
 var CompanyProfile = require('../module/schema/profile.js').CompanyProfile;
 var TalentProfile = require('../module/schema/profile.js').TalentProfile;
 var mailer = require('../module/utils/mailer.js')
@@ -102,21 +103,6 @@ router.post(url, function(req, res) {
 
 });
 
-router.post(url, function(req, res) {
-    var acc = req.body.acc,
-        pwd = req.body.pwd,
-        type = "company";
-
-    createUser(acc, pwd, function(err) {
-        if (err) {
-            console.log("createUserAndCompany", err);
-            res.json(err);
-        }
-        res.json();
-    });
-
-});
-
 router.put(url, function(req, res) {
     res.send("This is PUT");
 });
@@ -129,11 +115,47 @@ router.delete(url, function(req, res) {
 // APIs
 /////////////////////////////
 router.get(urlApi, function(req, res) {
-    PingUser.find(function(err, users) {
-        console.log(users);
-        if (err) console.log(err);
-        res.json(users);
-    });
+    // PingUser.find(function(err, users) {
+    //     console.log(users);
+    //     if (err) console.log(err);
+    //     res.json(users);
+    // });
+    PingUser
+        .find()
+        .exec(function(err, users) {
+            if (err) {
+                console.err(err);
+                return res.json(err);
+            }
+
+            var requests = users.map((user, index) => {
+                return new Promise((resolve) => {
+                    if (user.custom !== undefined) {
+                        console.log(`idx[${index}]=` + index);
+                        var id = user.custom['_profile'];
+                    }
+
+                    if (id !== undefined) {
+                        Profile
+                            .findById(id)
+                            .exec(function(err, doc) {
+                                // console.log(doc);
+                                users[index].custom._profile = doc;
+                                console.log(`idx[${index}]=` + users[index]);
+                                resolve();
+                            })
+                    } else {
+                        resolve();
+                    }
+                });
+            })
+
+            Promise.all(requests).then(() => {
+                console.log("im done");
+                res.json(users);
+            });
+
+        });
 });
 
 router.post(urlApi, function(req, res) {
