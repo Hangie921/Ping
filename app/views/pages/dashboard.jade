@@ -1,74 +1,29 @@
 include ../modules/head
 		link(rel="stylesheet"  href="/css/dashboard.css")
 	body.dashboard
--
-	var type;
-	if(typeof user.custom == 'object'){
-		if(user.custom._company){
-			type = 'company';	
-		}else if(user.custom._talent){
-			type = 'talent';	
-		}
-	}else{
-		type = 'default';
-	}
-block main_menu
-	//- // -
-	//- // 	if(typeof user.custom === Object){
-	//- // 	if(user.custom._company){
-	//- // 		type = 'company';	
-	//- // 	}else if(user.custom._talent){
-	//- // 		type = 'talent';	
-	//- // 	}
-	//- // }else{
-	//- // 	type = 'default';
-	//- // }
-	include ../modules/menu.jade
-//- block content
-	//- // p=user
-	#content
-		//- @Todo(20160414): 判斷user.custom裡面是不是有_company或_talent
-		//- { custom: { _company: '132' },
-		//- pwd: 'company@gogo',
-		//- email: 'company@gogo',
-		//- name: 'company@gogo',
-		//- system_parameter: 1,
-		//- _id: '570f70b71cae405b0e8eca17',
-		//- function_crud: [] }
 		-
-			console.log(user.custom);
 			var type;
-			if(typeof user.custom._company !== undefined){
-				type = 'company';
-			}else if(typeof user.custom._talent!== undefined){
-				type = 'talent';
+			if(typeof user.custom == 'object'){
+				if(user.custom._profile.type == 'Company'){
+					type = 'company';	
+				}else if(user.custom._profile.type == 'Talent'){
+					type = 'talent';	
+				}
 			}else{
 				type = 'default';
 			}
+		block main_menu
+			include ../modules/menu.jade
+				//- @Todo(20160414): 判斷user.custom裡面是不是有_company或_talent
+				//- { custom: { _company: '132' },
+				//- pwd: 'company@gogo',
+				//- email: 'company@gogo',
+				//- name: 'company@gogo',
+				//- system_parameter: 1,
+				//- _id: '570f70b71cae405b0e8eca17',
+				//- function_crud: [] }
 
-		case type
-			when 'company'
-				h1 Welcome to Company Dashboard
-			when 'talent'
-				h1 Welcome to Talent Dashboard
-			default
-				h1 Hi Stranger , you don't have a user_type
-		#info
-			h1 Info
 
-			.brief_profile
-				ul
-					li Pic: I am pic
-					li Name: I am your father
-					li Industries: Star Wars
-
-//- block form
-	#form_container
-		#logout_form
-			form(method="post",action='logout')
-				input(type='submit',value='bye')
-		#show_users
-			a(href='/users') show users
 
 
 

@@ -1,0 +1,246 @@
+@import "../base/_variables.scss";
+
+
+
+.profile{ 
+	font-size: $profile_basic_font_size;
+	&.view{ // To mark the page as view mode
+		h1{
+			font-size: $profile_h1_font_size;
+			font-weight: 900;
+		}
+		h2{
+			font-size: $profile_h2_font_size;
+			font-weight: 900;
+		}
+		h3{
+			font-size: $profile_h3_font_size;
+			font-weight: 900;
+		}
+		.banner{
+			padding-top: 1px;
+			height: 360px;
+			background:url(../../img/profile_img/cover-photo.jpg) no-repeat;
+			background-size:cover;
+			text-align: center;
+			& .slogan{
+				margin-top: 88px;
+				text-shadow: 0px 2px 15px rgba(0,0,0,.5);
+			}
+			& .description{
+				margin-top: 45px;
+				color: rgba(245,243,242,.8);
+				text-shadow: 0px 0px 11px rgba(0,0,0,.5);
+			}
+			& .profile_photo{
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 50px;
+				width: 150px;
+				height: 150px;
+				border:6px solid #fff;
+				border-radius:50%;
+				box-sizing:border-box;
+				& img{
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}// end of the .banner
+		
+		.comp_info{
+			& div{
+				box-sizing:border-box;
+			}
+			& .detail{
+				width: 35%;
+				// height: 120px;
+				position: relative;
+				padding:26px 0px 26px 0px;
+				box-sizing:border-box;
+				.location{
+					position: absolute;
+					box-sizing:border-box;
+					height: 44px;
+					padding: 10px 0px;
+					width: 100px;
+					top: -53px;
+					font-size: 14px;
+					line-height:14px;
+					& .lnr-map-marker:before{
+						position: relative;
+						font-size: 24px;
+						top: 5px;
+					}
+
+				}
+				& .details ul > li{
+					display:inline-block;
+					height: 30px;
+					width: 33%;
+					& .lnr{
+						font-size: 24px;
+						line-height:24px;
+						margin-top: 3px;
+						color:$third_cl;
+						&:before{
+							position: relative;
+							top: 5px;
+						}
+					}
+					& .detail_content{
+						padding-left: 10px;
+						font-size: 14px;
+						line-height:14px;
+						color:$grayscale_dark_cl;
+					}
+					
+				}
+
+			}//end of the .detail
+
+			& .social_icons{
+				width: 35%;
+				// height: 120px;
+				padding:26px 0px 26px 0px;
+				& ul{
+					text-align: right;
+					padding-top: 1px;
+				}
+				& li{
+					width: 35px;
+					height: 35px;
+					display:inline-block;
+					margin-right:10px;
+					& .fa{
+						width: 100%;
+						height: 100%;
+						font-size: 20px;
+						position: relative;
+						line-height:35px;
+						color:#FEFEFE;
+						text-align: center;
+					}
+					&:first-child{
+						background-color:#547BBC;
+					}
+					&:nth-child(2){
+						background-color:#78CBEF;
+					}
+					&:nth-child(3){
+						background-color:#1485C7;
+					}
+					&:last-child{
+						background-color:#4A90E2;
+						margin-right: 0px;
+					}
+				}
+			}
+			& hr{
+				width: 100%;
+				border-top:1px solid $grayscale_light_cl;
+			}
+			& .culture, & .tec{
+				& .title{
+					font-size: 16px;
+					color:$third_cl;
+				}
+				& ul{
+					padding: 5px 0px 50px;
+					margin-top: 15px;
+					& .tag{
+						display:inline-block;
+						box-sizing:border-box;
+						height: 26px;
+						line-height:26px;
+						padding:1px 20px;
+						border-radius:5px;
+						margin-right:8px;
+						margin-top: 8px;
+						font-size: 14px;
+						&:last-child{
+							margin-right: 0px;
+						}
+					}		
+				}
+				width: 50%;
+				padding-top: 15px;
+			}
+			& .tec{
+				padding-left: 30px;
+			}
+
+		}//end of the .comp_info
+		.company_instro{
+			& .container > div{
+				width: 60%;
+				margin-left: auto;
+				margin-right: auto;
+				padding:10px 0px;
+			}
+			& .text{
+				padding: 1px;
+				width: 60%;
+				margin-left: auto;
+				margin-right: auto;
+				h2{
+					// display:inline-block;
+					text-align: center;
+					width: 80%;
+					margin-left: auto;
+					margin-right: auto;
+					margin-top: 70px;
+					margin-bottom: 35px;
+				}
+				p{
+					width: 100%;
+					font-size: 18px;
+				} 
+			}
+			& .list{
+				.item{
+					span{
+						font-size: 16px;
+					}
+					.lnr{
+						margin-right: 8px;
+						color:$third_cl;
+					}
+				}
+			}
+			& .quotation{
+				.quote{
+					font-family: 'Avenir-BlackOblique';
+					font-style: oblique;
+					font-weight: 900;
+					font-size: 16px;
+					color:$grayscale_dark_cl;
+					character:0px;
+					padding:2px 0px 2px 11px;
+					border:1px solid transparent;
+					border-left:3px solid $pri_cl;
+					&:before,&:after{
+						content:" ” ";
+					}
+					margin-bottom:98px;
+				}
+			}
+
+		}//end of the .company_instro
+
+		.bottom_banner{
+			height: 360px;
+			background: url(../../img/profile_img/bottom_image.jpg) no-repeat;
+			background-size:cover;
+		}
+
+
+	}// end of the .view class
+
+
+	&.edit{ // To mark the page as edit mode
+
+	}
+
+}// end of the .profile
+

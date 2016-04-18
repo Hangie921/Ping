@@ -11,7 +11,7 @@ var sourcemaps = require("gulp-sourcemaps");
 gulp.task("develop",function(){ //shut and restart the server
 	nodemon({
 		script:'app.js',
-		ext:'jade js scss',
+		ext:'jade js',
 		tasks:['lint','sass'],
 		ignore :['node_modules/','bin/'],
 		env : {'NODE_ENV':'development'} 
@@ -44,6 +44,11 @@ gulp.task('sass',function(){   // to transfer the .scss to .css
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest("public/css/"));
 	gulp.src("public/sass/module/dashboard.scss")
+		.pipe(sourcemaps.init())
+		.pipe(sass().on('error',sass.logError))
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest("public/css/"));
+	gulp.src("public/sass/module/profile.scss")
 		.pipe(sourcemaps.init())
 		.pipe(sass().on('error',sass.logError))
 		.pipe(sourcemaps.write())
