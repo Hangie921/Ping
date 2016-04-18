@@ -3,8 +3,9 @@ var express = require('express');
 var router = express.Router();
 
 // module
-var User = require('../module/user.js');
-var Company = require('../module/schema/company.js');
+// var User = require('../module/user.js');
+var CompanyProfile = require('../module/schema/profile.js').CompanyProfile;
+var TalentProfile = require('../module/schema/profile.js').TalentProfile;
 var mailer = require('../module/utils/mailer.js')
 
 // pinglib
@@ -19,7 +20,7 @@ var url = '/' + routerName;
 var urlApi = '/api' + url;
 
 router.get(url, function(req, res) {
-    User.find(function(err, users) {
+    PingUser.find(function(err, users) {
         if (err) console.log(err);
         res.render(routerName, { users: users });
     });
@@ -51,32 +52,29 @@ function createUser(acc, pwd, type, callback) {
     newPingUser.name = acc;
     newPingUser.email = acc;
     newPingUser.pwd = pwd;
-    var companyOrTelent;
+    var profile;
 
 
     if (type === "company") {
-        companyOrTelent = new Company();
-        companyOrTelent.name = acc;
-        companyOrTelent.description = "Nice Company";
-        companyOrTelent.location = "TW";
-        companyOrTelent.culture = "Fun in life";
-        newPingUser.custom = { _company: companyOrTelent._id };
+        profile = new CompanyProfile();
+        profile.name = acc;
+        newPingUser.custom = { _profile: profile._id };
 
     } else if (type === "talent") {
-        // companyOrTelent = new Talent();
-        // companyOrTelent.name = acc;
+        profile = new TalentProfile();
+        profile.name = acc;
         // companyOrTelent.description = "Nice Company";
         // companyOrTelent.location = "TW";
         // companyOrTelent.culture = "Fun in life";
-        newPingUser.custom = { _telent: "nothing for now(0415)" };
+        newPingUser.custom = { _profile: profile._id };
     }
 
     // var errors = newPingUser.validateSync();
     // console.log("error",error.errors['system_parameter'].message);
     UserService.registered(newPingUser, function(resStatus) {
         if (resStatus.code === resCode.OK) {
-            console.log(__filename, "companyOrTelent.save()");
-            companyOrTelent.save(function(err, company) {
+            console.log(__filename, "profile.save()");
+            profile.save(function(err, company) {
                 console.log(__filename, company);
                 mailer.send(acc, function(err, msg) {
                     if (err) return console.error(err);
@@ -127,9 +125,12 @@ router.delete(url, function(req, res) {
     res.send("This is Delete");
 });
 
+/////////////////////////////
 // APIs
+/////////////////////////////
 router.get(urlApi, function(req, res) {
-    User.find(function(err, users) {
+    PingUser.find(function(err, users) {
+        console.log(users);
         if (err) console.log(err);
         res.json(users);
     });
@@ -144,7 +145,7 @@ router.post(urlApi, function(req, res) {
         res.status(400);
         res.json({ msg: "wrong form", data: null });
     } else {
-        var newUser = new User({ acc: acc, pwd: pwd });
+        var newPingUser = new User({ acc: acc, pwd: pwd });
         newUser.save(function(err, user) {
             if (err) return console.error(err);
             res.json({ msg: "succuss", data: user });

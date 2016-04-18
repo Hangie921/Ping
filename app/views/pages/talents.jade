@@ -1,0 +1,8 @@
+p=talents
+each talent in talents
+	ul
+		li
+			a(href='../talents/'+talent.name) #{talent.name}
+		li=talent.religion
+		li=talent._id
+		

@@ -10,19 +10,16 @@ router.use(require('./login_router'));
 router.use(require('./logout_router'));
 router.use(require('./dashboard_router'));
 router.use(require('./user_router'));
-router.use(require('./find_talent_router'));
-router.use(require('./result_talent_router'));
-router.use(require('./find_project_router'));
-router.use(require('./result_project_router'));
 router.use(require('./test_router'));
 router.use(require('./company_router'));
+router.use(require('./talent_router'));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    console.log(__filename,req.session.user);
+    console.log(__filename, req.session.user);
     if (req.session.user) {
         res.redirect('/dashboard');
-    }else{
+    } else {
         res.redirect('/login');
     }
 });

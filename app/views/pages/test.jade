@@ -18,44 +18,24 @@ h1 Testing
 				| Company
 				input(type="radio" name="member_type" value="talent")
 				| Telent
-		li Delete User
-			form(method="post", action='/users')
-				input(type="hidden" name="_method" value="delete")
-				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
-				button(type='submit') Delete
-		li Update User
-			form(method="post", action='/users')
-				input(type="hidden" name="_method" value="put")
-				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
-				button(type='submit') Update
+		//- li Delete User
+		//- 	form(method="post", action='/users')
+		//- 		input(type="hidden" name="_method" value="delete")
+		//- 		input(type='text',name="acc", placeholder='Please enter your password here' value='company')
+		//- 		button(type='submit') Delete
+		//- li Update User
+		//- 	form(method="post", action='/users')
+		//- 		input(type="hidden" name="_method" value="put")
+		//- 		input(type='text',name="acc", placeholder='Please enter your password here' value='company')
+		//- 		button(type='submit') Update
 
-	h2 Company
+	h2 Profiles
 	ul 
 		li 
-			a(href="/companies") companies
-		li Find company
-			form(method="get", action='/companies/')
-				input(type='text',name="acc", placeholder='Please enter your name here' value='company@gogo')
-				br
-				input(type='submit',value='Find')
-		li Create company
-			form(method="post", action='/companies')
-				input(type='text',name="acc", placeholder='Please enter your account here' value='company@gogo')
-				br
-				input(type='text',name="pwd", placeholder='Please enter your password here' value='company@gogo')
-				br
-				input(type='submit',value='Create')
-		li Delete company
-			form(method="post", action='/companies')
-				input(type="hidden" name="_method" value="delete")
-				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
-				button(type='submit') Delete
-		li Update company
-			form(method="post", action='/companies')
-				input(type="hidden" name="_method" value="put")
-				input(type='text',name="acc", placeholder='Please enter your password here' value='company')
-				button(type='submit') Update
-	
+			a(href="/companies") Companies
+		li 
+			a(href="/talents") Talents
+		
 	h2 Others
 	ul
 		li 

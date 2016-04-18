@@ -12,3 +12,11 @@ xxx.jade
 #Other
 http://nodeguide.com/style.html
 http://rammusxu.logdown.com/posts/708477-nodejs-naming-style
+
+# Mongoose
+enum: ["One", "Two", "ThreeForUpperCase"]
+
+model name = lowerCase
+module.exports = mongoose.model('company', companySchema);
+
+schema name = lower_case

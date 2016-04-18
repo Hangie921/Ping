@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 // module
-var CompanyProfile = require('../module/schema/profile.js').CompanyProfile;
+var TalentProfile = require('../module/schema/profile.js').TalentProfile;
 
 // pinglib
 var pinglib = require('pinglib');
@@ -12,21 +12,21 @@ var PingUser = pinglib.User;
 var UserService = pinglib.UserService;
 
 // varaiables
-var routerName = 'companies';
+var routerName = 'talents';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
 router.get(url + '/:name', function(req, res) {
     console.log("msg", req.params.name);
-    CompanyProfile.findOne({ name: req.params.name }, function(err, company) {
+    TalentProfile.findOne({ name: req.params.name }, function(err, talent) {
         if (err) console.log(err);
-        console.log(company);
-        res.json(company);
+        console.log(talent);
+        res.json(talent);
     })
 });
 
 router.post(url + '/:name/edit', function(req, res) {
 
-    CompanyProfile.findOne({ name: req.params.name }, function(err, originCompany) {
+    TalentProfile.findOne({ name: req.params.name }, function(err, originCompany) {
         if (err) console.log(err);
 
 
@@ -38,14 +38,14 @@ router.post(url + '/:name/edit', function(req, res) {
         }
         // originCompany.culture = ["Sleepy"];
         console.log("originCompany", originCompany);
-        CompanyProfile.update({ _id: originCompany._id }, originCompany, function(err, status) {
+        TalentProfile.update({ _id: originCompany._id }, originCompany, function(err, status) {
             // if change
             // { ok: 1, nModified: 1, n: 1 }
             // if not change
             // { ok: 0, n: 0, nModified: 0 }
             // get data but not change
             // { ok: 1, nModified: 0, n: 1 }
-            console.log("company", status);
+            console.log("talent", status);
             res.json(status);
 
         })
@@ -53,8 +53,8 @@ router.post(url + '/:name/edit', function(req, res) {
 });
 
 router.get(url, function(req, res) {
-    CompanyProfile.find(function(err, companies) {
-        res.render('companies', { companies: companies });
+    TalentProfile.find(function(err, talents) {
+        res.render('talents', { talents: talents });
     })
 });
 
@@ -69,10 +69,10 @@ router.get(urlApi, function(req, res) {
 
     // Test Case
     UserService.getUser(user, function(data) {
-        var ret = data.values[0].custom._company;
+        var ret = data.values[0].custom._talent;
         // res.json(ret);
-        CompanyProfile.findById(ret, function(err, company) {
-            res.json(company);
+        TalentProfile.findById(ret, function(err, talent) {
+            res.json(talent);
         })
     });
 

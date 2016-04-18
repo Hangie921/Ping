@@ -1,7 +1,8 @@
+p=users
 each user in users
 	ul
 		li
-			a(href='../users/'+user.acc) #{user.acc}
+			a(href='../users/'+user.email) #{user.email}
 		li=user.pwd
-		li=user.mem_type
+		li=JSON.stringify(user.custom)
 		li=user._id
