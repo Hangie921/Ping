@@ -20,29 +20,36 @@ var routerName = 'users';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
 
-router.get(url, function(req, res) {
-    PingUser.find(function(err, users) {
-        if (err) console.log(err);
-        res.render(routerName, { users: users });
-    });
+router.get(url, function(req, res, next) {
+    PingUser
+        .find()
+        .exec(function(err, users) {
+            if (err) return next(err);
+            if (users.length < 1) {
+                return next(new Error('failed to find user'));
+            }
+            res.render(routerName, { users: users });
+        });
 });
 
+// @Useless
 router.get(url + '/new', function(req, res) {
     res.render(routerName + '_new');
 });
 
+// @Useless
 router.get(url + '/:id', function(req, res) {
     console.log(req.params.id);
     var returnString = `<button> <a href="${req.params.id}/edit">Edit <a></button>`;
     res.send(req.params.id + returnString);
 });
 
-//  @Feature: 可以放更改密碼或個人資料的東西
+// @Useless 可以放更改密碼或個人資料的東西
 router.get(url + '/:id/edit', function(req, res) {
     res.send('<h1>Edit ' + req.params.id + '</h1><input type="text",name="mem_pwd" placeholder="Please enter your password here">' + '<br><button> Update </button>');
 });
 
-// @Feature送出資料後,做db操作
+// @Useless 送出資料後,做db操作
 router.put(url + '/:id/edit', function(req, res) {
     console.log(`put #{req.params.id}/edit`);
 });
@@ -90,23 +97,28 @@ function createUser(acc, pwd, type, callback) {
 
 }
 
-router.post(url, function(req, res) {
+router.post(url, function(req, res, next) {
     var acc = req.body.acc,
         pwd = req.body.pwd,
         type = req.body.member_type;
 
     createUser(acc, pwd, type, function(err) {
-        if (err)
-            console.log("createUserAndCompany", err);
+
+        if (err) return next(err);
+        if (users.length < 1) {
+            return next(new Error('ERROR createUser(acc, pwd, type, function(err)'));
+        }
         res.redirect('/test');
     });
 
 });
 
+// @Useless
 router.put(url, function(req, res) {
     res.send("This is PUT");
 });
 
+// @Useless
 router.delete(url, function(req, res) {
     res.send("This is Delete");
 });
@@ -115,11 +127,6 @@ router.delete(url, function(req, res) {
 // APIs
 /////////////////////////////
 router.get(urlApi, function(req, res) {
-    // PingUser.find(function(err, users) {
-    //     console.log(users);
-    //     if (err) console.log(err);
-    //     res.json(users);
-    // });
     PingUser
         .find()
         .exec(function(err, users) {

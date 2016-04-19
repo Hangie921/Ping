@@ -11,41 +11,40 @@ var methodOverride = require('method-override');
 var mongoose = require("mongoose"),
     dbURI = 'mongodb://localhost/ping',
     db = mongoose.connection;
+mongoose.set('debug', true);
 // mongoose.createConnection("mongodb://localhost/ping");
 
 // 0 = disconnected
 // 1 = connected
 // 2 = connecting
 // 3 = disconnecting
-// console.log('connection.readyState =', mongoose.connection.readyState);
 
 db.on('connecting', function() {
-    console.log('connecting to MongoDB...');
-    console.log('connection.readyState =', mongoose.connection.readyState);
+    console.log('connecting to MongoDB...', mongoose.connection.readyState);
 });
 
 db.on('error', function(error) {
-    console.error('Error in MongoDb connection: ' + error);
+    console.error('Error in MongoDb connection: ' + error, mongoose.connection.readyState);
     mongoose.disconnect();
-    console.log('connection.readyState =', mongoose.connection.readyState);
 });
 db.on('connected', function() {
-    console.log('MongoDB connected!');
-    console.log('connection.readyState =', mongoose.connection.readyState);
+    console.log('MongoDB connected!', mongoose.connection.readyState);
 });
 db.once('open', function() {
-    console.log('MongoDB connection opened!');
-    console.log('connection.readyState =', mongoose.connection.readyState);
+    console.log('MongoDB connection opened!', mongoose.connection.readyState);
 });
 db.on('reconnected', function() {
-    console.log('MongoDB reconnected!');
-    console.log('connection.readyState =', mongoose.connection.readyState);
+    console.log('MongoDB reconnected!', mongoose.connection.readyState);
 });
 db.on('disconnected', function() {
-    console.log('MongoDB disconnected!');
-    console.log('connection.readyState =', mongoose.connection.readyState);
+    console.log('MongoDB disconnected!', mongoose.connection.readyState);
 });
-mongoose.connect(dbURI, { server: { auto_reconnect: true } });
+mongoose.connect(dbURI, {
+    server: {
+        auto_reconnect: true,
+        // socketOptions: { socketTimeoutMS: 1000 }
+    }
+});
 
 var app = express();
 
@@ -82,14 +81,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 如果要用全域的middleware要放在router setting前面
 app.use(function(req, res, next) {
     console.log("db.readyState", db.readyState);
-    next();
+
+    // @Checkpoint 可以只在做DB操作時再檢查
+    if (db.readyState !== 1) {
+        next(new Error('db.readyState !== 1'));
+    } else {
+        next();
+    }
 });
+
 
 app.use(require('./routes'));
 
 // 如果routes沒有處理到的話，送出err
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    var err = new Error('Not Found', 404);
     err.status = 404;
     next(err);
 });
@@ -99,7 +105,6 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
-        console.log("in error");
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
