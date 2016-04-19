@@ -2,16 +2,17 @@ include ../modules/head
 		link(rel="stylesheet"  href="/css/dashboard.css")
 	body.dashboard
 		-
-			var type;
-			if(typeof user.custom == 'object'){
-				if(user.custom._profile.type == 'Company'){
-					type = 'company';	
-				}else if(user.custom._profile.type == 'Talent'){
-					type = 'talent';	
-				}
-			}else{
-				type = 'default';
-			}
+			var type = user.custom._profile.type;
+			var email = user.custom._profile.name;
+			// if(typeof user.custom == 'object'){
+			// 	if(user.custom._profile.type == 'Company'){
+			// 		type = 'company';	
+			// 	}else if(user.custom._profile.type == 'Talent'){
+			// 		type = 'talent';	
+			// 	}
+			// }else{
+			// 	type = 'default';
+			// }
 		block main_menu
 			include ../modules/menu.jade
 				//- @Todo(20160414): 判斷user.custom裡面是不是有_company或_talent

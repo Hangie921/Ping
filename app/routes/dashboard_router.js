@@ -14,7 +14,7 @@ router.get('/dashboard', function(req, res, next) {
         }
 
         console.log(__filename, req.session.user);
-        res.render('profile', {
+        res.render('dashboard', {
             user: req.session.user
         });
     })

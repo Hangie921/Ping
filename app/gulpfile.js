@@ -11,8 +11,8 @@ var sourcemaps = require("gulp-sourcemaps");
 gulp.task("develop",function(){ //shut and restart the server
 	nodemon({
 		script:'app.js',
-		ext:'jade js',
-		tasks:['lint','sass'],
+		ext:'jade js scss',
+		tasks:['sass','lint'],
 		ignore :['node_modules/','bin/'],
 		env : {'NODE_ENV':'development'} 
 	}).on('restart',function(){
@@ -63,7 +63,7 @@ gulp.task('default',function(){
 		gulp.run('lint');
 	});
 
-	gulp.watch('public/stylesheets/sass/*.scss',function(){
+	gulp.watch('public/stylesheets/sass/*/*.scss',function(){
 		gulp.run('sass');
 	})
 });

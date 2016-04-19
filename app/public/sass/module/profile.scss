@@ -3,7 +3,14 @@
 
 
 .profile{ 
-	font-size: $profile_basic_font_size;
+
+	font-size: $profile_basic_font_size; //18px
+	& .menu_container{
+		font-size: $base_font_size; //16px
+		& .btn{
+			font-size: 14px;
+		}
+	}
 	&.view{ // To mark the page as view mode
 		h1{
 			font-size: $profile_h1_font_size;
@@ -49,7 +56,7 @@
 		}// end of the .banner
 		
 		.comp_info{
-			& div{
+			& .container div{
 				box-sizing:border-box;
 			}
 			& .detail{
@@ -137,6 +144,7 @@
 				}
 			}
 			& hr{
+				margin: 0;
 				width: 100%;
 				border-top:1px solid $grayscale_light_cl;
 			}
@@ -146,8 +154,8 @@
 					color:$third_cl;
 				}
 				& ul{
-					padding: 5px 0px 50px;
-					margin-top: 15px;
+					padding: 5px 0px 40px;
+					margin-top: 10px;
 					& .tag{
 						display:inline-block;
 						box-sizing:border-box;
@@ -168,6 +176,9 @@
 			}
 			& .tec{
 				padding-left: 30px;
+				.tag{
+					background-color:$tag_bg;
+				}
 			}
 
 		}//end of the .comp_info

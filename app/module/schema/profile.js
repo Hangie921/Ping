@@ -8,15 +8,15 @@ var Profile = mongoose.model('profile', new mongoose.Schema({
 
 var CompanyProfile = Profile.discriminator('Company',
     new mongoose.Schema({
-        name: { type: String, unique: true },
+        name: { type: String, unique: true ,default:"Ping"},
         pic: String,
-        description: { type: String, default: "Nice Company" },
-        size: String,
-        industry: String,
-        establish_year: String,
-        location: { type: String, default: "TW" },
-        culture: { type: Array, default: ["Fun in life"] },
-        technology: Array,
+        description: { type: String, default: "Walter hahahahah Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos rerum maiores accusamus enim unde distinctio? Assumenda suscipit vitae, quia enim consequatur! Neque animi, omnis officiis, porro rerum nemo error vitae!" },
+        size: {type:String, default:"10-25"},
+        industry: {type:String,default:"Technolegy"},
+        establish_year: {type:String, default:2014},
+        location: { type: String, default: "Taipei,Taiwan" },
+        culture: { type: Array, default: ["Fun in life","HoHoHo","Banana","Kumamon"] },
+        technology: {type:Array, default:["Pokemon","Spy","Beer","Holiday","Javascipt","PHP"]},
         links: Array
     }, options));
 

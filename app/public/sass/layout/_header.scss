@@ -61,6 +61,8 @@
 			}
 
 		}
+
+		
 		& .menu{
 			position: absolute;
 			z-index: -3;
@@ -70,7 +72,13 @@
 			// transition: all .3s;
 			display:none;
 			& .menu_item{
-				padding: 0 0 0 62px;
+				& a{
+					width: 100%;
+					// text-align:center;
+					line-height:0px;
+					padding-left: 65px;
+				}
+				// padding: 0 0 0 43px;
 				line-height:41px;
 				text-align:left;
 				width: 100%;

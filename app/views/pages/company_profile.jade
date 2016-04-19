@@ -2,16 +2,8 @@ include ../modules/head
 		link(rel="stylesheet"  href="/css/profile.css")
 	body.profile.view
 		-
-			var type;
-			if(typeof user.custom == 'object'){
-				if(user.custom._profile.type == 'Company'){
-					type = 'company';	
-				}else if(user.custom._profile.type == 'Talent'){
-					type = 'talent';	
-				}
-			}else{
-				type = 'default';
-			}
+			var profile = user.custom._profile;
+			var type = user.custom._profile.type;
 		block main_menu
 			include ../modules/menu.jade
 		block content
@@ -25,18 +17,18 @@ include ../modules/head
 					.container
 						.detail.pull_left.clearfix
 							.location.base_white
-								span.lnr-map-marker.lnr Taipei,Taiwan
+								span.lnr-map-marker.lnr=profile.location
 							.details
 								ul
 									li 
 										span.lnr.lnr-users
-										span.detail_content 10-20
+										span.detail_content=profile.size
 									li 
 										span.lnr.lnr-apartment
-										span.detail_content 2014
+										span.detail_content=profile.establish_year
 									li 
 										span.lnr.lnr-tag
-										span.detail_content Technology
+										span.detail_content #{profile.industry}
 						.social_icons.pull_right
 							ul
 								li.round_container
@@ -51,23 +43,22 @@ include ../modules/head
 						.culture.pull_left
 							span.title Company Culture
 								ul
-									li.tag.base_white_bg.grayscale_cl Coffee
-									li.tag.base_white_bg.grayscale_cl Beer
-									li.tag.base_white_bg.grayscale_cl Banana
-									li.tag.base_white_bg.grayscale_cl Kumamon
-									li.tag.base_white_bg.grayscale_cl Ichiro
+									for culture in profile.culture
+										li.tag.base_white_bg.grayscale_cl=culture
+										//- li.tag.base_white_bg.grayscale_cl Beer
+										//- li.tag.base_white_bg.grayscale_cl Banana
+										//- li.tag.base_white_bg.grayscale_cl Kumamon
+										//- li.tag.base_white_bg.grayscale_cl Ichiro
 						.tec.pull_right
 							span.title Company Technology
 								ul
-									li.tag.base_white.grayscale_cl_bg Pokemon
-									li.tag.base_white.grayscale_cl_bg Spy
-									li.tag.base_white.grayscale_cl_bg Beer
-									li.tag.base_white.grayscale_cl_bg Holiday
+									for technology in profile.technology
+										li.tag.base_white=technology
 				section.company_instro.base_white_bg
 					.container
 						.text.we_are
 							h2 Who We Are
-							p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat sit facilis, necessitatibus quo laboriosam itaque inventore quas similique qui commodi eius placeat optio, eaque aliquam, nobis at repellendus nisi ab.
+							p=profile.description
 						.text.we_do
 							h2 What We Do
 							p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur nisi, tempore recusandae explicabo, a iure laboriosam mollitia quos, perferendis tempora rerum voluptate doloribus nihil. Quos quam cum totam molestias assumenda.

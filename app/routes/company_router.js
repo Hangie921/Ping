@@ -16,11 +16,13 @@ var routerName = 'companies';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
 router.get(url + '/:name', function(req, res) {
-    console.log("msg", req.params.name);
+    console.log(__filename,"msg", req.params.name);
     CompanyProfile.findOne({ name: req.params.name }, function(err, company) {
         if (err) console.log(err);
-        console.log(company);
-        res.json(company);
+        console.log(__filename,req.session.user);
+        res.render('company_profile',{
+            user: req.session.user
+        });
     })
 });
 

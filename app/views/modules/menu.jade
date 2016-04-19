@@ -1,5 +1,6 @@
 //- This file needs member role from DB to show the different menu function list 
 
+
 header.ping_header
 	.container
 		.logo.pull_left
@@ -23,15 +24,15 @@ header.ping_header
 	.container
 		-
 			console.log("jade",type);
-		if (type == "company")
+		if (type == "Company")
 			ul.menu.pull_left
 				li.menu_item.menu_item_has_child
 					a(href='#') Profile
 					ul.sub_menu
 						li.menu_item 
-							a(href='/profile') View Profile
+							a(href='/companies/'+user.email) View&nbspProfile
 						li.menu_item 
-							a(href='#') Edit Profile
+							a(href='#') Edit&nbspProfile
 				li.menu_item 
 					a(href='#') Find Pingers
 				li.menu_item 
@@ -47,8 +48,8 @@ header.ping_header
 							a(href='#') More2
 
 			.pull_right
-				a.btn.pri_cl_bg.base_white(href='#') Edit Profile
-		else if (type == "talent")
+				a.btn.pri_cl_bg.base_white(href='/companies/'+user.email+'/edit') Edit Profile
+		else if (type == "Talent")
 			ul.menu
 				li.menu_item Awards/Races
 				li.menu_item Project History
