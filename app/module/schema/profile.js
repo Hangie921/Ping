@@ -2,11 +2,11 @@ var mongoose = require("mongoose");
 
 var options = { discriminatorKey: 'type' };
 
-Profile = mongoose.model('profile', new mongoose.Schema({
+var Profile = mongoose.model('profile', new mongoose.Schema({
     time: Date
 }, options));
 
-CompanyProfile = Profile.discriminator('Company',
+var CompanyProfile = Profile.discriminator('Company',
     new mongoose.Schema({
         name: { type: String, unique: true },
         pic: String,
@@ -20,7 +20,7 @@ CompanyProfile = Profile.discriminator('Company',
         links: Array
     }, options));
 
-TalentProfile = Profile.discriminator('Talent',
+var TalentProfile = Profile.discriminator('Talent',
     new mongoose.Schema({
         name: String,
         religion: { type: String, default: "Christianity" },

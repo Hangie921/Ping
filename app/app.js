@@ -8,21 +8,44 @@ var session = require('express-session');
 var methodOverride = require('method-override');
 
 // mongodb setup
-var mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/ping");
+var mongoose = require("mongoose"),
+    dbURI = 'mongodb://localhost/ping',
+    db = mongoose.connection;
+// mongoose.createConnection("mongodb://localhost/ping");
 
 // 0 = disconnected
 // 1 = connected
 // 2 = connecting
 // 3 = disconnecting
-db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('connected', function() {
-    console.log('connected', mongoose.connection.readyState);
+// console.log('connection.readyState =', mongoose.connection.readyState);
+
+db.on('connecting', function() {
+    console.log('connecting to MongoDB...');
+    console.log('connection.readyState =', mongoose.connection.readyState);
 });
-db.once('disconnected', function() {
-    console.log('disconnected', mongoose.connection.readyState);
+
+db.on('error', function(error) {
+    console.error('Error in MongoDb connection: ' + error);
+    mongoose.disconnect();
+    console.log('connection.readyState =', mongoose.connection.readyState);
 });
+db.on('connected', function() {
+    console.log('MongoDB connected!');
+    console.log('connection.readyState =', mongoose.connection.readyState);
+});
+db.once('open', function() {
+    console.log('MongoDB connection opened!');
+    console.log('connection.readyState =', mongoose.connection.readyState);
+});
+db.on('reconnected', function() {
+    console.log('MongoDB reconnected!');
+    console.log('connection.readyState =', mongoose.connection.readyState);
+});
+db.on('disconnected', function() {
+    console.log('MongoDB disconnected!');
+    console.log('connection.readyState =', mongoose.connection.readyState);
+});
+mongoose.connect(dbURI, { server: { auto_reconnect: true } });
 
 var app = express();
 
@@ -56,21 +79,27 @@ app.use(methodOverride(function(req, res) {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 如果要用全域的middleware要放在router setting前面
+app.use(function(req, res, next) {
+    console.log("db.readyState", db.readyState);
+    next();
+});
+
 app.use(require('./routes'));
 
-// catch 404 and forward to error handler
+// 如果routes沒有處理到的話，送出err
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
-// error handlers
 
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
+        console.log("in error");
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -89,7 +118,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
+
 app.listen(3001, function() {
-    console.log(app.get('env'));
-    console.log("Express server is running on port 3001");
+    console.log("Express server is running on port 3001:" + app.get('env'));
 });
