@@ -1,6 +1,6 @@
 include ../modules/head
 		link(rel="stylesheet"  href="/css/profile.css")
-	body.profile.edit(ng-app='edit_profile',ng-controller='form_controller')
+	body.profile.edit
 		-
 			var profile = user.custom._profile;
 			var type = user.custom._profile.type;
@@ -21,7 +21,7 @@ include ../modules/head
 			.content_container
 				.container
 					h2 Edit Profile
-					form(id='company_branding',action='')
+					form(id='company_branding',action='',enctype='multipart/form-data')
 						section.profile_setting.edit_section
 							.title
 								h3 Profile Setting
@@ -30,10 +30,10 @@ include ../modules/head
 							.input_container
 								.input_text_container
 									label Company Name
-									input(type='text',value='#{profile.name}').input
+									input#profile_name(type='text',value='#{profile.name}',name='profile_name').input
 								.input_text_container
 									label Company Tagline
-									input(type='text').input
+									input#profile_tagline(type='text',name='profile_tagline').input
 						section.displayed_img.edit_section
 							.title
 								h3 Displayed Images
@@ -42,14 +42,16 @@ include ../modules/head
 									.round_container
 										img(src='../../img/profile_img/profile_edit_img.jpg')
 									.btn_container
+										//- input(text='file',name='img')
 										span Upload Your Profile Picture
 										a.btn.btn_pri UPLOAD&nbspIMAGE
 										span.sec_cl Image Formats: JPEG,GIF,PNG
 								.cover_photo_container
 									//- img(alt='cover photo')
-								a.btn.btn_pri.cancel cancel
-								a.btn.btn_pri.save.disable save&nbspchanges
+								a.btn.btn_pri.cancel(href='/dashboard') cancel
+								a.btn.btn_pri.save#update_btn.disable(data-router='/companies/'+user.email+'/edit',href='javascript:void(0)') save&nbspchanges
 					
+
 					//- form(id='details_description',action='')
 					//- 	section.company_info.edit_section
 					//- 		.title

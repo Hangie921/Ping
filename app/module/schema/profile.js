@@ -8,9 +8,10 @@ var Profile = mongoose.model('profile', new mongoose.Schema({
 
 var CompanyProfile = Profile.discriminator('Company',
     new mongoose.Schema({
-        name: { type: String, unique: true ,default:"Ping"},
+        username: { type: String, unique: true ,default:"Ping"},
         pic: String,
         description: { type: String, default: "Walter hahahahah Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos rerum maiores accusamus enim unde distinctio? Assumenda suscipit vitae, quia enim consequatur! Neque animi, omnis officiis, porro rerum nemo error vitae!" },
+        tagline: { type: String, default: "ahaha is good"},
         size: {type:String, default:"10-25"},
         industry: {type:String,default:"Technolegy"},
         establish_year: {type:String, default:2014},
