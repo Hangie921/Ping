@@ -1,6 +1,6 @@
 //Initial the universal style
 
-[type="text"],[type='email'],[type='password'],[type='textarea']{
+[type="text"],[type='email'],[type='password'],[type='textarea'],textarea{
 	outline:none;
 	border-radius:$input_border_radius;
 	min-height:$input_height_base;

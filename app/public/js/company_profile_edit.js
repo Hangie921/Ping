@@ -53,8 +53,26 @@ $(document).ready(function(){
 		e.preventDefault();
 		// console.log($(this).serialize());
 		var formData = new FormData($('#company_branding')[0]);
-		console.log($('#company_branding')[0]);
 
+		$.ajax({
+	        url: $('#update_btn').attr("data-router"),  //Server script to process data
+	        type: 'POST',
+	        //Ajax events
+	        
+	        // Form data
+	        data: formData,
+	        //Options to tell jQuery not to process data or worry about content-type.
+	        cache: false,
+	        crossDomain: true,
+	        contentType: "multipart/form-data",
+	        processData: false
+
+	    }).done(function(rdata){
+			alert("done");
+			location.reload();
+		}).fail(function(error){
+			console.log('failed');
+		});
 
 		// $.ajax({
 		// 	type:'POST',

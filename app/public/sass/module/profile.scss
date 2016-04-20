@@ -326,7 +326,7 @@
 				box-sizing:border-box;
 				padding-left: 76px;
 				line-height:50px;
-				border-radius: $base_border_radius;
+				border-radius: 0px $base_border_radius $base_border_radius 0px;
 				& h3{
 					
 				}
@@ -434,8 +434,133 @@
 				}
 				
 				
-			}
+			}//end of the display img
 
+
+			.company_info{
+				.input_container{
+					padding: 40px 207px 40px 73px;
+					& .row{
+						margin-bottom: 22px;
+						overflow: visible;
+						position: relative;
+						&.industry{
+							& .select_container{
+								height: 50px;
+								margin-top: 24px;
+								width: 560px;
+								& select{
+									height: 100%;
+								}
+								& label{
+									position: absolute;
+									top: 2px;
+									left: 1px;
+									color:$grayscale_dark_cl;
+									font-size: 14px;							
+								}
+							}
+						}//end of the .industry
+						&.location{
+							.select_container{
+								margin-top: 24px;
+								display:inline-block;
+								margin-right: 18px;
+								height: 50px;
+								width: 204px;
+								& select{
+									height: 100%;
+								}
+								& label{
+									position: absolute;
+									top: 2px;
+									left: 1px;
+									color:$grayscale_dark_cl;
+									font-size: 14px;							
+								}
+							}
+						}//end of the .location
+
+						&.size{
+							& .select_container{
+								height: 50px;
+								margin-top: 24px;
+								width: 204px;
+								& select{
+									height: 100%;
+								}
+								& label{
+									position: absolute;
+									top: 2px;
+									left: 1px;
+									color:$grayscale_dark_cl;
+									font-size: 14px;							
+								}
+							}
+						}//end of .size
+
+						&.years{
+							& .select_container{
+								height: 50px;
+								margin-top: 24px;
+								width: 204px;
+								& select{
+									height: 100%;
+								}
+								& label{
+									position: absolute;
+									top: 2px;
+									left: 1px;
+									color:$grayscale_dark_cl;
+									font-size: 14px;							
+								}
+							}
+						}//end of .years
+						
+
+
+
+					}//end of the .select_container
+				}//end of the .input_container
+			}//end of the .company_info
+			
+			.company_instro{
+				.input_container{
+					padding: 40px 207px 40px 73px;
+					.input_text_container{
+						max-width:initial;
+						width: 558px;
+						height: 321px;
+						margin-bottom: 50px;
+						& textarea{
+							width: 100%;
+							height: 100%;
+						}
+					}
+
+					
+					& > .btn{
+						text-transform: uppercase;
+						display:inline-block;
+						vertical-align: top;
+						width: 149px;
+						height: 50px;
+						margin-right:10px;
+						font-size: $base_font_size;
+						&.cancel{
+							background-color: $grayscale_cl;
+						}
+						&.save{
+							width: 172px;
+						}
+						&.save.disable{
+							background-color:#ADC8C5;
+						}
+					}
+
+
+				}
+			}//end of the .company_instro
 		}// end of the .content_container
 		
 
