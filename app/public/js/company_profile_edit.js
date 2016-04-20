@@ -15,22 +15,23 @@
 // }
 
 $(document).ready(function(){
+	var btn = $("#update_btn");
 	$("#update_btn").click(function(e){
-		e.preventDefault();
 
+		e.preventDefault();
 		$.ajax({
 			type:'POST',
 			url:$(this).attr("data-router"),
 			data:{
-				name:$('#profile_name').val(),
+				username:$('#profile_name').val(),
 				tagline:$('#profile_tagline').val()
 			},
 			dataType:'json'
 		}).done(function(rdata){
-			console.log("done");
-			// location.href=$(this).attr("href");
+			alert("done");
+			location.reload();
 		}).fail(function(error){
-			alert('failed');
+			console.log('failed');
 		});
 	});
 });

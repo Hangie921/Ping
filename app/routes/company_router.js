@@ -17,14 +17,19 @@ var url = '/' + routerName;
 var urlApi = '/api' + url;
 router.get(url + '/:name', function(req, res, next) {
     console.log(__filename, "msg", req.params.name);
-    CompanyProfile.findOne({ name: req.params.name }, function(err, company) {
-        if (err) return next(err);
-        console.log(__filename, req.session.user);
-        res.render('company_profile', {
-            user: req.session.user,
-            company: company
-        });
-    })
+    PingUser.findOne({ name: req.params.name })
+        .exec(function(err, user) {
+
+            CompanyProfile.findById(user.custom._profile)
+                .exec(function(err, company) {
+                    // res.json(company);
+                    res.render('company_profile', {
+                        user: req.session.user,
+                        company: company
+                    });
+                });
+
+        })
 });
 
 router.get(url + '/:name/edit', function(req, res) {
@@ -37,7 +42,7 @@ router.get(url + '/:name/edit', function(req, res) {
 router.post(url + '/:name/edit', function(req, res) {
     console.log(req.get('Content-Type'));
     var resJson = { code: 200, data: {} };
-    CompanyProfile.findOne({ name: req.params.name }, function(err, originCompany) {
+    CompanyProfile.findOne({ username: req.session.user.custom._profile.username }, function(err, originCompany) {
         if (err) next(new Error('CompanyProfile.findOne()'));
 
         // update from req.body
@@ -55,6 +60,7 @@ router.post(url + '/:name/edit', function(req, res) {
             // get data but not change
             // { ok: 1, nModified: 0, n: 1 }
             resJson.data.company = status;
+            req.session.user.custom._profile = originCompany;
             res.json(resJson);
 
         })
