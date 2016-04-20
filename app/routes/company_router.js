@@ -15,29 +15,53 @@ var UserService = pinglib.UserService;
 var routerName = 'companies';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
+
 router.get(url + '/:name', function(req, res, next) {
-    console.log(__filename, "msg", req.params.name);
+
+    // user router's name to find a User , and find his company
     PingUser.findOne({ name: req.params.name })
         .exec(function(err, user) {
+            if (err) {
+                next(new Error('CompanyProfile.findOne()'));
 
-            CompanyProfile.findById(user.custom._profile)
-                .exec(function(err, company) {
-                    // res.json(company);
-                    res.render('company_profile', {
-                        user: req.session.user,
-                        company: company
-                    });
+            } else if (user == null) {
+                res.render('error', {
+                    message: 'Can\'t find this user',
+                    error: {}
                 });
 
+            } else {
+
+                CompanyProfile.findById(user.custom._profile)
+                    .exec(function(err, company) {
+                        // res.json(company);
+                        res.render('company_profile', {
+                            user: req.session.user,
+                            company: company
+                        });
+                    });
+            }
         })
 });
 
 router.get(url + '/:name/edit', function(req, res) {
-    res.render("company_profile_edit", {
-        user: req.session.user
-    });
-});
+    var section = req.query.section;
+    if (section === "detail") {
+        res.render("company_profile_edit", {
+            user: req.session.user
+        });
 
+    } else if (section === "social") {
+        res.render("company_profile_edit", {
+            user: req.session.user
+        });
+
+    } else {
+        res.render("company_profile_edit", {
+            user: req.session.user
+        });
+    }
+});
 
 router.post(url + '/:name/edit', function(req, res) {
     console.log(req.get('Content-Type'));
