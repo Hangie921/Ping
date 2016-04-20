@@ -15,16 +15,24 @@ var UserService = pinglib.UserService;
 var routerName = 'companies';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
-router.get(url + '/:name', function(req, res) {
-    console.log(__filename,"msg", req.params.name);
+router.get(url + '/:name', function(req, res, next) {
+    console.log(__filename, "msg", req.params.name);
     CompanyProfile.findOne({ name: req.params.name }, function(err, company) {
-        if (err) console.log(err);
-        console.log(__filename,req.session.user);
-        res.render('company_profile',{
-            user: req.session.user
+        if (err) return next(err);
+        console.log(__filename, req.session.user);
+        res.render('company_profile', {
+            user: req.session.user,
+            company: company
         });
     })
 });
+
+router.get(url + '/:name/edit', function(req, res) {
+    res.render("company_profile_edit", {
+        user: req.session.user
+    });
+});
+
 
 router.post(url + '/:name/edit', function(req, res) {
 
@@ -34,7 +42,7 @@ router.post(url + '/:name/edit', function(req, res) {
 
         console.log("msg", req.body);
         for (key in req.body) {
-            if(originCompany[key])
+            if (originCompany[key])
                 originCompany[key] = req.body[key];
 
         }

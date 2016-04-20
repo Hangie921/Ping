@@ -25,7 +25,6 @@ router.get('/login', function(req, res, next) {
 
 
 router.post('/login', upload.single(), function(req, res, next) {
-    console.log("test0")
     var acc = req.body.mem_acc,
         pwd = req.body.mem_pwd;
 
@@ -37,7 +36,6 @@ router.post('/login', upload.single(), function(req, res, next) {
 
     var resJson = { code: 200 };
     // console.log("user= ", user);
-    console.log("test1")
         // console.log("s1",req.session.user)
         // UserService.getUser(user, function(data) {
     SessionService.login(req, res, user, function(data) {
@@ -69,7 +67,8 @@ router.post('/login', upload.single(), function(req, res, next) {
             req.session.error = 'Incorrect username or password';
             resJson.code = 404;
             res.json(resJson);
-            console.log("error")
+            console.log(__filename,resJson);
+            console.log("error");
                 // @Temp : 暫時show error, 之後改ajax, res.json(...)
                 // res.redirect('/');
         }

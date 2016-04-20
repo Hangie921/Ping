@@ -5,10 +5,10 @@ header.ping_header
 	.container
 		.logo.pull_left
 			a(href='/dashboard')
-				img(src='../img/logo.png',alt='logo')
+				img(src='../../img/logo.png',alt='logo')
 		.account.pull_right
 			.img_container.round_container
-				img(src='../img/profile_img.jpg',alt='profile')
+				img(src='../../img/profile_img.jpg',alt='profile')
 			a(href='#').btn Ping Studio
 				i(aria-hidden="true").fa.fa-chevron-down
 			ul.menu
@@ -32,7 +32,7 @@ header.ping_header
 						li.menu_item 
 							a(href='/companies/'+user.email) View&nbspProfile
 						li.menu_item 
-							a(href='#') Edit&nbspProfile
+							a(href='/companies/'+user.email+'/edit') Edit&nbspProfile
 				li.menu_item 
 					a(href='#') Find Pingers
 				li.menu_item 

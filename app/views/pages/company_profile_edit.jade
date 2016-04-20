@@ -1,0 +1,75 @@
+include ../modules/head
+		link(rel="stylesheet"  href="/css/profile.css")
+	body.profile.edit(ng-app='edit_profile',ng-controller='form_controller')
+		-
+			var profile = user.custom._profile;
+			var type = user.custom._profile.type;
+		script(type='text/javascript',src='../../js/company_profile_edit.js').
+		
+		block main_menu
+			include ../modules/menu.jade
+		block sideBar
+			.side_bar.base_white_bg.grayscale_dark_cl
+				ul.menu
+					li.menu_item Company Branding
+					li.menu_item Details/Description
+					li.menu_item Social Networks
+		block content
+			.content_container
+				.container
+					h2 Edit Profile
+
+					form(id='company_branding',action='')
+						section.profile_setting.edit_section
+							h3.title Profile Setting
+							.input_container
+								.input_text_container
+									label Company Name
+									input(type='text',value='#{profile.name}').input
+								.input_text_container
+									label Company Tagline
+									input(type='text').input
+						section.displayed_img.edit_section
+							h3.title Displayed Images
+							.input_container
+					a.btn cancel
+					a.btn save&nbspchanges
+					
+					//- form(id='details_description',action='')
+					//- 	section.company_info.edit_section
+					//- 		h3.title Company Information
+					//- 		.input_container
+					//- 			.input_text_container
+					//- 				label Industry
+					//- 				input(type='text',value='#{profile.industry}').input
+					//- 			.input_text_container
+					//- 				label Location
+					//- 				input(type='text',value='#{profile.location}').input
+					//- 				input(type='text',value='#{profile.location}').input
+					//- 			.input_text_container
+					//- 				label Company Size
+					//- 				input(type='text',value='#{profile.size}').input
+					//- 			.input_text_container
+					//- 				label Year of Establishment
+					//- 				input(type='text',value='#{profile.establish_year}').inputestablish_year
+					//- 	section.company_instro.edit_section
+					//- 		h3.title Introduce Your Company
+					//- 		.input_container
+					//- 			.input_text_container
+					//- 				label Who you are
+					//- 				input(type='textarea',value='#{profile.description}').input
+					//- 			.input_text_container
+					//- 				label What you do
+					//- 				input(type='textarea',value='#{profile.description}').input
+					//- a.btn cancel
+					//- a.btn save&nbspchanges
+	
+					//- form(id='social_network')
+					//- 	section.social_network.edit_section
+					//- 		h3.title Social Networks
+					//- a.btn cancel
+					//- a.btn save&nbspchanges
+
+
+
+		

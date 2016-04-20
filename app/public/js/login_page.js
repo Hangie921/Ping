@@ -13,7 +13,7 @@ $(document).ready(function(){
 		}).done(function(rdata){
 			location.href='/dashboard';
 		}).fail(function(error){
-			alert("failed!");
+			$("#feedback span").empty().val("帳號或密碼錯誤");
 		});
 	});
 

@@ -3,7 +3,6 @@
 
 
 .profile{ 
-
 	font-size: $profile_basic_font_size; //18px
 	& .menu_container{
 		font-size: $base_font_size; //16px
@@ -11,6 +10,9 @@
 			font-size: 14px;
 		}
 	}
+
+/// Start the .view mode
+
 	&.view{ // To mark the page as view mode
 		h1{
 			font-size: $profile_h1_font_size;
@@ -248,9 +250,75 @@
 
 	}// end of the .view class
 
+///================ Start the .edit mode =================
 
 	&.edit{ // To mark the page as edit mode
+		.side_bar{
+			display: inline-block;
+			vertical-align: top;
+			max-width:258px;
+			// display:table-column-group;
+			min-width:158px;
+			height: 100vh;
 
+			.menu{
+				background-color:$base_white;
+				height: auto;
+				width: 100%;
+				.menu_item{
+					height: 53px;
+					width: 100%;
+					&:hover{
+						background-color:$pri_cl;
+					}
+				}
+			}
+		}//end of the side_bar
+
+		.content_container{
+			display:inline-block;
+			vertical-align: top;
+			width: 55%;
+			.container{
+				padding-left: 0px;
+				width: 100%;
+			}
+			h2{
+				width: 100%;
+				font-size: $profile_h2_font_size;
+				font-family: $base_font_family;
+				font-weight: 900;
+				display: inline-block;
+				padding: 20px 0px 33px 41px;
+				border-radius: 0px $base_border_radius $base_border_radius 0px
+			}
+			.title{
+				font-size: 18px;
+				font-family: $base_font_family;
+				font-weight: 900;
+				background-color:$profile_edit_title_color;
+				height: 50px;
+				box-sizing:border-box;
+				padding-left: 76px;
+				line-height:50px;
+			}
+			.input_container{
+				padding: 40px 207px 40px 73px;
+				& .input_text_container{
+					margin-bottom: 9px;
+					max-width:100%;
+					input{
+						width: 100%;
+					}
+				}	
+			}
+
+		}// end of the .content_container
+		
+
+		
+
+	
 	}
 
 }// end of the .profile

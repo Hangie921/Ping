@@ -2,8 +2,8 @@ include ../modules/head
 		link(rel="stylesheet"  href="/css/profile.css")
 	body.profile.view
 		-
-			var profile = user.custom._profile;
-			var type = user.custom._profile.type;
+			var profile = company;
+			var type = company.type;
 		block main_menu
 			include ../modules/menu.jade
 		block content
