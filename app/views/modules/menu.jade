@@ -9,15 +9,15 @@ header.ping_header
 		.account.pull_right
 			.img_container.round_container
 				img(src='../../img/profile_img.jpg',alt='profile')
-			a(href='#').btn #{user.name}
+			a(href='#').btn #{user.custom._profile.username}
 				i(aria-hidden="true").fa.fa-chevron-down
 			ul.menu
 				li.menu_item
-					a(href='#') My Account
+					a(href='#') My&nbspAccount
 				li.menu_item
 					a(href='#') Settings
 				li.menu_item
-					a(href='#') Privacy Policy
+					a(href='#') Privacy&nbspPolicy
 				li.menu_item
 					a(href='/logout') Logout
 .menu_container
@@ -34,7 +34,7 @@ header.ping_header
 						li.menu_item 
 							a(href='/companies/'+user.email+'/edit') Edit&nbspProfile
 				li.menu_item 
-					a(href='#') Find Pingers
+					a(href='#') Find&nbspPingers
 				li.menu_item 
 					a(href='#') Projects
 				li.menu_item
@@ -48,11 +48,11 @@ header.ping_header
 							a(href='#') More2
 
 			.pull_right
-				a.btn.pri_cl_bg.base_white(href='/companies/'+user.email+'/edit') Edit Profile
+				a.btn.pri_cl_bg.base_white(href='/companies/'+user.email+'/edit') Edit&nbspProfile
 		else if (type == "Talent")
 			ul.menu
 				li.menu_item Awards/Races
-				li.menu_item Project History
+				li.menu_item Project&nbspHistory
 				li.menu_item
 					a(href='/logout') Logout
 

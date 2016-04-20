@@ -14,24 +14,57 @@
 
 // }
 
+function readURL(input,panelSelector) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $(panelSelector).attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
 $(document).ready(function(){
 	var btn = $("#update_btn");
-	$("#update_btn").click(function(e){
+	
 
-		e.preventDefault();
-		$.ajax({
-			type:'POST',
-			url:$(this).attr("data-router"),
-			data:{
-				username:$('#profile_name').val(),
-				tagline:$('#profile_tagline').val()
-			},
-			dataType:'json'
-		}).done(function(rdata){
-			alert("done");
-			location.reload();
-		}).fail(function(error){
-			console.log('failed');
-		});
+	//submit the #company_branding form
+	$("#update_btn").click(function(){
+		$('#company_branding').submit();
 	});
+
+	//addEvent listener 
+	$('#company_branding').submit(function(e){
+		e.preventDefault();
+		console.log($(this).serialize());
+		
+		// $.ajax({
+		// 	type:'POST',
+		// 	url:$(this).attr("data-router"),
+		// 	data:{
+		// 		username:$('#profile_name').val(),
+		// 		tagline:$('#profile_tagline').val(),
+		// 	},
+		// 	dataType:'json'
+		// }).done(function(rdata){
+		// 	alert("done");
+		// 	location.reload();
+		// }).fail(function(error){
+		// 	console.log('failed');
+		// });
+	});
+
+
+
+	//upload and prewatch the photo
+	$('.upload_photo_btn').click(function(){
+		$('#upload_photo').click();
+	});
+
+	$('#upload_photo').change(function(){
+		readURL(this,$('#photo'));
+	});
+
+
+
 });

@@ -328,7 +328,7 @@
 				line-height:50px;
 				border-radius: $base_border_radius;
 				& h3{
-					font-size: $large_font_size;
+					
 				}
 			}
 
@@ -381,6 +381,11 @@
 						padding-left: 39px;
 						display:inline-block;
 						vertical-align: top;
+						position: relative;
+						& .test{
+							position: absolute;
+							left: -9999px;
+						}
 						& span{
 							font-size: $base_input_font_size;
 							display:inline-block;
