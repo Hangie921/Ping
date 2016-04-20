@@ -35,28 +35,27 @@ router.get(url + '/:name/edit', function(req, res) {
 
 
 router.post(url + '/:name/edit', function(req, res) {
-
+    console.log(req.get('Content-Type'));
+    var resJson = { code: 200, data: {} };
     CompanyProfile.findOne({ name: req.params.name }, function(err, originCompany) {
-        if (err) console.log(err);
+        if (err) next(new Error('CompanyProfile.findOne()'));
 
-
-        console.log("msg", req.body);
+        // update from req.body
         for (key in req.body) {
             if (originCompany[key])
                 originCompany[key] = req.body[key];
-
         }
-        // originCompany.culture = ["Sleepy"];
-        console.log("originCompany", originCompany);
+
         CompanyProfile.update({ _id: originCompany._id }, originCompany, function(err, status) {
+            if (err) next(new Error('CompanyProfile.update()'));
             // if change
             // { ok: 1, nModified: 1, n: 1 }
             // if not change
             // { ok: 0, n: 0, nModified: 0 }
             // get data but not change
             // { ok: 1, nModified: 0, n: 1 }
-            console.log("company", status);
-            res.json(status);
+            resJson.data.company = status;
+            res.json(resJson);
 
         })
     })

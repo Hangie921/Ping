@@ -25,5 +25,9 @@ router.get('/', function(req, res, next) {
         res.redirect('/login');
     }
 });
+router.put('/', function(req, res, next) {
+	console.log("PUT: /");
+	res.json("I am in");
+});
 
 module.exports = router;

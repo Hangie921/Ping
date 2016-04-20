@@ -47,3 +47,29 @@ h1 Testing
 	ul
 		li 
 			a(href="/mail") Send Mail
+		li 
+			button#post_btn try url
+
+script(src='/js/jquery-2.2.3.js')
+script(type='text/javascript').
+	$(document).ready(function() {
+		$('#post_btn').click(function() {
+
+			var myData = new FormData();
+			myData.append("key", "value");
+			$.ajax({
+					url: "/123",
+					type: "PUT",
+					data: myData,
+					crossDomain: true,
+					contentType: "multipart/form-data",
+					processData: false,
+				})
+				.done(function response(data) {
+					console.log(data);
+				});
+		});
+	});
+
+
+
