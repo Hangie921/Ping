@@ -25,6 +25,21 @@ function readURL(input,panelSelector) {
 }
 
 $(document).ready(function(){
+
+	//modify the .focus of the sideBar
+
+	if($("body").hasClass("detail")){
+		$('.side_bar .menu a .menu_item').removeClass('focus');
+		$('.side_bar .menu a:nth-child(2) .menu_item').addClass('focus');
+	}else if($("body").hasClass("social")){
+		$('.side_bar .menu a .menu_item').removeClass('focus');
+		$('.side_bar .menu a:nth-child(3) .menu_item').addClass('focus');
+	}else{
+		$('.side_bar .menu a .menu_item').removeClass('focus');
+		$('.side_bar .menu a:nth-child(1) .menu_item').addClass('focus');
+	}
+
+
 	var btn = $("#update_btn");
 	
 
@@ -36,8 +51,11 @@ $(document).ready(function(){
 	//addEvent listener 
 	$('#company_branding').submit(function(e){
 		e.preventDefault();
-		console.log($(this).serialize());
-		
+		// console.log($(this).serialize());
+		var formData = new FormData($('#company_branding')[0]);
+		console.log($('#company_branding')[0]);
+
+
 		// $.ajax({
 		// 	type:'POST',
 		// 	url:$(this).attr("data-router"),

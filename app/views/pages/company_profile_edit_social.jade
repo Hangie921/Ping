@@ -1,16 +1,15 @@
 include ../modules/head
-		link(rel="stylesheet" , href="../../../css/profile.css")
-	body.profile.edit
+		link(rel="stylesheet"  href="/css/profile.css")
+	body.profile.edit.social
 		-
 			var profile = user.custom._profile;
 			var type = user.custom._profile.type;
-		script(type='text/javascript',src='../../../js/company_profile_edit.js').
+		script(type='text/javascript',src='../../js/company_profile_edit.js').
 		
 		block main_menu
 			include ../modules/menu.jade
 		block sideBar
 			include ../modules/sideBar.jade
-						
 		block content
 			.content_container
 				.container
@@ -18,7 +17,7 @@ include ../modules/head
 					form(id='company_branding',action='',enctype='multipart/form-data')
 						section.profile_setting.edit_section
 							.title
-								h3 Profile Setting
+								h3 Company&nbspInformation
 								a(href='#')
 									span.reminder i
 							.input_container
@@ -30,11 +29,11 @@ include ../modules/head
 									input#profile_tagline(type='text',name='profile_tagline').input
 						section.displayed_img.edit_section
 							.title
-								h3 Displayed Images
+								h3 Instroduce&nbspYour&nbspCompany
 							.input_container
 								.img_container
 									.round_container
-										img#photo(src='../../../img/profile_img/profile_edit_img.jpg')
+										img#photo(src='../../img/profile_img/profile_edit_img.jpg')
 									.btn_container
 										.test
 											input#upload_photo(type='file',name='img')

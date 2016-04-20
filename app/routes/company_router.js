@@ -52,12 +52,12 @@ router.get(url + '/:username', function(req, res, next) {
 router.get(url + '/:name/edit', function(req, res) {
     var section = req.query.section;
     if (section === "detail") {
-        res.render("company_profile_edit", {
+        res.render("company_profile_edit_detail", {
             user: req.session.user
         });
 
     } else if (section === "social") {
-        res.render("company_profile_edit", {
+        res.render("company_profile_edit_social", {
             user: req.session.user
         });
 

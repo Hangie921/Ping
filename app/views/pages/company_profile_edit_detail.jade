@@ -1,6 +1,6 @@
 include ../modules/head
 		link(rel="stylesheet"  href="/css/profile.css")
-	body.profile.edit
+	body.profile.edit.detail
 		-
 			var profile = user.custom._profile;
 			var type = user.custom._profile.type;
@@ -9,14 +9,7 @@ include ../modules/head
 		block main_menu
 			include ../modules/menu.jade
 		block sideBar
-			.side_bar.base_white_bg.grayscale_dark_cl
-				ul.menu
-					li.menu_item.lnr.lnr-smile.focus Company Branding
-						
-					li.menu_item.lnr.lnr-license Details/Description
-						
-					li.menu_item.lnr.lnr-earth Social Networks
-						
+			include ../modules/sideBar.jade
 		block content
 			.content_container
 				.container
@@ -24,7 +17,7 @@ include ../modules/head
 					form(id='company_branding',action='',enctype='multipart/form-data')
 						section.profile_setting.edit_section
 							.title
-								h3 Profile Setting
+								h3 Company&nbspInformation
 								a(href='#')
 									span.reminder i
 							.input_container
@@ -36,7 +29,7 @@ include ../modules/head
 									input#profile_tagline(type='text',name='profile_tagline').input
 						section.displayed_img.edit_section
 							.title
-								h3 Displayed Images
+								h3 Instroduce&nbspYour&nbspCompany
 							.input_container
 								.img_container
 									.round_container
