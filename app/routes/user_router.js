@@ -126,19 +126,18 @@ router.delete(url, function(req, res) {
 /////////////////////////////
 // APIs
 /////////////////////////////
-router.get(urlApi, function(req, res) {
+router.get(urlApi, function(req, res,next) {
     PingUser
         .find()
         .exec(function(err, users) {
             if (err) {
-                console.err(err);
-                return res.json(err);
+                return next(new Error('PingUser.find()'));
             }
 
+            // Prepare promises
             var requests = users.map((user, index) => {
                 return new Promise((resolve) => {
                     if (user.custom !== undefined) {
-                        console.log(`idx[${index}]=` + index);
                         var id = user.custom['_profile'];
                     }
 
@@ -146,20 +145,26 @@ router.get(urlApi, function(req, res) {
                         Profile
                             .findById(id)
                             .exec(function(err, doc) {
-                                // console.log(doc);
+                                // if (err) {}
                                 users[index].custom._profile = doc;
-                                console.log(`idx[${index}]=` + users[index]);
-                                resolve();
+                                resolve("index");
                             })
                     } else {
+                        // reject("errrrr");
                         resolve();
                     }
                 });
             })
 
-            Promise.all(requests).then(() => {
+            // Run promises
+            Promise.all(requests).then((reason) => {
                 console.log("im done");
+                console.log(reason);
                 res.json(users);
+            }, () => {
+                // return next(new Error('PingUser.find()'));
+                console.log(reason);
+                res.json(reason);
             });
 
         });
