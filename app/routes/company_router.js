@@ -16,15 +16,22 @@ var routerName = 'companies';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
 
-router.get(url + '/:name', function(req, res, next) {
+// router.get(function(req, res, next) {
 
-    // user router's name to find a User , and find his company
-    PingUser.findOne({ name: req.params.name })
-        .exec(function(err, user) {
+//     if (req.session.user == undefined) {
+//         return res.redirect('/login');
+//     }
+// });
+
+router.get(url + '/:username', function(req, res, next) {
+
+    // user router's username to find a User , and find his company
+    CompanyProfile.findOne({ username: req.params.username })
+        .exec(function(err, company) {
             if (err) {
                 next(new Error('CompanyProfile.findOne()'));
 
-            } else if (user == null) {
+            } else if (company == null) {
                 res.render('error', {
                     message: 'Can\'t find this user',
                     error: {}
@@ -32,14 +39,11 @@ router.get(url + '/:name', function(req, res, next) {
 
             } else {
 
-                CompanyProfile.findById(user.custom._profile)
-                    .exec(function(err, company) {
-                        // res.json(company);
-                        res.render('company_profile', {
-                            user: req.session.user,
-                            company: company
-                        });
-                    });
+                // res.json(company);
+                res.render('company_profile', {
+                    user: req.session.user,
+                    company: company
+                });
             }
         })
 });

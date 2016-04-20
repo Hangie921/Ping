@@ -11,7 +11,7 @@ var methodOverride = require('method-override');
 var mongoose = require("mongoose"),
     dbURI = 'mongodb://localhost/ping',
     db = mongoose.connection;
-mongoose.set('debug', true);
+// mongoose.set('debug', true);
 // mongoose.createConnection("mongodb://localhost/ping");
 
 // 0 = disconnected

@@ -7,17 +7,19 @@ h1 Testing
 			a(href="/users/new") New User
 		li Create User
 			form(method="post", action='/users')
-				input(type='text',name="acc", placeholder='Please enter your account here' value='company@gogo')
+				input(type='text',name="acc", placeholder='Please enter your account here' value='company@ping.com.sg')
 				br
-				input(type='text',name="pwd", placeholder='Please enter your password here' value='company@gogo')
+				input(type='text',name="pwd", placeholder='Please enter your password here' value='qwer1234')
 				br
-				input(type='submit',value='Create')
+				input(type='text',name="username", placeholder='Please enter your username here' value='Ping')
 				br
 				| Type:
 				input(type="radio" name="member_type" value="company" checked)
 				| Company
 				input(type="radio" name="member_type" value="talent")
 				| Telent
+				br
+				input(type='submit',value='Create')
 		//- li Delete User
 		//- 	form(method="post", action='/users')
 		//- 		input(type="hidden" name="_method" value="delete")

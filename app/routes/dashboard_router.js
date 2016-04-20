@@ -13,7 +13,6 @@ router.get('/dashboard', function(req, res, next) {
             req.session.user.custom._profile = data;
         }
 
-        console.log(__filename, req.session.user);
         res.render('dashboard', {
             user: req.session.user
         });

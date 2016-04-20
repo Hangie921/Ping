@@ -54,7 +54,7 @@ router.put(url + '/:id/edit', function(req, res) {
     console.log(`put #{req.params.id}/edit`);
 });
 
-function createUser(acc, pwd, type, callback) {
+function createUser(acc, pwd, username, type, callback) {
     var newPingUser = new PingUser();
     newPingUser.system_parameter = 1;
     newPingUser.name = acc;
@@ -65,15 +65,12 @@ function createUser(acc, pwd, type, callback) {
 
     if (type === "company") {
         profile = new CompanyProfile();
-        profile.name = acc;
+        profile.username = username;
         newPingUser.custom = { _profile: profile._id };
 
     } else if (type === "talent") {
         profile = new TalentProfile();
-        profile.name = acc;
-        // companyOrTelent.description = "Nice Company";
-        // companyOrTelent.location = "TW";
-        // companyOrTelent.culture = "Fun in life";
+        profile.username = username;
         newPingUser.custom = { _profile: profile._id };
     }
 
@@ -100,11 +97,13 @@ function createUser(acc, pwd, type, callback) {
 router.post(url, function(req, res, next) {
     var acc = req.body.acc,
         pwd = req.body.pwd,
+        username = req.body.username,
         type = req.body.member_type;
 
-    createUser(acc, pwd, type, function(err) {
+    createUser(acc, pwd, username, type, function(err) {
 
-        if (err) return next(err);
+        if (err) console.log(err);
+
         res.redirect('/test');
     });
 
@@ -123,7 +122,7 @@ router.delete(url, function(req, res) {
 /////////////////////////////
 // APIs
 /////////////////////////////
-router.get(urlApi, function(req, res,next) {
+router.get(urlApi, function(req, res, next) {
     PingUser
         .find()
         .exec(function(err, users) {

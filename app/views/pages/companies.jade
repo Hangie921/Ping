@@ -2,10 +2,10 @@ p=companies
 each company in companies
 	ul
 		li
-			a(href='../companies/'+company.name) #{company.name}
+			a(href='../companies/'+company.username) #{company.username}
+		li=company._id
 		li=company.location
 		li=company.description
-		li=company.name
 		li=company.culture
-		li=company._id
+		li=company.time
 		
