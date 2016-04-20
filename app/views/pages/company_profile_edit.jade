@@ -11,17 +11,22 @@ include ../modules/head
 		block sideBar
 			.side_bar.base_white_bg.grayscale_dark_cl
 				ul.menu
-					li.menu_item Company Branding
-					li.menu_item Details/Description
-					li.menu_item Social Networks
+					li.menu_item.lnr.lnr-smile.focus Company Branding
+						
+					li.menu_item.lnr.lnr-license Details/Description
+						
+					li.menu_item.lnr.lnr-earth Social Networks
+						
 		block content
 			.content_container
 				.container
 					h2 Edit Profile
-
 					form(id='company_branding',action='')
 						section.profile_setting.edit_section
-							h3.title Profile Setting
+							.title
+								h3 Profile Setting
+								a(href='#')
+									span.reminder i
 							.input_container
 								.input_text_container
 									label Company Name
@@ -30,14 +35,25 @@ include ../modules/head
 									label Company Tagline
 									input(type='text').input
 						section.displayed_img.edit_section
-							h3.title Displayed Images
+							.title
+								h3 Displayed Images
 							.input_container
-					a.btn cancel
-					a.btn save&nbspchanges
+								.img_container
+									.round_container
+										img(src='../../img/profile_img/profile_edit_img.jpg')
+									.btn_container
+										span Upload Your Profile Picture
+										a.btn.btn_pri UPLOAD&nbspIMAGE
+										span.sec_cl Image Formats: JPEG,GIF,PNG
+								.cover_photo_container
+									//- img(alt='cover photo')
+								a.btn.btn_pri.cancel cancel
+								a.btn.btn_pri.save.disable save&nbspchanges
 					
 					//- form(id='details_description',action='')
 					//- 	section.company_info.edit_section
-					//- 		h3.title Company Information
+					//- 		.title
+									h3 Company Information
 					//- 		.input_container
 					//- 			.input_text_container
 					//- 				label Industry
@@ -53,7 +69,8 @@ include ../modules/head
 					//- 				label Year of Establishment
 					//- 				input(type='text',value='#{profile.establish_year}').inputestablish_year
 					//- 	section.company_instro.edit_section
-					//- 		h3.title Introduce Your Company
+					//- 		.title
+									h3 Introduce Your Company
 					//- 		.input_container
 					//- 			.input_text_container
 					//- 				label Who you are
@@ -66,7 +83,8 @@ include ../modules/head
 	
 					//- form(id='social_network')
 					//- 	section.social_network.edit_section
-					//- 		h3.title Social Networks
+					//- 		.title
+									h3 Social Networks
 					//- a.btn cancel
 					//- a.btn save&nbspchanges
 
