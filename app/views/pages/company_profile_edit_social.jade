@@ -21,16 +21,21 @@ include ../modules/head
 								a(href='#')
 									span.reminder i
 							.input_container
-								a.btn(href="#")
-									
-								a.btn(href="#")
-									
-								a.btn(href="#")
-									
-								a.btn(href="#")
-									
-							a.btn.btn_pri.cancel(href='/dashboard') cancel
-							a.btn.btn_pri.save#update_btn.disable(data-router='/companies/'+user.email+'/edit',href='javascript:void(0)') save&nbspchanges
+								a.btn.social_media_btn.facebook.lnr.lnr-checkmark-circle(href="#") 
+									img(src='../../img/profile_img/fb.png',alt='facebook')
+								a.btn.social_media_btn.linkedin.lnr.lnr-checkmark-circle.disable(href="#")
+									img(src='../../img/profile_img/linkedin.png',alt='linkedin')
+								a.btn.social_media_btn.twitter.lnr.lnr-checkmark-circle.disable(href="#")
+									img(src='../../img/profile_img/tw.png',alt='twitter')
+								a.btn.social_media_btn.google.lnr.lnr-checkmark-circle.disable(href="#") 
+									img(src='../../img/profile_img/googleplus.png',alt='google+')
+
+								a.btn.btn_pri.cancel(href='/dashboard') cancel
+								a.btn.btn_pri.save#update_btn.disable(data-router='/companies/'+user.email+'/edit',href='javascript:void(0)') save&nbspchanges
+			.hint_container
+				h3 How to make your profile shine
+				p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
+
 
 
 

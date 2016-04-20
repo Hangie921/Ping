@@ -15,12 +15,15 @@ a{
 }
 h1{
 	font-size: $h1_font_size;
+	font-weight: 900;
 }
 h2{
 	font-size: $h2_font_size;
+	font-weight: 900;
 }
 h3{
 	font-size: $h3_font_size;
+	font-weight: 900;
 }
 input::-webkit-input-placeholder{
 	color:$grayscale_dark_cl;

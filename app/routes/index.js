@@ -40,7 +40,7 @@ var fs = require('fs');
 var dir = './uploads';
 
 if (!fs.existsSync(dir)) {
-    // fs.mkdirSync(dir);
+    fs.mkdirSync(dir);
 }
 var upload = multer({ storage: storage }).single('uploadFile');
 router.post('/', function(req, res, next) {

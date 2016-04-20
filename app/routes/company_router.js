@@ -1,6 +1,7 @@
 // express
 var express = require('express');
 var router = express.Router();
+var multer = require('multer');
 
 // module
 var CompanyProfile = require('../module/schema/profile.js').CompanyProfile;
@@ -22,6 +23,7 @@ router.get(url + '/*', function(req, res, next) {
     if (req.session.user == undefined) {
         return res.redirect('/login');
     }
+    next();
 });
 
 router.get(url + '/:username', function(req, res, next) {
@@ -75,10 +77,10 @@ var storage = multer.diskStorage({
     filename: function(req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now())
     }
-})
+});
 var upload = multer({ storage: storage }).single('uploadFile');
 router.post(url + '/:name/edit', function(req, res, next) {
-    console.log(req.get('Content-Type'));
+    console.log(__filename,req.get('Content-Type'));
     var resJson = { code: 200, data: {} };
     CompanyProfile.findOne({ username: req.session.user.custom._profile.username }, function(err, originCompany) {
         if (err) next(new Error('CompanyProfile.findOne()'));
@@ -89,7 +91,7 @@ router.post(url + '/:name/edit', function(req, res, next) {
 
             console.log(req.body);
             console.log(req.file);
-            originCompany['pic'] = file.path;
+            originCompany['pic'] = req.file.path;
 
             // update from req.body
             for (key in req.body) {

@@ -50,44 +50,30 @@ $(document).ready(function(){
 
 	//addEvent listener 
 	$('#company_branding').submit(function(e){
+		e.stopPropagation(); // Stop stuff happening
 		e.preventDefault();
 		// console.log($(this).serialize());
-		var formData = new FormData($('#company_branding')[0]);
-
-		$.ajax({
-	        url: $('#update_btn').attr("data-router"),  //Server script to process data
-	        type: 'POST',
-	        //Ajax events
-	        
-	        // Form data
-	        data: formData,
-	        //Options to tell jQuery not to process data or worry about content-type.
-	        cache: false,
-	        crossDomain: true,
-	        contentType: "multipart/form-data",
-	        processData: false
-
-	    }).done(function(rdata){
-			alert("done");
-			location.reload();
-		}).fail(function(error){
-			console.log('failed');
-		});
-
+		// var formData = new FormData($('#company_branding'));
+	 	// var oOutput = document.getElementById("output");
+		var formData = new FormData(document.forms.namedItem("test"));
+		
+		ajaxUpload(formData,$('#update_btn').attr("data-router"));
 		// $.ajax({
-		// 	type:'POST',
-		// 	url:$(this).attr("data-router"),
-		// 	data:{
-		// 		username:$('#profile_name').val(),
-		// 		tagline:$('#profile_tagline').val(),
-		// 	},
-		// 	dataType:'json'
-		// }).done(function(rdata){
+	 //        url: $('#update_btn').attr("data-router"),  //Server script to process data
+	 //        type: 'POST',
+	 //        data: formData,
+	 //        dataType:'json',
+	 //        //Options to tell jQuery not to process data or worry about content-type.
+	 //        contentType: false,    //"application/json",
+	 //        processData: false
+
+	 //    }).done(function(rdata){
 		// 	alert("done");
 		// 	location.reload();
 		// }).fail(function(error){
-		// 	console.log('failed');
+		// 	console.log(error);
 		// });
+
 	});
 
 
@@ -101,6 +87,22 @@ $(document).ready(function(){
 		readURL(this,$('#photo'));
 	});
 
-
-
 });
+
+
+
+// This function upload the data using Ajax,
+function ajaxUpload(formData,router){
+	formData.append("CustomField", "This is some extra data");
+	
+	var oReq = new XMLHttpRequest();
+	oReq.open("POST", router, true);
+	oReq.onload = function(oEvent) {
+		if (oReq.status == 200) {
+				alert('200!');
+		} else {
+			alert("Error " + oReq.status + " occurred uploading your file.<br \/>");
+		}
+	};
+	oReq.send(formData);
+}

@@ -15,7 +15,7 @@ include ../modules/head
 			.content_container
 				.container
 					h2 Edit Profile
-					form(id='company_branding',action='',enctype='multipart/form-data')
+					form(method='POST',id='company_branding',action='',enctype='multipart/form-data',name='test')
 						section.profile_setting.edit_section
 							.title
 								h3 Profile Setting 
@@ -38,12 +38,14 @@ include ../modules/head
 										img#photo(src='../../../img/profile_img/profile_edit_img.jpg')
 									.btn_container
 										.test
-											input#upload_photo(type='file',name='img')
+											input#upload_photo(type='file',name='uploadFile')
 										span Upload Your Profile Picture
 										a.btn.btn_pri.upload_photo_btn UPLOAD&nbspIMAGE
 										span.sec_cl Image Formats: JPEG,GIF,PNG
 								.cover_photo_container
 									//- img(alt='cover photo')
+								//- button.btn.btn_pri.cancel(data-router='/dashboard') cancel
+								//- button.btn.btn_pri.save#update_btn.disable(data-router='/companies/'+user.email+'/edit') save&nbspchanges
 								a.btn.btn_pri.cancel(href='/dashboard') cancel
 								a.btn.btn_pri.save#update_btn.disable(data-router='/companies/'+user.email+'/edit',href='javascript:void(0)') save&nbspchanges
 					
@@ -85,6 +87,9 @@ include ../modules/head
 									h3 Social Networks
 					//- a.btn cancel
 					//- a.btn save&nbspchanges
+			.hint_container
+				h3 How to make your profile shine
+				p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
 
 
 
