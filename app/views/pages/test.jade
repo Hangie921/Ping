@@ -7,10 +7,13 @@ h1 Testing
 			a(href="/users/new") New User
 		li Create User
 			form(method="post", action='/users')
-				input(type='text',name="acc", placeholder='Please enter your account here' value='company@ping.com.sg')
+				| Account:
+				input(type='text',name="acc", placeholder='Please enter your account here' value='company@ping.com.sg' size='40')
 				br
+				| Password:
 				input(type='text',name="pwd", placeholder='Please enter your password here' value='qwer1234')
 				br
+				| Username:
 				input(type='text',name="username", placeholder='Please enter your username here' value='Ping')
 				br
 				| Type:
@@ -50,7 +53,14 @@ h1 Testing
 		li 
 			a(href="/mail") Send Mail
 		li 
-			button#post_btn try url
+			//- form#post_form(method="post" ,enctype="multipart/form-data",action="#{result._id}")
+			form#post_form(method="post" ,enctype="multipart/form-data",action="/")
+				//- input(type="hidden" name="_method" value="put")
+				input(type='text',name='acc')
+				br
+				input(type='file',name='uploadFile')
+				br
+				button#post_btn Send
 
 script(src='/js/jquery-2.2.3.js')
 script(type='text/javascript').
@@ -59,9 +69,12 @@ script(type='text/javascript').
 
 			var myData = new FormData();
 			myData.append("key", "value");
+			myData.append("key2", "value2");
+
+			myData.append('uploadfile', $('input[type=file]')[0].files[0]); 
 			$.ajax({
-					url: "/123",
-					type: "PUT",
+					url: "/",
+					type: "POST",
 					data: myData,
 					crossDomain: true,
 					contentType: "multipart/form-data",
@@ -71,7 +84,23 @@ script(type='text/javascript').
 					console.log(data);
 				});
 		});
+		
+		//- $('#post_btn').click(function() {
+		//- 	$('#post_form').submit(function() {
+
+		//- 		var formData = new FormData($(this)[0]);
+		//- 		 //- alert(formData);
+
+		//- 		$.put($(this).attr("action"), formData, function(data) {
+		//- 			alert(data);
+		//- 		});
+
+		//- 		return false;
+		//- 	});
+		//- });
 	});
+
+
 
 
 

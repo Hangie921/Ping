@@ -16,12 +16,13 @@ var routerName = 'companies';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
 
-// router.get(function(req, res, next) {
-
-//     if (req.session.user == undefined) {
-//         return res.redirect('/login');
-//     }
-// });
+// @
+router.get(url + '/*', function(req, res, next) {
+    console.log(__filename, url + " middle");
+    if (req.session.user == undefined) {
+        return res.redirect('/login');
+    }
+});
 
 router.get(url + '/:username', function(req, res, next) {
 
@@ -67,30 +68,48 @@ router.get(url + '/:name/edit', function(req, res) {
     }
 });
 
-router.post(url + '/:name/edit', function(req, res) {
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+})
+var upload = multer({ storage: storage }).single('uploadFile');
+router.post(url + '/:name/edit', function(req, res, next) {
     console.log(req.get('Content-Type'));
     var resJson = { code: 200, data: {} };
     CompanyProfile.findOne({ username: req.session.user.custom._profile.username }, function(err, originCompany) {
         if (err) next(new Error('CompanyProfile.findOne()'));
 
-        // update from req.body
-        for (key in req.body) {
-            if (originCompany[key])
-                originCompany[key] = req.body[key];
-        }
 
-        CompanyProfile.update({ _id: originCompany._id }, originCompany, function(err, status) {
-            if (err) next(new Error('CompanyProfile.update()'));
-            // if change
-            // { ok: 1, nModified: 1, n: 1 }
-            // if not change
-            // { ok: 0, n: 0, nModified: 0 }
-            // get data but not change
-            // { ok: 1, nModified: 0, n: 1 }
-            resJson.data.company = status;
-            req.session.user.custom._profile = originCompany;
-            res.json(resJson);
+        upload(req, res, (err) => {
+            if (err) next(new Error('upload'));
 
+            console.log(req.body);
+            console.log(req.file);
+            originCompany['pic'] = file.path;
+
+            // update from req.body
+            for (key in req.body) {
+                if (originCompany[key])
+                    originCompany[key] = req.body[key];
+            }
+
+            CompanyProfile.update({ _id: originCompany._id }, originCompany, function(err, status) {
+                if (err) next(new Error('CompanyProfile.update()'));
+                // if change
+                // { ok: 1, nModified: 1, n: 1 }
+                // if not change
+                // { ok: 0, n: 0, nModified: 0 }
+                // get data but not change
+                // { ok: 1, nModified: 0, n: 1 }
+                resJson.data.company = status;
+                req.session.user.custom._profile = originCompany;
+                res.json(resJson);
+
+            })
         })
     })
 });

@@ -5,6 +5,7 @@
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
+var multer = require('multer');
 
 router.use(require('./login_router'));
 router.use(require('./logout_router'));
@@ -25,9 +26,34 @@ router.get('/', function(req, res, next) {
         res.redirect('/login');
     }
 });
-router.put('/', function(req, res, next) {
-	console.log("PUT: /");
-	res.json("I am in");
+
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+})
+
+var fs = require('fs');
+var dir = './uploads';
+
+if (!fs.existsSync(dir)) {
+    // fs.mkdirSync(dir);
+}
+var upload = multer({ storage: storage }).single('uploadFile');
+router.post('/', function(req, res, next) {
+	console.log(req.method);
+    // var upload = multer({ dest: 'uploads/' })
+    // router.put('/', upload.single('uploadFile'), function(req, res, next) {
+    upload(req, res, (err) => {
+
+        console.log("PUT: /");
+        console.log(req.body);
+        console.log(req.file);
+        res.json("I am in");
+    })
 });
 
 module.exports = router;
