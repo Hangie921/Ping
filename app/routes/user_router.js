@@ -105,9 +105,6 @@ router.post(url, function(req, res, next) {
     createUser(acc, pwd, type, function(err) {
 
         if (err) return next(err);
-        if (users.length < 1) {
-            return next(new Error('ERROR createUser(acc, pwd, type, function(err)'));
-        }
         res.redirect('/test');
     });
 
