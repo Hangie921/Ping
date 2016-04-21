@@ -17,7 +17,7 @@ var routerName = 'companies';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
 
-// @
+// @Todo 之後看是不是要放在更外層
 router.get(url + '/*', function(req, res, next) {
     console.log(__filename, url + " middle");
     if (req.session.user == undefined) {
@@ -51,7 +51,7 @@ router.get(url + '/:username', function(req, res, next) {
         })
 });
 
-router.get(url + '/:name/edit', function(req, res) {
+router.get(url + '/profile/edit', function(req, res) {
     var section = req.query.section;
     if (section === "detail") {
         res.render("company_profile_edit_detail", {
@@ -70,6 +70,7 @@ router.get(url + '/:name/edit', function(req, res) {
     }
 });
 
+//  setting upload configs
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, './uploads')
@@ -79,19 +80,21 @@ var storage = multer.diskStorage({
     }
 });
 var upload = multer({ storage: storage }).single('uploadFile');
-router.post(url + '/:name/edit', function(req, res, next) {
-    console.log(__filename,req.get('Content-Type'));
+
+router.post(url + '/edit', function(req, res, next) {
+    console.log(__filename, req.get('Content-Type'));
     var resJson = { code: 200, data: {} };
     CompanyProfile.findOne({ username: req.session.user.custom._profile.username }, function(err, originCompany) {
         if (err) next(new Error('CompanyProfile.findOne()'));
 
-
         upload(req, res, (err) => {
             if (err) next(new Error('upload'));
 
-            console.log(req.body);
-            console.log(req.file);
-            originCompany['pic'] = req.file.path;
+            console.log(__filename, req.body);
+            if (req.file) {
+                console.log(__filename, req.file);
+                originCompany['pic'] = req.file.path;
+            }
 
             // update from req.body
             for (key in req.body) {
@@ -120,31 +123,6 @@ router.get(url, function(req, res) {
     CompanyProfile.find(function(err, companies) {
         res.render('companies', { companies: companies });
     })
-});
-
-router.get(urlApi, function(req, res) {
-    var acc = req.query.acc;
-    var pwd = req.query.pwd;
-    var user = new PingUser();
-    user.system_parameter = 1;
-    user.name = acc;
-    user.email = acc;
-    user.pwd = pwd;
-
-    // Test Case
-    UserService.getUser(user, function(data) {
-        var ret = data.values[0].custom._company;
-        // res.json(ret);
-        CompanyProfile.findById(ret, function(err, company) {
-            res.json(company);
-        })
-    });
-
-    PingUser.find(function(err, users) {
-        if (err) console.log(err);
-        // console.log(users);
-        // res.render(routerName, { users: users });
-    });
 });
 
 module.exports = router;
