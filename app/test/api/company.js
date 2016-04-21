@@ -18,7 +18,7 @@ describe.skip('GET /api/companies', function() {
     })
 });
 
-describe('POST /companies/company@gogo', function() {
+describe.skip('POST /companies/company@gogo', function() {
     it.skip('create a user with wrong form', function(done) {
         request
             .post('/api/companies')

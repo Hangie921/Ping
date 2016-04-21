@@ -18,7 +18,7 @@ var CompanyProfile = Profile.discriminator('Company',
         location: { type: String, default: "Taipei,Taiwan" },
         culture: { type: Array, default: ["Fun in life", "HoHoHo", "Banana", "Kumamon"] },
         technology: { type: Array, default: ["Pokemon", "Spy", "Beer", "Holiday", "Javascipt", "PHP"] },
-        links: Array
+        links: Array,
     }, options));
 
 var TalentProfile = Profile.discriminator('Talent',
@@ -27,6 +27,12 @@ var TalentProfile = Profile.discriminator('Talent',
         username: { type: String, unique: true, default: "Ping" },
     }, options));
 
+// @Todo http://mongoosejs.com/docs/api.html#model_Model.ensureIndexes
+// @Todo http://mongoosejs.com/docs/guide.html#autoIndex
+
+// CompanyProfile.ensureIndexes(function (err) {
+//   if (err) console.error(err); // error occurred during index creation
+// });
 
 module.exports = Profile;
 module.exports.CompanyProfile = CompanyProfile;

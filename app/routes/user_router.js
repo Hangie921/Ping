@@ -77,10 +77,15 @@ function createUser(acc, pwd, username, type, callback) {
     // var errors = newPingUser.validateSync();
     // console.log("error",error.errors['system_parameter'].message);
     UserService.registered(newPingUser, function(resStatus) {
+
+        //  add user succuss > add profile
         if (resStatus.code === resCode.OK) {
-            console.log(__filename, "profile.save()");
+
             profile.save(function(err, company) {
-                console.log(__filename, company);
+                console.log(__filename,
+                    "err=" + err, company);
+
+                //  add profile fail > delete user
                 mailer.send(acc, function(err, msg) {
                     if (err) return console.error(err);
                     console.log(msg);
