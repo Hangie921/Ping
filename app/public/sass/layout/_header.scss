@@ -1,4 +1,5 @@
 .ping_header{
+	z-index:$zindex_navbar;
 	background-color: $grayscale_dark_cl;
 	box-sizing:border-box;
 	height: $header_height;

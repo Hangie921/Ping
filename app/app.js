@@ -77,6 +77,8 @@ app.use(methodOverride(function(req, res) {
 
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
+// app.use(express.static('/uploads',path.join(__dirname, 'uploads')));
 
 // 如果要用全域的middleware要放在router setting前面
 app.use(function(req, res, next) {

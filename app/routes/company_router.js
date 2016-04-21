@@ -81,7 +81,7 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage }).single('uploadFile');
 
-router.post(url + '/edit', function(req, res, next) {
+router.post(url + '/profile/edit', function(req, res, next) {
     console.log(__filename, req.get('Content-Type'));
     var resJson = { code: 200, data: {} };
     CompanyProfile.findOne({ username: req.session.user.custom._profile.username }, function(err, originCompany) {
@@ -92,6 +92,19 @@ router.post(url + '/edit', function(req, res, next) {
 
             console.log(__filename, req.body);
             if (req.file) {
+                var fileType = ".jpg";
+                if (req.file.mimetype === 'image/jpeg') {
+                    fileType = '.jpg'
+                } else if (req.file.mimetype === 'image/png') {
+                    fileType = '.png'
+                } else if (req.file.mimetype === 'image/gif') {
+                    fileType = '.gif'
+                } else {
+                    resJson.code = 400;
+                    resJson.errmsg = 'Can\'t recognize ' + req.file.originalname;
+                    return res.json(resJson);
+                }
+
                 console.log(__filename, req.file);
                 originCompany['pic'] = req.file.path;
             }

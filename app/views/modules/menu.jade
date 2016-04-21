@@ -1,14 +1,14 @@
 //- This file needs member role from DB to show the different menu function list 
 
-
-header.ping_header
-	.container
+header.ping_header.col-md-12
+	.container.col-md-8.col-centered
 		.logo.pull_left
 			a(href='/dashboard')
-				img(src='../../../img/logo.png',alt='logo')
+				img(src='/img/logo.png',alt='logo')
 		.account.pull_right
 			.img_container.round_container
-				img(src='../../../img/profile_img.jpg',alt='profile')
+				img(src='/#{user.custom._profile.pic}',alt='profile')
+				//- img(src='../../../img/profile_img.jpg',alt='profile')
 			a(href='#').btn #{user.custom._profile.username}
 				i(aria-hidden="true").fa.fa-chevron-down
 			ul.menu
@@ -20,19 +20,17 @@ header.ping_header
 					a(href='#') Privacy&nbspPolicy
 				li.menu_item
 					a(href='/logout') Logout
-.menu_container
-	.container
-		-
-			console.log("jade",type);
+.menu_container.col-md-12
+	.container.col-md-8.col-centered
 		if (type == "Company")
-			ul.menu.pull_left
+			ul.menu.pull_left.col-md-8
 				li.menu_item.menu_item_has_child
 					a(href='#') Profile
 					ul.sub_menu
 						li.menu_item 
 							a(href='/companies/'+user.custom._profile.username) View&nbspProfile
 						li.menu_item 
-							a(href='/companies/'+user.custom._profile.username+'/edit') Edit&nbspProfile
+							a(href='/companies/profile/edit') Edit&nbspProfile
 				li.menu_item 
 					a(href='#') Find&nbspPingers
 				li.menu_item 
@@ -47,8 +45,8 @@ header.ping_header
 						li.menu_item 
 							a(href='#') More2
 
-			.pull_right
-				a.btn.pri_cl_bg.base_white(href='/companies/'+user.email+'/edit') Edit&nbspProfile
+			.pull_right.col-md-4
+				a.btn.pri_cl_bg.base_white(href='/companies/profile/edit') Edit&nbspProfile
 		else if (type == "Talent")
 			ul.menu
 				li.menu_item Awards/Races

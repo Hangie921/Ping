@@ -11,8 +11,8 @@ include ../modules/head
 				section.banner
 					h1.base_white.slogan #{profile.username}
 					h3.description We offer our clients flexible tailored solutions
-					.profile_photo
-						img(src='../../img/profile_img/profile_img.png')
+					.profile_photo.round_container
+						img(src='/#{profile.pic}')
 				section.comp_info
 					.container
 						.detail.pull_left.clearfix

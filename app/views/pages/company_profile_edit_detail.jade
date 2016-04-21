@@ -11,24 +11,27 @@ include ../modules/head
 		block sideBar
 			include ../modules/sideBar.jade
 		block content
-			.content_container
-				.container
+			.row.col-md-10
+				.content_container.col-md-10.row
 					h2 Edit Profile
 					form(id='details_description',action='')
 						section.company_info.edit_section
-							.title
+							.title.col-md-10
 								h3 Company Information
 								a(href='#')
 									span.reminder i
+										.hint_container.col-md-2
+											h3 How to make your profile shine
+											p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
 							.input_container
-								.row.industry
+								.input_row.industry
 									.select_container
 										label Industry
 										select
 											option(value="0") Sport
 											option(value="1") Tech
 											option(value="2") Transport
-								.row.location
+								.input_row.location
 									.select_container
 										label Location
 										select
@@ -42,7 +45,7 @@ include ../modules/head
 											option(value="1") Taichung
 											option(value="2") 
 											option(value="3")
-								.row.size
+								.input_row.size
 									.select_container
 										label Company Size
 										select
@@ -50,7 +53,7 @@ include ../modules/head
 											option(value="1") 11-20
 											option(value="2") 21-30
 											option(value="3") 31-40
-								.row.years
+								.input_row.years
 									.select_container
 										label Year of Establishment
 										select
@@ -59,7 +62,7 @@ include ../modules/head
 											option(value="2") 7-10
 											option(value="3") 10UP
 						section.company_instro.edit_section
-							.title
+							.title.col-md-10
 									h3 Introduce Your Company
 							.input_container
 								.input_text_container
@@ -73,12 +76,6 @@ include ../modules/head
 								a.btn.btn_pri.cancel(href='/dashboard') cancel
 								a.btn.btn_pri.save#update_btn.disable(data-router='/companies/'+user.email+'/edit',href='javascript:void(0)') save&nbspchanges
 	
-					//- form(id='social_network')
-					//- 	section.social_network.edit_section
-					//- 		.title
-									h3 Social Networks
-					//- a.btn cancel
-					//- a.btn save&nbspchanges
 
 
 
