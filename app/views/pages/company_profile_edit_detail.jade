@@ -4,6 +4,7 @@ include ../modules/head
 		-
 			var profile = user.custom._profile;
 			var type = user.custom._profile.type;
+			console.log("view mode:detail.jade",profile);
 		script(type='text/javascript',src='../../js/company_profile_edit.js').
 		
 		block main_menu
@@ -17,7 +18,7 @@ include ../modules/head
 					form(id='details_description',action='')
 						section.company_info.edit_section
 							.title.col-md-10
-								h3 Company Information
+								h3 Company&nbspInformation
 								a(href='#')
 									span.reminder i
 										.hint_container.col-md-2
@@ -47,7 +48,7 @@ include ../modules/head
 											option(value="3")
 								.input_row.size
 									.select_container
-										label Company Size
+										label Company&nbspSize
 										select
 											option(value="0") 1-10
 											option(value="1") 11-20
@@ -55,27 +56,38 @@ include ../modules/head
 											option(value="3") 31-40
 								.input_row.years
 									.select_container
-										label Year of Establishment
+										label Year&nbspof&nbspEstablishment
 										select
 											option(value="0") 0-3
 											option(value="1") 4-6
 											option(value="2") 7-10
 											option(value="3") 10UP
+						section.company_tags.edit_section
+							.title.col-md-10
+									h3 Company&nbspTags
+							.input_container
+								.input_single
+									label Company&nbspCulture
+									input(type='text')
+								.input_single
+									label Company&nbspTechnology
+									input(type='text')
 						section.company_instro.edit_section
 							.title.col-md-10
-									h3 Introduce Your Company
+									h3 Introduce&nbspYour&nbspCompany
 							.input_container
-								.input_text_container
-									label Who you are
+								.input_single
+									label Who&nbspyou&nbspare
 									textarea(rows='10',cols='40').input
 										|#{profile.description}
-								.input_text_container
-									label What you do
+								.input_single
+									label What&nbspyou&nbspdo
 									textarea(rows='10',cols='40').input
 										|#{profile.description}
-								a.btn.btn_pri.cancel(href='/dashboard') cancel
-								a.btn.btn_pri.save#update_btn.disable(data-router='/companies/'+user.email+'/edit',href='javascript:void(0)') save&nbspchanges
-	
+						.btn_group.col-md-6
+							a.btn.cancel(href='/dashboard') cancel
+							a.btn.btn_pri.save#update_btn.disable(data-router='/companies/profile/edit',href='javascript:void(0)') save&nbspchanges
+
 
 
 

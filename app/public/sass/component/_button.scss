@@ -2,18 +2,16 @@
   display:block;
   box-sizing:border-box;
   width: 100%;
-  max-width:204px;
   text-align:center;
   border-radius:$btn_border_radius_base;
   padding:15px 0px;
   font-weight:900;
   cursor:pointer;
-  line-height:$base_line_height;
+  text-transform:uppercase;
 }
 .btn_pri{
 	background-color:$pri_cl;
 	color:#ffffff;
-	min-height:$btn_base_height;
 	&:hover{
     	background-color:$pri_dark_cl;
   	}

@@ -1,4 +1,5 @@
 //Initial the universal style
+@import "../base/_mixins.scss";
 
 [type="text"],[type='email'],[type='password'],[type='textarea'],textarea{
 	outline:none;
@@ -10,14 +11,14 @@
 	width: inherit;
 	height:$btn_pri_height;
 	box-sizing:border-box;
+	font-family: $base_font_family;
 }
 
 
 .input_single{
 	box-sizing:border-box;
-	max-width: 300px;
 	& label{
-		font-size: $base_input_font_size;
+		font-size: $base_input_label_font_size;
 		width: 100%;
 		display:inline-block;
 		margin-bottom:8px;
@@ -50,7 +51,10 @@
 			top: 2px;
 			width: $check_box_size_base; 
 			height: $check_box_size_base;
-			background: $input_bg;
+			@include prefix((
+				background: $input_bg	
+				
+			),moz);
 			border-radius: 50%; // make it circle
 		}
 	    &:after{  //make it check
@@ -78,13 +82,20 @@
 //If you wanna use a select,use a container to contain <select>
 //to customize it
 .select_container{
+	label{
+		font-size: $base_input_label_font_size;
+	}
 	width: 120px;
 	padding: 0;
 	margin: 0;
 	border-radius:$input_border_radius;
 	overflow:hidden;
 	background-color:#ccc;
-	background:#fff url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") no-repeat 90% 50%;
+	@include prefix((
+		background:#fff url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") ,
+		background-position:90% 50%
+	),moz);
+	background-repeat:no-repeat;
 	& select{
 		padding: 5px 10px;
 		width: 100%;

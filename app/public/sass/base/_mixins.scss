@@ -1,4 +1,5 @@
-@import "mixins/clearfix";
-@import "mixins/grid-framework";
-@import "mixins/grid";
+@import "mixins/_clearfix";
+@import "mixins/_grid-framework";
+@import "mixins/_grid";
 @import "mixins/_responsive.scss";
+@import "mixins/_prefix.scss";

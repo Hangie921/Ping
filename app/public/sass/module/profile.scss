@@ -1,4 +1,5 @@
 @import "../base/_variables.scss";
+@import "../base/_mixins.scss";
 .profile {
     font-size: $profile_basic_font_size; //18px
     & .menu_container {
@@ -33,7 +34,10 @@
         .banner {
             padding-top: 1px;
             height: 360px;
-            background: url(../../img/profile_img/cover-photo.jpg) no-repeat;
+            @include prefix((
+                background: url(../../img/profile_img/cover-photo.jpg)
+            ),moz);
+            background-repeat: no-repeat;
             background-size: cover;
             text-align: center;
             & .slogan {
@@ -106,6 +110,8 @@
                         color: $grayscale_dark_cl;
                     }
                 }
+
+
             } //end of the .detail
             & .social_icons {
                 width: 35%;
@@ -241,52 +247,66 @@
         } //end of the .company_instro
         .bottom_banner {
             height: 360px;
-            background: url(../../img/profile_img/bottom_image.jpg) no-repeat;
+            @include prefix((
+                background: url(../../img/profile_img/bottom_image.jpg) no-repeat
+            ),moz);
+            background-repeat: no-repeat;
             background-size: cover;
         }
     } // end of the .view class
     ///================ Start the .edit mode =================
     &.edit {
-        // To mark the page as edit mode
+        // To mark the page as edit modef
+        .btn.cancel{
+            background-color:$grayscale_cl;
+            color:$base_white;
+        }
         .side_bar {
         	width:100%;
             display: inline-block;
             vertical-align: top;
             min-height: 100vh;
-            height: 1485px;
             .menu {
+
                 background-color: $base_white;
                 height: auto;
                 width: 100%;
                 .menu_item {
-                	text-align: center;
-                    &.lnr:before {
-                        position: absolute;
-                        left: 30px;
-                        font-family: $lnr_font;
-                    }
+                	text-align: left;
                     font-family: $base_font_family;
                     height: 53px;
                     width: 100%;
-                    padding: 17px 30px 17px 52px;
+                    position: relative;
                     box-sizing:border-box;
-                    &:hover {
+                    line-height:53px;
+                    & .lnr {
+                        position: absolute;
+                        left: 25px;
+                        top: 17px;
+                        font-family: $lnr_font;
+                    }
+                    & a{
+                        color:$grayscale_dark_cl;
+                        width: 100%;
+                        height: 100%;
+                        padding: 17px 30px 17px 52px;
+                    }
+                    &:hover a,&.focus a{
                         color: $base_white;
                         background-color: $pri_cl;
                         font-weight: 600;
-                        &:before {
-                            font-weight: $base_font_weight;
-                        }
+                    }
+                    &:hover .lnr,&.focus .lnr{
+                        color: $base_white;
                     }
                 }
-                .menu_item.focus {
-                    color: $base_white;
-                    background-color: $pri_cl;
-                    font-weight: 600;
-                    &:before {
-                        font-weight: $base_font_weight;
-                    }
-                }
+
+
+                // .menu_item.focus a,.menu_item.focus:before{
+                //     color: $base_white;
+                //     background-color: $pri_cl;
+                //     font-weight: 600;
+                // }
             }
         } //end of the side_bar
         .content_container {
@@ -339,7 +359,10 @@
                 .input_container {
                 	margin-top: 40px;
                     padding: 45px 207px 40px 73px;
-                    & .input_text_container {
+                    & .input_single{
+                        & label span{
+                            white-space: nowrap;
+                        }
                         margin-bottom: 9px;
                         max-width: 100%;
                         input {
@@ -349,12 +372,13 @@
                 }
             }
             .displayed_img {
+                height: 700px;
                 .input_container {
                 	margin-top: 40px;
                     padding: 45px 207px 40px 75px;
                     .round_container {
-                        width: 100px;
-                        height: 100px;
+                        width: 115px;
+                        height: 115px;
                         display: inline-block;
                         vertical-align: top;
                         & img {
@@ -367,7 +391,7 @@
                         display: inline-block;
                         vertical-align: top;
                         position: relative;
-                        & .test {
+                        & .input_single {
                             position: absolute;
                             left: -9999px;
                         }
@@ -379,20 +403,37 @@
                         & .btn {
                             width: 149px;
                             height: 40px;
+                            line-height:40px;
                             font-size: $base_font_size;
                             margin-bottom: 10px;
+                            padding: 0px;
                         }
                     }
-                    .cover_photo_container {
+                    .photo_container {
                         margin-top: 23px;
-                        margin-bottom: 140px;
                         border-radius: $base_border_radius;
-                        width: 229px;
                         height: 175px;
                         background-color: #D8D8D8;
+                        position: relative;
+                        width: 100%;
                         & img {
                             width: 100%;
                             height: 100%;
+                        }
+                        & .btn{
+                            width:63%;
+                            text-align: center;
+                            line-height:40px;
+                            font-size: $base_font_size;
+                            box-sizing:border-box;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            bottom: 0;
+                            right: 0;
+                            margin: auto;
+                            height:40px;
+                            padding:0px 11px;
                         }
                     }
                     & > .btn {
@@ -403,8 +444,9 @@
                         height: 50px;
                         margin-right: 10px;
                         font-size: $base_font_size;
-                        &.cancel {
-                            background-color: $grayscale_cl;
+                        &.cancel{
+                            background-color:$grayscale_cl;
+                            color:$base_white;
                         }
                         &.save {
                             width: 172px;
@@ -413,8 +455,27 @@
                             background-color: #ADC8C5;
                         }
                     }
+
+                    & .photo_group{
+                       
+                    }
                 }
             } //end of the display img
+            .btn_group{
+                height: 50px;
+                margin-bottom: 100px;
+                & > .btn{
+                    float: left;
+                }
+                & > .save{
+                    width: 34%;                            
+                }
+                & > .cancel{
+                    margin-left: 75px;
+                    width: 30%;
+                    margin-right: 10px;
+                }
+            }
             .company_info {
                 position: relative;
                 .title {
@@ -446,15 +507,18 @@
                                 height: 50px;
                                 margin-top: 24px;
                                 width: 560px;
+                                 @include prefix((
+                                        background-position: 97% 50%,
+                                    ),webkit moz);
                                 & select {
                                     height: 100%;
+                                   
                                 }
                                 & label {
                                     position: absolute;
                                     top: -22px;
                                     left: 1px;
                                     color: $grayscale_dark_cl;
-                                    font-size: 14px;
                                 }
                             }
                         } //end of the .industry
@@ -472,7 +536,6 @@
                                     top: -22px;
                                     left: 1px;
                                     color: $grayscale_dark_cl;
-                                    font-size: 14px;
                                 }
                             }
                         } //end of the .location
@@ -489,7 +552,7 @@
                                     top: -22px;
                                     left: 1px;
                                     color: $grayscale_dark_cl;
-                                    font-size: 14px;
+
                                 }
                             }
                         } //end of .size
@@ -506,18 +569,21 @@
                                     top: -22px;
                                     left: 1px;
                                     color: $grayscale_dark_cl;
-                                    font-size: 14px;
                                 }
                             }
                         } //end of .years
                     } //end of the .select_container
                 } //end of the .input_container
             } //end of the .company_info
+            .company_tags{
+                
+            }
+
             .company_instro {
                 .input_container {
                 	margin-top: 40px;
                     padding: 40px 207px 40px 73px;
-                    .input_text_container {
+                    .input_single {
                         max-width: initial;
                         width: 558px;
                         height: 321px;
@@ -536,7 +602,8 @@
                         margin-right: 10px;
                         font-size: $base_font_size;
                         &.cancel {
-                            background-color: $grayscale_cl;
+                            background-color:$grayscale_cl;
+                            color:$base_white;
                         }
                         &.save {
                             width: 172px;
@@ -578,7 +645,8 @@
                         margin-right: 10px;
                         font-size: $base_font_size;
                         &.cancel {
-                            background-color: $grayscale_cl;
+                            background-color:$grayscale_cl;
+                            color:$base_white;
                         }
                         &.save {
                             width: 172px;
@@ -596,10 +664,8 @@
                         line-height: 63px;
                         padding: 0px 0px;
                         color: $base_white;
-                        & img {
-                            margin-left: auto;
-                            margin-right: auto;
-                        }
+                        background-color: $grayscale_cl;   
+
                         &.lnr-checkmark-circle:before {
                             font-family: $lnr_font;
                             display: block;
@@ -609,43 +675,78 @@
                             font-size: 24px;
                             line-height: 50px;
                         }
-                        &.facebook {
-                            background-color: #3B5997;
-                            img {
-                                width: 111px;
-                                height: 24px;
+
+                        &.offical {
+                            &.active{
+                                background-color: $pri_cl;
                             }
+                            font-size: 18px;
+                            line-height:50px;
+                        }
+                        &.facebook {
+                            &.active{
+                                background-color: #3B5997;
+                            }
+                            background-image: url(/img/profile_img/fb.png);
+                            background-repeat: no-repeat;
+                            @include prefix((
+                                background-size:auto 52%,
+                                background-position:center
+                                ),webkit moz);
+                            
                         }
                         &.linkedin {
-                            img {
-                                width: 111px;
-                                height: 30px;
+                            &.active{
+                                background-color: $pri_cl;
                             }
+                            background-image: url(/img/profile_img/linkedin.png);
+                            background-repeat: no-repeat;
+                            @include prefix((
+                                background-size:auto 66%,
+                                background-position:center
+                            ),webkit moz);
                         }
                         &.twitter {
-                            img {
-                                width: 106px;
-                                height: 29px;
+                            &.active{
+                                background-color: $pri_cl;
                             }
+                            background-image: url(/img/profile_img/tw.png);
+                            background-repeat: no-repeat;
+                            @include prefix((
+                                background-size:auto 52%,
+                                background-position:center
+                            ),webkit moz);
                         }
                         &.google {
-                            img {
-                                width: 101px;
-                                height: 27px;
+                            &.active{
+                                background-color: $pri_cl;
                             }
+                            background-image: url(/img/profile_img/googleplus.png);
+                            background-repeat: no-repeat;
+                            @include prefix((
+                                background-size:auto 66%,
+                                background-position:center
+                            ),webkit moz);
                         }
-                        &.disable {
-                            background-color: $grayscale_cl;
-                            &.lnr-checkmark-circle:before {
-                                display: none;
-                            }
+                        &.lnr-checkmark-circle{
+                                &:before{
+                                    display: none;
+                                }
+                                &.checked:before{
+                                    display:initial;
+                                }
                         }
+                       
                     }
+
+                    & .input_single{
+                        width: 100%;
+                        margin-bottom: 21px;
+                    }
+
                 } //.input_container
             } //.social_network
         } // end of the .content_container
-        
-
 		.reminder{
 			&:hover{
 				& .hint_container{

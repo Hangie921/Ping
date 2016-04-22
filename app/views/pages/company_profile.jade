@@ -10,14 +10,14 @@ include ../modules/head
 			.content_container
 				section.banner
 					h1.base_white.slogan #{profile.username}
-					h3.description We offer our clients flexible tailored solutions
+					h3.description #{profile.tagline}
 					.profile_photo.round_container
 						img(src='/#{profile.pic}')
 				section.comp_info
 					.container
 						.detail.pull_left.clearfix.col-md-4
 							.location.base_white
-								span.lnr-map-marker.lnr=profile.location
+								span.lnr-map-marker.lnr #{profile.location.country+','+profile.location.city}
 							.details
 								ul
 									li 

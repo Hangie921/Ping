@@ -70,11 +70,13 @@ $link_hover_decoration: ;
 
 $base_font_family:       'Avenir',Helvetica, Arial, sans-serif !default;
 $base_font_weight:		 500; // normal
+$base_font_weight_bold:   600;
 $lnr_font:'Linearicons-Free';
 
 
 $base_font_size:			16px;
 $base_input_font_size:		ceil(($base_font_size * 0.875)) !default; // ~14px
+$base_input_label_font_size: 16px;
 $large_font_size:         	ceil(($base_font_size * 1.25)) !default; // ~18px
 $small_font_size:         	ceil(($base_font_size * 0.85)) !default; // ~12px
 

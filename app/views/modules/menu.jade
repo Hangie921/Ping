@@ -5,11 +5,10 @@ header.ping_header.col-md-12
 		.logo.pull_left
 			a(href='/dashboard')
 				img(src='/img/logo.png',alt='logo')
-		.account.pull_right
+		.account.pull_right.col-md-3
 			.img_container.round_container
 				img(src='/#{user.custom._profile.pic}',alt='profile')
-				//- img(src='../../../img/profile_img.jpg',alt='profile')
-			a(href='#') #{user.custom._profile.username}
+			a.base_white(href='#') #{user.custom._profile.username}
 				i(aria-hidden="true").fa.fa-chevron-down
 			ul.menu
 				li.menu_item
@@ -20,6 +19,7 @@ header.ping_header.col-md-12
 					a(href='#') Privacy&nbspPolicy
 				li.menu_item
 					a(href='/logout') Logout
+			
 .menu_container.col-md-12
 	.container.col-md-8.col-centered
 		if (type == "Company")

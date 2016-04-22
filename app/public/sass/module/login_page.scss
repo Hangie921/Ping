@@ -1,10 +1,12 @@
 @import "../base/_variables.scss";
-
+@import "../base/_mixins.scss";
 
 .container{
-		background:url('../../img/logo_background.jpg') no-repeat;
-		background-position:center bottom;
-		background-size:100% auto;
+		@include prefix((
+			background:url('../../img/logo_background.jpg') no-repeat,
+			background-position:center bottom,
+			background-size:100% auto
+			),webkit moz );
 		height: 100vh;
 }
 .brand_container{
@@ -28,7 +30,7 @@
 .container #login_form{
 	padding-top: 50px;
 	text-align:center;
-	& .input_text_container{
+	& .input_single{
 		width: 100%;
 		margin-left: auto;
 		margin-right: auto;
@@ -40,20 +42,13 @@
 	& .btn{
 		margin-left: auto;
 		margin-right: auto;
-		max-width:300px;
 	}
 	& .forget_pwd{
+		display:none;
 		width: 300px;
-		display:block;
 		margin-top: 20px;
 		margin-left: 28%;
 		text-align:left;
 		font-size: $base_input_font_size;
-		@media (min-width:768px){
-			margin-left:31%;
-		}
-		@media(max-width:480px){
-			margin-left:10%;
-		}
 	}
 }

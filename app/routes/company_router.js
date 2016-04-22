@@ -91,6 +91,8 @@ router.post(url + '/profile/edit', function(req, res, next) {
             if (err) next(new Error('upload'));
 
             console.log(__filename, req.body);
+            console.log(__filename, typeof req.body);
+
             if (req.file) {
                 var fileType = ".jpg";
                 if (req.file.mimetype === 'image/jpeg') {
@@ -109,11 +111,17 @@ router.post(url + '/profile/edit', function(req, res, next) {
                 originCompany['pic'] = req.file.path;
             }
 
-            // update from req.body
+            console.log("before", originCompany)
+                // update from req.body
             for (key in req.body) {
-                if (originCompany[key])
+                if (originCompany[key]) {
                     originCompany[key] = req.body[key];
+                    // console.log('\n\noriginCompany[key]', JSON.parse(req.body[key]));
+                }
+                //判斷 key is object 
             }
+
+            console.log("after", originCompany)
 
             CompanyProfile.update({ _id: originCompany._id }, originCompany, function(err, status) {
                 if (err) next(new Error('CompanyProfile.update()'));
