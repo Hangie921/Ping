@@ -1,6 +1,7 @@
-// express
-var express = require('express');
-var router = express.Router();
+// node modules
+var express = require('express'),
+    router = express.Router(),
+    async = require('async');
 
 // module
 // var User = require('../module/user.js');
@@ -25,9 +26,6 @@ router.get(url, function(req, res, next) {
         .find()
         .exec(function(err, users) {
             if (err) return next(err);
-            if (users.length < 1) {
-                return next(new Error('failed to find user'));
-            }
             res.render(routerName, { users: users });
         });
 });
@@ -54,6 +52,9 @@ router.put(url + '/:id/edit', function(req, res) {
     console.log(`put #{req.params.id}/edit`);
 });
 
+// Example: 
+//   createUser(acc, pwd, username, type, function(err) {});
+//
 function createUser(acc, pwd, username, type, callback) {
     var newPingUser = new PingUser();
     newPingUser.system_parameter = 1;
@@ -61,7 +62,6 @@ function createUser(acc, pwd, username, type, callback) {
     newPingUser.email = acc;
     newPingUser.pwd = pwd;
     var profile;
-
 
     if (type === "company") {
         profile = new CompanyProfile();
@@ -74,28 +74,61 @@ function createUser(acc, pwd, username, type, callback) {
         newPingUser.custom = { _profile: profile._id };
     }
 
-    // var errors = newPingUser.validateSync();
-    // console.log("error",error.errors['system_parameter'].message);
-    UserService.registered(newPingUser, function(resStatus) {
+    async.series({
+            saveProfile: function(cb) {
+                profile.save(function(err, data) {
+                    cb(err, data);
+                })
+            },
+            saveUser: function(cb) {
+                newPingUser.save(function(err, data) {
+                    if (err) {
+                        console.log(JSON.stringify(err));
+                        console.log(err);
+                        CompanyProfile.findByIdAndRemove(profile._id, function(errRemoveProfile, removeProfile) {
+                            cb(err, data);
+                        })
 
-        //  add user succuss > add profile
-        if (resStatus.code === resCode.OK) {
-
-            profile.save(function(err, company) {
-                console.log(__filename,
-                    "err=" + err, company);
-
-                //  add profile fail > delete user
-                mailer.send(acc, function(err, msg) {
-                    if (err) return console.error(err);
-                    console.log(msg);
+                    } else {
+                        cb(err, data);
+                    }
                 });
-                callback();
+            }
+        },
+        // 如果不放err, 會印不出所有results
+        function(err, results) {
+            if (err) {
+                return callback(err);
+            }
+
+            callback(null, results);
+            mailer.send(acc, function(err, msg) {
+                // @Todo Write it in logger
+                if (err) return console.error(err);
+                console.log(msg);
             });
-        } else {
-            callback(resStatus);
-        }
-    });
+        });
+
+    // UserService.registered(newPingUser, function(resStatus) {
+
+    //     //  add user succuss > add profile
+    //     if (resStatus.code === resCode.OK) {
+
+    //         profile.save(function(err, company) {
+    //             console.log(__filename,
+    //                 "err=" + err, company);
+
+    //             //  add profile fail > delete user
+    //             mailer.send(acc, function(err, msg) {
+    //                 if (err) return console.error(err);
+    //                 console.log(msg);
+    //             });
+    //             callback();
+    //         });
+    //     } else {
+    //         callback(resStatus);
+    //     }
+    // });
 
 }
 
@@ -105,11 +138,17 @@ router.post(url, function(req, res, next) {
         username = req.body.username,
         type = req.body.member_type;
 
-    createUser(acc, pwd, username, type, function(err) {
+    var resJson = { code: 200 };
 
-        if (err) console.log(err);
+    createUser(acc, pwd, username, type, function(err, msg) {
 
-        res.redirect('/test');
+        if (err) {
+            resJson.code = 400;
+            resJson.errmsg = err;
+        }
+
+        resJson.msg = msg;
+        res.json(resJson);
     });
 
 });

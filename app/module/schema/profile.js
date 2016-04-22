@@ -8,7 +8,7 @@ var Profile = mongoose.model('profile', new mongoose.Schema({
 
 var CompanyProfile = Profile.discriminator('Company',
     new mongoose.Schema({
-        pic: String,
+        pic: { type: String, default: "img/alpaca2.jpg" },
         username: { type: String, unique: true, default: "Ping" },
         description: { type: String, default: "Walter hahahahah Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos rerum maiores accusamus enim unde distinctio? Assumenda suscipit vitae, quia enim consequatur! Neque animi, omnis officiis, porro rerum nemo error vitae!" },
         tagline: { type: String, default: "ahaha is good" },
@@ -30,9 +30,9 @@ var TalentProfile = Profile.discriminator('Talent',
 // @Todo http://mongoosejs.com/docs/api.html#model_Model.ensureIndexes
 // @Todo http://mongoosejs.com/docs/guide.html#autoIndex
 
-// CompanyProfile.ensureIndexes(function (err) {
-//   if (err) console.error(err); // error occurred during index creation
-// });
+CompanyProfile.ensureIndexes(function(err) {
+    if (err) console.error(err); // error occurred during index creation
+});
 
 module.exports = Profile;
 module.exports.CompanyProfile = CompanyProfile;
