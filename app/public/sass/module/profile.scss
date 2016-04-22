@@ -7,8 +7,16 @@
             font-size: 16px;
         }
     }
+
     /// Start the .view mode
     &.view {
+    	padding-top:140px;
+    	.ping_header{
+    		margin-top: -140px;
+    	}
+    	.menu_container{
+    		margin-top: -60px;
+    	}
         // To mark the page as view mode
         h1 {
             font-size: $profile_h1_font_size;

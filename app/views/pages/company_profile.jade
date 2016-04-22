@@ -15,7 +15,7 @@ include ../modules/head
 						img(src='/#{profile.pic}')
 				section.comp_info
 					.container
-						.detail.pull_left.clearfix
+						.detail.pull_left.clearfix.col-md-4
 							.location.base_white
 								span.lnr-map-marker.lnr=profile.location
 							.details
@@ -29,7 +29,7 @@ include ../modules/head
 									li 
 										span.lnr.lnr-tag
 										span.detail_content #{profile.industry}
-						.social_icons.pull_right
+						.social_icons.pull_right.col-md-4
 							ul
 								li.round_container
 									i.fa.fa-facebook-f
@@ -40,7 +40,7 @@ include ../modules/head
 								li.round_container
 									i.fa.fa-globe
 						hr
-						.culture.pull_left
+						.culture.pull_left.col-md-6
 							span.title Company Culture
 								ul
 									for culture in profile.culture
@@ -49,7 +49,7 @@ include ../modules/head
 										//- li.tag.base_white_bg.grayscale_cl Banana
 										//- li.tag.base_white_bg.grayscale_cl Kumamon
 										//- li.tag.base_white_bg.grayscale_cl Ichiro
-						.tec.pull_right
+						.tec.pull_right.col-md-6
 							span.title Company Technology
 								ul
 									for technology in profile.technology
