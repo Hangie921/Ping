@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "test": "mocha $(find test -name '*.js' ! -path '*try*')",
     "updateping": "npm install ../../Ping_Library",
-    "gen": "node generator/user_generator.js"
+    "gen": "node generator/user_generator.js",
+    "regen": "node generator/user_generator.js --drop"
   },
   "dependencies": {
     "body-parser": "~1.13.2",

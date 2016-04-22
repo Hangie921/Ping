@@ -35,7 +35,10 @@ var TalentProfile = Profile.discriminator('Talent',
     new mongoose.Schema({
         username: { type: String, unique: true },
         phone: String,
-        position: String,
+        location: {
+                country: String,
+                city: String
+            },
         skills: Array,
         personalities: Array,
         experiences: [{

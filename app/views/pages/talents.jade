@@ -1,8 +1,11 @@
 p=talents
 each talent in talents
 	ul
-		li
-			a(href='../talents/'+talent.name) #{talent.name}
-		li=talent.religion
 		li=talent._id
+		li
+			a(href='../talents/'+talent.username) #{talent.username}
+		li=talent.religion
+			-
+				console.log(typeof talent.time);
+		li=talent.time
 		

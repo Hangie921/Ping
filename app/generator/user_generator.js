@@ -5,6 +5,7 @@ var mongoose = require("mongoose"),
 
 mongoose.connect(dbURI);
 
+
 // Models 
 var profile = require('../module/schema/profile.js');
 var CompanyProfile = require('../module/schema/profile.js').CompanyProfile;
@@ -36,7 +37,67 @@ var company = new User({
 
 var talentProfile = new TalentProfile({
     username: "Talent",
-
+    phone: "1234567890",
+    location: {
+        country: "TW",
+        city: "Taipei"
+    },
+    skills: ["photoshop", "illustrator", "sketch", "invision", "HTML"],
+    personalities: ["I", "have", "passionate", "but", "ugly"],
+    experiences: [{
+        company: "Ping",
+        title: "RD",
+        industry: "startup",
+        start_date: new Date(),
+        end_date: new Date(),
+        location: {
+            country: "TW",
+            city: "Taipei"
+        }
+    }],
+    educations: [{
+        degree: "Master",
+        school: "National Taiwan University",
+        location: {
+            country: "TW",
+            city: "Taipei"
+        }
+    }],
+    awards: [{
+        title: "Best of Next",
+        activity: "Melbourne Internation Animation Festival",
+        date: new Date(),
+        location: {
+            country: "TW",
+            city: "Taipei"
+        }
+    }],
+    agreements: [{
+        title: "permission",
+        agree: true
+    }],
+    aspiration: {
+        work_type: ["Android", "IOS"],
+        salary: "Negotiable",
+        freelance_rate: {
+            currency: "NTD",
+            amount: 1000
+        },
+        relocate: true
+    },
+    portfolio: [{
+        pic: "img/alpaca.jpg",
+        title: "Alpaca"
+    }, {
+        pic: "img/alpaca.jpg",
+        title: "Alpaca"
+    }, {
+        pic: "img/alpaca.jpg",
+        title: "Alpaca"
+    }, {
+        pic: "img/alpaca.jpg",
+        title: "Alpaca"
+    }]
 });
 var talent = new User({
     system_parameter: 1,
@@ -47,6 +108,14 @@ var talent = new User({
 });
 
 async.series({
+        dropDatabase: function(callback) {
+            if (process.argv[2] === "--drop") {
+                for (var i in mongoose.connection.collections) {
+                    mongoose.connection.collections[i].remove(function() {});
+                }
+            }
+            callback();
+        },
         companyProfile: function(callback) {
             companyProfile.save(function(err, data) {
                 callback(err, data);

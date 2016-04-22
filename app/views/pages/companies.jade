@@ -1,10 +1,13 @@
 p=companies
 each company in companies
+	//- p=company
+	//- each v,k in company
+		p #{v}
 	ul
 		li
 			a(href='../companies/'+company.username) #{company.username}
 		li=company._id
-		li=company.location
+		li #{company.location.country}, #{company.location.city}
 		li=company.description
 		li=company.culture
 		li=company.time
