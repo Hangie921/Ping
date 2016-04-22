@@ -42,6 +42,8 @@ var dir = './uploads';
 if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
 }
+
+// @Todo remove this test upload router
 var upload = multer({ storage: storage }).single('uploadFile');
 router.post('/', function(req, res, next) {
 	console.log(req.method);

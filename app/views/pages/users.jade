@@ -1,8 +1,9 @@
 p=users
 each user in users
 	ul
+		li #{user._id}
 		li
 			a(href='../users/'+user.email) #{user.email}
-		li=user.pwd
-		li=JSON.stringify(user.custom)
-		li=user._id
+		li pwd =#{user.pwd}
+		li custom = #{JSON.stringify(user.custom)}
+		li system_parameter = #{user.system_parameter}

@@ -1,31 +1,44 @@
-var mongoose = require("mongoose");
+var mongoose = require("mongoose"),
+    Mixed = mongoose.Schema.Types.Mixed;
 
 var options = { discriminatorKey: 'type' };
 
 var Profile = mongoose.model('profile', new mongoose.Schema({
     time: { type: String, default: new Date() },
+    pic: { type: String, default: "img/alpaca2.jpg" },
 }, options));
 
 var CompanyProfile = Profile.discriminator('Company',
     new mongoose.Schema({
-        pic: { type: String, default: "img/alpaca2.jpg" },
-        username: { type: String, unique: true, default: "Ping" },
-        description: { type: String, default: "Walter hahahahah Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos rerum maiores accusamus enim unde distinctio? Assumenda suscipit vitae, quia enim consequatur! Neque animi, omnis officiis, porro rerum nemo error vitae!" },
-        tagline: { type: String, default: "ahaha is good" },
-        size: { type: String, default: "10-25" },
-        industry: { type: String, default: "Technolegy" },
-        establish_year: { type: String, default: 2014 },
-        location: { type: String, default: "Taipei,Taiwan" },
-        culture: { type: Array, default: ["Fun in life", "HoHoHo", "Banana", "Kumamon"] },
-        technology: { type: Array, default: ["Pokemon", "Spy", "Beer", "Holiday", "Javascipt", "PHP"] },
-        links: Array,
+        username: { type: String, unique: true },
+        description: { type: String, default: "尚未填寫簡介" },
+        tagline: String,
+        size: String,
+        industry: String,
+        establish_year: Number,
+        location: String,
+        culture: Array,
+        technology: Array,
+        links: Mixed,
     }, options));
 
 var TalentProfile = Profile.discriminator('Talent',
     new mongoose.Schema({
-        religion: { type: String, default: "Christianity" },
-        username: { type: String, unique: true, default: "Ping" },
+        religion: String,
+        username: { type: String, unique: true },
     }, options));
+
+// username: String "unique"
+// name: String
+// pic: String
+// phone: String
+// position: String
+// skill: Array
+// agreement: Mixed
+// education_info: Mixed
+// talent_info: Mixed
+// work_experience: Mixed
+// award: Mixed
 
 // @Todo http://mongoosejs.com/docs/api.html#model_Model.ensureIndexes
 // @Todo http://mongoosejs.com/docs/guide.html#autoIndex

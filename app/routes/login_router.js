@@ -62,7 +62,6 @@ router.post('/login', upload.single(), function(req, res, next) {
             req.session.error = 'Incorrect username or password';
             resJson.code = 404;
             res.json(resJson);
-            console.log(__filename,resJson);
                 // @Temp : 暫時show error, 之後改ajax, res.json(...)
                 // res.redirect('/');
         }
