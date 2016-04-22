@@ -4,7 +4,7 @@ var mongoose = require("mongoose"),
 var options = { discriminatorKey: 'type' };
 
 var Profile = mongoose.model('profile', new mongoose.Schema({
-    time: { type: String, default: new Date() },
+    time: { type: Date, default: Date.now },
     pic: { type: String, default: "img/alpaca2.jpg" },
 }, options));
 
@@ -16,29 +16,74 @@ var CompanyProfile = Profile.discriminator('Company',
         size: String,
         industry: String,
         establish_year: Number,
-        location: String,
+        location: {
+            country: String,
+            city: String
+        },
         culture: Array,
         technology: Array,
-        links: Mixed,
+        links: {
+            official: String,
+            facebook: String,
+            linkedin: String,
+            twitter: String,
+            google: String,
+        },
     }, options));
 
 var TalentProfile = Profile.discriminator('Talent',
     new mongoose.Schema({
-        religion: String,
         username: { type: String, unique: true },
+        phone: String,
+        position: String,
+        skills: Array,
+        personalities: Array,
+        experiences: [{
+            company: String,
+            title: String,
+            industry: String,
+            start_date: Date,
+            end_date: Date,
+            location: {
+                country: String,
+                city: String
+            }
+        }],
+        educations: [{
+            degree: String,
+            school: String,
+            location: {
+                country: String,
+                city: String
+            }
+        }],
+        awards: [{
+            title: String,
+            activity: String,
+            date: Date,
+            location: {
+                country: String,
+                city: String
+            }
+        }],
+        agreements: [{
+            title: String,
+            agree: Boolean
+        }],
+        aspiration: {
+            work_type: Array,
+            salary: String,
+            freelance_rate: {
+                currency: String,
+                amount: Number
+            },
+            relocate: Boolean
+        },
+        portfolio: [{
+            pic: String,
+            title: String
+        }]
     }, options));
-
-// username: String "unique"
-// name: String
-// pic: String
-// phone: String
-// position: String
-// skill: Array
-// agreement: Mixed
-// education_info: Mixed
-// talent_info: Mixed
-// work_experience: Mixed
-// award: Mixed
 
 // @Todo http://mongoosejs.com/docs/api.html#model_Model.ensureIndexes
 // @Todo http://mongoosejs.com/docs/guide.html#autoIndex

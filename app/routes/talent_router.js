@@ -15,18 +15,28 @@ var UserService = pinglib.UserService;
 var routerName = 'talents';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
-router.get(url + '/:name', function(req, res) {
-    console.log("msg", req.params.name);
-    TalentProfile.findOne({ name: req.params.name }, function(err, talent) {
+
+// @Todo 之後看是不是要放在更外層
+router.get(url + '/*', function(req, res, next) {
+    console.log(__filename, url + " middle");
+    if (req.session.user == undefined) {
+        return res.redirect('/login');
+    }
+    next();
+});
+
+router.get(url + '/:username', function(req, res) {
+    console.log("msg", req.params.username);
+    TalentProfile.findOne({ username: req.params.username }, function(err, talent) {
         if (err) console.log(err);
         console.log(talent);
         res.json(talent);
     })
 });
 
-router.post(url + '/:name/edit', function(req, res) {
+router.post(url + '/:username/edit', function(req, res) {
 
-    TalentProfile.findOne({ name: req.params.name }, function(err, originCompany) {
+    TalentProfile.findOne({ username: req.params.username }, function(err, originCompany) {
         if (err) console.log(err);
 
 

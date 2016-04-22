@@ -21,10 +21,10 @@ var companyProfile = new CompanyProfile({
     size: "10-25",
     industry: "Technolegy",
     establish_year: 2014,
-    location: "Taipei,Taiwan",
+    location: { country: "Taipei", city: "Taiwan" },
     culture: ["Fun in life", "HoHoHo", "Banana", "Kumamon"],
     technology: ["Pokemon", "Spy", "Beer", "Holiday", "Javascipt", "PHP"],
-    links: ["www.goole.com", "www.ping.com.sg"],
+    links: { facebook: "www.facebook.com", google: "www.goole.com", official: "www.ping.com.sg" },
 });
 var company = new User({
     system_parameter: 1,
@@ -36,7 +36,7 @@ var company = new User({
 
 var talentProfile = new TalentProfile({
     username: "Talent",
-    
+
 });
 var talent = new User({
     system_parameter: 1,
