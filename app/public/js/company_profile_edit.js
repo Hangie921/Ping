@@ -163,7 +163,7 @@ app.controller('social_media_controller', function($scope) {
 
 
     $scope.upload = function(formName, btn) {
-        
+
         var formData = new FormData(document.forms.namedItem(formName));
 
         formData.append("CustomField", "This is some extra data");

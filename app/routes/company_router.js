@@ -114,7 +114,9 @@ router.post(url + '/profile/edit', function(req, res, next) {
             console.log("before", originCompany)
                 // update from req.body
             for (key in req.body) {
-                if (originCompany[key]) {
+                if(key =='links'){
+                    originCompany[key] = JSON.parse(req.body[key]);
+                }else if (originCompany[key]) {
                     originCompany[key] = req.body[key];
                     // console.log('\n\noriginCompany[key]', JSON.parse(req.body[key]));
                 }
