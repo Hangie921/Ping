@@ -1,11 +1,8 @@
 p=talents
 each talent in talents
+	- var c = talent.toObject()
 	ul
-		li=talent._id
-		li
-			a(href='../talents/'+talent.username) #{talent.username}
-		li=talent.religion
-			-
-				console.log(typeof talent.time);
-		li=talent.time
-		
+		li 
+			a(href='/talents/'+c.username) #{c.username}
+		each v,k in c
+			li <strong>#{k}:</strong> #{JSON.stringify(v)}

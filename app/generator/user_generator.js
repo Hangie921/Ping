@@ -19,7 +19,7 @@ var companyProfile = new CompanyProfile({
     username: "Ping",
     description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore inventore impedit beatae ex repellat veritatis blanditiis harum cumque ullam ab qui, alias ipsum quia ut, odit rerum dolorum animi voluptatibus.",
     tagline: "ahaha is good",
-    size: "10-25",
+    size: "1-10",
     industry: "Technolegy",
     establish_year: 2014,
     location: { country: "Taipei", city: "Taiwan" },

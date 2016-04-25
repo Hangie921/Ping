@@ -12,6 +12,12 @@ var SessionService = pinglib.SessionService;
 var Profile = require('../module/schema/profile.js');
 
 router.get('/login', function(req, res, next) {
+    
+    // @Todo 之後要在前端redirect
+    if (req.session.user !== undefined) {
+        return res.redirect('/dashboard');
+    }
+
     var error = "";
     var renderData = {
         title: 'Ping'
@@ -36,8 +42,8 @@ router.post('/login', upload.single(), function(req, res, next) {
 
     var resJson = { code: 200 };
     // console.log("user= ", user);
-        // console.log("s1",req.session.user)
-        // UserService.getUser(user, function(data) {
+    // console.log("s1",req.session.user)
+    // UserService.getUser(user, function(data) {
     SessionService.login(req, res, user, function(data) {
 
         // console.log(__filename,data);
@@ -62,8 +68,8 @@ router.post('/login', upload.single(), function(req, res, next) {
             req.session.error = 'Incorrect username or password';
             resJson.code = 404;
             res.json(resJson);
-                // @Temp : 暫時show error, 之後改ajax, res.json(...)
-                // res.redirect('/');
+            // @Temp : 暫時show error, 之後改ajax, res.json(...)
+            // res.redirect('/');
         }
     });
 

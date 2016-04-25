@@ -1,14 +1,8 @@
 p=companies
 each company in companies
-	//- p=company
-	//- each v,k in company
-		p #{v}
+	- var c = company.toObject()
 	ul
-		li
-			a(href='../companies/'+company.username) #{company.username}
-		li=company._id
-		li #{company.location.country}, #{company.location.city}
-		li=company.description
-		li=company.culture
-		li=company.time
-		
+		li 
+			a(href='/companies/'+c.username) #{c.username}
+		each v,k in c
+			li <strong>#{k}:</strong> #{JSON.stringify(v)}

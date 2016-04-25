@@ -27,10 +27,14 @@ router.get(url + '/*', function(req, res, next) {
 
 router.get(url + '/:username', function(req, res) {
     console.log("msg", req.params.username);
+    var resJson = {
+        user: req.session.user
+    };
     TalentProfile.findOne({ username: req.params.username }, function(err, talent) {
         if (err) console.log(err);
-        console.log(talent);
-        res.json(talent);
+        resJson.talent = talent;
+        console.log(resJson)
+        res.json(resJson);
     })
 });
 
@@ -42,7 +46,7 @@ router.post(url + '/:username/edit', function(req, res) {
 
         console.log("msg", req.body);
         for (key in req.body) {
-            if(originCompany[key])
+            if (originCompany[key])
                 originCompany[key] = req.body[key];
 
         }
