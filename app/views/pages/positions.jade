@@ -1,0 +1,8 @@
+p=positions
+each position in positions
+	- var c = position.toObject()
+	ul
+		li 
+			a(href='/positions/'+c.username) #{c.username}
+		each v,k in c
+			li <strong>#{k}:</strong> #{JSON.stringify(v)}

@@ -1,0 +1,8 @@
+p=skills
+each skill in skills
+	- var c = skill.toObject()
+	ul
+		li 
+			a(href='/skills/'+c.username) #{c.username}
+		each v,k in c
+			li <strong>#{k}:</strong> #{JSON.stringify(v)}
