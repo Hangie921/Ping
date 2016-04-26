@@ -13,7 +13,14 @@ var profileSchema = new mongoose.Schema({
 
 var companyProfileSchema = new mongoose.Schema({
     username: { type: String, unique: true },
-    description: { type: String, default: "尚未填寫簡介" },
+    who_u_r: [{
+        type: { type: String, enum: ['Text', 'List', 'Quote'] },
+        content: Mixed
+    }],
+    what_u_do: [{
+        type: { type: String, enum: ['Text', 'List', 'Quote'] },
+        content: Mixed
+    }],
     tagline: String,
     size: {
         type: String,

@@ -10,7 +10,7 @@ include ../modules/head
 		block main_menu
 			include ../modules/menu.jade
 		block sideBar
-			include ../modules/sideBar.jade
+			include ../modules/sidebar.jade
 		block content
 			.row.col-md-10
 				.content_container.col-md-10.row(ng-init="initial(#{JSON.stringify(profile)})")
@@ -68,34 +68,60 @@ include ../modules/head
 							.input_container.col-md-8
 								.input_single
 									label Company&nbspCulture
-									input(type='text',ng-model='culture',ng-keyup="$event.keyCode == '13'&&update('culture')",placeholder='Enter the culture tags you wanna add')
+									input(type='text',ng-model='culture',ng-keyup="$event.keyCode == '13' && update_tags('culture')",placeholder='Enter the culture tags you wanna add')
 									.tag_group
 										.tag_single(ng-repeat='culture in profile.culture')
 											a.tag.base_white.pri_cl_bg
 												{{culture}}
-											a(ng-click='deleteTags(profile.culture,$index)')
+											a(ng-click='delete_tags(profile.culture,$index)')
 												i.lnr.lnr-cross.base_white
 								.input_single
 									label Company&nbspTechnology
-									input(type='text',ng-model='technology',ng-keyup="$event.keyCode == '13' && update('technology')",placeholder='Enter the technology tags you wanna add')
+									input(type='text',ng-model='technology',ng-keyup="$event.keyCode == '13' && update_tags('technology')",placeholder='Enter the technology tags you wanna add')
 									.tag_group
 										.tag_single(ng-repeat='technology in profile.technology')
 											a.tag.base_white.pri_cl_bg
 												{{technology}}
-											a(ng-click='deleteTags(profile.technology,$index)')
+											a(ng-click='delete_tags(profile.technology,$index)')
 												i.lnr.lnr-cross.base_white
 						section.company_instro.edit_section
 							.title.col-md-10
 									h3 Introduce&nbspYour&nbspCompany
 							.input_container.col-md-7
-								.input_single
+								.input_group
 									label Who&nbspyou&nbspare
-									textarea(rows='10',cols='40').input
-										|#{profile.description}
-								.input_single
-									label What&nbspyou&nbspdo
-									textarea(rows='10',cols='40').input
-										|#{profile.description}
+									.input_single
+										.menu_bar
+											ul
+												li
+													a 
+												li 
+													a Text
+												li
+													a List
+												li
+													a Quote
+										.content
+											textarea(rows='10',cols='40').input
+									a.btn Add Content
+
+										
+								//- .input_group
+								//- 	label What&nbspyou&nbspdo
+								//- 	.input_single
+								//- 		.menu_bar
+								//- 			ul
+								//- 				li
+								//- 					a 
+								//- 				li 
+								//- 					a Text
+								//- 				li
+								//- 					a List
+								//- 				li
+								//- 					a Quote
+								//- 		.content
+								//- 			textarea(rows='10',cols='40').input
+										
 						.btn_group.col-md-6
 							a.btn.cancel(href='/dashboard') cancel
 							a.btn.btn_pri.save#update_btn_second.disable(data-router='/companies/profile/edit',ng-click="update_to_DB()") save&nbspchanges

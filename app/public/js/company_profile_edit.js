@@ -17,7 +17,7 @@ var app = angular.module('profile_edit_app', []);
 
 // 1st page of the edit mode with profile_edit_controller
 app.controller('profile_edit_controller', function($scope) {
-    
+
     $scope.upload = function(formName, btn) {
         var formData = new FormData(document.forms.namedItem(formName));
 
@@ -44,30 +44,28 @@ app.controller('profile_edit_controller', function($scope) {
 
 
 // 2nd page of the edit mode with the detail_controller
-app.controller('detail_controller',function($scope){
-    $scope.initial = function(doc){
+app.controller('detail_controller', function($scope) {
+    $scope.initial = function(doc) {
         $scope.profile = doc;
     };
 
 
-    $scope.update = function(prop){
-        if(prop == 'culture'){
+    //About the tags section
+    $scope.update_tags = function(prop) {
+        if (prop == 'culture') {
             $scope.profile.culture.push($scope.culture);
-            $scope.culture='';
-        }else{
+            $scope.culture = '';
+        } else {
             $scope.profile.technology.push($scope.technology);
-            $scope.technology='';
+            $scope.technology = '';
         }
     };
-    $scope.update_to_DB = function(){
-
-        console.log($scope.profile);
-        console.log(typeof $scope.profile);
+    $scope.update_to_DB = function() {
         var formData = new FormData();
 
         formData.append("CustomField", "This is some example data");
-        formData.append("culture",JSON.stringify($scope.profile.culture));
-        formData.append("technology",JSON.stringify($scope.profile.technology));
+        formData.append("culture", JSON.stringify($scope.profile.culture));
+        formData.append("technology", JSON.stringify($scope.profile.technology));
 
         var oReq = new XMLHttpRequest();
         oReq.onreadystatechange = function() {
@@ -85,9 +83,18 @@ app.controller('detail_controller',function($scope){
         oReq.open("POST", "/companies/profile/edit", true);
         oReq.send(formData);
     }
-    $scope.deleteTags = function(array,index){
+    $scope.delete_tags = function(array, index) { 
+        // splice the tags data from the $scope.profile.culture or 
+        // $scope.profile.technology to generate or remove the tag DOM
+        // dynamically
+
         array.splice(index, 1);
     }
+
+    //
+
+
+
 });
 
 
@@ -103,31 +110,31 @@ app.controller('social_media_controller', function($scope) {
             show_btn: true,
             data: doc.official ? doc.official : "",
             has_active: doc.official ? true : false,
-            data_from_server: doc.official ? true :false
+            data_from_server: doc.official ? true : false
         };
         $scope.facebook = {
             show_btn: true,
             data: doc.facebook ? doc.facebook : "",
             has_active: doc.facebook ? true : false,
-            data_from_server: doc.facebook ? true :false
+            data_from_server: doc.facebook ? true : false
         };
         $scope.linkedin = {
             show_btn: true,
             data: doc.linkedin ? doc.linkedin : "",
             has_active: doc.linkedin ? true : false,
-            data_from_server: doc.linkedin ? true :false 
+            data_from_server: doc.linkedin ? true : false
         };
         $scope.twitter = {
             show_btn: true,
             data: doc.twitter ? doc.twitter : "",
             has_active: doc.twitter ? true : false,
-            data_from_server: doc.twitter ? true :false
+            data_from_server: doc.twitter ? true : false
         };
         $scope.google = {
             show_btn: true,
             data: doc.google ? doc.google : "",
             has_active: doc.google ? true : false,
-            data_from_server: doc.google ? true :false
+            data_from_server: doc.google ? true : false
         };
 
 
@@ -213,12 +220,12 @@ app.controller('social_media_controller', function($scope) {
         var formData = new FormData(document.forms.namedItem(formName));
 
         formData.append("CustomField", "This is some extra data");
-        formData.append("links",JSON.stringify({
-            official:$scope.official.data,
-            facebook:$scope.facebook.data,
-            linkedin:$scope.linkedin.data,
-            twitter:$scope.twitter.data,
-            google:$scope.google.data,
+        formData.append("links", JSON.stringify({
+            official: $scope.official.data,
+            facebook: $scope.facebook.data,
+            linkedin: $scope.linkedin.data,
+            twitter: $scope.twitter.data,
+            google: $scope.google.data,
         }));
 
         var oReq = new XMLHttpRequest();

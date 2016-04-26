@@ -17,7 +17,26 @@ var User = pinglib.User;
 
 var companyProfile = new CompanyProfile({
     username: "Ping",
-    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore inventore impedit beatae ex repellat veritatis blanditiis harum cumque ullam ab qui, alias ipsum quia ut, odit rerum dolorum animi voluptatibus.",
+    who_u_r: [{
+        type: "Text",
+        content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam sed tempora impedit sapiente fuga voluptas, incidunt possimus excepturi, ipsam, eum esse temporibus animi, pariatur mollitia sunt a voluptate id quisquam?"
+    }, {
+        type: "List",
+        content: ["hahahahah", "Walter hahahahahah", "Rammus hahaha"]
+    }, {
+        type: "Quote",
+        content: "Walter hahahahahah Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, quis, vero? Quis nihil enim dicta magnam illum vitae labore ullam rem nulla cupiditate, excepturi iste provident, soluta itaque obcaecati optio!"
+    }],
+    what_u_do: [{
+        type: "Text",
+        content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam sed tempora impedit sapiente fuga voluptas, incidunt possimus excepturi, ipsam, eum esse temporibus animi, pariatur mollitia sunt a voluptate id quisquam?"
+    }, {
+        type: "List",
+        content: ["hahahahah", "Walter hahahahahah", "Rammus hahaha"]
+    }, {
+        type: "Quote",
+        content: "Walter hahahahahah Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, quis, vero? Quis nihil enim dicta magnam illum vitae labore ullam rem nulla cupiditate, excepturi iste provident, soluta itaque obcaecati optio!"
+    }],
     tagline: "ahaha is good",
     size: "1-10",
     industry: "Technolegy",
