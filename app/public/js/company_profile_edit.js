@@ -15,7 +15,7 @@
 
 var app = angular.module('profile_edit_app', []);
 
-//First page of the edit mode with profile_edit_controller
+// 1st page of the edit mode with profile_edit_controller
 app.controller('profile_edit_controller', function($scope) {
     
     $scope.upload = function(formName, btn) {
@@ -43,10 +43,56 @@ app.controller('profile_edit_controller', function($scope) {
 });
 
 
+// 2nd page of the edit mode with the detail_controller
+app.controller('detail_controller',function($scope){
+    $scope.initial = function(doc){
+        $scope.profile = doc;
+    };
+
+
+    $scope.update = function(prop){
+        if(prop == 'culture'){
+            $scope.profile.culture.push($scope.culture);
+            $scope.culture='';
+        }else{
+            $scope.profile.technology.push($scope.technology);
+            $scope.technology='';
+        }
+    };
+    $scope.update_to_DB = function(){
+
+        console.log($scope.profile);
+        console.log(typeof $scope.profile);
+        var formData = new FormData();
+
+        formData.append("CustomField", "This is some example data");
+        formData.append("culture",JSON.stringify($scope.profile.culture));
+        formData.append("technology",JSON.stringify($scope.profile.technology));
+
+        var oReq = new XMLHttpRequest();
+        oReq.onreadystatechange = function() {
+            if (oReq.readyState == 4 && oReq.status == 200) {
+                var res = JSON.parse(oReq.response);
+                console.log(res.code);
+                if (res.code == 200) {
+                    location.reload();
+                    // console.log("hi success");
+                } else {
+                    console.log(oReq.response);
+                }
+            }
+        };
+        oReq.open("POST", "/companies/profile/edit", true);
+        oReq.send(formData);
+    }
+    $scope.deleteTags = function(array,index){
+        array.splice(index, 1);
+    }
+});
 
 
 
-// Third page of the edit mode with the social_media_controller
+// 3rd page of the edit mode with the social_media_controller
 
 app.controller('social_media_controller', function($scope) {
     $scope.initial = function(doc) {

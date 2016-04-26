@@ -421,7 +421,7 @@
                             height: 100%;
                         }
                         & .btn{
-                            width:63%;
+                            width:67%;
                             text-align: center;
                             line-height:40px;
                             font-size: $base_font_size;
@@ -506,7 +506,7 @@
                             & .select_container {
                                 height: 50px;
                                 margin-top: 24px;
-                                width: 560px;
+                                width: 100%;
                                  @include prefix((
                                         background-position: 97% 50%,
                                     ),webkit moz);
@@ -576,8 +576,22 @@
                 } //end of the .input_container
             } //end of the .company_info
             .company_tags{
-                
-            }
+                .input_container{
+                    padding: 40px 207px 40px 73px;
+                    .input_single{
+                        min-height:100px;
+                        margin-bottom: 70px;
+                        & input{
+                            width: 100%;
+                            height: 100%;
+                        }
+                        & .tag_group{
+                            line-height:3.5;
+                            min-height:1px;
+                        }
+                    }// .input_single
+                }// .input_container
+            }// .company_tags
 
             .company_instro {
                 .input_container {
@@ -585,7 +599,7 @@
                     padding: 40px 207px 40px 73px;
                     .input_single {
                         max-width: initial;
-                        width: 558px;
+                        width: 100%;
                         height: 321px;
                         margin-bottom: 50px;
                         & textarea {
@@ -732,7 +746,7 @@
                                 &:before{
                                     display: none;
                                 }
-                                &.checked:before{
+                                &.active:before{
                                     display:initial;
                                 }
                         }

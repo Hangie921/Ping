@@ -1,11 +1,11 @@
 include ../modules/head
 		link(rel="stylesheet"  href="/css/profile.css")
-	body.profile.edit.detail
+	body.profile.edit.detail(ng-app="profile_edit_app",ng-controller='detail_controller')
 		-
 			var profile = user.custom._profile;
 			var type = user.custom._profile.type;
 			console.log("view mode:detail.jade",profile);
-		script(type='text/javascript',src='../../js/company_profile_edit.js').
+		script(type='text/javascript',src='/js/company_profile_edit.js').
 		
 		block main_menu
 			include ../modules/menu.jade
@@ -13,7 +13,7 @@ include ../modules/head
 			include ../modules/sideBar.jade
 		block content
 			.row.col-md-10
-				.content_container.col-md-10.row
+				.content_container.col-md-10.row(ng-init="initial(#{JSON.stringify(profile)})")
 					h2 Edit Profile
 					form(id='details_description',action='')
 						section.company_info.edit_section
@@ -24,28 +24,28 @@ include ../modules/head
 										.hint_container.col-md-2
 											h3 How to make your profile shine
 											p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
-							.input_container
+							.input_container.col-md-8
 								.input_row.industry
 									.select_container
 										label Industry
 										select
-											option(value="0") Sport
-											option(value="1") Tech
-											option(value="2") Transport
+											option(value="0") #{profile.industry}
+											option(value="1") option1
+											option(value="2") option2
 								.input_row.location
 									.select_container
 										label Location
 										select
-											option(value="0") Taiwan
-											option(value="1") Singapore
-											option(value="2") Boracay
-											option(value="3") Bali
+											option(value="0") #{profile.location.city}
+											option(value="1") option1
+											option(value="2") option2
+											option(value="3") option4
 									.select_container
 										select
-											option(value="0") Taipei
-											option(value="1") Taichung
-											option(value="2") 
-											option(value="3")
+											option(value="0") #{profile.location.country}
+											option(value="1") option1
+											option(value="2") option2
+											option(value="3") option3
 								.input_row.size
 									.select_container
 										label Company&nbspSize
@@ -65,17 +65,29 @@ include ../modules/head
 						section.company_tags.edit_section
 							.title.col-md-10
 									h3 Company&nbspTags
-							.input_container
+							.input_container.col-md-8
 								.input_single
 									label Company&nbspCulture
-									input(type='text')
+									input(type='text',ng-model='culture',ng-keyup="$event.keyCode == '13'&&update('culture')",placeholder='Enter the culture tags you wanna add')
+									.tag_group
+										.tag_single(ng-repeat='culture in profile.culture')
+											a.tag.base_white.pri_cl_bg
+												{{culture}}
+											a(ng-click='deleteTags(profile.culture,$index)')
+												i.lnr.lnr-cross.base_white
 								.input_single
 									label Company&nbspTechnology
-									input(type='text')
+									input(type='text',ng-model='technology',ng-keyup="$event.keyCode == '13' && update('technology')",placeholder='Enter the technology tags you wanna add')
+									.tag_group
+										.tag_single(ng-repeat='technology in profile.technology')
+											a.tag.base_white.pri_cl_bg
+												{{technology}}
+											a(ng-click='deleteTags(profile.technology,$index)')
+												i.lnr.lnr-cross.base_white
 						section.company_instro.edit_section
 							.title.col-md-10
 									h3 Introduce&nbspYour&nbspCompany
-							.input_container
+							.input_container.col-md-7
 								.input_single
 									label Who&nbspyou&nbspare
 									textarea(rows='10',cols='40').input
@@ -86,7 +98,7 @@ include ../modules/head
 										|#{profile.description}
 						.btn_group.col-md-6
 							a.btn.cancel(href='/dashboard') cancel
-							a.btn.btn_pri.save#update_btn.disable(data-router='/companies/profile/edit',href='javascript:void(0)') save&nbspchanges
+							a.btn.btn_pri.save#update_btn_second.disable(data-router='/companies/profile/edit',ng-click="update_to_DB()") save&nbspchanges
 
 
 

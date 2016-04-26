@@ -113,10 +113,17 @@ router.post(url + '/profile/edit', function(req, res, next) {
 
             console.log("before", originCompany)
                 // update from req.body
+
+
             for (key in req.body) {
-                if(key =='links'){
+                // @To do: 統一上傳的格式,檔案或是其他input資料 都要統一
+                // 狀況一：只有檔案
+                // 狀況二：只有檔案之外的其他input
+                // 狀況三：mixed
+
+                if (key == 'links' || key == 'culture' || key == 'technology') {
                     originCompany[key] = JSON.parse(req.body[key]);
-                }else if (originCompany[key]) {
+                } else if (originCompany[key]) {
                     originCompany[key] = req.body[key];
                     // console.log('\n\noriginCompany[key]', JSON.parse(req.body[key]));
                 }
