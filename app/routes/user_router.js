@@ -8,7 +8,7 @@ var express = require('express'),
 var Profile = require('../module/schema/profile.js');
 var CompanyProfile = require('../module/schema/profile.js').CompanyProfile;
 var TalentProfile = require('../module/schema/profile.js').TalentProfile;
-var mailer = require('../module/utils/mailer.js')
+var mailer = require('../module/utils/mailer.js');
 
 // pinglib
 var pinglib = require('pinglib');
@@ -78,7 +78,7 @@ function createUser(acc, pwd, username, type, callback) {
             saveProfile: function(cb) {
                 profile.save(function(err, data) {
                     cb(err, data);
-                })
+                });
             },
             saveUser: function(cb) {
                 newPingUser.save(function(err, data) {
@@ -87,7 +87,7 @@ function createUser(acc, pwd, username, type, callback) {
                         console.log(err);
                         CompanyProfile.findByIdAndRemove(profile._id, function(errRemoveProfile, removeProfile) {
                             cb(err, data);
-                        })
+                        });
 
                     } else {
                         cb(err, data);
@@ -108,28 +108,6 @@ function createUser(acc, pwd, username, type, callback) {
                 console.log(msg);
             });
         });
-
-    // UserService.registered(newPingUser, function(resStatus) {
-
-    //     //  add user succuss > add profile
-    //     if (resStatus.code === resCode.OK) {
-
-    //         profile.save(function(err, company) {
-    //             console.log(__filename,
-    //                 "err=" + err, company);
-
-    //             //  add profile fail > delete user
-    //             mailer.send(acc, function(err, msg) {
-    //                 if (err) return console.error(err);
-    //                 console.log(msg);
-    //             });
-    //             callback();
-    //         });
-    //     } else {
-    //         callback(resStatus);
-    //     }
-    // });
-
 }
 
 router.post(url, function(req, res, next) {
@@ -167,54 +145,29 @@ router.delete(url, function(req, res) {
 // APIs
 /////////////////////////////
 router.get(urlApi, function(req, res, next) {
-    PingUser
-        .find()
-        .exec(function(err, users) {
-            if (err) {
-                return next(new Error('PingUser.find()'));
-            }
 
-            // Prepare promises
-            var requests = users.map((user, index) => {
-                return new Promise((resolve) => {
-                    if (user.custom !== undefined) {
-                        var id = user.custom['_profile'];
-                    }
+    PingUser.find(function(err, users) {
+        var opts = [{
+            path: 'custom._profile',
+            model: 'profile'
+        }];
+        
+        var promise = PingUser.populate(users, opts);
 
-                    if (id !== undefined) {
-                        Profile
-                            .findById(id)
-                            .exec(function(err, doc) {
-                                // if (err) {}
-                                users[index].custom._profile = doc;
-                                resolve("index");
-                            })
-                    } else {
-                        // reject("errrrr");
-                        resolve();
-                    }
-                });
-            })
-
-            // Run promises
-            Promise.all(requests).then((reason) => {
-                console.log("im done");
-                console.log(reason);
-                res.json(users);
-            }, () => {
-                // return next(new Error('PingUser.find()'));
-                console.log(reason);
-                res.json(reason);
-            });
-
+        promise.then(function(results) {
+            res.json(results);
+        }, function(reason) {
+            res.json(reason);
         });
+    });
+
 });
 
 router.post(urlApi, function(req, res) {
     var acc = req.body.acc,
         pwd = req.body.pwd;
-    console.log(__filename, acc, pwd)
-    if (acc == null || pwd == null) {
+    console.log(__filename, acc, pwd);
+    if (acc === null || pwd === null) {
         console.log(__filename, "NULLL");
         res.status(400);
         res.json({ msg: "wrong form", data: null });
