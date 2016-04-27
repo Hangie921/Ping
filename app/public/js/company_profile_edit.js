@@ -15,6 +15,204 @@
 
 var app = angular.module('profile_edit_app', []);
 
+
+
+// New a directive for 2nd page to generate dynamical .content according to the data from DB
+app.directive("contentDirective", function($compile) {
+    return {
+        restrict: 'E',
+        replace: true,
+        template: "<div class='content'></div>",
+        link: function(scope, element, attrs) {
+            if (scope.current.type == 'Text' || scope.current.type == 'Quote') {
+                element.append("<textarea class='" + scope.current.type + "' rows='10',cols='40'>" + scope.current.content + "</textarea>");
+            } else {
+                // @Todo 20160426: set class to this lists
+                var ul = "<ul>";
+                for (var i = 0; i < scope.current.content.length; i++) {
+                    ul += "<li>" + scope.current.content[i] + "</li>";
+                }
+                ul += "</ul>";
+                ul = "<div class='list_container' contenteditable='true'>" + ul + "</div>";
+                ul = $(ul);
+                var link = $compile(ul);
+                var node = link(scope);
+                element.append(node);
+            }
+        }
+    };
+});
+
+
+
+
+
+
+// 2nd page of the edit mode with the detail_controller
+app.controller('detail_controller', function($scope, $compile) {
+    $scope.initial = function(doc) {
+        $scope.profile = doc;
+        $scope.who_u_r = doc.who_u_r;
+        $scope.what_u_do = doc.what_u_do;
+        $scope.who_u_r_to_DB = [];
+        $scope.what_u_do_to_DB = [];
+    };
+
+    //=================== Company instro section ====================
+
+
+
+    // generate a <li> contains a section of the input bar including .menu_bar , 
+    // .content and .functions_bar
+    $scope.genSection = function($event) {
+        // @Todo: add class to the DOM
+        //        add function to the menu btns
+        console.log("genSection");
+        var sec = $(`<li><div class='input_single'><div class='menu_bar'><ul><li><a ng-click>btn</a></li><li><a ng-click='genInput($event,"Text")'>Text</a></li><li><a ng-click='genInput($event,"List")'>List</a></li><li><a ng-click='genInput($event,"Quote")'>Quote</a></li></ul></div><div class='content'></div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div></div></li>`);
+        var link = $compile(sec); // compile the dynamic DOM and 
+        var node = link($scope); // set the $scope into it
+        $($event.target).siblings("ul").children("li:last-child").after(node);
+
+
+    };
+
+
+    // generate the input field in .content according to the type user want
+    // lik text, quote or list
+
+    // @Todo: add class to the added DOM
+    $scope.genInput = function($event, type) {
+        console.log("genInput");
+        if (type == 'Text' || type == 'Quote') {
+            console.log(type);
+            $($event.target).parent().parent().parent().siblings(".content").append("<textarea class='" + type + "''></textarea>");
+        } else {
+            console.log(type);
+            $($event.target).parent().parent().parent().siblings(".content").append("<div contenteditable='true'><ul><li></li></ul></div>");
+        }
+    };
+
+
+    $scope.dropSection = function($event) {
+        console.log("dropSection");
+        $($event.target).parent().parent().parent().remove();
+    };
+
+    // $scope.moveSection = function() {
+
+    // }
+
+
+    // Handle the data from none list input
+    $scope.pack_non_list = function(value, type) {
+        console.log("non_list");
+        console.log(value);
+        if (type == 't') {
+            $scope.who_u_r_to_DB.push({
+                type: "Text",
+                content: value
+            });
+        } else {
+            $scope.who_u_r_to_DB.push({
+                type: "Quote",
+                content: value
+            });
+        }
+    };
+
+    // Handle the data from list input
+    $scope.pack_list = function(li_ary) {
+        console.log("list");
+        $scope.who_u_r_to_DB.push({
+            type: "List",
+            content: li_ary
+        });
+    };
+
+    // Pack them and upload to DB
+    $scope.pack_details = function() {
+
+        var ary = angular.element(document).find('#who_u_r ul > li .input_single .content').children();
+        console.log(ary);
+        for (var i = 0; i < ary.length; i++) {
+            if (angular.element(ary[i])[0].className == 'Text') {
+                $scope.pack_non_list(angular.element(ary[i])[0].value, 't');
+            } else if (angular.element(ary[i])[0].className == 'Quote') {
+                $scope.pack_non_list(angular.element(ary[i])[0].value, 'q');
+            } else {
+                var li_ary = [];
+                //pack the value from the <li> to an array
+                for (var j = 0; j < angular.element(ary[i])[0].children[0].children.length; j++) {
+                    li_ary[j] = angular.element(ary[i])[0].children[0].children[j].innerHTML;
+                }
+                $scope.pack_list(li_ary);
+            }
+        }
+
+        console.log($scope.who_u_r_to_DB);
+
+
+        $scope.update_to_DB();
+    };
+
+
+
+    //=================== About the tags section ====================
+    $scope.update_tags = function(prop) {
+
+        if (prop == 'culture') {
+            $scope.culture = $scope.culture.toLowerCase();
+            $scope.profile.culture.push($scope.culture);
+            $scope.culture = '';
+        } else {
+            $scope.technology = $scope.technology.toLowerCase();
+            $scope.profile.technology.push($scope.technology);
+            $scope.technology = '';
+        }
+    };
+
+
+    //=================== Update all the info in the page ===============
+    $scope.update_to_DB = function() {
+        var formData = new FormData();
+
+        formData.append("CustomField", "This is some example data");
+        formData.append("culture", JSON.stringify($scope.profile.culture));
+        formData.append("technology", JSON.stringify($scope.profile.technology));
+        formData.append("who_u_r", JSON.stringify($scope.who_u_r_to_DB));
+
+        var oReq = new XMLHttpRequest();
+        oReq.onreadystatechange = function() {
+            if (oReq.readyState == 4 && oReq.status == 200) {
+                var res = JSON.parse(oReq.response);
+                console.log(res.code);
+                if (res.code == 200) {
+                    location.reload();
+                    // console.log("hi success");
+                } else {
+                    console.log(oReq.response);
+                }
+            }
+        };
+        oReq.open("POST", "/companies/profile/edit", true);
+        oReq.send(formData);
+    };
+    $scope.delete_tags = function(array, index) {
+        // splice the tags data from the $scope.profile.culture or 
+        // $scope.profile.technology to generate or remove the tag DOM
+        // dynamically
+
+        array.splice(index, 1);
+    };
+
+
+
+
+
+
+}); //end of 2nd controller
+
+
 // 1st page of the edit mode with profile_edit_controller
 app.controller('profile_edit_controller', function($scope) {
 
@@ -42,60 +240,6 @@ app.controller('profile_edit_controller', function($scope) {
     };
 });
 
-
-// 2nd page of the edit mode with the detail_controller
-app.controller('detail_controller', function($scope) {
-    $scope.initial = function(doc) {
-        $scope.profile = doc;
-    };
-
-
-    //About the tags section
-    $scope.update_tags = function(prop) {
-        if (prop == 'culture') {
-            $scope.profile.culture.push($scope.culture);
-            $scope.culture = '';
-        } else {
-            $scope.profile.technology.push($scope.technology);
-            $scope.technology = '';
-        }
-    };
-    $scope.update_to_DB = function() {
-        var formData = new FormData();
-
-        formData.append("CustomField", "This is some example data");
-        formData.append("culture", JSON.stringify($scope.profile.culture));
-        formData.append("technology", JSON.stringify($scope.profile.technology));
-
-        var oReq = new XMLHttpRequest();
-        oReq.onreadystatechange = function() {
-            if (oReq.readyState == 4 && oReq.status == 200) {
-                var res = JSON.parse(oReq.response);
-                console.log(res.code);
-                if (res.code == 200) {
-                    location.reload();
-                    // console.log("hi success");
-                } else {
-                    console.log(oReq.response);
-                }
-            }
-        };
-        oReq.open("POST", "/companies/profile/edit", true);
-        oReq.send(formData);
-    }
-    $scope.delete_tags = function(array, index) { 
-        // splice the tags data from the $scope.profile.culture or 
-        // $scope.profile.technology to generate or remove the tag DOM
-        // dynamically
-
-        array.splice(index, 1);
-    }
-
-    //
-
-
-
-});
 
 
 
@@ -298,7 +442,7 @@ function readURL(input, panelSelector) {
         var reader = new FileReader();
         reader.onload = function(e) {
             $(panelSelector).attr('src', e.target.result);
-        }
+        };
         reader.readAsDataURL(input.files[0]);
     }
 }

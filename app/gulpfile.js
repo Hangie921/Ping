@@ -59,11 +59,11 @@ gulp.task('sass',function(){   // to transfer the .scss to .css
 gulp.task('default',function(){
 	gulp.start('lint','develop','sass');
 
-	gulp.watch('public/javascripts/js/*.js',function(){
+	gulp.watch('public/js/*.js',function(){
 		gulp.run('lint');
 	});
 
-	gulp.watch('public/stylesheets/sass/*/*.scss',function(){
+	gulp.watch('public/sass/*/*.scss',function(){
 		gulp.run('sass');
 	})
 });
