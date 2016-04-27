@@ -5,7 +5,6 @@ var mongoose = require("mongoose"),
 
 mongoose.connect(dbURI);
 
-
 // Models 
 var profile = require('../module/schema/profile.js');
 var CompanyProfile = require('../module/schema/profile.js').CompanyProfile;
@@ -55,6 +54,7 @@ var company = new User({
 });
 
 var talentProfile = new TalentProfile({
+    _id: "571f35061e0a2f68072a352b",
     username: "Talent",
     phone: "1234567890",
     location: {
@@ -96,13 +96,11 @@ var talentProfile = new TalentProfile({
         agree: true
     }],
     aspiration: {
-        work_type: ["Android", "IOS"],
         salary: "Negotiable",
         freelance_rate: {
             currency: "NTD",
             amount: 1000
-        },
-        relocate: true
+        }
     },
     portfolio: [{
         pic: "img/alpaca.jpg",
@@ -129,36 +127,39 @@ var talent = new User({
 async.series({
         dropDatabase: function(callback) {
             if (process.argv[2] === "--drop") {
-                for (var i in mongoose.connection.collections) {
-                    mongoose.connection.collections[i].remove(function() {});
-                }
+                mongoose.connection.collections['users'].remove(function(err) {
+                    mongoose.connection.collections['profiles'].remove(function(err) {
+                        callback(err);
+                    });
+                });
+            } else {
+                callback();
             }
-            callback();
         },
         companyProfile: function(callback) {
             companyProfile.save(function(err, data) {
                 callback(err, data);
-            })
+            });
         },
         company: function(callback) {
             company.save(function(err, data) {
                 callback(err, data);
-            })
+            });
         },
         talentProfile: function(callback) {
             talentProfile.save(function(err, data) {
                 callback(err, data);
-            })
+            });
         },
         talent: function(callback) {
             talent.save(function(err, data) {
                 callback(err, data);
-            })
+            });
         },
     },
     // 如果不放err, 會印不出所有results
     function(err, results) {
         if (err) console.log(err);
-        console.log(results);
+        // console.log(results);
         mongoose.disconnect();
     });

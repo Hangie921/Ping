@@ -47,6 +47,11 @@ var companyProfileSchema = new mongoose.Schema({
 var talentProfileSchema = new mongoose.Schema({
     username: { type: String, unique: true },
     phone: String,
+    source_from: {
+        type: String,
+        default: 'official',
+        enum: ['official', '104', 'ntuea-2016-summer', 'friends']
+    },
     pinger_type: {
         type: String,
         default: 'Designer',
@@ -56,7 +61,10 @@ var talentProfileSchema = new mongoose.Schema({
         country: String,
         city: String
     },
-    skills: [String],
+    skills: [{
+        type: String,
+        lowercase: true
+    }],
     personalities: [String],
     experiences: [{
         _id: false,
@@ -97,30 +105,36 @@ var talentProfileSchema = new mongoose.Schema({
         agree: Boolean
     }],
     aspiration: {
-        work_type: [String],
+        work_type: {
+            type: String,
+            default: 'Freelance',
+            enum: ['Full-Time', 'Freelance', 'Secondment']
+        },
         salary: String,
         freelance_rate: {
             currency: String,
             amount: Number
         },
-        relocate: Boolean
+        relocate: { type: Boolean, default: false }
     },
     portfolio: [{
         _id: false,
         pic: String,
-        title: String
+        title: String,
+        tag: [String],
+        last_modified: Date
     }]
 }, options);
 
 profileSchema.methods.viewSomeone = function(who, cb) {
     return Viewed.findById(this._id, (err, viewed) => {
         if (err) cb(err);
-        if (viewed == null) {
+        if (viewed === null) {
             viewed = new Viewed();
             viewed._id = this._id;
 
         }
-        viewed.view.push({ _id: who })
+        viewed.view.push({ _id: who });
         viewed.save((err, someone) => {
             if (err) cb(err);
             who.viewedBy(this, function(err, doc) {
@@ -128,12 +142,12 @@ profileSchema.methods.viewSomeone = function(who, cb) {
             });
         });
     });
-}
+};
 
 profileSchema.methods.viewedBy = function(who, cb) {
     return Viewed.findById(this._id, (err, doc) => {
         if (err) cb(err);
-        if (doc == null) {
+        if (doc === null) {
             doc = new Viewed();
             doc._id = this._id;
         }
@@ -142,7 +156,42 @@ profileSchema.methods.viewedBy = function(who, cb) {
             cb(err, doc);
         });
     });
-}
+};
+
+var Skill = require('./skill.js');
+
+profileSchema.pre('save', function(next) {
+    // profileSchema.post('save', function(doc, next) {
+    var doc = this;
+    // Update collection('skills')
+    if (doc.skills) {
+        var requests = doc.skills.map((value) => {
+            return new Promise((resolve, reject) => {
+                Skill.tagBy(value, this._id, (err, doc) => {
+                    if (err) reject(err);
+                    resolve(doc);
+                });
+            });
+        });
+
+        Promise.all(requests).then((docs) => {
+            console.log(docs);
+            next();
+        }, (reason) => {
+            next(new Error(reason));
+        });
+    } else {
+        next();
+    }
+});
+
+// profileSchema.save(function(err) {
+//     console.log(err);
+// });
+
+// profileSchema.post('save', function(doc, next) {
+//     next()
+// });
 
 // profileSchema.methods.updatePosition = function(position, cb) {
 //     return Viewed.findById(this._id, (err, doc) => {

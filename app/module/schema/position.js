@@ -7,7 +7,7 @@ var position = mongoose.model('position', new mongoose.Schema({
         required: true,
         enum: ['Designer', 'Developer', 'PM']
     },
-    name: {
+    title: {
         type: String,
         unique: true
     },
