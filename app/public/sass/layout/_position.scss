@@ -11,6 +11,12 @@
 	margin:0 auto;
 	clear:both;
 }
-.clear{
+.clear_both{
 	clear:both;
+}
+.clear_left{
+	clear: left;
+}
+.clear_right{
+	clear: right;
 }

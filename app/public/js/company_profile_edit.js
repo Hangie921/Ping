@@ -25,7 +25,11 @@ app.directive("contentDirective", function($compile) {
         template: "<div class='content'></div>",
         link: function(scope, element, attrs) {
             if (scope.current.type == 'Text' || scope.current.type == 'Quote') {
-                element.append("<textarea class='" + scope.current.type + "' rows='10',cols='40'>" + scope.current.content + "</textarea>");
+                var DOM = "<textarea class='" + scope.current.type + "' rows='10',cols='40'>" + scope.current.content + "</textarea><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div>";
+                DOM = $(DOM);
+                var link = $compile(DOM);
+                var node = link(scope);
+                element.append(node);
             } else {
                 // @Todo 20160426: set class to this lists
                 var ul = "<ul>";
@@ -33,11 +37,11 @@ app.directive("contentDirective", function($compile) {
                     ul += "<li>" + scope.current.content[i] + "</li>";
                 }
                 ul += "</ul>";
-                ul = "<div class='list_container' contenteditable='true'>" + ul + "</div>";
+                ul = "<div class='list_container " + scope.current.type + "' contenteditable='true'>" + ul + "</div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div>";
                 ul = $(ul);
-                var link = $compile(ul);
-                var node = link(scope);
-                element.append(node);
+                var link_ul = $compile(ul);
+                var node_ul = link_ul(scope);
+                element.append(node_ul);
             }
         }
     };
@@ -50,6 +54,15 @@ app.directive("contentDirective", function($compile) {
 
 // 2nd page of the edit mode with the detail_controller
 app.controller('detail_controller', function($scope, $compile) {
+
+
+    $scope.compile_to_node = function(DOM) {
+        var jq = $(DOM); // compile the dynamic DOM and 
+        var link = $compile(jq); // set the $scope into it
+        return link($scope);
+
+    };
+
     $scope.initial = function(doc) {
         $scope.profile = doc;
         $scope.who_u_r = doc.who_u_r;
@@ -68,9 +81,8 @@ app.controller('detail_controller', function($scope, $compile) {
         // @Todo: add class to the DOM
         //        add function to the menu btns
         console.log("genSection");
-        var sec = $(`<li><div class='input_single'><div class='menu_bar'><ul><li><a ng-click>btn</a></li><li><a ng-click='genInput($event,"Text")'>Text</a></li><li><a ng-click='genInput($event,"List")'>List</a></li><li><a ng-click='genInput($event,"Quote")'>Quote</a></li></ul></div><div class='content'></div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div></div></li>`);
-        var link = $compile(sec); // compile the dynamic DOM and 
-        var node = link($scope); // set the $scope into it
+
+        var node = $scope.compile_to_node(`<li><div class='input_single'><div class='menu_bar col-md-10'><ul><li><i class='lnr lnr-circle-minus grayscale_dark_cl'></i><a ng-click='hide_menu_bar($event)'>btn</a></li><li><a ng-click='genInput($event,"Text")'>Text</a></li><li><a ng-click='genInput($event,"List")'>List</a></li><li><a ng-click='genInput($event,"Quote")'>Quote</a></li></ul></div></div></li>`);
         $($event.target).siblings("ul").children("li:last-child").after(node);
 
 
@@ -85,17 +97,24 @@ app.controller('detail_controller', function($scope, $compile) {
         console.log("genInput");
         if (type == 'Text' || type == 'Quote') {
             console.log(type);
-            $($event.target).parent().parent().parent().siblings(".content").append("<textarea class='" + type + "''></textarea>");
+            var node = $scope.compile_to_node("<div class ='content clear_both'><textarea class='" + type + " ng-scope'></textarea><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div></div>");
+            $($event.target).parent().parent().parent().parent().append(node);
+            $scope.hide_menu_bar($event);
         } else {
             console.log(type);
-            $($event.target).parent().parent().parent().siblings(".content").append("<div contenteditable='true'><ul><li></li></ul></div>");
+            var node = $scope.compile_to_node("<div class ='content clear_both'><div class='list_container " + type + " ng-scope' contenteditable='true'><ul><li></li></ul></div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div></div>");
+            $($event.target).parent().parent().parent().parent().append(node);
+            $scope.hide_menu_bar($event);
+
         }
     };
-
+    $scope.hide_menu_bar = function($event){
+        $($event.target).parent().parent().parent().fadeOut();        
+    }
 
     $scope.dropSection = function($event) {
         console.log("dropSection");
-        $($event.target).parent().parent().parent().remove();
+        $($event.target).parent().parent().parent().parent().remove();
     };
 
     // $scope.moveSection = function() {
@@ -104,53 +123,98 @@ app.controller('detail_controller', function($scope, $compile) {
 
 
     // Handle the data from none list input
-    $scope.pack_non_list = function(value, type) {
+    $scope.pack_non_list = function(value, type, put_in_ary) {
         console.log("non_list");
-        console.log(value);
-        if (type == 't') {
-            $scope.who_u_r_to_DB.push({
-                type: "Text",
-                content: value
-            });
-        } else {
-            $scope.who_u_r_to_DB.push({
-                type: "Quote",
-                content: value
-            });
+        if (put_in_ary == 'who') {
+            if (type == 't') {
+                $scope.who_u_r_to_DB.push({
+                    type: "Text",
+                    content: value
+                });
+            } else if (type == 'q') {
+                $scope.who_u_r_to_DB.push({
+                    type: "Quote",
+                    content: value
+                });
+            }
+        } else if (put_in_ary == 'what') {
+            if (type == 't') {
+                $scope.what_u_do_to_DB.push({
+                    type: "Text",
+                    content: value
+                });
+            } else if (type == 'q') {
+                $scope.what_u_do_to_DB.push({
+                    type: "Quote",
+                    content: value
+                });
+            }
         }
     };
 
     // Handle the data from list input
-    $scope.pack_list = function(li_ary) {
+    $scope.pack_list = function(li_ary, put_in_ary) {
         console.log("list");
-        $scope.who_u_r_to_DB.push({
-            type: "List",
-            content: li_ary
-        });
+        if (put_in_ary == 'who') {
+            $scope.who_u_r_to_DB.push({
+                type: "List",
+                content: li_ary
+            });
+        } else if (put_in_ary == 'what') {
+            $scope.what_u_do_to_DB.push({
+                type: "List",
+                content: li_ary
+            });
+        }
+
     };
 
     // Pack them and upload to DB
     $scope.pack_details = function() {
 
-        var ary = angular.element(document).find('#who_u_r ul > li .input_single .content').children();
-        console.log(ary);
+        
+        var ary = angular.element(document).find('#who_u_r ul > li .input_single .content').children().not(".functions_bar");
+        // console.log(ary2);
+        // console.log(angular.element(ary[0])[0].className);
+
+
         for (var i = 0; i < ary.length; i++) {
-            if (angular.element(ary[i])[0].className == 'Text') {
-                $scope.pack_non_list(angular.element(ary[i])[0].value, 't');
-            } else if (angular.element(ary[i])[0].className == 'Quote') {
-                $scope.pack_non_list(angular.element(ary[i])[0].value, 'q');
+
+            if (angular.element(ary[i])[0].className == 'Text ng-scope') {
+                $scope.pack_non_list(angular.element(ary[i])[0].value, 't', 'who');
+            } else if (angular.element(ary[i])[0].className == 'Quote ng-scope') {
+                $scope.pack_non_list(angular.element(ary[i])[0].value, 'q', 'who');
             } else {
                 var li_ary = [];
                 //pack the value from the <li> to an array
                 for (var j = 0; j < angular.element(ary[i])[0].children[0].children.length; j++) {
                     li_ary[j] = angular.element(ary[i])[0].children[0].children[j].innerHTML;
                 }
-                $scope.pack_list(li_ary);
+                $scope.pack_list(li_ary, 'who');
             }
         }
 
-        console.log($scope.who_u_r_to_DB);
 
+        var ary2 = angular.element(document).find('#what_u_do ul > li .input_single .content').children().not(".functions_bar");
+
+        // console.log(ary2);
+
+        for (var k = 0; k < ary2.length; k++) {
+            if (angular.element(ary2[k])[0].className == 'Text ng-scope') {
+                $scope.pack_non_list(angular.element(ary2[k])[0].value, 't', 'what');
+            } else if (angular.element(ary2[k])[0].className == 'Quote ng-scope') {
+                $scope.pack_non_list(angular.element(ary2[k])[0].value, 'q', 'what');
+            } else {
+                var li_ary2 = [];
+                //pack the value from the <li> to an array
+                for (var l = 0; l < angular.element(ary2[k])[0].children[0].children.length; l++) {
+                    li_ary2[l] = angular.element(ary2[k])[0].children[0].children[l].innerHTML;
+                }
+                $scope.pack_list(li_ary2, 'what');
+            }
+        }
+        // console.log("who u r :", $scope.who_u_r_to_DB);
+        // console.log("what u do :", $scope.what_u_do_to_DB);
 
         $scope.update_to_DB();
     };
@@ -180,6 +244,7 @@ app.controller('detail_controller', function($scope, $compile) {
         formData.append("culture", JSON.stringify($scope.profile.culture));
         formData.append("technology", JSON.stringify($scope.profile.technology));
         formData.append("who_u_r", JSON.stringify($scope.who_u_r_to_DB));
+        formData.append("what_u_do", JSON.stringify($scope.what_u_do_to_DB));
 
         var oReq = new XMLHttpRequest();
         oReq.onreadystatechange = function() {
@@ -205,12 +270,10 @@ app.controller('detail_controller', function($scope, $compile) {
         array.splice(index, 1);
     };
 
-
-
-
-
-
 }); //end of 2nd controller
+
+
+
 
 
 // 1st page of the edit mode with profile_edit_controller

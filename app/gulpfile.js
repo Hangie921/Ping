@@ -11,7 +11,7 @@ var sourcemaps = require("gulp-sourcemaps");
 gulp.task("develop",function(){ //shut and restart the server
 	nodemon({
 		script:'app.js',
-		ext:'jade js scss',
+		ext:'js',
 		tasks:['sass','lint'],
 		ignore :['node_modules/','bin/'],
 		env : {'NODE_ENV':'development'} 

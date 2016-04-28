@@ -5,7 +5,7 @@ include ../modules/head
 		-
 			var profile = user.custom._profile;
 			var type = user.custom._profile.type;
-			console.log("view mode:detail.jade",profile);
+			// console.log("view mode:detail.jade",profile);
 		
 		
 		block main_menu
@@ -94,53 +94,53 @@ include ../modules/head
 									ul
 										li(ng-repeat="doc in who_u_r ",ng-attr-data-index="{{$index}}",ng-init="current = doc")
 											.input_single
-												.menu_bar.col-md-10
-													ul
-														li
-															i.lnr.lnr-circle-minus.grayscale_dark_cl
-															a 
-														li
-															i.lnr.lnr-text-align-left.grayscale_dark_cl
-															a Text
-														li
-															i.lnr.lnr-list.grayscale_dark_cl
-															a List
-														li
-															i.lnr.lnr-pushpin.grayscale_dark_cl
-															a Quote
+												//- .menu_bar.col-md-10
+												//- 	ul
+												//- 		li
+												//- 			i.lnr.lnr-circle-minus.grayscale_dark_cl
+												//- 			a 
+												//- 		li
+												//- 			i.lnr.lnr-text-align-left.grayscale_dark_cl
+												//- 			a Text
+												//- 		li
+												//- 			i.lnr.lnr-list.grayscale_dark_cl
+												//- 			a List
+												//- 		li
+												//- 			i.lnr.lnr-pushpin.grayscale_dark_cl
+												//- 			a Quote
 												content-directive
 												//- .content(class="{{doc.type}}")
 												//- 	textarea(rows='10',cols='40',).input {{doc.content}}
-												.functions_bar
-													i.lnr.lnr-move.grayscale_dark_cl
-													i.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
-									a.btn(ng-click='genSection($event)') Add Content
-								//- .input_group#what_u_do
-								//- 	label What&nbspu&nbspdo
-								//- 	ul
-								//- 		li(ng-repeat="doc in what_u_do ",ng-attr-data-index="{{$index}}",ng-init="current = doc")
-								//- 			.input_single
-								//- 				.menu_bar.col-md-10
-								//- 					ul
-								//- 						li
-								//- 							i.lnr.lnr-circle-minus.grayscale_dark_cl
-								//- 							a 
-								//- 						li
-								//- 							i.lnr.lnr-text-align-left.grayscale_dark_cl
-								//- 							a Text
-								//- 						li
-								//- 							i.lnr.lnr-list.grayscale_dark_cl
-								//- 							a List
-								//- 						li
-								//- 							i.lnr.lnr-pushpin.grayscale_dark_cl
-								//- 							a Quote
-								//- 				content-directive
-								//- 				//- .content(class="{{doc.type}}")
-								//- 				//- 	textarea(rows='10',cols='40',).input {{doc.content}}
-								//- 				.functions_bar
-								//- 					i.lnr.lnr-move.grayscale_dark_cl
-								//- 					i.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
-									a.btn(ng-click='genSection($event)') Add Content
+												//- .functions_bar
+												//- 	i.lnr.lnr-move.grayscale_dark_cl
+												//- 	i.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
+									a.btn.clear_both(ng-click='genSection($event)') Add Content
+
+
+								.input_group#what_u_do
+									label What&nbspu&nbspdo
+									ul
+										li(ng-repeat="doc in what_u_do ",ng-attr-data-index="{{$index}}",ng-init="current = doc")
+											.input_single
+												//- .menu_bar.col-md-10
+												//- 	ul
+												//- 		li
+												//- 			i.lnr.lnr-circle-minus.grayscale_dark_cl
+												//- 			a 
+												//- 		li
+												//- 			i.lnr.lnr-text-align-left.grayscale_dark_cl
+												//- 			a Text
+												//- 		li
+												//- 			i.lnr.lnr-list.grayscale_dark_cl
+												//- 			a List
+												//- 		li
+												//- 			i.lnr.lnr-pushpin.grayscale_dark_cl
+												//- 			a Quote
+												content-directive
+												//- .content(class="{{doc.type}}")
+												//- 	textarea(rows='10',cols='40',).input {{doc.content}}
+												
+									a.btn.clear_both(ng-click='genSection($event)') Add Content
 						.btn_group.col-md-6
 							a.btn.cancel(href='/dashboard') cancel
 							a.btn.btn_pri.save#update_btn_second.disable(data-router='/companies/profile/edit',ng-click="pack_details()") save&nbspchanges
