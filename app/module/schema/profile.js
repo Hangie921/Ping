@@ -175,7 +175,7 @@ profileSchema.pre('save', function(next) {
         });
 
         Promise.all(requests).then((docs) => {
-            console.log(docs);
+            // console.log(docs);
             next();
         }, (reason) => {
             next(new Error(reason));

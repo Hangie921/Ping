@@ -15,7 +15,7 @@ describe.skip('GET /api/companies', function() {
                 // console.log(data);
                 done(err);
             });
-    })
+    });
 });
 
 describe.skip('POST /companies/company@gogo', function() {
@@ -26,13 +26,13 @@ describe.skip('POST /companies/company@gogo', function() {
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(400, function(err, res) {
-                console.log(res.body.msg)
+                console.log(res.body.msg);
                 done(err);
             });
-    })
+    });
 
     it('POST { industry: \'company\' }', function(done) {
-        var updateData = { industry: ['123','23'] };
+        var updateData = { industry: ['123', '23'] };
         request
             .post('/companies/company@gogo/edit')
             .send(updateData)
@@ -42,7 +42,7 @@ describe.skip('POST /companies/company@gogo', function() {
                 console.log(res.text);
                 done(err);
             });
-    })
+    });
 
     it.skip('POST { culture: \'company\', try: \'should not exist\' }', function(done) {
         request
@@ -57,5 +57,5 @@ describe.skip('POST /companies/company@gogo', function() {
 
                 done(err);
             });
-    })
+    });
 });
