@@ -77,6 +77,7 @@ app.use(methodOverride(function(req, res) {
 
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'test')));
 app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
 // app.use(express.static('/uploads',path.join(__dirname, 'uploads')));
 

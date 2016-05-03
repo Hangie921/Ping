@@ -1,10 +1,10 @@
 include ../modules/head
-		link(rel="stylesheet" , href="../../../css/profile.css")
+		link(rel="stylesheet" , href="/css/profile.css")
 	body.profile.edit(ng-app="profile_edit_app",ng-controller='profile_edit_controller')
 		-
 			var profile = user.custom._profile;
 			var type = user.custom._profile.type;
-		script(type='text/javascript',src='../../../js/company_profile_edit.js').
+		script(type='text/javascript',src='/js/company_profile_edit.js').
 		
 		block main_menu
 			include ../modules/menu.jade
@@ -42,17 +42,23 @@ include ../modules/head
 												img#photo(src='/#{profile.pic}')
 											.btn_container
 												.input_single
-													input#upload_photo(type='file',name='uploadFile',file-model='myFile')
+													input#upload_photo(type='file',name='pic',ng-model='profile_photo',onchange="angular.element(this).scope().read_url(this,'#photo');")
 												span Upload Your Profile Picture
-												a.btn.btn_pri.upload_photo_btn UPLOAD&nbspIMAGE
+												a(ng-click="click_the_file_input('#upload_photo');").btn.btn_pri.upload_photo_btn UPLOAD&nbspIMAGE
 												span.sec_cl Image Formats: JPEG,GIF,PNG
 										.photo_group.col-md-6
 											.cover_photo_container.photo_container
-												img
-												a.btn.btn_pri UPLOAD&nbspCOVER&nbspPHOTO
+												img#cover_photo(src='/#{profile.cover_pic}')
+												a(ng-click="click_the_file_input('#upload_cover_photo');").btn.btn_pri UPLOAD&nbspCOVER&nbspPHOTO
+											.btn_container
+												.input_single
+													input#upload_cover_photo(type='file',name='cover_pic',ng-model='cover_photo',onchange="angular.element(this).scope().read_url(this,'#cover_photo')")
 											.footer_photo_container.photo_container
-												img
-												a.btn.btn_pri UPLOAD&nbspFOOTER&nbspPHOTO
+												img#footer_photo(src='/#{profile.footer_pic}')
+												a(ng-click="click_the_file_input('#upload_footer_photo');").btn.btn_pri UPLOAD&nbspFOOTER&nbspPHOTO
+											.btn_container
+												.input_single
+													input#upload_footer_photo(type='file',name='footer_pic',ng-model='footer_photo',onchange="angular.element(this).scope().read_url(this,'#footer_photo')")
 								.btn_group.col-md-6
 									a.btn.cancel(href='/dashboard') cancel
 									a.btn.btn_pri.save#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event.currentTarget)") save&nbspchanges

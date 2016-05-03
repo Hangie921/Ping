@@ -1,6 +1,7 @@
 include ../modules/head
+
 		link(rel="stylesheet"  href="/css/profile.css")
-	body.profile.view
+	body.profile.view(ng-app)
 		-
 			var profile = company;
 			var type = company.type;
@@ -8,7 +9,7 @@ include ../modules/head
 			include ../modules/menu.jade
 		block content
 			.content_container
-				section.banner
+				section.banner(style="background-image:url(/#{profile.cover_pic});")
 					h1.base_white.slogan #{profile.username}
 					h3.description #{profile.tagline}
 					.profile_photo.round_container
@@ -56,26 +57,39 @@ include ../modules/head
 										li.tag.base_white=technology
 				section.company_instro.base_white_bg
 					.container
-						.text.we_are
-							h2 Who We Are
-							p=profile.description
-						.text.we_do
-							h2 What We Do
-							p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur nisi, tempore recusandae explicabo, a iure laboriosam mollitia quos, perferendis tempora rerum voluptate doloribus nihil. Quos quam cum totam molestias assumenda.
-						.list
-							ul.bullet_list
-								li.item 
-									span.lnr.lnr-location
-									span Coffee Machine
-								li.item 
-									span.lnr.lnr-location
-									span Filtered Water
-								li.item 
-									span.lnr.lnr-location
-									span Boiling System
-						.quotation
-							p.quote  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus repudiandae molestiae, laboriosam minima reiciendis sunt quam officia dolor quae! Similique vero suscipit maxime, accusamus delectus odio accusantium. Excepturi, vitae inventore.
-				section.bottom_banner
+						h2 Who We Are
+						- for (i=0; i<profile.who_u_r.length ; i++)
+								if (profile.who_u_r[i].type=='Text')
+									.text.we_are
+										p=profile.who_u_r[i].content
+								else if (profile.who_u_r[i].type=='Quote')
+									.quotation.we_are
+										p.quote=profile.who_u_r[i].content
+								else if (profile.who_u_r[i].type=='List')
+									.list.we_are
+										ul.bullet_list
+											- for (j=0; j<profile.who_u_r[i].content.length; j++)
+													li.item
+														span.lnr.lnr-location
+														span= profile.who_u_r[i].content[j]
+									
+						
+						h2 What We Do
+						- for (i=0; i<profile.what_u_do.length ; i++)
+								if (profile.what_u_do[i].type=='Text')
+									.text.we_do
+										p=profile.what_u_do[i].content
+								else if (profile.what_u_do[i].type=='Quote')
+									.quotation.we_do
+										p.quote=profile.what_u_do[i].content
+								else if (profile.what_u_do[i].type=='List')
+									.list.we_do
+										ul.bullet_list
+											- for (j=0; j<profile.what_u_do[i].content.length; j++)
+													li.item
+														span.lnr.lnr-location
+														span= profile.what_u_do[i].content[j]
+				section.bottom_banner(style="background-image:url(/#{profile.footer_pic});")
 
 
 

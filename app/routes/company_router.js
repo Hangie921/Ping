@@ -26,6 +26,16 @@ router.get(url + '/*', function(req, res, next) {
     next();
 });
 
+
+// @Todo 之後看是不是要放在更外層
+router.post(url + '/*', function(req, res, next) {
+    console.log(__filename, url + " middle");
+    if (req.session.user == undefined) {
+        return res.json({ code: 200, errmsg: "no session.user" });
+    }
+    next();
+});
+
 router.get(url + '/:username', function(req, res, next) {
 
     // user router's username to find a User , and find his company
@@ -76,40 +86,53 @@ var storage = multer.diskStorage({
         cb(null, './uploads')
     },
     filename: function(req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now())
+        cb(null, file.fieldname + '-' + Date.now()+ file.mimetype.replace('image/','.'));
     }
 });
-var upload = multer({ storage: storage }).single('uploadFile');
+var upload = multer({ storage: storage }).fields([{
+    name: 'pic',
+    maxCount: 1
+}, {
+    name: 'cover_pic',
+    maxCount: 1
+}, {
+    name: 'footer_pic',
+    maxCount: 1
+}]);
 
 router.post(url + '/profile/edit', function(req, res, next) {
     console.log(__filename, req.get('Content-Type'));
     var resJson = { code: 200, data: {} };
+
     CompanyProfile.findOne({ username: req.session.user.custom._profile.username }, function(err, originCompany) {
+
         if (err) next(new Error('CompanyProfile.findOne()'));
+
 
         upload(req, res, (err) => {
             if (err) next(new Error('upload'));
-
             console.log(__filename, req.body);
             console.log(__filename, typeof req.body);
 
-            if (req.file) {
-                var fileType = ".jpg";
-                if (req.file.mimetype === 'image/jpeg') {
-                    fileType = '.jpg'
-                } else if (req.file.mimetype === 'image/png') {
-                    fileType = '.png'
-                } else if (req.file.mimetype === 'image/gif') {
-                    fileType = '.gif'
-                } else {
-                    resJson.code = 400;
-                    resJson.errmsg = 'Can\'t recognize ' + req.file.originalname;
-                    return res.json(resJson);
+            for (key in req.files) {
+                if (req.files[key][0]) {
+                    var fileType = ".jpg";
+                    if (req.files[key][0].mimetype === 'image/jpeg') {
+                        fileType = '.jpeg';
+                    } else if (req.files[key][0].mimetype === 'image/png') {
+                        fileType = '.png';
+                    } else if (req.files[key][0].mimetype === 'image/gif') {
+                        fileType = '.gif';
+                    } else {
+                        resJson.code = 400;
+                        resJson.errmsg = 'Can\'t recognize ' + req.files[key][0].originalname;
+                        return res.json(resJson);
+                    }
+                    console.log(__filename, req.files[key][0]);
+                    originCompany[key] = req.files[key][0].path;
                 }
-
-                console.log(__filename, req.file);
-                originCompany['pic'] = req.file.path;
             }
+
 
             console.log("before", originCompany)
                 // update from req.body

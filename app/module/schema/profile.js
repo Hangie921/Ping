@@ -16,6 +16,8 @@ var options = { discriminatorKey: 'type' };
 var profileSchema = new mongoose.Schema({
     time: { type: Date, default: Date.now },
     pic: { type: String, default: "img/alpaca2.jpg" },
+    cover_pic: { type: String, default: "img/profile_img/cover-photo.jpg" },
+    footer_pic: { type: String, default: "img/profile_img/cover-photo.jpg" }
 }, options);
 
 

@@ -16,7 +16,6 @@
 var app = angular.module('profile_edit_app', []);
 
 
-
 // New a directive for 2nd page to generate dynamical .content according to the data from DB
 app.directive("contentDirective", function($compile) {
     return {
@@ -47,15 +46,89 @@ app.directive("contentDirective", function($compile) {
     };
 });
 
+// 1st page of the edit mode with profile_edit_controller
+app.controller('profile_edit_controller', function Profile_edit_controller($scope, $http) {
+    $scope.test = 'test1213';
 
+    // @Todo : Ajax upload using angular
+
+    // $scope.upload = function(formName, btn) {
+    //     var formData = new FormData(document.forms.namedItem(formName));
+
+    //     formData.append("CustomField", "This is some extra data");
+
+    //     $http({
+    //         headers:{
+    //             'Content-type':'multipart/form-data'
+    //         },
+    //         url:btn.getAttribute("data-router"),
+    //         method:'POST',
+    //         data:JSON.stringify(formData)
+
+    //     }).then(
+    //         function(res) {
+    //             // location.reload();
+    //             console.log(res.data);
+    //         },
+    //         function(res) {
+    //             console.log(res.status);
+    //         });
+    // };
+
+    $scope.upload = function(formName, btn) {
+        var formData = new FormData(document.forms.namedItem(formName));
+        formData.append("CustomField", "This is some extra data");
+
+        var oReq = new XMLHttpRequest();
+        oReq.onreadystatechange = function() {
+            if (oReq.readyState == 4 && oReq.status == 200) {
+                var res = JSON.parse(oReq.response);
+                console.log(res.code);
+                if (res.code == 200) {
+                    location.reload(); // To run the Unit test, you have to comment this line
+                    console.log("by $scope.upload of the 1st controller",res);
+                    return res;
+                } else {
+                    console.log(oReq.response);
+                    return false;
+                }
+            }else{
+                return oReq.status;
+            }
+        };
+
+        oReq.open("POST", btn.getAttribute("data-router"), true);
+        oReq.send(formData);
+
+
+    };
+
+
+    $scope.click_the_file_input = function(input){
+        $(input).click();
+    };
+   
+
+    $scope.read_url = function(input, panel_selector) {
+        console.log("read url");
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $(panel_selector).attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
+
+
+});
 
 
 
 
 // 2nd page of the edit mode with the detail_controller
 app.controller('detail_controller', function($scope, $compile) {
-
-
     $scope.compile_to_node = function(DOM) {
         var jq = $(DOM); // compile the dynamic DOM and 
         var link = $compile(jq); // set the $scope into it
@@ -81,7 +154,6 @@ app.controller('detail_controller', function($scope, $compile) {
         // @Todo: add class to the DOM
         //        add function to the menu btns
         console.log("genSection");
-
         var node = $scope.compile_to_node(`<li><div class='input_single'><div class='menu_bar col-md-10'><ul><li><i class='lnr lnr-circle-minus grayscale_dark_cl'></i><a ng-click='hide_menu_bar($event)'>btn</a></li><li><a ng-click='genInput($event,"Text")'>Text</a></li><li><a ng-click='genInput($event,"List")'>List</a></li><li><a ng-click='genInput($event,"Quote")'>Quote</a></li></ul></div></div></li>`);
         $($event.target).siblings("ul").children("li:last-child").after(node);
 
@@ -108,9 +180,9 @@ app.controller('detail_controller', function($scope, $compile) {
 
         }
     };
-    $scope.hide_menu_bar = function($event){
-        $($event.target).parent().parent().parent().fadeOut();        
-    }
+    $scope.hide_menu_bar = function($event) {
+        $($event.target).parent().parent().parent().fadeOut();
+    };
 
     $scope.dropSection = function($event) {
         console.log("dropSection");
@@ -172,7 +244,7 @@ app.controller('detail_controller', function($scope, $compile) {
     // Pack them and upload to DB
     $scope.pack_details = function() {
 
-        
+
         var ary = angular.element(document).find('#who_u_r ul > li .input_single .content').children().not(".functions_bar");
         // console.log(ary2);
         // console.log(angular.element(ary[0])[0].className);
@@ -276,32 +348,6 @@ app.controller('detail_controller', function($scope, $compile) {
 
 
 
-// 1st page of the edit mode with profile_edit_controller
-app.controller('profile_edit_controller', function($scope) {
-
-    $scope.upload = function(formName, btn) {
-        var formData = new FormData(document.forms.namedItem(formName));
-
-        formData.append("CustomField", "This is some extra data");
-
-        var oReq = new XMLHttpRequest();
-        oReq.onreadystatechange = function() {
-            if (oReq.readyState == 4 && oReq.status == 200) {
-                var res = JSON.parse(oReq.response);
-                console.log(res.code);
-                if (res.code == 200) {
-                    location.reload();
-                    // console.log(res.code);
-                } else {
-                    console.log(oReq.response);
-                }
-            }
-        };
-        oReq.open("POST", btn.getAttribute("data-router"), true);
-        oReq.send(formData);
-
-    };
-});
 
 
 
@@ -483,20 +529,17 @@ $(document).ready(function() {
     var btn = $("#update_btn_first");
 
 
-    //upload and prewatch the photo
-    $('.upload_photo_btn').click(function() {
-        $('#upload_photo').click();
-    });
+    // //upload and preview the photo
+    // $('.upload_photo_btn').click(function() {
+    //     $('#upload_photo').click();
+    // });
 
-    $('#upload_photo').change(function() {
-        readURL(this, $('#photo'));
-    });
+    // $('#upload_photo').change(function() {
+    //     readURL(this, $('#photo'));
+    // });
 
 });
 
-
-
-// This function upload the data using Ajax,
 
 
 

@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Mocha Tests</title>
+    <link rel="stylesheet" href="../bower_components/mocha/mocha.css" />
+</head>
+
+<body>
+    <div id="test_form" ng-app>
+        <form method='POST' id='company_branding' action='' enctype='multipart/form-data' name='test'>
+            <input type="text" name="username" value='Ping' />
+            <input type="text" name="tagline" value='walter hahaha' />
+            <input type='file' name='uploadFile' />
+        </form>
+    </div>
+    <div id="mocha"></div>
+    <script src="../bower_components/chai/chai.js"></script>
+    <script src="../bower_components/mocha/mocha.js"></script>
+    <!-- important! set the line before including the angular mocks -->
+    <script>
+    mocha.setup('bdd');
+    </script>
+    <!-- important! set the line before including the angular mocks -->
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="../../js/company_profile_edit.js"></script>
+    <script src="profile.js"></script>
+    <script>
+    mocha.run();
+    </script>
+</body>
+
+</html>
