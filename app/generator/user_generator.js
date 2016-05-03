@@ -23,8 +23,17 @@ function newTalent(index) {
             country: "TW",
             city: "Taipei"
         },
+        positions: [{
+            title: 'PM',
+            year: 2,
+            month: 3
+        }, {
+            title: 'Designer',
+            year: 2,
+            month: 3
+        }],
         skills: ["photoshop", "illustrator", "sketch", "invision", "HTML"],
-        personalities: ["I", "have", "passionate", "but", "ugly"],
+        personalities: ["I", "have", "passion", "but", "ugly"],
         experiences: [{
             company: "Ping",
             title: "RD",
@@ -87,12 +96,10 @@ function newTalent(index) {
     });
 
     return new Promise(function(resolve, reject) {
-        console.log("in");
         talent.save(function(err, doc) {
             if (err) reject(err);
             talentProfile.save(function(err, doc) {
                 if (err) {
-        console.log("in2", err);
                     var rejectString = err;
                     User.findByIdAndRemove(talent._id, function(err, doc) {
                         reject(rejectString);

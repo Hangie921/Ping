@@ -13,7 +13,7 @@ router.use(require('./test_router'));
 router.use(require('./login_router'));
 router.use(require('./logout_router'));
 router.use(require('./dashboard_router'));
-router.use(require('./dashboard_router'));
+router.use(require('./search_router'));
 router.use(require('./user_router'));
 router.use(require('./company_router'));
 router.use(require('./talent_router'));
