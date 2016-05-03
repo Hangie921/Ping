@@ -17,7 +17,6 @@ var User = pinglib.User;
 function newTalent(index) {
 
     var talentProfile = new TalentProfile({
-        _id: "571f35061e0a2f68072a352b",
         username: "Talent" + index,
         phone: "1234567890",
         location: {
@@ -88,10 +87,12 @@ function newTalent(index) {
     });
 
     return new Promise(function(resolve, reject) {
+        console.log("in");
         talent.save(function(err, doc) {
             if (err) reject(err);
             talentProfile.save(function(err, doc) {
                 if (err) {
+        console.log("in2", err);
                     var rejectString = err;
                     User.findByIdAndRemove(talent._id, function(err, doc) {
                         reject(rejectString);
@@ -180,11 +181,11 @@ function dropDatabase() {
 }
 
 var requests = [dropDatabase()],
-    COMPANY_COUNTER = 10;
+    USER_COUNTER = 10;
 
 requests.push(newCompany(''));
 requests.push(newTalent(''));
-for (var i = 0; i < COMPANY_COUNTER; i++) {
+for (var i = 0; i < USER_COUNTER; i++) {
     requests.push(newCompany(i));
     requests.push(newTalent(i));
 }

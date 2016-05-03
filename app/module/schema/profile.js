@@ -1,8 +1,16 @@
+// mongoose
 var mongoose = require("mongoose"),
     Mixed = mongoose.Schema.Types.Mixed;
 
+// ping-lib
+var pinglib = require('pinglib');
+var resCode = pinglib.response.codeEnum;
+var PingUser = pinglib.User;
+
+// local module
 var Viewed = require('./viewed.js');
 
+// variables
 var options = { discriminatorKey: 'type' };
 
 var profileSchema = new mongoose.Schema({
@@ -160,14 +168,15 @@ profileSchema.methods.viewedBy = function(who, cb) {
 
 var Skill = require('./skill.js');
 
-profileSchema.pre('save', function(next) {
-    // profileSchema.post('save', function(doc, next) {
-    var doc = this;
+// profileSchema.pre('save', function(next) {
+//     var doc = this;
+
+profileSchema.post('save', function(doc, next) {
     // Update collection('skills')
     if (doc.skills) {
         var requests = doc.skills.map((value) => {
             return new Promise((resolve, reject) => {
-                Skill.tagBy(value, this._id, (err, doc) => {
+                Skill.tagBy(value, doc._id, (err, doc) => {
                     if (err) reject(err);
                     resolve(doc);
                 });
@@ -185,12 +194,18 @@ profileSchema.pre('save', function(next) {
     }
 });
 
+
+// profileSchema.post('save', function(doc, next) {
+//     console.log("hi");
+//     next();
+// });
+
 // profileSchema.save(function(err) {
 //     console.log(err);
 // });
 
 // profileSchema.post('save', function(doc, next) {
-//     next()
+//     next();
 // });
 
 // profileSchema.methods.updatePosition = function(position, cb) {
