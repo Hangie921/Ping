@@ -14,7 +14,10 @@ function checkDataFormat(res) {
             .that.is.an('array');
 
         if (res.data.length > 0) {
-            expect(res.data[0]).have.all.keys('username', 'pic', 'location');
+            expect(res.data[0]).have.all.keys([
+                'username', 'pic', 'location', 'skills', 'pinger_type', 'description', 'aspiration'
+            ]);
+            expect(res.data[0].aspiration).have.all.keys(['work_type']);
         }
 
     } else if (res.code === 400) {

@@ -53,7 +53,16 @@ router.get(urlApi, function(req, res, next) {
         res.json(resCode.Bad_Request);
     } else {
         TalentProfile.find(condition)
-            .select({ username: 1, pic: 1, location: 1, _id: 0 })
+            .select({
+                _id: 0,
+                username: 1,
+                pic: 1,
+                location: 1,
+                skills: 1,
+                pinger_type: 1,
+                description: 1,
+                "aspiration.work_type": 1
+            })
             .exec(function(err, docs) {
                 resJson.data = docs;
                 res.json(resJson);
