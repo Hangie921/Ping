@@ -1,11 +1,12 @@
 include ../modules/head
 		link(rel="stylesheet"  href="/css/profile.css")
+		link(rel="stylesheet"  href="/css/inputDropdownStyles.css")
+		script(type='text/javascript',src='/js/inputDropdown.js')
 		script(type='text/javascript',src='/js/company_profile_edit.js').
 	body.profile.edit.detail(ng-app="profile_edit_app",ng-controller='detail_controller')
 		-
 			var profile = user.custom._profile;
 			var type = user.custom._profile.type;
-			// console.log("view mode:detail.jade",profile);
 		
 		
 		block main_menu
@@ -42,11 +43,13 @@ include ../modules/head
 											option(value="city2") option2
 											option(value="city3") option4
 									.select_container
-										select(name='coutry')
+										select(name='country')
 											option(value="#{profile.location.country}") #{profile.location.country}
 											option(value="country1") option1
 											option(value="country2") option2
 											option(value="country3") option3
+									//- .select_container(ng-controller="InputDropdownController as dropdownCtrl")
+									//- input-dropdown(selected-item="dropdownCtrl.selectedDropdownItem" , default-dropdown-items="dropdownCtrl.dropdownItems")
 								.input_row.size
 									.select_container
 										label Company&nbspSize

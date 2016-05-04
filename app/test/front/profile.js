@@ -24,23 +24,28 @@ describe('Profile_edit_app', function() {
     	it('Should get the value from $scope.test to make sure mocha is running angular',function(){
     		var $scope = {};
     		var controller = $controller('profile_edit_controller', { $scope: $scope });
-    		expect($scope.test).to.contain("test1213");
+    		expect($scope.test).to.contain("test in profile_edit_controller");
     	});
     	
 
-    	it('Should return undefined and console 200 and res',function(){
+    	it('Should not return Object and should console 200 and res',function(){
     		var $scope = {};
     		var controller = $controller('profile_edit_controller', { $scope: $scope });
     		var btn = document.createElement('a');
 			btn.setAttribute("data-router","/companies/profile/edit");
 
 			//remember to comment the line of the "location.reload()"
-    		expect($scope.upload('test',btn)).to.equal(undefined);
+    		expect($scope.upload('test',btn)).not.to.equal(Object);
     	});
 
 
     });
 
+    descirbe('detail_controller',function(){
+        it('Should get the value from $scope.test to make sure mocha is running angular',function(){
+            
+        })
+    });
     
 
 
