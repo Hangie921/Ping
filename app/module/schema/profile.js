@@ -56,6 +56,7 @@ var companyProfileSchema = new mongoose.Schema({
 
 var talentProfileSchema = new mongoose.Schema({
     username: { type: String, unique: true },
+    description: { type: String, default: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit asperiores atque pariatur voluptatum alias culpa, maiores et dolores rerum cumque. Totam nisi aut repellendus dolores non dolore a optio distinctio." },
     phone: String,
     source_from: {
         type: String,
@@ -63,7 +64,7 @@ var talentProfileSchema = new mongoose.Schema({
         enum: ['official', '104', 'ntuea-2016-summer', 'friends']
     },
     positions: [{
-        _id:false,
+        _id: false,
         title: String,
         seniority: Number,
     }],

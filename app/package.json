@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node app.js",
+    "deploy": "NODE_ENV=\"production\";pm2 start app.js",
+    "redeploy": "NODE_ENV=\"production\";pm2 restart app.js",
+    "debug": "supervisor app.js",
     "test": "mocha $(find test/api -name '*.js' ! -path '*try*')",
     "updateping": "npm install ../../Ping_Library",
     "gen": "node generator/user_generator.js",

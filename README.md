@@ -22,6 +22,12 @@ Control the work flow automatically
 
 # Debug
 
+### Run debug mode app.js
+
+```bash
+npm run debug
+```
+
 ### 上Code流程
 
 1. cd Ping/app
@@ -46,3 +52,13 @@ npm run updateping
 npm run gen
 npm run regen
 ```
+
+# Deployment
+
+**redeploy** = pm2 restart app.js
+```bash
+npm run deploy
+npm run redeploy
+```
+
+
