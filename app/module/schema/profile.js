@@ -63,9 +63,9 @@ var talentProfileSchema = new mongoose.Schema({
         enum: ['official', '104', 'ntuea-2016-summer', 'friends']
     },
     positions: [{
+        _id:false,
         title: String,
-        year: Number,
-        month: Number
+        seniority: Number,
     }],
     pinger_type: {
         type: String,

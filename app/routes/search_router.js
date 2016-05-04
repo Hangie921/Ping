@@ -32,14 +32,22 @@ router.get(url, function(req, res, next) {
 router.get(urlApi, function(req, res, next) {
     var resJson = resCode.OK;
     var condition = {};
-    if (req.query.position) condition.pinger_type = req.query.position;
-    if (req.query.work_type) condition["aspiration.work_type"] = req.query.work_type;
 
-    console.log(condition);
-    // Profile.find(condition, function(err, docs) {
-    //     // console.log(docs);
-    // });
+    if (req.query.position) {
+        condition.pinger_type = req.query.position;
+        if (req.query.seniority && req.query.seniority > 0)
+            condition.positions = { $elemMatch: { title: req.query.position, seniority: { $gte: req.query.seniority } } };
 
+    } else {
+        if (req.query.seniority && req.query.seniority > 0)
+            condition.positions = { $elemMatch: { seniority: { $gte: req.query.seniority } } };
+    }
+
+    if (req.query.work_type) {
+        condition["aspiration.work_type"] = req.query.work_type;
+    }
+
+    console.log(__filename, JSON.stringify(condition));
 
     if (Object.keys(condition).length === 0) {
         res.json(resCode.Bad_Request);

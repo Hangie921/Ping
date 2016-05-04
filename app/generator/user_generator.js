@@ -14,7 +14,7 @@ var TalentProfile = require('../module/schema/profile.js').TalentProfile;
 var pinglib = require('pinglib');
 var User = pinglib.User;
 
-function newTalent(index) {
+function newTalent(index, positions, pinger_type) {
 
     var talentProfile = new TalentProfile({
         username: "Talent" + index,
@@ -23,15 +23,6 @@ function newTalent(index) {
             country: "TW",
             city: "Taipei"
         },
-        positions: [{
-            title: 'PM',
-            year: 2,
-            month: 3
-        }, {
-            title: 'Designer',
-            year: 2,
-            month: 3
-        }],
         skills: ["photoshop", "illustrator", "sketch", "invision", "HTML"],
         personalities: ["I", "have", "passion", "but", "ugly"],
         experiences: [{
@@ -87,6 +78,18 @@ function newTalent(index) {
             title: "Alpaca"
         }]
     });
+
+
+    talentProfile.positions = positions || [{
+        title: 'PM',
+        seniority: 2,
+    }, {
+        title: 'Designer',
+        seniority: 2,
+    }];
+
+    talentProfile.pinger_type = pinger_type || "Designer";
+
     var talent = new User({
         system_parameter: 1,
         name: "talent" + index + "@ping.com.sg",
@@ -187,17 +190,22 @@ function dropDatabase() {
     });
 }
 
-var requests = [dropDatabase()],
-    USER_COUNTER = 10;
+var requests = [],
+    USER_COUNTER = 5;
 
 requests.push(newCompany(''));
 requests.push(newTalent(''));
+requests.push(newTalent(1, [{ title: 'PM', seniority: 1 }], 'PM'));
+requests.push(newTalent(2, [], 'PM'));
+requests.push(newTalent(3, [{ title: 'Designer', seniority: 3 }], 'PM'));
+requests.push(newTalent(4, []));
 for (var i = 0; i < USER_COUNTER; i++) {
     requests.push(newCompany(i));
-    requests.push(newTalent(i));
 }
 
-Promise.all(requests)
+dropDatabase().then(function(value) {
+        return Promise.all(requests);
+    })
     .then(function(value) {
         mongoose.disconnect();
     })
@@ -205,3 +213,13 @@ Promise.all(requests)
         console.log(reason);
         mongoose.disconnect();
     });
+
+
+// Promise.all(requests)
+//     .then(function(value) {
+//         mongoose.disconnect();
+//     })
+//     .catch(function(reason) {
+//         console.log(reason);
+//         mongoose.disconnect();
+//     });
