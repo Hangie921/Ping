@@ -14,7 +14,6 @@ var mailer = require('../module/utils/mailer.js');
 var pinglib = require('pinglib');
 var resCode = pinglib.response.codeEnum;
 var PingUser = pinglib.User;
-var UserService = pinglib.UserService;
 
 // varaiables
 var routerName = 'users';
@@ -151,7 +150,7 @@ router.get(urlApi, function(req, res, next) {
             path: 'custom._profile',
             model: 'profile'
         }];
-        
+
         var promise = PingUser.populate(users, opts);
 
         promise.then(function(results) {
@@ -163,21 +162,5 @@ router.get(urlApi, function(req, res, next) {
 
 });
 
-router.post(urlApi, function(req, res) {
-    var acc = req.body.acc,
-        pwd = req.body.pwd;
-    console.log(__filename, acc, pwd);
-    if (acc === null || pwd === null) {
-        console.log(__filename, "NULLL");
-        res.status(400);
-        res.json({ msg: "wrong form", data: null });
-    } else {
-        var newPingUser = new User({ acc: acc, pwd: pwd });
-        newUser.save(function(err, user) {
-            if (err) return console.error(err);
-            res.json({ msg: "succuss", data: user });
-        });
-    }
-});
 
 module.exports = router;

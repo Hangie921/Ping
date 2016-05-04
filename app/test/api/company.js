@@ -3,6 +3,26 @@ request = request('http://localhost:3001');
 
 var should = require('chai').should();
 
+function checkDataFormat(res) {
+    if (res.code === 200) {
+        console.log(res);
+        expect(res.code).equal(200);
+        expect(res.msg).equal('OK');
+        expect(res).to.have.property('data')
+            .that.is.an('array');
+
+        if (res.data.length > 0) {
+            // expect(res.data[0]).have.all.keys('username', 'pic', 'location');
+        }
+
+    } else if (res.code === 400) {
+        expect(res.code).equal(400);
+        expect(res.msg).equal('Bad Request');
+        expect(res.data).not.exist;
+    }
+
+}
+
 describe.skip('GET /api/companies', function() {
     it('respond a json showing all companies', function(done) {
         request
@@ -11,8 +31,7 @@ describe.skip('GET /api/companies', function() {
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res) {
-                var data = res.body;
-                // console.log(data);
+                checkDataFormat(res);
                 done(err);
             });
     });

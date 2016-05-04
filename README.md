@@ -1,16 +1,16 @@
 # Ping
 This is the Project folder for Ping
 
-#/routes
+# /routes
 Received the route and do the mission assigned and then return the result value and render the view
 
-#/module
+# /module
 Everything about modules js included
 
-#/views
+# /views
 All jade are in here
 
-#gulpfile.js
+# gulpfile.js
 Control the work flow automatically
 
 - `gulp.task('sass')`: Compile the .scss into .css
@@ -20,4 +20,29 @@ Control the work flow automatically
 - `gulp.task('script')`: Concat all the .js into one js file,only uncomment it online.
 
 
+# Debug
 
+### 上Code流程
+
+1. cd Ping/app
+2. npm run test
+3. git ..............
+
+### 更新Ping lib
+
+1. 檢查https://github.com/Hangie921/Ping_Library 的master base
+2. npm install
+
+or 
+
+```bash
+npm run updateping
+```
+
+# Generator
+
+**regen** will dropDatabase
+```bash
+npm run gen
+npm run regen
+```

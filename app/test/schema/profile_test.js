@@ -181,40 +181,5 @@ describe('CompanyProfile', function() {
             .catch(function(reason) {
                 console.log(reason);
             });
-        // async.series({
-        //         saveProfile: function(callback) {
-        //             newProfile.save(function(err, data) {
-        //                 callback(err, data);
-        //             });
-        //         },
-        //         saveUser: function(callback) {
-        //             newUser.save(function(err, data) {
-        //                 callback(err, data);
-        //             });
-        //         },
-        //         saveProfileTwice: function(callback) {
-        //             newProfileSecond.save(function(err, data) {
-        //                 callback(err, data);
-        //             });
-        //         },
-        //         saveUserTwice: function(callback) {
-        //             newUserSecond.save(function(err, data) {
-        //                 should.exist(err);
-        //                 if (err) {
-        //                     CompanyProfile.findByIdAndRemove(newProfileSecond._id, function(err, removeProfile) {
-        //                         (removeProfile.equals(newProfile)).should.be.false;
-        //                         (removeProfile.equals(newProfileSecond)).should.be.true;
-        //                         callback(err, data);
-        //                     });
-        //                 }
-        //             });
-        //         },
-        //     },
-        //     // 如果不放err, 會印不出所有results
-        //     function(err, results) {
-        //         should.not.exist(err);
-        //         should.not.exist(results.saveUserTwice);
-        //         done();
-        //     });
     });
 });
