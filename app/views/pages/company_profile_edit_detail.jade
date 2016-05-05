@@ -1,7 +1,9 @@
 include ../modules/head
 		link(rel="stylesheet"  href="/css/profile.css")
 		link(rel="stylesheet"  href="/css/inputDropdownStyles.css")
+		//- link(rel="stylesheet" ,href='/css/dnd.css')
 		script(type='text/javascript',src='/js/inputDropdown.js')
+		script(type='text/javascript', src = '/js/angular-drag-and-drop-lists.js')
 		script(type='text/javascript',src='/js/company_profile_edit.js').
 	body.profile.edit.detail(ng-app="profile_edit_app",ng-controller='detail_controller')
 		-
@@ -94,8 +96,8 @@ include ../modules/head
 							.input_container.col-md-7(ng-init="")
 								.input_group#who_u_r
 									label Who&nbspyou&nbspare
-									ul
-										li(ng-repeat="doc in who_u_r ",ng-attr-data-index="{{$index}}",ng-init="current = doc")
+									ul(dnd-list="list")
+										li(ng-repeat="doc in who_u_r",dnd-draggable='doc',dnd-moved='list.splice($index,1)',dnd-effect-allowed='move',ng-init="current = doc",draggable='true')
 											.input_single
 												//- .menu_bar.col-md-10
 												//- 	ul

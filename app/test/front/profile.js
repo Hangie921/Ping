@@ -6,47 +6,60 @@ var expect = chai.expect;
 
 describe('Profile_edit_app', function() {
 
-	var $controller;
+    var $controller;
+    var $httpBackend;
+    var request_handler;
+
 
     beforeEach(function() {
         module('profile_edit_app');
     });
 
-    beforeEach(inject(function(_$controller_) {
+    beforeEach(inject(function(_$controller_, $injector) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         $controller = _$controller_;
+        // $httpBackend = $injector.get('$httpBackend');
+        // request_handler = $httpBackend.when('POST', "/companies/profile/edit")
+        //     .respond();
     }));
 
 
-    describe('Profile_edit_controller',function(){
-    	
-
-    	it('Should get the value from $scope.test to make sure mocha is running angular',function(){
-    		var $scope = {};
-    		var controller = $controller('profile_edit_controller', { $scope: $scope });
-    		expect($scope.test).to.contain("test in profile_edit_controller");
-    	});
-    	
-
-    	it('Should not return Object and should console 200 and res',function(){
-    		var $scope = {};
-    		var controller = $controller('profile_edit_controller', { $scope: $scope });
-    		var btn = document.createElement('a');
-			btn.setAttribute("data-router","/companies/profile/edit");
-
-			//remember to comment the line of the "location.reload()"
-    		expect($scope.upload('test',btn)).not.to.equal(Object);
-    	});
+    describe('Profile_edit_controller', function() {
 
 
-    });
+        it('Should get the value from $scope.test to make sure mocha is running angular', function() {
+            var $scope = {};
+            var controller = $controller('profile_edit_controller', { $scope: $scope });
+            expect($scope.test).to.contain("test in profile_edit_controller");
+        });
 
-    descirbe('detail_controller',function(){
-        it('Should get the value from $scope.test to make sure mocha is running angular',function(){
+
+        it('Should return 200 and should console 200 and res', function() {
+            // request_handler.respond(200,{code:200,errmsg:""});
+
+            var $scope = {};
+            var controller = $controller('profile_edit_controller', { $scope: $scope });
+            var btn = document.createElement('a');
+
+            // $httpBackend.expectPOST("/companies/profile/edit");
+
+            btn.setAttribute("data-router", "/companies/profile/edit");
+            //remember to comment the line of the "location.reload()"
+            $scope.upload('test',"/companies/profile/edit");
             
-        })
+            console.log($scope.res);
+            // expect($scope.res.code).to.equal(200);
+        });
+
+
     });
-    
+
+    // descirbe('detail_controller',function(){
+    //     it('Should get the value from $scope.test to make sure mocha is running angular',function(){
+
+    //     })
+    // });
+
 
 
     // it('Check the key of the data', function() {

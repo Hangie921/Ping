@@ -134,7 +134,7 @@ router.post(url + '/profile/edit', function(req, res, next) {
             }
 
 
-            console.log("before", originCompany)
+            // console.log("before", originCompany)
                 // update from req.body
 
 
@@ -153,7 +153,7 @@ router.post(url + '/profile/edit', function(req, res, next) {
                 //判斷 key is object 
             }
 
-            console.log("after", originCompany)
+            console.log("after", originCompany);
 
             CompanyProfile.update({ _id: originCompany._id }, originCompany, function(err, status) {
                 if (err) next(new Error('CompanyProfile.update()'));

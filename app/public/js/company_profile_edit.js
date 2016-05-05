@@ -23,7 +23,7 @@
 
 
 
-var app = angular.module('profile_edit_app',[]);
+var app = angular.module('profile_edit_app', []);
 
 // var app = angular.module('profile_edit_app', ['inputDropdown']);
 
@@ -284,7 +284,114 @@ var app = angular.module('profile_edit_app',[]);
 //     ];
 // }]);
 
+//====================================================================
 
+
+
+// 1st page of the edit mode with profile_edit_controller
+app.controller('profile_edit_controller', ['$scope', '$http', function($scope, $http) {
+    $scope.test = 'test in profile_edit_controller';
+    $scope.res = {};
+
+    // @Todo : Ajax upload using angular
+
+    // $scope.upload = function(formName, btn) {
+    //     var formData = new FormData(document.forms.namedItem(formName));
+
+    //     formData.append("CustomField", "This is some extra data");
+
+    //     var request = {
+    //         method: 'POST',
+    //         url: btn.getAttribute("data-router"),
+    //         data: formData,
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data'
+    //         }
+    //     };
+
+    //     $http(request).then(function(response){
+    //         $scope.res = response;
+    //         console.log(response);
+    //         // location.reload();
+    //     },function(response){
+    //         $scope.res = response;
+    //         console.log(response);
+    //     });
+
+
+    //     // var ajax = $http({
+    //     //     headers: {
+    //     //         'Content-type': 'multipart/form-data'
+    //     //     },
+    //     //     url: btn.getAttribute("data-router"),
+    //     //     method: 'POST',
+    //     //     data: formData
+
+    //     // });
+    //     // ajax.success(function(data, status) {
+    //     //     res = data;
+    //     // });
+
+    //     // ajax.error(function(data, status) {
+    //     //     res.code = 400;
+    //     // });
+
+
+    // };
+
+    $scope.upload = function(formName, btn) {
+        var formData = new FormData(document.forms.namedItem(formName));
+        formData.append("CustomField", "This is some extra data");
+        var oReq = new XMLHttpRequest();
+        oReq.onreadystatechange = function(resp_inside) {
+
+            if (oReq.readyState == 4 && oReq.status == 200) {
+                var res = JSON.parse(oReq.response);
+                console.log(res.code);
+                if (res.code == 200) {
+                    console.log("by $scope.upload of the 1st controller", res);
+                    $scope.res = res;
+                    console.log($scope.res);
+                    location.reload(); // To run the Unit test, you have to comment this line
+
+                } else {
+                    console.log(oReq.response);
+                    // return res.errmsg;
+                    $scope.res = res;
+                }
+
+            }
+
+        };
+
+
+        oReq.open("POST", btn.getAttribute("data-router"), true);
+        oReq.send(formData);
+
+    };
+
+
+    $scope.click_the_file_input = function(input) {
+        $(input).click();
+    };
+
+
+    $scope.read_url = function(input, panel_selector) {
+        console.log("read url");
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $(panel_selector).attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
+
+
+}]); // end of the 1st controller
+
+//====================================================================
 
 // New a directive for 2nd page to generate dynamical .content according to the data from DB
 app.directive("contentDirective", function($compile) {
@@ -342,6 +449,7 @@ app.controller('detail_controller', function($scope, $compile) {
 
 
 
+
     // generate a <li> contains a section of the input bar including .menu_bar , 
     // .content and .functions_bar
     $scope.genSection = function($event) {
@@ -384,9 +492,6 @@ app.controller('detail_controller', function($scope, $compile) {
     };
 
     // @To do add draggable
-    // $scope.moveSection = function() {
-
-    // }
 
 
     // Handle the data from none list input
@@ -540,90 +645,14 @@ app.controller('detail_controller', function($scope, $compile) {
         array.splice(index, 1);
     };
 
+
+
+
+
 }); //end of 2nd controller
 
 
-
-// 1st page of the edit mode with profile_edit_controller
-app.controller('profile_edit_controller', function Profile_edit_controller($scope, $http) {
-    $scope.test = 'test in profile_edit_controller';
-
-    // @Todo : Ajax upload using angular
-
-    // $scope.upload = function(formName, btn) {
-    //     var formData = new FormData(document.forms.namedItem(formName));
-
-    //     formData.append("CustomField", "This is some extra data");
-
-    //     $http({
-    //         headers:{
-    //             'Content-type':'multipart/form-data'
-    //         },
-    //         url:btn.getAttribute("data-router"),
-    //         method:'POST',
-    //         data:JSON.stringify(formData)
-
-    //     }).then(
-    //         function(res) {
-    //             // location.reload();
-    //             console.log(res.data);
-    //         },
-    //         function(res) {
-    //             console.log(res.status);
-    //         });
-    // };
-
-    $scope.upload = function(formName, btn) {
-        var formData = new FormData(document.forms.namedItem(formName));
-        formData.append("CustomField", "This is some extra data");
-
-        var oReq = new XMLHttpRequest();
-        oReq.onreadystatechange = function() {
-            if (oReq.readyState == 4 && oReq.status == 200) {
-                var res = JSON.parse(oReq.response);
-                console.log(res.code);
-                if (res.code == 200) {
-                    // location.reload(); // To run the Unit test, you have to comment this line
-                    console.log("by $scope.upload of the 1st controller", res);
-                    return res;
-                } else {
-                    console.log(oReq.response);
-                    return false;
-                }
-            } else {
-                return oReq.response;
-            }
-        };
-
-        oReq.open("POST", btn.getAttribute("data-router"), true);
-        oReq.send(formData);
-
-
-    };
-
-
-    $scope.click_the_file_input = function(input) {
-        $(input).click();
-    };
-
-
-    $scope.read_url = function(input, panel_selector) {
-        console.log("read url");
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                $(panel_selector).attr('src', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    };
-
-
-}); // end of the 1st controller
-
-
-
+//====================================================================
 
 
 
