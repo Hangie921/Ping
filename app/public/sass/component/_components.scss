@@ -1,0 +1,111 @@
+
+// =============== Quote Items =====================
+
+.quotation{
+    p {
+        font-family: 'Avenir-BlackOblique';
+        font-style: oblique;
+        font-size: $rgs_font;
+        font-weight: 900;
+        padding: 2px 0px 2px 11px;
+        border: 1px solid transparent;
+        border-left: 3px solid $pri_cl;
+        &:before,
+        &:after {
+            content: " ” ";
+        }
+    }
+}
+
+// =============== List items =======================
+.list {
+    & .list__item {
+        font-size:$rgs_font;
+        .lnr {
+            margin-right:8px;
+            color:$third_cl;
+        }
+    }
+}
+
+
+
+// ================ Tags =============================
+
+.tag {
+    float: left;
+    display:block;
+    height: 40px;
+    line-height: 40px;
+    padding: 1px 15px;
+    border-radius: 20px;
+    margin-right: 8px;
+    margin-top: 8px;
+    font-size: 16px;
+    &:last-child {
+        margin-right: 0px;
+    }
+}
+
+
+
+//================== Icons with titles ====================
+.icon_set--rg {
+    
+    & i.lnr {
+        font-size: 24px;
+        line-height: 24px;
+        color: $third_cl;
+        position:relative;
+        top:5px;
+    }
+    & .company__icon__info {
+        padding:0 20px 0 10px;
+        font-size: 14px;
+        line-height: 14px;
+        color: $grayscale_dark_cl;
+    }
+}
+
+
+
+// =============== social icons ===========================
+& .social_icons {
+
+    & ul {
+        float:right;
+    }
+    
+    & li {
+        width: 35px;
+        height: 35px;
+        float: left;
+        display:block;
+        margin-right: 10px;
+        & .fa {                      
+            font-size: 20px;
+            color: #FEFEFE;
+            display:block;
+            line-height:35px;
+            text-align: center;
+        }
+        
+    }
+
+    & .icon_fb {
+            background-color: #547BBC;
+        }
+    & .icon_tw {
+            background-color: #78CBEF;
+        }
+    & .icon_ld {
+            background-color: #1485C7;
+        }
+    & .icon_site {
+            background-color: #4A90E2;
+           
+        }
+    & li:last-child {
+        margin:0
+    }
+}
