@@ -1,76 +1,85 @@
 //- This file needs member role from DB to show the different menu function list 
+-
+	console.log("user from menu.jade11111:",user);
+	var profile = company;
+	// var type = company.type;
+	var type = "Company";
 
-header.ping_header.col-md-12
-	.container.col-md-8.col-centered
-		.logo.pull_left
-			a(href='/dashboard')
-				img(src='/img/logo.png',alt='logo')
-		.account.pull_right.col-md-3
-			.img_container.round_container
-				img(src='/#{user.custom._profile.pic}',alt='profile')
-			a.base_white(href='#') #{user.custom._profile.username}
-				i(aria-hidden="true").fa.fa-chevron-down
-			ul.menu
-				li.menu_item
-					a(href='#') My&nbspAccount
-				li.menu_item
-					a(href='#') Settings
-				li.menu_item
-					a(href='#') Privacy&nbspPolicy
-				li.menu_item
-					a(href='/logout') Logout
-			
-.menu_container.col-md-12
-	.container.col-md-8.col-centered
-		if (type == "Company")
-			ul.menu.pull_left.col-md-8
-				li.menu_item.menu_item_has_child
-					a(href='#') Profile
-					ul.sub_menu
-						li.menu_item 
-							a(href='/companies/'+user.custom._profile.username) View&nbspProfile
-						li.menu_item 
-							a(href='/companies/profile/edit') Edit&nbspProfile
-				li.menu_item 
-					a(href='#') Find&nbspPingers
-				li.menu_item 
-					a(href='#') Projects
-				li.menu_item
-					a(href='#') Resources
-				li.menu_item.menu_item_has_child 
-					a(href='#') More
-					ul.sub_menu
-						li.menu_item 
-							a(href='#') More1
-						li.menu_item 
-							a(href='#') More2
 
-			.pull_right.col-md-4
-				a.btn.pri_cl_bg.base_white(href='/companies/profile/edit') Edit&nbspProfile
-		else if (type == "Talent")
-			ul.menu
-				li.menu_item Awards/Races
-				li.menu_item Project&nbspHistory
-				li.menu_item
-					a(href='/logout') Logout
+header.primary_header
+	.container
+		.row
+			.col-md-12
+				.header_brand.pull_left.clearfix
+					a(href='/dashboard')
+				.header_account.pull_right
+					.img_container.round_container.round_container--sm
+						img(src='/#{user.custom._profile.pic}',alt='profile')
+					a.header_user_name.base_white(href='#') #{user.custom._profile.username}
+						i(aria-hidden="true").fa.fa-chevron-down
+					ul.my_account_menu.menu_dropdown.round_corner-bottom
+						li.menu_item
+							a(href='#') My&nbspAccount
+						li.menu_item
+							a(href='#') Settings
+						li.menu_item
+							a(href='#') Privacy&nbspPolicy
+						li.menu_item
+							a(href='/logout') Logout
+		
+nav.dashboard_menu
+	.container
+		.row
+			.col-md-12.no_pad
+				if (type == "Company") 
+					ul.menu.col-md-8.no_pad
+						li.menu_item
+							a(href='#') Profile
+							ul.sub_menu.menu_dropdown
+								li.menu_item 
+									a(href='/companies/'+user.custom._profile.username) View Profile
+								li.menu_item 
+									a(href='/companies/profile/edit') Edit Profile
+						li.menu_item 
+							a(href='#') Find Pingers
+						li.menu_item 
+							a(href='#') Projects
+						li.menu_item
+							a(href='#') Resources
+						li.menu_item
+							a(href='#') More
+							ul.sub_menu.menu_dropdown
+								li.menu_item 
+									a(href='#') More1
+								li.menu_item 
+									a(href='#') More2
 
-		else 
-			h2 nothing la
-//- if (mem_type == "company")
-//- 	li 
-//- 		a(href='/find_talent') Find Talent
-//- else if (mem_type == "talent")
-//- 	li 
-//- 		a(href='/find_project') Find Project
-//- li 
-//- 	.setting
-//- 		span Setting
-//- 		ul
-//- 			li My Account
-//- 				#MyAccount
-//- 					ul
-//- 						li Change PWD
-//- 			li Terns&Condition
-//- 			li Version
-//- 			li 
-//- a(href='/logout') Log out
+					.pull_right
+						a.btn.btn--pri.btn--sm.row_space-top--xs(href='/companies/profile/edit') Edit Profile
+				else if (type == "Talent")
+					ul.menu
+						li.menu_item Awards/Races
+						li.menu_item Project History
+						li.menu_item
+							a(href='/logout') Logout
+
+				else 
+					h2 nothing la
+		//- if (mem_type == "company")
+		//- 	li 
+		//- 		a(href='/find_talent') Find Talent
+		//- else if (mem_type == "talent")
+		//- 	li 
+		//- 		a(href='/find_project') Find Project
+		//- li 
+		//- 	.setting
+		//- 		span Setting
+		//- 		ul
+		//- 			li My Account
+		//- 				#MyAccount
+		//- 					ul
+		//- 						li Change PWD
+		//- 			li Terns&Condition
+		//- 			li Version
+		//- 			li 
+		//- a(href='/logout') Log out

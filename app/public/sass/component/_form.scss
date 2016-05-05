@@ -3,7 +3,7 @@
 
 [type="text"],[type='email'],[type='password'],[type='textarea'],textarea{
 	outline:none;
-	border-radius:$input_border_radius;
+	border-radius:$base_border_radius;
 	min-height:$input_height_base;
 	border:none;
 	font-size: $base_input_font_size;

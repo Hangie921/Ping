@@ -1,25 +1,25 @@
+// ================ Basic Button Style ================ 
+// ================                    ================
+
+//Button Style 1
 .btn{
   display:block;
   box-sizing:border-box;
-  width: 100%;
   text-align:center;
   border-radius:$btn_border_radius_base;
-  padding:15px 0px;
+  line-height:$base_input_font_size;
+  font-size: $base_input_font_size;
+  padding:0 20px;
+  white-space:no-wrap;
   font-weight:900;
   cursor:pointer;
   text-transform:uppercase;
 }
-.btn_pri{
-	background-color:$pri_cl;
-	color:#ffffff;
-	&:hover{
-    	background-color:$pri_dark_cl;
-  	}
-}
-.btn_sec{
+
+// Button Style 2
+.btn_2{
 	border-radius:$btn_border_radius_base;
 	position: relative;
-	min-height:$btn_base_height;
 	border-bottom:3px solid $sec_cl;
 	color:$sec_cl;
 	overflow:hidden;
@@ -35,31 +35,37 @@
 	}
 }
 
+// ================ Button Colours ========
 
-.tag_single{
-	float: left;
-	margin-bottom: 15px;
-	height: 40px;
-	margin-right: 10px;
-	position: relative;
-	.tag{
-		width: 100%;
-		height: 100%;
-		padding:8px 38px 10px 20px;
-		line-height:100%;
-		text-align:left;
-		border-radius:20px/50%;
-		font-size: $base_font_size;
-	}
-	i{
-		position: absolute;
-		top: 55%;
-		right:16px;
-		font-size: $base_font_size + 2px;
-		cursor:pointer;
-
-	}
+// Button with Primary Colour
+.btn--pri{
+	background-color:$pri_cl;
+	color:#ffffff;
+	&:hover{
+    	background-color:$pri_dark_cl;
+  	}
 }
+
+
+
+//================== Button Sizes =====
+
+// Button regular size 50px
+.btn--rg {
+	height:50px;
+	line-height:50px;
+}
+
+// Button Smaller size 40px
+.btn--sm {
+	height:40px ;
+	line-height:40px 
+}
+
+
+
+
+
 
 
 

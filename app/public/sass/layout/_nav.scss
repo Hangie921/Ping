@@ -1,95 +1,56 @@
-.menu_container{
-	z-index:$zindex_navbar - 1;
-	background-color:$navbar_bg;
-	.pull_right{
-		width: 194px;
-		.btn{
-			text-transform:uppercase;
-			width: 149px;
-			margin-left: auto;
-			margin-right: auto;
-			height: 40px;
-			margin-top: 10px;
-			padding:15px 0px;
-			line-height:$base_input_font_size;
-			font-size: $base_input_font_size;
+//general menu setting
+.menu{
+	position: relative;
+	.menu_dropdown { //dropdown behavior
+		@extend .round_corner-bottom;
+		position:absolute;
+		overflow:hidden;
+		display:none;
+		box-shadow: 0px 0px 10px rgba(0,0,0,0.2)
+	}
+
+	>li {
+		float:left;
+
+		&:hover>.menu_dropdown {
+				display:block;
+				}
 		}
+	a {
+		cursor:pointer;
+		display:block;
+		width:100%;
 	}
 }
-.menu{
-	list-style:none;
-	padding-left: 0;
-	margin: 0 auto;
-	height: $navbar_height;
-	background-color:$navbar_bg;
-	
-	& > .menu_item{
-		box-sizing:border-box;
-		cursor:pointer;
-		margin-left: 0;
-		display:inline-block;
-		vertical-align:middle;
-		height: 100%;
-		line-height:$base_line_height;
-		& a{
-			box-sizing:border-box;
-			display:inherit;
-			height: 100%;
-			padding:18px 20px;
-			line-height:$base_line_height;
+
+//dashboard menu style
+.dashboard_menu{
+	background-color:$grayscale_md_cl;
+	.menu {
+		height:60px;
+		a {
 			color:$base_white;
+			padding:18px 20px;
+			font-size:$rgs_font;
 		}
-		&:first-child a{
-			padding-left: 0;
+		
+		li:hover{
+			background-color:$grayscale_cl;			
 		}
-		&.menu_item_has_child{
-			&:first-child .sub_menu{
-				left: -15px;
+	}
+	.sub_menu {
+		background-color:$grayscale_md_cl;
+
+		&>li {
+			&>a {
+				line-height:$base_line_height;
+				color:$base_white;
+				font-size:$base_font_size;
+				line-height:$base_line_height;			
 			}
-			position: relative;
-			// background-color:$navbar_bg;
-			& .sub_menu{
-				display:none;
-				position: absolute;
-				top: 0;
-				left: 0;
-				& .menu_item{
-					& a{
-						line-height:9px;
-						padding-left: 20px;
-					}
-					&:hover{
+			&:hover{
 						background-color:$grayscale_cl;
 					}
-					&:first-child{
-						margin-top: 60px;
-					}
-					&:last-child{
-						border-radius:0px 0px 5px 5px;
-					}
-					background-color:$navbar_bg;
-					// width: 100%;
-					height: $dropdown_base_height;
-					line-height:$dropdown_base_height;
-					text-align:left;
-				}
 			}
-			&:hover .sub_menu{
-				display:block;
-			}
-		}//end of the .menu_item_has_child
-	}// end of the .menu_item
-
+		}
 }
-
-// .ping_header{
-// 	.account{
-// 		.menu{
-// 			.menu_item:first-child{
-// 				a{
-// 					padding-left: 20px;
-// 				}
-// 			}
-// 		}
-// 	}
-// }

@@ -17,6 +17,7 @@ $colors:
 "sec_dark_cl" #BC414F,
 "grayscale_cl" #929292,
 "grayscale_light_cl" #DBD9D8,
+"grayscale_md_cl" #5F5E5E,
 "grayscale_dark_cl" #4B4B4B,
 "base_white" #ffffff;
 
@@ -34,8 +35,11 @@ $third_cl:  #599993;
 $grayscale_cl:			#929292;
 $grayscale_light_cl:	#DBD9D8;
 $grayscale_dark_cl: 	#4B4B4B;
+$grayscale_md_cl:       #5F5E5E;
 $base_white: 			#ffffff;
-$tag_bg:				#d0cdcb;
+$grayscale_5:			#d0cdcb;
+$grayscale_6:           #F5F3F2;
+
 
 
 $profile_edit_title_color: #DDDFDE;
@@ -45,8 +49,7 @@ $profile_edit_title_color: #DDDFDE;
 //
 //## Setting for global styles
 
-//** Background color for `<body>`.
-$body_bg:               #F5F3F2;
+
 //** Global text color on `<body>`.
 $text_color:            $grayscale_dark_cl;
 
@@ -81,7 +84,14 @@ $large_font_size:         	ceil(($base_font_size * 1.25)) !default; // ~18px
 $small_font_size:         	ceil(($base_font_size * 0.85)) !default; // ~12px
 
 
-
+$xxlg_font: 48px;
+$xlg_font: 36px;
+$lg_font: 28px;
+$md_font:20px;
+$rg_font:18px;
+$rgs_font:16px;
+$sm_font:14px;
+$xs_font:12px;
 
 $h1_font_size:            floor(($base_font_size * 2.25)) !default; // ~36px
 $h2_font_size:            floor(($base_font_size * 1.75)) !default; // ~28px
@@ -91,10 +101,6 @@ $h5_font_size:            ;
 $h6_font_size:            ; // ~12px
 
 
-$profile_h1_font_size:		48px;
-$profile_h2_font_size:		36px;
-$profile_h3_font_size:		28px;
-$profile_basic_font_size:		18px;
 
 
 // //** Unit-less `line-height` for use in components like buttons.
@@ -132,6 +138,15 @@ $small_border_radius:       ;
 $component_active_color:    ;
 //** Global background color for active items (e.g., navs or dropdowns).
 $component_active_bg:       ;;
+
+
+// ======== Spacing =============/
+$space_lg:70px;
+$space_md:35px;
+$space_sm:26px;
+$space_xs:10px;
+
+
 
 
 // ================================ Buttons ==============================
@@ -455,7 +470,8 @@ $label_link_hover_color:      ;
 
 
 
-
+// 280416 Janet Add round corner
+$base_border_radius:5px;
 
 
 

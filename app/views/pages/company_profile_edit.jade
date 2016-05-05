@@ -1,61 +1,72 @@
-include ../modules/head
-		link(rel="stylesheet" , href="../../../css/profile.css")
-	body.profile.edit(ng-app="profile_edit_app",ng-controller='profile_edit_controller')
-		-
-			var profile = user.custom._profile;
-			var type = user.custom._profile.type;
-		script(type='text/javascript',src='../../../js/company_profile_edit.js').
+
+extends ../templates/three_columns_sidebar.jade
+
+block css
+	link(rel="stylesheet"  href="/css/profile.css")
+append body
+	-
+		var profile = company;
+		var type = company.type;
+
+block body_class
+	body.profile.edit 
+	//- 	link(rel="stylesheet" , href="../../../css/profile.css")
+	//- body.profile.edit(ng-app="profile_edit_app",ng-controller='profile_edit_controller')
+	//- 	-
+	//- 		var profile = user.custom._profile;
+	//- 		var type = user.custom._profile.type;
+	//- 	script(type='text/javascript',src='../../../js/company_profile_edit.js').
 		
-		block main_menu
-			include ../modules/menu.jade
-		block sideBar
-			include ../modules/sidebar.jade
-		block content
-			.row.col-md-10
-				.content_container.col-md-10.row
-							h2 Edit Profile
-							form(method='POST',id='company_branding',action='',enctype='multipart/form-data',name='test')
-								section.profile_setting.edit_section
-									.title.col-md-10
-										h3 Profile Setting 
-										a(href='#')
-											span.reminder i
-												.hint_container.col-md-2
-													h3 How to make your profile shine
-													p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
+	//- 	block main_menu
+	//- 		include ../modules/menu.jade
+	//- 	block sideBar
+	//- 		include ../modules/sidebar.jade
+	//- 	block content
+	//- 		.row.col-md-10
+	//- 			.content_container.col-md-10.row
+	//- 						h2 Edit Profile
+	//- 						form(method='POST',id='company_branding',action='',enctype='multipart/form-data',name='test')
+	//- 							section.profile_setting.edit_section
+	//- 								.title.col-md-10
+	//- 									h3 Profile Setting 
+	//- 									a(href='#')
+	//- 										span.reminder i
+	//- 											.hint_container.col-md-2
+	//- 												h3 How to make your profile shine
+	//- 												p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
 
-									.input_container
-										.input_single.col-md-9.row
-											label Company Name 
-												span.sec_cl (Please contact us if you wanna change your company name)
-											input#profile_name(type='text',value='#{profile.username}',name='username',readonly).input
+	//- 								.input_container
+	//- 									.input_single.col-md-9.row
+	//- 										label Company Name 
+	//- 											span.sec_cl (Please contact us if you wanna change your company name)
+	//- 										input#profile_name(type='text',value='#{profile.username}',name='username',readonly).input
 
-										.input_single.col-md-9.row
-											label Company Tagline
-											input#profile_tagline(type='text',name='tagline',value='#{profile.tagline}').input
-								section.displayed_img.edit_section
-									.title.col-md-10
-										h3 Displayed Images
-									.input_container
-										.img_container
-											.round_container
-												img#photo(src='/#{profile.pic}')
-											.btn_container
-												.input_single
-													input#upload_photo(type='file',name='uploadFile',file-model='myFile')
-												span Upload Your Profile Picture
-												a.btn.btn_pri.upload_photo_btn UPLOAD&nbspIMAGE
-												span.sec_cl Image Formats: JPEG,GIF,PNG
-										.photo_group.col-md-6
-											.cover_photo_container.photo_container
-												img
-												a.btn.btn_pri UPLOAD&nbspCOVER&nbspPHOTO
-											.footer_photo_container.photo_container
-												img
-												a.btn.btn_pri UPLOAD&nbspFOOTER&nbspPHOTO
-								.btn_group.col-md-6
-									a.btn.cancel(href='/dashboard') cancel
-									a.btn.btn_pri.save#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event.currentTarget)") save&nbspchanges
+	//- 									.input_single.col-md-9.row
+	//- 										label Company Tagline
+	//- 										input#profile_tagline(type='text',name='tagline',value='#{profile.tagline}').input
+	//- 							section.displayed_img.edit_section
+	//- 								.title.col-md-10
+	//- 									h3 Displayed Images
+	//- 								.input_container
+	//- 									.img_container
+	//- 										.round_container
+	//- 											img#photo(src='/#{profile.pic}')
+	//- 										.btn_container
+	//- 											.input_single
+	//- 												input#upload_photo(type='file',name='uploadFile',file-model='myFile')
+	//- 											span Upload Your Profile Picture
+	//- 											a.btn.btn_pri.upload_photo_btn UPLOAD&nbspIMAGE
+	//- 											span.sec_cl Image Formats: JPEG,GIF,PNG
+	//- 									.photo_group.col-md-6
+	//- 										.cover_photo_container.photo_container
+	//- 											img
+	//- 											a.btn.btn_pri UPLOAD&nbspCOVER&nbspPHOTO
+	//- 										.footer_photo_container.photo_container
+	//- 											img
+	//- 											a.btn.btn_pri UPLOAD&nbspFOOTER&nbspPHOTO
+	//- 							.btn_group.col-md-6
+	//- 								a.btn.cancel(href='/dashboard') cancel
+	//- 								a.btn.btn_pri.save#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event.currentTarget)") save&nbspchanges
 		
 						
 

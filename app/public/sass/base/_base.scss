@@ -3,28 +3,88 @@ body{
 	color:$grayscale_dark_cl;
 	font-size: $base_font_size;
 	line-height:$base_line_height;
-	background-color:$body_bg;
+	background-color:$base_white;
 	box-sizing:border-box;
 	font-weight: $base_font_weight;
 	-webkit-font-smoothing:antialiased;
 	-moz-osx-font-smoothing:greyscale;
+
 }
 a{
 	text-decoration:none;
 	color:$grayscale_dark_cl;
 }
 h1{
-	font-size: $h1_font_size;
+	font-size: $xlg_font;
 	font-weight: 900;
 }
 h2{
-	font-size: $h2_font_size;
+	font-size: $lg_font;
 	font-weight: 900;
 }
 h3{
-	font-size: $h3_font_size;
+	font-size: $md_font;
 	font-weight: 900;
+}
+p {
+	font-size:$rgs_font;
 }
 input::-webkit-input-placeholder{
 	color:$grayscale_dark_cl;
+}
+
+ul {
+	list-style:none;
+	padding-left:0;
+}
+
+div {
+	 @include prefix((
+       box-sizing:border-box
+        ),moz webkit ms o);
+}
+
+.no_pad {
+	padding-left:0 !important;
+	padding-right:0 !important;
+}
+
+// ============== round corners =====================
+
+.round_corner {
+	border-radius:$base_border_radius;
+}
+.round_corner-bottom {
+	border-bottom-left-radius:$base_border_radius;
+	border-bottom-right-radius:$base_border_radius;
+
+}
+
+// ============== row spaces ========================
+
+
+
+
+.row_space--xs {
+	padding-top:10px;
+	padding-bottom:10px;
+	}
+.row_space-top--xs {
+	margin-top:10px;
+}
+.row_space--sm{
+	padding-top:26px;
+	padding-bottom:26px;
+}
+
+.row_space--md {
+	padding-top:35px;
+	padding-bottom:35px;
+}
+.row_space-bottom--md {
+	padding-bottom:35px;
+}
+.row_space--lg {
+	padding-top:70px;
+	padding-bottom:70px;
 }

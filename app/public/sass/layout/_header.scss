@@ -1,95 +1,82 @@
-.ping_header{
-	z-index:$zindex_navbar;
-	background-color: $grayscale_dark_cl;
-	box-sizing:border-box;
-	height: $header_height;
-	padding:26px 20px 10px 20px;
+.primary_header{
 	position: relative;
-	& .logo{
-		width: 60px;
-		height: 32px;
-		display:inline-block;
-		vertical-align:middle;
-		& img{
-			width: 100%;
-			height: auto;
-		}
-	}
+	height: 80px;
+	padding:26px 0;
+	background-color: $grayscale_dark_cl;
+	z-index:$zindex_navbar;
+	box-sizing:border-box;
 	
-	& .account{
-		vertical-align:middle;
-		display:inline-block;
-		height: 80px;
-		padding: 23px 17px;
-		margin-top: -26px;
-		box-sizing:border-box;
-		position: relative;
-		cursor:pointer;
-		& .round_container{
-			display:inline-block;
-			width: 34px;
-			height: 34px;
-			overflow:hidden;
-			border-radius:50%;
-			& img{
-				width: 34px;
-				height: 34px;
-				margin-left: auto;
-				margin-right: auto;
-			}
-		}
-		& > a{
-			display:inline-block;
-			line-height: 18px;
-			height: 100%;
-			vertical-align:middle;
-			padding-left: 12px;
-			font-weight: $base_font_weight_bold;
-			& i{
-				margin-left: 8px;
-			}
-		}
+	
+	}
 
+.header_brand{
+	float:left;
+	width: 60px;
+	height: 32px;
+	background:url(../img/logo.png) no-repeat;
+	background-size:60px auto;
+	}	
+
+.header_account{
+	float:left;
+	padding: 23px 17px;
+	margin-top: -26px;
+	position: relative;
+	cursor:pointer;
+	& .img_container{
+		float:left;
 		
-		& .menu{
-			position: absolute;
-			z-index: -3;
-			left: 0;
-			top: 80px;
-			// transition: all .3s;
-			display:none;
-			& .menu_item{
-				& a{
-					width: 100%;
-					line-height:0px;
+	}
 
-					
-				}
-				// padding: 0 0 0 43px;
-				line-height:41px;
-				text-align:left;
-				width: 100%;
-				height: 41px;
-				background:$grayscale_dark_cl;
-				&:first-child{
-					padding-left: 20px;
-				}
-				&:last-child{
-					border-radius:0px 0px 5px 5px;
-				}
-				&:hover{
-					background-color:$grayscale_cl;
-				}
-			}
-
-		}
-		&:hover .menu{
+	&:hover ul.my_account_menu{
 			display:block;
 			// top: 80px;
 			// transition: all .3s;
 			z-index:5;
 		}
 
-	}// end of the .account
-}//end of the .ping_header
+}
+a.header_user_name{
+	display:inline-block;
+	padding-left: 12px;
+	line-height: 35px;
+	white-space:no-wrap;
+	font-weight: $base_font_weight_bold;
+	& i{
+		margin-left: 8px;
+	}
+
+
+}
+
+		
+ul.my_account_menu{
+	display:none;
+	position: absolute;
+	overflow:hidden;
+	left: 0;
+	top: 80px;
+	background: $grayscale_dark_cl;
+	z-index: -3;
+	& .menu_item{
+		& a{
+			width: 100%;
+			padding:0 20px;
+			color:$base_white;
+			
+		}
+		line-height:40px;
+		white-space:no-wrap;
+		text-align:left;
+		height: 40px;
+		
+		&:hover{
+			background-color:$grayscale_cl;
+		}
+	}
+
+} //my_account_menu ends
+		
+
+
 

@@ -1,81 +1,102 @@
-include ../modules/head
-		link(rel="stylesheet"  href="/css/profile.css")
+extends ../templates/layout.jade
+block css 
+	link(rel="stylesheet"  href="/css/profile.css")
+append body
+	-
+		var profile = company;
+		var type = company.type;
+
+block body_class
 	body.profile.view
-		-
-			var profile = company;
-			var type = company.type;
-		block main_menu
-			include ../modules/menu.jade
-		block content
-			.content_container
-				section.banner
-					h1.base_white.slogan #{profile.username}
-					h3.description #{profile.tagline}
-					.profile_photo.round_container
+
+block content
+	section.profile_banner_section 
+		.container
+				img.profile__cover__photo.image_insert(src='../img/profile_img/cover-photo.jpg')
+				h1.profile__name.base_white #{company.username}
+				h2.profile__tagline #{profile.tagline}									
+	section.company_info_section
+		.container		
+			.company_info_section-top.row_space--sm.clearfix
+				.row
+					.location.base_white
+						i.lnr-map-marker.lnr 
+						span #{profile.location.country+','+profile.location.city}
+					.company__icon__set.col-md-4.clearfix				
+						ul.company__icon__list
+							li.company__icon__single.icon_set--rg 
+								i.lnr.lnr-users
+								span.company__icon__info=profile.size
+							li.company__icon__single.icon_set--rg  
+								i.lnr.lnr-apartment
+								span.company__icon__info=profile.establish_year
+							li.company__icon__single.icon_set--rg  
+								i.lnr.lnr-tag
+								span.company__icon__info #{profile.industry}
+					.profile__photo.round_container
 						img(src='/#{profile.pic}')
-				section.comp_info
-					.container
-						.detail.pull_left.clearfix.col-md-4
-							.location.base_white
-								span.lnr-map-marker.lnr #{profile.location.country+','+profile.location.city}
-							.details
-								ul
-									li 
-										span.lnr.lnr-users
-										span.detail_content=profile.size
-									li 
-										span.lnr.lnr-apartment
-										span.detail_content=profile.establish_year
-									li 
-										span.lnr.lnr-tag
-										span.detail_content #{profile.industry}
-						.social_icons.pull_right.col-md-4
-							ul
-								li.round_container
+					.social_icons.pull_right.col-md-4
+						ul.clearfix
+							li.icon_fb.round_container
+								a
 									i.fa.fa-facebook-f
-								li.round_container
+							li.icon_tw.round_container
+								a
 									i.fa.fa-twitter
-								li.round_container
+							li.icon_ld.round_container
+								a
 									i.fa.fa-linkedin
-								li.round_container
+							li.icon_site.round_container
+								a
 									i.fa.fa-globe
-						hr
-						.culture.pull_left.col-md-6
-							span.title Company Culture
-								ul
-									for culture in profile.culture
-										li.tag.base_white_bg.grayscale_cl=culture
-										//- li.tag.base_white_bg.grayscale_cl Beer
-										//- li.tag.base_white_bg.grayscale_cl Banana
-										//- li.tag.base_white_bg.grayscale_cl Kumamon
-										//- li.tag.base_white_bg.grayscale_cl Ichiro
-						.tec.pull_right.col-md-6
-							span.title Company Technology
-								ul
-									for technology in profile.technology
-										li.tag.base_white=technology
-				section.company_instro.base_white_bg
-					.container
-						.text.we_are
-							h2 Who We Are
+				
+			.company_info_section-bottom.row_space--sm.clearfix
+				.row
+					.company_culture.col-md-6.clearfix
+						h4 Company Culture
+							ul.tag_list
+								for culture in profile.culture
+									li.tag.base_white_bg.grayscale_cl=culture
+									//- li.tag.base_white_bg.grayscale_cl Beer
+									//- li.tag.base_white_bg.grayscale_cl Banana
+									//- li.tag.base_white_bg.grayscale_cl Kumamon
+									//- li.tag.base_white_bg.grayscale_cl Ichiro
+					.company_tec.col-md-6
+						h4 Company Technology
+							ul.tag_list
+								for technology in profile.technology
+									li.tag.base_white=technology
+	section.profile_main_section.row_space--lg
+		.container
+			.row
+				.col-md-8.col-centered
+					.who_we_are
+						h3.row_space-bottom--md Who We Are
+						.profile__content.profile__text
 							p=profile.description
-						.text.we_do
-							h2 What We Do
+
+					.what_we_do
+						h3.row_space-bottom--md What We Do
+						.profile__content.profile__text
 							p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur nisi, tempore recusandae explicabo, a iure laboriosam mollitia quos, perferendis tempora rerum voluptate doloribus nihil. Quos quam cum totam molestias assumenda.
-						.list
-							ul.bullet_list
-								li.item 
-									span.lnr.lnr-location
+						.profile__content.profile__list.row_space--xs
+							ul.list
+								li.list__item 
+									i.lnr.lnr-location
 									span Coffee Machine
-								li.item 
-									span.lnr.lnr-location
+								li.list__item 
+									i.lnr.lnr-location
 									span Filtered Water
-								li.item 
-									span.lnr.lnr-location
+								li.list__item 
+									i.lnr.lnr-location
 									span Boiling System
-						.quotation
-							p.quote  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus repudiandae molestiae, laboriosam minima reiciendis sunt quam officia dolor quae! Similique vero suscipit maxime, accusamus delectus odio accusantium. Excepturi, vitae inventore.
-				section.bottom_banner
+						.profile__content.profile__quotation.quotation.row_space--xs
+							p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus repudiandae molestiae, laboriosam minima reiciendis sunt quam officia dolor quae! Similique vero suscipit maxime, accusamus delectus odio accusantium. Excepturi, vitae inventore.
+
+			
+			
+	section.profile_bottom_banner_section
+		img.profile__bottom__photo.image_insert(src='../img/profile_img/bottom_image.jpg')
 
 
 

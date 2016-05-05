@@ -1,4 +1,33 @@
+
+// ================ Rounded corner Image ===================
+
 .round_container{
 	border-radius:50%;
 	overflow:hidden;
+
+	& img{
+			width: 100%;
+			height: 100%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+}
+
+.round_container--lg{}
+.round_container--rg{}
+.round_container--sm {
+	width:35px;
+	height:35px;
+}
+
+
+
+// =============== Image tage Insert ========================
+.image_insert {
+	position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    object-fit: cover;
 }
