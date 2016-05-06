@@ -5,6 +5,7 @@ var session = require('express-session');
 
 // pinglib
 var pinglib = require('pinglib');
+var resCode = pinglib.response;
 var PingUser = pinglib.User;
 var UserService = pinglib.UserService;
 var SessionService = pinglib.SessionService;
@@ -21,7 +22,7 @@ router.get('/login', function(req, res, next) {
     var error = "";
     var renderData = {
         title: 'Ping'
-    }
+    };
     if (req.session.error) {
         renderData.error = req.session.error;
         delete req.session.error;
@@ -62,8 +63,9 @@ router.post('/login', upload.single(), function(req, res, next) {
                     res.json(resJson);
                     // @Temp : 暫時redirect, 之後改ajax, res.json(...)
                     // res.redirect('dashboard');
-                })
-            }
+                });
+            }else
+                res.json(resCode.No_Results);
         } else {
             req.session.error = 'Incorrect username or password';
             resJson.code = 404;
