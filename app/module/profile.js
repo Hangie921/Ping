@@ -42,7 +42,7 @@ main.createUser = function(email, pwd, username, type) {
             })
             .then(function(doc) {
                 console.log("resolve User", username);
-                resolve({user:newUser,profile:newProfile});
+                resolve({ user: newUser, profile: newProfile });
             })
             .catch(function(reason) {
                 console.log("reject ", username);
