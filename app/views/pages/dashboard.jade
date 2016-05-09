@@ -1,6 +1,4 @@
-
-
-extends ../templates/three_columns_sidebar.jade
+extends ../templates/layout.jade
 
 
 //- block body
@@ -12,13 +10,10 @@ extends ../templates/three_columns_sidebar.jade
 		
 	
 
-append body
-	-
-		console.log("user from menu.jade11111:",user);
-	block sidebar
-		h1 sidebar
-		//- Code of the profile edit mode sidebar
-
+block body_class
+	body.dashboard
+block menu
+	include ../modules/menu.jade
 block content
 	block title
 		h1 title

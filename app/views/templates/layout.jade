@@ -17,8 +17,8 @@ html
 	block body
 		block body_class
 			body
-		include ../modules/menu.jade
 		-
 			console.log("user from layout ",user);
+		block menu
 		block content
-			h1 This is default
+			h1 This is default content in layout.jade

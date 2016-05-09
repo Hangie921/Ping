@@ -1,39 +1,41 @@
 extends ../templates/layout.jade
 block css 
 	link(rel="stylesheet"  href="/css/profile.css")
-append body
+prepend body
 	-
 		var profile = company;
 		var type = company.type;
 
 block body_class
 	body.profile.view
-
+block menu
+		include ../modules/menu.jade
 block content
 	section.profile_banner_section 
 		.container
 				img.profile__cover__photo.image_insert(src='../img/profile_img/cover-photo.jpg')
 				h1.profile__name.base_white #{company.username}
-				h2.profile__tagline #{profile.tagline}									
+				h2.profile__tagline #{profile.tagline}
 	section.company_info_section
-		.container		
+		.container
 			.company_info_section-top.row_space--sm.clearfix
 				.row
 					.location.base_white
 						i.lnr-map-marker.lnr 
 						span #{profile.location.country+','+profile.location.city}
-					.company__icon__set.col-md-4.clearfix				
+					.company__icon__set.col-md-4.clearfix
 						ul.company__icon__list
 							li.company__icon__single.icon_set--rg 
 								i.lnr.lnr-users
-								span.company__icon__info=profile.size
+								span.company__icon__info #{profile.size}
 							li.company__icon__single.icon_set--rg  
 								i.lnr.lnr-apartment
-								span.company__icon__info=profile.establish_year
+								span.company__icon__info #{profile.establish_year}
 							li.company__icon__single.icon_set--rg  
 								i.lnr.lnr-tag
 								span.company__icon__info #{profile.industry}
 					.profile__photo.round_container
+
 						img(src='/#{profile.pic}')
 					.social_icons.pull_right.col-md-4
 						ul.clearfix
@@ -72,31 +74,39 @@ block content
 				.col-md-8.col-centered
 					.who_we_are
 						h3.row_space-bottom--md Who We Are
-						.profile__content.profile__text
-							p=profile.description
-
+						each item in profile.who_u_r
+							if item.type=='Text'
+									.profile__content.profile__text
+										p=item.content
+							else if item.type=='Quote'
+									.profile__content.profile__quotation.quotation.row_space--xs
+										p.quote=item.content
+							else if item.type=='List'
+									.profile__content.profile__list.row_space--xs
+										ul.list
+											each sub_item in item.content
+													li.item
+														span.lnr.lnr-location
+														span= sub_item
 					.what_we_do
 						h3.row_space-bottom--md What We Do
-						.profile__content.profile__text
-							p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur nisi, tempore recusandae explicabo, a iure laboriosam mollitia quos, perferendis tempora rerum voluptate doloribus nihil. Quos quam cum totam molestias assumenda.
-						.profile__content.profile__list.row_space--xs
-							ul.list
-								li.list__item 
-									i.lnr.lnr-location
-									span Coffee Machine
-								li.list__item 
-									i.lnr.lnr-location
-									span Filtered Water
-								li.list__item 
-									i.lnr.lnr-location
-									span Boiling System
-						.profile__content.profile__quotation.quotation.row_space--xs
-							p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus repudiandae molestiae, laboriosam minima reiciendis sunt quam officia dolor quae! Similique vero suscipit maxime, accusamus delectus odio accusantium. Excepturi, vitae inventore.
-
-			
-			
+						each item in profile.what_u_do
+							if item.type=='Text'
+									.profile__content.profile__text
+										p=item.content
+							else if item.type=='Quote'
+									.profile__content.profile__quotation.quotation.row_space--xs
+										p.quote=item.content
+							else if item.type=='List'
+									.profile__content.profile__list.row_space--xs
+										ul.list
+											each sub_item in item.content
+													li.item
+														span.lnr.lnr-location
+														span= sub_item
 	section.profile_bottom_banner_section
 		img.profile__bottom__photo.image_insert(src='../img/profile_img/bottom_image.jpg')
+
 
 
 

@@ -1,13 +1,23 @@
+// mongoose
 var mongoose = require("mongoose"),
     Mixed = mongoose.Schema.Types.Mixed;
 
+// ping-lib
+var pinglib = require('pinglib');
+var resCode = pinglib.response.codeEnum;
+var PingUser = pinglib.User;
+
+// local module
 var Viewed = require('./viewed.js');
 
+// variables
 var options = { discriminatorKey: 'type' };
 
 var profileSchema = new mongoose.Schema({
     time: { type: Date, default: Date.now },
     pic: { type: String, default: "img/alpaca2.jpg" },
+    cover_pic: { type: String, default: "img/profile_img/cover-photo.jpg" },
+    footer_pic: { type: String, default: "img/profile_img/cover-photo.jpg" }
 }, options);
 
 
@@ -46,7 +56,18 @@ var companyProfileSchema = new mongoose.Schema({
 
 var talentProfileSchema = new mongoose.Schema({
     username: { type: String, unique: true },
+    description: { type: String, default: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit asperiores atque pariatur voluptatum alias culpa, maiores et dolores rerum cumque. Totam nisi aut repellendus dolores non dolore a optio distinctio." },
     phone: String,
+    source_from: {
+        type: String,
+        default: 'official',
+        enum: ['official', '104', 'ntuea-2016-summer', 'friends']
+    },
+    positions: [{
+        _id: false,
+        title: String,
+        seniority: Number,
+    }],
     pinger_type: {
         type: String,
         default: 'Designer',
@@ -56,7 +77,10 @@ var talentProfileSchema = new mongoose.Schema({
         country: String,
         city: String
     },
-    skills: [String],
+    skills: [{
+        type: String,
+        lowercase: true
+    }],
     personalities: [String],
     experiences: [{
         _id: false,
@@ -97,30 +121,36 @@ var talentProfileSchema = new mongoose.Schema({
         agree: Boolean
     }],
     aspiration: {
-        work_type: [String],
+        work_type: {
+            type: String,
+            default: 'Freelance',
+            enum: ['Full-Time', 'Freelance', 'Secondment']
+        },
         salary: String,
         freelance_rate: {
             currency: String,
             amount: Number
         },
-        relocate: Boolean
+        relocate: { type: Boolean, default: false }
     },
     portfolio: [{
         _id: false,
         pic: String,
-        title: String
+        title: String,
+        tag: [String],
+        last_modified: Date
     }]
 }, options);
 
 profileSchema.methods.viewSomeone = function(who, cb) {
     return Viewed.findById(this._id, (err, viewed) => {
         if (err) cb(err);
-        if (viewed == null) {
+        if (viewed === null) {
             viewed = new Viewed();
             viewed._id = this._id;
 
         }
-        viewed.view.push({ _id: who })
+        viewed.view.push({ _id: who });
         viewed.save((err, someone) => {
             if (err) cb(err);
             who.viewedBy(this, function(err, doc) {
@@ -128,12 +158,12 @@ profileSchema.methods.viewSomeone = function(who, cb) {
             });
         });
     });
-}
+};
 
 profileSchema.methods.viewedBy = function(who, cb) {
     return Viewed.findById(this._id, (err, doc) => {
         if (err) cb(err);
-        if (doc == null) {
+        if (doc === null) {
             doc = new Viewed();
             doc._id = this._id;
         }
@@ -142,7 +172,49 @@ profileSchema.methods.viewedBy = function(who, cb) {
             cb(err, doc);
         });
     });
-}
+};
+
+var Skill = require('./skill.js');
+
+// profileSchema.pre('save', function(next) {
+//     var doc = this;
+
+profileSchema.post('save', function(doc, next) {
+    // Update collection('skills')
+    if (doc.skills) {
+        var requests = doc.skills.map((value) => {
+            return new Promise((resolve, reject) => {
+                Skill.tagBy(value, doc._id, (err, doc) => {
+                    if (err) reject(err);
+                    resolve(doc);
+                });
+            });
+        });
+
+        Promise.all(requests).then((docs) => {
+            // console.log(docs);
+            next();
+        }, (reason) => {
+            next(new Error(reason));
+        });
+    } else {
+        next();
+    }
+});
+
+
+// profileSchema.post('save', function(doc, next) {
+//     console.log("hi");
+//     next();
+// });
+
+// profileSchema.save(function(err) {
+//     console.log(err);
+// });
+
+// profileSchema.post('save', function(doc, next) {
+//     next();
+// });
 
 // profileSchema.methods.updatePosition = function(position, cb) {
 //     return Viewed.findById(this._id, (err, doc) => {

@@ -2,3 +2,4 @@ node_modules
 try
 uploads
 *.log
+bower_components

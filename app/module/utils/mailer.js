@@ -1,4 +1,5 @@
 var nodemailer = require('nodemailer');
+var config = require('../../config/default.json').mailer;
 
 var smtpConfig = {
     service: "Gmail",
@@ -33,22 +34,25 @@ var transporter = nodemailer.createTransport(smtpConfig2);
 
 // send mail with defined transport object
 exports.send = function send(username, cb) {
+    if (config) {
+        // setup e-mail data with unicode symbols
+        var mailOptions = {
+            from: '"Rammus Xu" <rammus@ping.com.sg>', // sender address
+            to: 'rammus@ping.com.sg', // list of receivers
+            // to: 'randy@ping.com.sg,rammus@ping.com.sg, walter@ping.com.sg', // list of receivers
+            subject: 'Ping: Create user', // Subject line
+            // text: 'Ping: Create user', // plaintext body
+            html: `<b>Hello ${username} 🐴</b>` // html body
+        };
 
-    // setup e-mail data with unicode symbols
-    var mailOptions = {
-        from: '"Rammus Xu" <rammus@ping.com.sg>', // sender address
-        to: 'rammus@ping.com.sg', // list of receivers
-        // to: 'randy@ping.com.sg,rammus@ping.com.sg, walter@ping.com.sg', // list of receivers
-        subject: 'Ping: Create user', // Subject line
-        // text: 'Ping: Create user', // plaintext body
-        html: `<b>Hello ${username} 🐴</b>` // html body
-    };
-
-    transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-        	cb(error);
-            return console.log(error);
-        }
-        cb(null, info.response);
-    });
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                cb(error);
+                return console.log(error);
+            }
+            cb(null, info.response);
+        });
+    } else {
+        cb(null, "Please check config.mailer is true");
+    }
 }

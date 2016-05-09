@@ -3,7 +3,7 @@ request = request('http://localhost:3001');
 var should = require('chai').should();
 var fs = require('fs');
 
-describe('Upload', function() {
+describe.skip('Upload', function() {
     it('#http://localhost:3001', function(done) {
         var formData = {
             acc: '123',

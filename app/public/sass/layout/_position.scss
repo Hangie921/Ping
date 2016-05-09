@@ -11,6 +11,32 @@
 	margin:0 auto;
 	clear:both;
 }
-.clear{
+.clear_both{
 	clear:both;
+}
+.clear_left{
+	clear: left;
+}
+.clear_right{
+	clear: right;
+}
+
+
+//Zindex
+
+.zindex--10{
+	position: relative;
+	z-index: 10;
+}
+.zindex--200{
+	position: relative;
+	z-index: 200;
+}
+.zindex--300{
+	position: relative;
+	z-index: 300;
+}
+.zindex--100{
+	position: relative;
+	z-index: 100;
 }

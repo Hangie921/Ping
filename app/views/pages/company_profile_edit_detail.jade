@@ -1,130 +1,142 @@
-include ../modules/head
-		link(rel="stylesheet"  href="/css/profile.css")
+extends ../templates/three_columns_sidebar.jade
+
+block css
+	link(rel="stylesheet"  href="/css/profile.css")
+	link(rel="stylesheet"  href="/css/inputDropdownStyles.css")
+	link(rel="stylesheet" ,href='/css/dnd.css')
+block script
+	script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
+	script(type='text/javascript',src='/js/company_profile_edit.js')
+block body_class
 	body.profile.edit.detail(ng-app="profile_edit_app",ng-controller='detail_controller')
 		-
 			var profile = user.custom._profile;
 			var type = user.custom._profile.type;
-			console.log("view mode:detail.jade",profile);
-		script(type='text/javascript',src='/js/company_profile_edit.js').
 		
-		block main_menu
-			include ../modules/menu.jade
-		block sideBar
-			include ../modules/sidebar.jade
-		block content
-			.row.col-md-10
-				.content_container.col-md-10.row(ng-init="initial(#{JSON.stringify(profile)})")
-					h2 Edit Profile
-					form(id='details_description',action='')
-						section.company_info.edit_section
-							.title.col-md-10
-								h3 Company&nbspInformation
-								a(href='#')
-									span.reminder i
-										.hint_container.col-md-2
-											h3 How to make your profile shine
-											p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
-							.input_container.col-md-8
-								.input_row.industry
-									.select_container
-										label Industry
-										select
-											option(value="0") #{profile.industry}
-											option(value="1") option1
-											option(value="2") option2
-								.input_row.location
-									.select_container
-										label Location
-										select
-											option(value="0") #{profile.location.city}
-											option(value="1") option1
-											option(value="2") option2
-											option(value="3") option4
-									.select_container
-										select
-											option(value="0") #{profile.location.country}
-											option(value="1") option1
-											option(value="2") option2
-											option(value="3") option3
-								.input_row.size
-									.select_container
-										label Company&nbspSize
-										select
-											option(value="0") 1-10
-											option(value="1") 11-20
-											option(value="2") 21-30
-											option(value="3") 31-40
-								.input_row.years
-									.select_container
-										label Year&nbspof&nbspEstablishment
-										select
-											option(value="0") 0-3
-											option(value="1") 4-6
-											option(value="2") 7-10
-											option(value="3") 10UP
-						section.company_tags.edit_section
-							.title.col-md-10
-									h3 Company&nbspTags
-							.input_container.col-md-8
-								.input_single
-									label Company&nbspCulture
-									input(type='text',ng-model='culture',ng-keyup="$event.keyCode == '13' && update_tags('culture')",placeholder='Enter the culture tags you wanna add')
-									.tag_group
-										.tag_single(ng-repeat='culture in profile.culture')
-											a.tag.base_white.pri_cl_bg
-												{{culture}}
-											a(ng-click='delete_tags(profile.culture,$index)')
-												i.lnr.lnr-cross.base_white
-								.input_single
-									label Company&nbspTechnology
-									input(type='text',ng-model='technology',ng-keyup="$event.keyCode == '13' && update_tags('technology')",placeholder='Enter the technology tags you wanna add')
-									.tag_group
-										.tag_single(ng-repeat='technology in profile.technology')
-											a.tag.base_white.pri_cl_bg
-												{{technology}}
-											a(ng-click='delete_tags(profile.technology,$index)')
-												i.lnr.lnr-cross.base_white
-						section.company_instro.edit_section
-							.title.col-md-10
-									h3 Introduce&nbspYour&nbspCompany
-							.input_container.col-md-7
-								.input_group
-									label Who&nbspyou&nbspare
+		
+block menu
+	include ../modules/menu.jade
+block sidebar
+	include ../modules/sidebar.jade
+block content
+	.row.col-md-10
+		.content_container.col-md-10.row(ng-init="initial(#{JSON.stringify(profile)})")
+			h2 Edit Profile
+			form(id='details_description',action='')
+				section.company_info.edit_section
+					.title.col-md-10
+						h3 Company&nbspInformation
+						a(href='#')
+							span.reminder i
+								.hint_container.col-md-2
+									h3 How to make your profile shine
+									p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
+					.input_container.col-md-8
+						.input_row.industry
+							.select_container
+								label Industry
+								select(name='industry')
+									option(value="#{profile.industry}") #{profile.industry}
+									option(value="test1") option1
+									option(value="test2") option2
+						.input_row.location
+							.select_container
+								label Location
+								select(name='city')
+									option(value="#{profile.location.city}") #{profile.location.city}
+									option(value="city1") option1
+									option(value="city2") option2
+									option(value="city3") option4
+							.select_container
+								select(name='country')
+									option(value="#{profile.location.country}") #{profile.location.country}
+									option(value="country1") option1
+									option(value="country2") option2
+									option(value="country3") option3
+							//- .select_container(ng-controller="InputDropdownController as dropdownCtrl")
+							//- input-dropdown(selected-item="dropdownCtrl.selectedDropdownItem" , default-dropdown-items="dropdownCtrl.dropdownItems")
+						.input_row.size
+							.select_container
+								label Company&nbspSize
+								select(name='size')
+									option(value="1-10") 1-10
+									option(value="11-20") 11-20
+									option(value="21-30") 21-30
+									option(value="31-40") 31-40
+						.input_row.years
+							.select_container
+								label Year&nbspof&nbspEstablishment
+								select(name='establish_year')
+									option(value="0-3") 0-3
+									option(value="4-6") 4-6
+									option(value="7-10") 7-10
+									option(value="10up") 10UP
+				section.company_tags.edit_section
+					.title.col-md-10
+							h3 Company&nbspTags
+					.input_container.col-md-8
+						.input_single
+							label Company&nbspCulture
+							input(type='text',ng-model='culture',ng-keyup="$event.keyCode == '13' && update_tags('culture')",placeholder='Enter the culture tags you wanna add')
+							.tag_group
+								.tag_single(ng-repeat='culture in profile.culture')
+									a.tag.base_white.pri_cl_bg
+										{{culture}}
+									a(ng-click='delete_tags(profile.culture,$index)')
+										i.lnr.lnr-cross.base_white
+						.input_single
+							label Company&nbspTechnology
+							input(type='text',ng-model='technology',ng-keyup="$event.keyCode == '13' && update_tags('technology')",placeholder='Enter the technology tags you wanna add')
+							.tag_group
+								.tag_single(ng-repeat='technology in profile.technology')
+									a.tag.base_white.pri_cl_bg
+										{{technology}}
+									a(ng-click='delete_tags(profile.technology,$index)')
+										i.lnr.lnr-cross.base_white
+				section.company_instro.edit_section
+					.title.col-md-10
+							h3 Introduce&nbspYour&nbspCompany
+					.input_container.col-md-7(ng-init="")
+						.input_group#who_u_r
+							label Who&nbspyou&nbspare
+							ul(dnd-list="list")
+								li(ng-repeat="doc in who_u_r",dnd-draggable='doc',dnd-moved='list.splice($index,1)',dnd-effect-allowed='move',ng-init="current = doc")
 									.input_single
-										.menu_bar
-											ul
-												li
-													a 
-												li 
-													a Text
-												li
-													a List
-												li
-													a Quote
-										.content
-											textarea(rows='10',cols='40').input
-									a.btn Add Content
+										//- .menu_bar.col-md-10
+										//- 	ul
+										//- 		li
+										//- 			i.lnr.lnr-circle-minus.grayscale_dark_cl
+										//- 			a 
+										//- 		li
+										//- 			i.lnr.lnr-text-align-left.grayscale_dark_cl
+										//- 			a Text
+										//- 		li
+										//- 			i.lnr.lnr-list.grayscale_dark_cl
+										//- 			a List
+										//- 		li
+										//- 			i.lnr.lnr-pushpin.grayscale_dark_cl
+										//- 			a Quote
+										content-directive
+										//- .content(class="{{doc.type}}")
+										//- 	textarea(rows='10',cols='40',).input {{doc.content}}
+										//- .functions_bar
+										//- 	i.lnr.lnr-move.grayscale_dark_cl
+										//- 	i.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
+							a.btn.clear_both(ng-click='genSection($event)') Add Content
 
+
+						.input_group#what_u_do
+							label What&nbspu&nbspdo
+							ul
+								li(ng-repeat="doc in what_u_do ",ng-attr-data-index="{{$index}}",ng-init="current = doc")
+									.input_single
 										
-								//- .input_group
-								//- 	label What&nbspyou&nbspdo
-								//- 	.input_single
-								//- 		.menu_bar
-								//- 			ul
-								//- 				li
-								//- 					a 
-								//- 				li 
-								//- 					a Text
-								//- 				li
-								//- 					a List
-								//- 				li
-								//- 					a Quote
-								//- 		.content
-								//- 			textarea(rows='10',cols='40').input
+										content-directive
 										
-						.btn_group.col-md-6
-							a.btn.cancel(href='/dashboard') cancel
-							a.btn.btn_pri.save#update_btn_second.disable(data-router='/companies/profile/edit',ng-click="update_to_DB()") save&nbspchanges
+							a.btn.clear_both(ng-click='genSection($event)') Add Content
+				.btn_group.col-md-6
+					a.btn.cancel(href='/dashboard') cancel
+					a.btn.btn_pri.save#update_btn_second.disable(data-router='/companies/profile/edit',ng-click="pack_details()") save&nbspchanges
 
 
 
