@@ -11,9 +11,15 @@ $(document).ready(function(){
 			},
 			dataType:'json'
 		}).done(function(rdata){
-			location.href='/dashboard';
+			if(rdata.code == 200 ){
+				location.href = '/dashboard';
+			}else{
+				console.log(rdata);
+				$("#feedback span").empty().append("帳號或密碼錯誤");
+			}
+			
 		}).fail(function(error){
-			$("#feedback span").empty().val("帳號或密碼錯誤");
+			$("#feedback span").empty().append("帳號或密碼錯誤");
 		});
 	});
 

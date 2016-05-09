@@ -13,7 +13,7 @@ gulp.task("develop",function(){ //shut and restart the server
 		script:'app.js',
 		ext:'js',
 		tasks:['sass','lint'],
-		ignore :['node_modules/','bin/'],
+		ignore :['node_modules/','bin/','public/js/'],
 		env : {'NODE_ENV':'development'} 
 	}).on('restart',function(){
 		console.log("restarted!");
@@ -59,9 +59,9 @@ gulp.task('sass',function(){   // to transfer the .scss to .css
 gulp.task('default',function(){
 	gulp.start('lint','develop','sass');
 
-	gulp.watch('public/js/*.js',function(){
-		gulp.run('lint');
-	});
+	// gulp.watch('public/js/*.js',function(){
+	// 	gulp.run('lint');
+	// });
 
 	gulp.watch('public/sass/*/*.scss',function(){
 		gulp.run('sass');

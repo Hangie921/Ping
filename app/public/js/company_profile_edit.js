@@ -28,12 +28,150 @@ var app = angular.module('profile_edit_app', ['dndLists']);
 
 
 
+
+
+
 //====================================================================
 
+app.factory('percentage', function() {
+    return {
+        total: 15,
+        counter: "",
+        value: ""
+    };
+});
+
+app.service('percentage_service', function() {
+    var out_this = this;
+    var links = [];
+    var key_list_to_cal = ["username","establish_year","type","time","pic","cover_pic","footer_pic","links","technology","culture","location","industry","size","tagline","what_u_do","who_u_r"];
+    // The object contains the url of five sections of all the edit_profile page
+
+    //1.先判斷doc 裡面哪些key 是跟 edit mode 相關的,listed
+    //2.這些key有沒有值？
+    //3.沒值的話就列印出相關section的url
 
 
-// 1st page of the edit mode with profile_edit_controller
-app.controller('profile_edit_controller', ['$scope', '$http', function($scope, $http) {
+    var section_links_temp = {
+
+        tagline: [{
+                url: "/companies/profile/edit#profile_tagline",
+                url_exist: false
+            },
+            "tagline"
+        ],
+        company_info: [{
+                url: "/companies/profile/edit?section=detail#company_info",
+                url_exist: false
+            },
+            "location",
+            "industry",
+            "size",
+            "establish_year"
+        ],
+        company_tags: [{
+                url: "/companies/profile/edit?section=detail#company_tags",
+                url_exist: false
+            },
+            "culture",
+            "technology",
+        ],
+        company_instro: [{
+                url: "/companies/profile/edit?section=detail#company_instro",
+                url_exist: false
+            },
+            "what_u_do",
+            "who_u_r",
+        ],
+        social_network: [{
+                url: "/companies/profile/edit?section=social#social_network",
+                url_exist: false
+            },
+            "links",
+        ]
+    };
+
+    out_this.calculate = function(doc, percentage) {
+        var counter = -2;
+        var doc2= new Object();
+
+        //1.把要用的key篩選出來，因為以後可能profile裡面會加更多的keys
+        for(var key in doc){
+            for(var i = 0; i<key_list_to_cal.length;i++){
+                if(key == key_list_to_cal[i]){
+                    doc2[key]= doc[key];
+                }
+            }
+        }
+
+
+        for (var key in doc2) {
+            //2. 判斷值是否存在，如果存在就counter++
+
+            if (doc2[key] && doc2[key].length !== 0) {
+                counter++;
+            } else {
+                //3. 如果不存在，找出它屬於哪個section,把那個section的url記錄下來
+                console.log("type of ", key, "= ", typeof doc2[key]);
+                for (var inner_key in section_links_temp) {
+                    for (var j = 1; j < section_links_temp[inner_key].length; j++) {
+                        if (key == section_links_temp[inner_key][j]) {
+                            section_links_temp[inner_key][0].url_exist = true;
+                        }
+                    }
+                }
+            }
+        }
+        console.log(doc);
+        console.log(doc2.length);
+        console.log("counter", counter);
+        console.log("total = ", doc2);
+        var temp_percentage = ((counter) / 15 * 100).toString() + '%';
+
+        percentage.counter = counter;
+        percentage.value = temp_percentage;
+
+
+        //@To do: return percentage and print it on the page
+        // return percentage ;
+
+
+        //Set the section anchor links to the links[] to following the data from DB 
+        out_this.section_links_to_show(section_links_temp);
+    };
+
+    out_this.percentage = function() {
+        return {
+            total: 15,
+            counter: "",
+            value: ""
+        };
+    };
+
+
+    out_this.section_links_to_show = function(section_links_temp) {
+        
+        for (var key in section_links_temp) {
+            if (section_links_temp[key][0].url_exist) {
+                links[key] = section_links_temp[key][0].url;
+            }
+        }
+        console.log(links);
+    };
+
+});
+
+
+// 1st controller of the edit mode with profile_edit_controller
+app.controller('profile_edit_controller', ['$scope', '$http', 'percentage_service', function($scope, $http, percentage_service) {
+
+    //data was called in the company_profile_edit.jade , line10
+
+    $scope.init = function() {
+        $scope.doc = data;
+        percentage_service.calculate(data, percentage_service.percentage);
+    };
+
     $scope.test = 'test in profile_edit_controller';
     $scope.res = {};
 
@@ -85,7 +223,8 @@ app.controller('profile_edit_controller', ['$scope', '$http', function($scope, $
 
     // };
 
-    $scope.upload = function(formName, btn) {
+    $scope.upload = function(formName, event) {
+        var btn = event.currentTarget;
         var formData = new FormData(document.forms.namedItem(formName));
         formData.append("CustomField", "This is some extra data");
         var oReq = new XMLHttpRequest();
@@ -119,6 +258,7 @@ app.controller('profile_edit_controller', ['$scope', '$http', function($scope, $
 
     $scope.click_the_file_input = function(input) {
         $(input).click();
+        console.log("input clicked");
     };
 
 
@@ -136,6 +276,7 @@ app.controller('profile_edit_controller', ['$scope', '$http', function($scope, $
 
 
 }]); // end of the 1st controller
+
 
 //====================================================================
 
@@ -173,8 +314,8 @@ app.directive("contentDirective", function($compile) {
 
 
 
-// 2nd page of the edit mode with the detail_controller
-app.controller('detail_controller', function($scope, $compile) {
+// 2nd controller of the edit mode with the detail_controller
+app.controller('detail_controller', ['$scope', '$compile', 'percentage_service', function($scope, $compile, percentage_service) {
     $scope.test = 'test in detail_controller';
     $scope.compile_to_node = function(DOM) {
         var jq = $(DOM); // compile the dynamic DOM and 
@@ -183,19 +324,17 @@ app.controller('detail_controller', function($scope, $compile) {
 
     };
 
-    $scope.initial = function(doc) {
-        $scope.profile = doc;
-        $scope.who_u_r = doc.who_u_r;
-        $scope.what_u_do = doc.what_u_do;
+    $scope.initial = function() {
+        console.log("init");
+        $scope.profile = data;
+        $scope.who_u_r = data.who_u_r;
+        $scope.what_u_do = data.what_u_do;
         $scope.who_u_r_to_DB = [];
         $scope.what_u_do_to_DB = [];
-    };
 
+        percentage_service.calculate(data, percentage_service.percentage);
+        //@To do: show the percentage on the page
 
-     // Drag and drop
-     $scope.models = {
-        selected: null,
-        lists: {"A": $scope.who_u_r}
     };
 
 
@@ -223,14 +362,15 @@ app.controller('detail_controller', function($scope, $compile) {
     // @Todo: add class to the added DOM
     $scope.genInput = function($event, type) {
         console.log("genInput");
+        var node;
         if (type == 'Text' || type == 'Quote') {
             console.log(type);
-            var node = $scope.compile_to_node("<div class ='content clear_both'><textarea class='" + type + " ng-scope'></textarea><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div></div>");
+            node = $scope.compile_to_node("<div class ='content clear_both'><textarea class='" + type + " ng-scope'></textarea><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div></div>");
             $($event.target).parent().parent().parent().parent().append(node);
             $scope.hide_menu_bar($event);
         } else {
             console.log(type);
-            var node = $scope.compile_to_node("<div class ='content clear_both'><div class='list_container " + type + " ng-scope' contenteditable='true'><ul><li></li></ul></div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div></div>");
+            node = $scope.compile_to_node("<div class ='content clear_both'><div class='list_container " + type + " ng-scope' contenteditable='true'><ul><li></li></ul></div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div></div>");
             $($event.target).parent().parent().parent().parent().append(node);
             $scope.hide_menu_bar($event);
 
@@ -244,8 +384,6 @@ app.controller('detail_controller', function($scope, $compile) {
         console.log("dropSection");
         $($event.target).parent().parent().parent().parent().remove();
     };
-
-    // @To do add draggable
 
 
     // Handle the data from none list input
@@ -403,52 +541,88 @@ app.controller('detail_controller', function($scope, $compile) {
 
 
 
-}); //end of 2nd controller
+}]); //end of 2nd controller
 
 
 //====================================================================
 
 
 
-// 3rd page of the edit mode with the social_media_controller
+// 3rd controller of the edit mode with the social_media_controller
 
-app.controller('social_media_controller', function($scope) {
-    $scope.initial = function(doc) {
+app.controller('social_media_controller', ['$scope', 'percentage_service', function($scope, percentage_service) {
+    // variable data is called in the company_profile_edit_social.jade
+
+    $scope.initial = function(data_link) {
         // Only add the .checked when the data from the server exists,
         // the "doc" varaible is the data from server
+        if (data_link) {
+            $scope.official = {
+                show_btn: true,
+                data: data_link.official ? data_link.official : "",
+                has_active: data_link.official ? true : false,
+                data_from_server: data_link.official ? true : false
+            };
+            $scope.facebook = {
+                show_btn: true,
+                data: data_link.facebook ? data_link.facebook : "",
+                has_active: data_link.facebook ? true : false,
+                data_from_server: data_link.facebook ? true : false
+            };
+            $scope.linkedin = {
+                show_btn: true,
+                data: data_link.linkedin ? data_link.linkedin : "",
+                has_active: data_link.linkedin ? true : false,
+                data_from_server: data_link.linkedin ? true : false
+            };
+            $scope.twitter = {
+                show_btn: true,
+                data: data_link.twitter ? data_link.twitter : "",
+                has_active: data_link.twitter ? true : false,
+                data_from_server: data_link.twitter ? true : false
+            };
+            $scope.google = {
+                show_btn: true,
+                data: data_link.google ? data_link.google : "",
+                has_active: data_link.google ? true : false,
+                data_from_server: data_link.google ? true : false
+            };
+        } else {
+            $scope.facebook = {
+                show_btn: true,
+                data: "",
+                has_active: false,
+                data_from_server: false
+            };
+            $scope.linkedin = {
+                show_btn: true,
+                data: "",
+                has_active: false,
+                data_from_server: false
+            };
+            $scope.twitter = {
+                show_btn: true,
+                data: "",
+                has_active: false,
+                data_from_server: false
+            };
+            $scope.google = {
+                show_btn: true,
+                data: "",
+                has_active: false,
+                data_from_server: false
+            };
+            $scope.official = {
+                show_btn: true,
+                data: "",
+                has_active: false,
+                data_from_server: false
+            };
+        }
 
-        $scope.official = {
-            show_btn: true,
-            data: doc.official ? doc.official : "",
-            has_active: doc.official ? true : false,
-            data_from_server: doc.official ? true : false
-        };
-        $scope.facebook = {
-            show_btn: true,
-            data: doc.facebook ? doc.facebook : "",
-            has_active: doc.facebook ? true : false,
-            data_from_server: doc.facebook ? true : false
-        };
-        $scope.linkedin = {
-            show_btn: true,
-            data: doc.linkedin ? doc.linkedin : "",
-            has_active: doc.linkedin ? true : false,
-            data_from_server: doc.linkedin ? true : false
-        };
-        $scope.twitter = {
-            show_btn: true,
-            data: doc.twitter ? doc.twitter : "",
-            has_active: doc.twitter ? true : false,
-            data_from_server: doc.twitter ? true : false
-        };
-        $scope.google = {
-            show_btn: true,
-            data: doc.google ? doc.google : "",
-            has_active: doc.google ? true : false,
-            data_from_server: doc.google ? true : false
-        };
-
-
+        //Calculate the percentage using percentage_service
+        percentage_service.calculate(data, percentage_service.percentage);
+        //@To do: show the percentage on the page
     };
     //variables
 
@@ -526,8 +700,8 @@ app.controller('social_media_controller', function($scope) {
     }; //end of switch()
 
 
-    $scope.upload = function(formName, btn) {
-
+    $scope.upload = function(formName, event) {
+        var btn = event.currentTarget;
         var formData = new FormData(document.forms.namedItem(formName));
 
         formData.append("CustomField", "This is some extra data");
@@ -562,7 +736,7 @@ app.controller('social_media_controller', function($scope) {
     };
 
 
-}); // end of the 3rd controller
+}]); // end of the 3rd controller
 
 
 

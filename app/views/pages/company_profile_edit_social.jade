@@ -8,6 +8,14 @@ block css
 block script
 	script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
 	script(type='text/javascript',src='/js/company_profile_edit.js')
+	script.
+		var data = !{JSON.stringify(user.custom._profile)};
+		//- if(!{JSON.stringify(user.custom._profile.links)}){
+		//- 	var data_link = !{JSON.stringify(user.custom._profile.links)};	
+		//- }else{
+		//- 	var data_link = null;
+		//- }
+		
 block body_class
 	body.profile.edit.social(ng-app="profile_edit_app",ng-controller='social_media_controller',ng-click="container_click()")
 		-
@@ -22,7 +30,7 @@ block content
 		.content_container.col-md-10.row
 				h2 Edit Profile
 				form(id='social_network',name='social_form')
-					section.social_network.edit_section
+					section#social_network.social_network.edit_section
 						.title.col-md-10
 							h3 Social Networks
 							a(href='#')
@@ -30,7 +38,7 @@ block content
 									.hint_container.container.col-md-2
 										h3 How to make your profile shine
 										p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
-						.input_container.col-md-7(ng-init="initial(#{JSON.stringify(profile.links)})")
+						.input_container.col-md-7(ng-init="initial(#{JSON.stringify(user.custom._profile.links)})")
 							a.btn.social_media_btn.offical.lnr.lnr-checkmark-circle(ng-show="official.show_btn",ng-click="btn_click('official'); $event.stopPropagation();",data-name='offical',ng-class="{'active':official.has_active,'checked':official.data_from_server}") official site
 							.input_single(ng-show="!official.show_btn")
 								input(type='text', name='official',placeholder=('Add your official URL here. (Start with http/https)'),ng-model="official.data",ng-click='$event.stopPropagation();')
@@ -53,7 +61,7 @@ block content
 
 					.btn_group.col-md-6
 						a.btn.cancel(href='/dashboard') cancel
-						a.btn.btn_pri.save#update_btn_third.disable(data-router='/companies/profile/edit',href='javascript:void(0);',ng-click="upload('social_form',$event.currentTarget)") save&nbspchanges
+						a.btn.btn_pri.save#update_btn_third.disable(data-router='/companies/profile/edit',href='javascript:void(0);',ng-click="upload('social_form',$event)") save&nbspchanges
 
 
 

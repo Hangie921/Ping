@@ -7,6 +7,8 @@ block css
 block script
 	script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
 	script(type='text/javascript',src='/js/company_profile_edit.js')
+	script.
+		var data = !{JSON.stringify(user.custom._profile)};
 block body_class
 	body.profile.edit.detail(ng-app="profile_edit_app",ng-controller='detail_controller')
 		-
@@ -20,10 +22,10 @@ block sidebar
 	include ../modules/sidebar.jade
 block content
 	.row.col-md-10
-		.content_container.col-md-10.row(ng-init="initial(#{JSON.stringify(profile)})")
+		.content_container.col-md-10.row(ng-init="initial()")
 			h2 Edit Profile
 			form(id='details_description',action='')
-				section.company_info.edit_section
+				section#company_info.company_info.edit_section
 					.title.col-md-10
 						h3 Company&nbspInformation
 						a(href='#')
@@ -71,7 +73,7 @@ block content
 									option(value="4-6") 4-6
 									option(value="7-10") 7-10
 									option(value="10up") 10UP
-				section.company_tags.edit_section
+				section#company_tags.company_tags.edit_section
 					.title.col-md-10
 							h3 Company&nbspTags
 					.input_container.col-md-8
@@ -93,14 +95,14 @@ block content
 										{{technology}}
 									a(ng-click='delete_tags(profile.technology,$index)')
 										i.lnr.lnr-cross.base_white
-				section.company_instro.edit_section
+				section#company_instro.company_instro.edit_section
 					.title.col-md-10
 							h3 Introduce&nbspYour&nbspCompany
 					.input_container.col-md-7(ng-init="")
 						.input_group#who_u_r
 							label Who&nbspyou&nbspare
-							ul(dnd-list="list")
-								li(ng-repeat="doc in who_u_r",dnd-draggable='doc',dnd-moved='list.splice($index,1)',dnd-effect-allowed='move',ng-init="current = doc")
+							ul(dnd-list="who_u_r")
+								li(ng-repeat="doc in who_u_r",dnd-draggable='doc',dnd-moved='who_u_r.splice($index,1)',dnd-effect-allowed='move',ng-init="current = doc")
 									.input_single
 										//- .menu_bar.col-md-10
 										//- 	ul

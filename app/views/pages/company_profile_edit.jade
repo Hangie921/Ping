@@ -6,14 +6,16 @@ block css
 block script
 	script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
 	script(type='text/javascript',src='/js/company_profile_edit.js')
+	script.
+		var data = !{JSON.stringify(user.custom._profile)};
 prepend body
 	-
 		console.log("by company_profile_edit.jade ",user);
 		var profile = user.custom._profile;
 		var type = user.custom._profile.type;
-
+	
 block body_class
-	body.profile.edit(ng-app="profile_edit_app",ng-controller='profile_edit_controller')
+	body.profile.edit(ng-app="profile_edit_app",ng-controller='profile_edit_controller',ng-init="init()")
 block menu
 	include ../modules/menu.jade
 block sidebar
@@ -59,12 +61,18 @@ block content
 									.cover_photo_container.photo_container
 										img#cover_photo(src='/#{profile.cover_pic}')
 										a(ng-click="click_the_file_input('#upload_cover_photo');").btn.btn_pri UPLOAD&nbspCOVER&nbspPHOTO
+									.btn_container
+										.input_single
+											input#upload_cover_photo(type='file',name='cover_pic',ng-model='cover_photo',onchange="angular.element(this).scope().read_url(this,'#cover_photo')")
 									.footer_photo_container.photo_container
 										img#footer_photo(src='/#{profile.footer_pic}')
 										a(ng-click="click_the_file_input('#upload_footer_photo');").btn.btn_pri UPLOAD&nbspFOOTER&nbspPHOTO
+									.btn_container
+										.input_single
+											input#upload_footer_photo(type='file',name='footer_pic',ng-model='footer_photo',onchange="angular.element(this).scope().read_url(this,'#footer_photo')")
 						.btn_group.col-md-6
 							a.btn.cancel(href='/dashboard') cancel
-							a.btn.btn_pri.save#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event.currentTarget)") save&nbspchanges
+							a.btn.btn_pri.save#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event)") save&nbspchanges
 //- =======
 								//- 		.input_single.col-md-9.row
 								//- 			label Company Tagline

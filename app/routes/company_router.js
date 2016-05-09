@@ -86,7 +86,7 @@ var storage = multer.diskStorage({
         cb(null, './uploads')
     },
     filename: function(req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now()+ file.mimetype.replace('image/','.'));
+        cb(null, file.fieldname + '-' + Date.now() + file.mimetype.replace('image/', '.'));
     }
 });
 var upload = multer({ storage: storage }).fields([{
@@ -135,21 +135,25 @@ router.post(url + '/profile/edit', function(req, res, next) {
 
 
             // console.log("before", originCompany)
-                // update from req.body
 
+            // update from req.body
+            for (var key in req.body) {
 
-            for (key in req.body) {
                 // @To do: 統一上傳的格式,檔案或是其他input資料 都要統一
                 // 狀況一：只有檔案
                 // 狀況二：只有檔案之外的其他input
                 // 狀況三：mixed
 
                 if (key == 'links' || key == 'culture' || key == 'technology' || key == 'who_u_r' || key == 'what_u_do') {
+                    console.log(key, ': ', req.body[key]);
                     originCompany[key] = JSON.parse(req.body[key]);
-                } else if (originCompany[key]) {
+                } else {
+                    console.log(key, 'no json: ', req.body[key]);
                     originCompany[key] = req.body[key];
-                    // console.log('\n\noriginCompany[key]', JSON.parse(req.body[key]));
                 }
+
+
+
                 //判斷 key is object 
             }
 

@@ -31,17 +31,17 @@ var companyProfileSchema = new mongoose.Schema({
         type: { type: String, enum: ['Text', 'List', 'Quote'] },
         content: Mixed
     }],
-    tagline: String,
+    tagline: {type:String,default:""},
     size: {
         type: String,
         default: '1-10',
         enum: ['1-10', '10-50', '50-100', '100+', '1000+']
     },
-    industry: String,
+    industry: {type:String,default:""},
     establish_year: Number,
     location: {
-        country: String,
-        city: String
+        country: {type:String,default:""},
+        city: {type:String,default:""}
     },
     culture: [String],
     technology: [String],
