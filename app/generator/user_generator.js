@@ -64,7 +64,7 @@ function newTalent(index, positions, pinger_type) {
                 amount: 1000
             }
         },
-        portfolio: [{
+        portfolios: [{
             pic: "img/alpaca.jpg",
             title: "Alpaca"
         }, {

@@ -1,11 +1,11 @@
 var mongoose = require("mongoose"),
     ObjectId = mongoose.Schema.Types.ObjectId;
 
-var viewed = mongoose.model('viewed', new mongoose.Schema({
+var viewedSchema = new mongoose.Schema({
     _id: {
         type: ObjectId,
         ref: 'profile',
-        unique:true
+        unique: true
     },
     view: [{
         _id: {
@@ -26,7 +26,28 @@ var viewed = mongoose.model('viewed', new mongoose.Schema({
             type: Date,
             default: Date.now
         }
+    }],
+    contact: [{
+        _id: {
+            type: ObjectId,
+            ref: 'profile'
+        },
+        time: {
+            type: Date,
+            default: Date.now
+        }
+    }],
+    contacted_by: [{
+        _id: {
+            type: ObjectId,
+            ref: 'profile'
+        },
+        time: {
+            type: Date,
+            default: Date.now
+        }
     }]
-}));
+});
 
-module.exports = viewed;
+var Viewed = mongoose.model('viewed', viewedSchema);
+module.exports = Viewed;

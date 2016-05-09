@@ -15,7 +15,6 @@ var main = {};
 
 main.createUser = function(email, pwd, username, type) {
     return new Promise(function(resolve, reject) {
-        console.log("name", username);
         var newProfile;
         if (type === 'Company') {
             newProfile = new CompanyProfile();
@@ -28,7 +27,6 @@ main.createUser = function(email, pwd, username, type) {
         } else {
             reject("Can't recognize type = " + type);
         }
-
         var newUser = new User();
         newUser.system_parameters = 1;
         newUser.email = email;
@@ -37,18 +35,15 @@ main.createUser = function(email, pwd, username, type) {
 
         newProfile.save()
             .then(function(doc) {
-                console.log("newProfile save", username);
+console.log("in")
                 return newUser.save();
             })
             .then(function(doc) {
-                console.log("resolve User", username);
                 resolve({ user: newUser, profile: newProfile });
             })
             .catch(function(reason) {
-                console.log("reject ", username);
                 Profile.findByIdAndRemove(newProfile)
                     .then(function(doc) {
-                        console.log("rollback Profile", username);
                         reject(reason);
                     });
             });

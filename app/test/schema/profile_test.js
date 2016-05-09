@@ -2,10 +2,14 @@
 var request = require('supertest'),
     mongoose = require("mongoose"),
     mongodb = 'mongodb://localhost/test',
-    should = require('chai').should(),
-    expect = require('chai').expect,
-    assert = require('chai').assert,
+    chai = require('chai'),
+    should = chai.should(),
+    expect = chai.expect,
+    assert = chai.assert,
     async = require('async');
+
+var chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
 
 // Test module
 var Profile = require('../../module/schema/profile.js');
@@ -43,39 +47,39 @@ describe('CompanyProfile', function() {
     afterEach(function() {
         mongoose.disconnect();
     });
-    it.skip('GGGGGGGG', function(done) {
-        var request = [
-            profileUtil.createUser('test@ping.com.sg', 'qwer1234', 'test', 'Company'),
-        ];
-
-        Promise.all(request)
-            .then(function(value) {
-                console.log(value);
-                done();
-            })
-            .catch(function(reason) {
-                console.log(reason);
-                done();
+    it('try it', function(done) {
+        return Promise.resolve(2 + 2).should.eventually.equal(5)
+            .then(function(v) {
+                console.log("ininin");
             });
+
+        // done();
     });
 
-    it('duplate username will not save anything', function(done) {
+    it.skip('duplate username will not save anything', function(done) {
 
-        var a = profileUtil.createUser('test@ping.com.sg', 'qwer1234', 'test', 'Company')
-            .then(function(value) {
+        profileUtil.createUser('test@ping.com.sg', 'qwer1234', 'test', 'Company')
+            .then(function(value, some) {
                 console.log(value);
-                console.log(value.user.email);
+                // should.not.exist(value);
                 // expect(value.user.email).to.equal('test@ping.com.sg2');
                 // (value.user.email).should.be.equal('test@ping.com.sg2');
                 return profileUtil.createUser('test@ping.com.sg', 'qwer1234', 'test2', 'Company');
             })
             .then(function(value) {
                 console.log("in2");
-            }, function(err) {
-                console.log(err);
+            })
+            .catch(function(err) {
+                console.log("err", err);
+                // should.exist(err);
+                // should.not.exist(err);
                 done();
             });
-            // a.should.be.null;
+
+
+
+
+        // a.should.be.null;
 
         // .catch(function(err) {
         //     // should.not.exist(err);
@@ -126,60 +130,6 @@ describe('CompanyProfile', function() {
                 }
                 console.log(results);
                 done();
-            });
-    });
-
-    it.skip('shouldn\'t rollback profile while newUser is error', function(done) {
-
-        // same username with 'newProfile'
-        var newProfileSecond = new CompanyProfile();
-        newProfileSecond.username = "ooo";
-
-        var newUserSecond = new User();
-        newUserSecond.system_parameters = 1;
-        newUserSecond.email = "123@ping.com.sg";
-        newUserSecond.pwd = "1234";
-        newUserSecond.custom = { _profile: newProfileSecond._id };
-
-        var createUser = function(email, pwd, username) {
-            return new Promise(function(resolve, reject) {
-
-                var newProfile = new CompanyProfile();
-                newProfile.username = username;
-
-                var newUser = new User();
-                newUser.system_parameters = 1;
-                newUser.email = email;
-                newUser.pwd = pwd;
-                newUser.custom = { _profile: newProfile._id };
-
-                newProfile.save()
-                    .then(function(doc) {
-
-                        console.log('doc1', doc);
-                        return newUser.save();
-                    })
-                    .then(function(doc) {
-                        console.log('doc2', doc);
-                        resolve(doc);
-                    })
-                    .catch(function(reason) {
-                        console.log("reject");
-                        reject(reason);
-                    });
-            });
-        };
-        var request = [
-            createUser('test@ping.com.sg', 'qwer1234', 'test'),
-        ];
-
-        Promise.all(request)
-            .then(function(value) {
-                console.log(value);
-                done();
-            })
-            .catch(function(reason) {
-                console.log(reason);
             });
     });
 });

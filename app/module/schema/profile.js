@@ -51,7 +51,7 @@ var companyProfileSchema = new mongoose.Schema({
         linkedin: String,
         twitter: String,
         google: String,
-    },
+    }
 }, options);
 
 var talentProfileSchema = new mongoose.Schema({
@@ -133,7 +133,7 @@ var talentProfileSchema = new mongoose.Schema({
         },
         relocate: { type: Boolean, default: false }
     },
-    portfolio: [{
+    portfolios: [{
         _id: false,
         pic: String,
         title: String,
