@@ -28,9 +28,15 @@ h3{
 }
 p {
 	font-size:$rgs_font;
+	color:$grayscale_dark_cl;
+	font-weight:500;
 }
 input::-webkit-input-placeholder{
 	color:$grayscale_dark_cl;
+}
+
+input.dashboard_input {
+	background:$base_white;
 }
 
 ul {

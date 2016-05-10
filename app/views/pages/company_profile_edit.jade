@@ -1,106 +1,108 @@
+
 extends ../templates/three_columns_sidebar.jade
 
 block css
-	link(rel="stylesheet"  href="/css/profile.css")
-	link(rel="stylesheet" ,href='/css/dnd.css')
-block script
-	script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
-	script(type='text/javascript',src='/js/company_profile_edit.js')
-prepend body
-	-
-		console.log("by company_profile_edit.jade ",user);
-		var profile = user.custom._profile;
-		var type = user.custom._profile.type;
-
-block body_class
-	body.profile.edit(ng-app="profile_edit_app",ng-controller='profile_edit_controller')
-block menu
+	link(rel="stylesheet"  href="/css/dashboard.css")
+block body
 	include ../modules/menu.jade
-block sidebar
-	include ../modules/sidebar.jade
-block content
-	.row.col-md-10
-		.content_container.col-md-10.row
-					h2 Edit Profile
+	body.profile.edit(ng-app="profile_edit_app",ng-controller='profile_edit_controller')
+		-
+			var profile = user.custom._profile;
+			console.log("company_profile_edit4567890987654345678987654");
+		script(type='text/javascript',src='../../../js/company_profile_edit.js').
+
+		
+		//- include ../modules/sidebar.jade
+		block content
+		.row
+			//- Left Column /////////////
+			.side_bar-left.col-md-2.clearfix
+				.base_white_bg.grayscale_dark_cl
+					ul.side_bar_menu.menu
+						li.menu_item.icon_set.icon_set--sm.active
+							a(href='/companies/profile/edit/')
+								i.lnr.lnr-smile
+								span Company&nbspBranding
+						li.menu_item.icon_set.icon_set--sm.icon_set
+							a(href='/companies/profile/edit?section=detail')
+								i.lnr.lnr-license
+								span Detail/Description
+						li.menu_item.icon_set.icon_set--sm
+							a(href='/companies/profile/edit?section=social')
+								i.lnr.lnr-earth
+								span Social&nbspNetworks
+			//- Center Column //////////////
+			.content_container-three-col.col-md-7
+				
+					h1 Edit Profile
 					form(method='POST',id='company_branding',action='',enctype='multipart/form-data',name='test')
-						section.profile_setting.edit_section
-							.title.col-md-10
+						//- Profile ////////////  
+						.edit_profile_setting.edit_group 
+							.edit__title__bar
 								h3 Profile Setting 
-								a(href='#')
-									span.reminder i
-										.hint_container.col-md-2
-											h3 How to make your profile shine
+								a.hint(href='#')									
+										.hint__inner
+											h5 How to make your profile shine
 											p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
 
-							.input_container
-								.input_single.col-md-9.row
-									label Company Name 
-										span.sec_cl (Please contact us if you wanna change your company name)
-									input#profile_name(type='text',value='#{profile.username}',name='username',readonly).input
+							.edit__input__inner
 
-
-								.input_single.col-md-9.row
-									label Company Tagline
-									input#profile_tagline(type='text',name='tagline',value='#{profile.tagline}').input
-						section.displayed_img.edit_section
-							.title.col-md-10
+								//- Company Name ///////////
+								.edit__input.input_single.col-md-9.row
+									label Company Name <br/>
+										span.edit_error.sec_cl * Please contact us if you wish to change the company name 
+										input#profile_name(type='text',value='#{profile.username}',name='username',readonly).input
+									
+								//- Company Tagline //////////
+								.edit__input.input_single.col-md-9.row
+									label Company Tagline <br/>
+										input#profile_tagline.input(type='text',name='tagline',value='#{profile.tagline}')
+						//- Images //////////// 
+						.edit_displayed_img.edit_group
+							.edit__title__bar
 								h3 Displayed Images
-							.input_container
-								.img_container
-									.round_container
+							.edit__input__inner
+								//- Edit Profile Pic ///////////
+								.edit__input-image.edit__input-profile-image.edit__input.input_single
+									.edit__input-profile-image.round_container.round_container--rg.round_container--rg
 										img#photo(src='/#{profile.pic}')
-									.btn_container
-										.input_single
-											input#upload_photo(type='file',name='pic',ng-model='profile_photo',onchange="angular.element(this).scope().read_url(this,'#photo');")
-										span Upload Your Profile Picture
-										a(ng-click="click_the_file_input('#upload_photo');").btn.btn_pri.upload_photo_btn UPLOAD&nbspIMAGE
+									.edit__input-profile-image-info
+										span Upload Your Profile Picture	
+										input.input#upload_photo(type='file',name='uploadFile',file-model='myFile')
+										a.btn.btn--sm.btn--pri.btn_block.upload_photo_btn upload image
 										span.sec_cl Image Formats: JPEG,GIF,PNG
-								.photo_group.col-md-6
-									.cover_photo_container.photo_container
-										img#cover_photo(src='/#{profile.cover_pic}')
-										a(ng-click="click_the_file_input('#upload_cover_photo');").btn.btn_pri UPLOAD&nbspCOVER&nbspPHOTO
-									.footer_photo_container.photo_container
-										img#footer_photo(src='/#{profile.footer_pic}')
-										a(ng-click="click_the_file_input('#upload_footer_photo');").btn.btn_pri UPLOAD&nbspFOOTER&nbspPHOTO
-						.btn_group.col-md-6
-							a.btn.cancel(href='/dashboard') cancel
-							a.btn.btn_pri.save#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event.currentTarget)") save&nbspchanges
-//- =======
-								//- 		.input_single.col-md-9.row
-								//- 			label Company Tagline
-								//- 			input#profile_tagline(type='text',name='tagline',value='#{profile.tagline}').input
-								//- section.displayed_img.edit_section
-								//- 	.title.col-md-10
-								//- 		h3 Displayed Images
-								//- 	.input_container
-								//- 		.img_container
-								//- 			.round_container
-								//- 				img#photo(src='/#{profile.pic}')
-								//- 			.btn_container
-								//- 				.input_single
-								//- 					input#upload_photo(type='file',name='pic',ng-model='profile_photo',onchange="angular.element(this).scope().read_url(this,'#photo');")
-								//- 				span Upload Your Profile Picture
-								//- 				a(ng-click="click_the_file_input('#upload_photo');").btn.btn_pri.upload_photo_btn UPLOAD&nbspIMAGE
-								//- 				span.sec_cl Image Formats: JPEG,GIF,PNG
-								//- 		.photo_group.col-md-6
-								//- 			.cover_photo_container.photo_container
-								//- 				img#cover_photo(src='/#{profile.cover_pic}')
-								//- 				a(ng-click="click_the_file_input('#upload_cover_photo');").btn.btn_pri UPLOAD&nbspCOVER&nbspPHOTO
-								//- 			.btn_container
-								//- 				.input_single
-								//- 					input#upload_cover_photo(type='file',name='cover_pic',ng-model='cover_photo',onchange="angular.element(this).scope().read_url(this,'#cover_photo')")
-								//- 			.footer_photo_container.photo_container
-								//- 				img#footer_photo(src='/#{profile.footer_pic}')
-								//- 				a(ng-click="click_the_file_input('#upload_footer_photo');").btn.btn_pri UPLOAD&nbspFOOTER&nbspPHOTO
-								//- 			.btn_container
-								//- 				.input_single
-								//- 					input#upload_footer_photo(type='file',name='footer_pic',ng-model='footer_photo',onchange="angular.element(this).scope().read_url(this,'#footer_photo')")
-								//- .btn_group.col-md-6
-								//- 	a.btn.cancel(href='/dashboard') cancel
-								//- 	a.btn.btn_pri.save#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event.currentTarget)") save&nbspchanges
-//- >>>>>>> dev
-		
+								//- Edit Cover Photo ///////////
+								.edit__input-image.edit__input.input_single.col-md-6
+									.edit__input-image-cover.photo_container.input_single
+										img
+										a.btn.btn--sm.btn--pri.btn_block upload cover photo
+									.edit__input-image-bottom.photo_container.input_single
+										img
+										a.btn.btn--sm.btn--pri.btn_block upload footer photo
+					.btn_group.row_space-bottom--md.pull-right.col-md-6
+						.col-md-5
+							a.btn.cancel.btn--sm.btn--gray.btn_block(href='/dashboard') cancel
+						.col-md-7.no_pad
+							a.btn.btn_pri.save.btn--sm.btn--pri.btn_block#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event.currentTarget)") save changes
+			//- Right Column /////////
+			.col-md-3
+				.profile_progress.round_corner.clearfix
+					h5 Profile Completion
+					span.profile__progress__percentage 80%
+					.profile__progress__bar.progress_bar_container.round_corner
+						#profile_progress_bar.progress_bar 
+
+					p You can access to our full feature after you complete the profile.
+					ul.progress__unfilled__list.clearfix
+						li.progress__unfilled__list__item
+							a(src='#') Profile Setting 
+						li.progress__unfilled__list__item
+							a(src='#') Displayed Images
+						li.progress__unfilled__list__item
+							a(src='#') Profile Setting
+
 						
+								
 
 
-		
+			

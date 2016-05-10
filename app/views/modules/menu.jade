@@ -14,8 +14,11 @@ header.primary_header.zindex--300
 					a(href='/dashboard')
 				.header_account.pull_right
 					.img_container.round_container.round_container--sm
-						img(src='/#{user.custom._profile.pic}',alt='profile')
-					a.header_user_name.base_white(href='#') #{user.custom._profile.username}
+						//- img(src='/#{user.custom._profile.pic}',alt='profile')
+						img
+
+					a.header_user_name.base_white(href='#') 
+						//- a.header_user_name.base_white(href='#') #{user.custom._profile.username}
 						i(aria-hidden="true").fa.fa-chevron-down
 					ul.my_account_menu.menu_dropdown.round_corner-bottom
 						li.menu_item
@@ -37,7 +40,8 @@ nav.dashboard_menu.zindex--200
 							a(href='#') Profile
 							ul.sub_menu.menu_dropdown
 								li.menu_item 
-									a(href='/companies/'+user.custom._profile.username) View Profile
+									a() View Profile
+									//- a(href='/companies/'+user.custom._profile.username) View Profile
 								li.menu_item 
 									a(href='/companies/profile/edit') Edit Profile
 						li.menu_item 

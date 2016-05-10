@@ -3,7 +3,7 @@
 
 //Button Style 1
 .btn{
-  display:block;
+  display:inline-block;
   box-sizing:border-box;
   text-align:center;
   border-radius:$btn_border_radius_base;
@@ -47,8 +47,23 @@
   	}
 }
 
+.btn--gray {
+	background-color:$grayscale_cl;
+	color:#ffffff;
+	&:hover{
+    	background-color:$pri_dark_cl;
+  	}
+}
 
+.btn.btn-disable {
+    background-color: #ADC8C5;
+}
 
+.btn_block {
+	display:block;
+	width:100%;
+	whitespace:normal;
+}
 //================== Button Sizes =====
 
 // Button regular size 50px

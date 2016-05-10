@@ -3,6 +3,7 @@
 
 //mark the body with class name "dashboard"
 .dashboard{ 
+	background-color:$grayscale_5;
 	& .menu_container{
 		.menu{
 			width: 70%;
@@ -15,226 +16,268 @@
 
 
 ///================ .edit mode Start=================
-.edit {
-	.btn.cancel{
-	    background-color:$grayscale_cl;
-	    color:$base_white;
+body.edit {
+	background:$grayscale_6;
+}
+
+//========= Sidebar =================
+.side_bar-left {
+
+	background-color:$base_white;
+    height: 100vh;
+    .menu {
+        background-color: $base_white;
+        height: auto;
+        width: 100%;
+        .menu_item {
+        	text-align: left;
+           	display:block;
+           	width:100%;
+            & a{
+                color:$grayscale_dark_cl;
+                display: block;
+                padding: $space_sm 0 $space_sm $space_sm;
+                font-size:$rg_font;
+                
+            }
+
+            &:hover a,&.active a{
+                color: $base_white;
+                background-color: $pri_cl;
+               
+            }
+            &:hover .lnr,&.active .lnr{
+                color: $base_white;
+            }
+           
+        }
 	}
-	.side_bar {
-		width:100%;
-	    display: inline-block;
-	    vertical-align: top;
-	    min-height: 100vh;
-	    .menu {
+} //====== Sidebar ends ==========
 
-	        background-color: $base_white;
-	        height: auto;
-	        width: 100%;
-	        .menu_item {
-	        	text-align: left;
-	            font-family: $base_font_family;
-	            height: 53px;
-	            width: 100%;
-	            position: relative;
-	            box-sizing:border-box;
-	            line-height:53px;
-	            & .lnr {
-	                position: absolute;
-	                left: 25px;
-	                top: 17px;
-	                font-family: $lnr_font;
-	            }
-	            & a{
-	                color:$grayscale_dark_cl;
-	                width: 100%;
-	                height: 100%;
-	                padding: 17px 30px 17px 52px;
-	            }
-	            &:hover a,&.focus a{
-	                color: $base_white;
-	                background-color: $pri_cl;
-	                font-weight: 600;
-	            }
-	            &:hover .lnr,&.focus .lnr{
-	                color: $base_white;
-	            }
-	        }
+//====== Progress Bar ==========
+.profile_progress {
+	float:left;
+	background:$base_white;
+	padding:$space_xs;
+	margin-top:$space_lg;
+
+	h5 {
+		display:block;
+		float:left;
+		font-weight: 900;
+	}
+
+	p {
+		font-size:$sm-font;
+		color:$grayscale_5;
+		float:left;
+		display:block;
+	}
+}
+.progress_bar_container {
+	float:left;
+	background:$grayscale_6;
+	display:block;
+	height:20px;
+	width:100%;
+	margin:$space_xxs 0;
+	overflow:hidden;
+}
+
+.progress_bar {
+	float:left;
+	width:80%;
+	height:100%;
+	background-color:$pri-cl;
+}
+
+.profile__progress__percentage {
+	float:right;
+	font-weight:900;
+	color:$pri_cl;
+}
+
+.progress_bar  {}
+
+.progress__unfilled__list {
+	margin-top: $space_xxs;
+	float:left;
+	clear:both;
+
+}
+.progress__unfilled__list  {
+	a {
+		display:block;
+		color:$pri_cl;
+		text-decoration:underline;
+		font-size:$sm-font;
+		cursor:pointer;
+		padding-bottom:5px;
+
+		&:hover {
+			text-decoration: none;
+
+		}
+	}
+}
 
 
-	        // .menu_item.focus a,.menu_item.focus:before{
-	        //     color: $base_white;
-	        //     background-color: $pri_cl;
-	        //     font-weight: 600;
-	        // }
-	    }
-	} //end of the side_bar
-	.content_container {
-	    display: inline-block;
-	    vertical-align: top;
-	    h2 {
-	        width: 100%;
-	        font-size: 36px;
-	        font-family: $base_font_family;
-	        font-weight: 900;
-	        display: inline-block;
-	        padding: 20px 0px 33px 41px;
-	        border-radius: 0px $base_border_radius $base_border_radius 0px
-	    }
-	    .title {
-	        font-size: 18px;
-	        font-family: $base_font_family;
-	        font-weight: 900;
-	        background-color: $profile_edit_title_color;
-	        height: 50px;
-	        box-sizing: border-box;
-	        padding-left: 76px;
-	        line-height: 50px;
-	        border-radius: 0px $base_border_radius $base_border_radius 0px;
-	        & h3 {}
-	    }
-	    .edit_section{
-	    	padding-top: 1px;
-	    }
-	    .profile_setting {
-	        position: relative;
-	        min-height:300px;
-	        .title {
-	            & a {
-	                & .reminder {
-	                    width: 21px;
-	                    height: 21px;
-	                    background-color: $grayscale_dark_cl;
-	                    color:$grayscale_6 ;
-	                    border-radius: 50%;
-	                    font-size: $base_font_size;
-	                    line-height: 21px;
-	                    text-align: center;
-	                    position: absolute;
-	                    top: 16px;
-	                    right: 30px;
-	                }
-	            }
-	        }
-	        .input_container {
-	        	margin-top: 40px;
-	            padding: 45px 207px 40px 73px;
-	            & .input_single{
-	                & label span{
-	                    white-space: nowrap;
-	                }
-	                margin-bottom: 9px;
-	                max-width: 100%;
-	                input {
-	                    width: 100%;
-	                }
-	            }
-	        }
-	    }
-	    .displayed_img {
-	        height: 700px;
-	        .input_container {
-	        	margin-top: 40px;
-	            padding: 45px 207px 40px 75px;
-	            .round_container {
-	                width: 115px;
-	                height: 115px;
-	                display: inline-block;
-	                vertical-align: top;
-	                & img {
-	                    width: 100%;
-	                    height: 100%;
-	                }
-	            }
-	            .btn_container {
-	                padding-left: 39px;
-	                display: inline-block;
-	                vertical-align: top;
-	                position: relative;
-	                & .input_single {
-	                    position: absolute;
-	                    left: -9999px;
-	                }
-	                & span {
-	                    font-size: $base_input_font_size;
-	                    display: inline-block;
-	                    margin-bottom: 10px;
-	                }
-	                & .btn {
-	                    width: 149px;
-	                    height: 40px;
-	                    line-height:40px;
-	                    font-size: $base_font_size;
-	                    margin-bottom: 10px;
-	                    padding: 0px;
-	                }
-	            }
-	            .photo_container {
-	                margin-top: 23px;
-	                border-radius: $base_border_radius;
-	                height: 175px;
-	                background-color: #D8D8D8;
-	                position: relative;
-	                width: 100%;
-	                & img {
-	                    width: 100%;
-	                    height: 100%;
-	                }
-	                & .btn{
-	                    width:67%;
-	                    text-align: center;
-	                    line-height:40px;
-	                    font-size: $base_font_size;
-	                    box-sizing:border-box;
-	                    position: absolute;
-	                    top: 0;
-	                    left: 0;
-	                    bottom: 0;
-	                    right: 0;
-	                    margin: auto;
-	                    height:40px;
-	                    padding:0px 11px;
-	                }
-	            }
-	            & > .btn {
-	                text-transform: uppercase;
-	                display: inline-block;
-	                vertical-align: top;
-	                width: 149px;
-	                height: 50px;
-	                margin-right: 10px;
-	                font-size: $base_font_size;
-	                &.cancel{
-	                    background-color:$grayscale_cl;
-	                    color:$base_white;
-	                }
-	                &.save {
-	                    width: 172px;
-	                }
-	                &.save.disable {
-	                    background-color: #ADC8C5;
-	                }
-	            }
+.content_container-three-col {
+	padding-left:0;
+	padding-top:$space_sm;
 
-	            & .photo_group{
-	               
-	            }
-	        }
-	    } //end of the display img
-	    .btn_group{
-	        height: 50px;
-	        margin-bottom: 100px;
-	        & > .btn{
-	            float: left;
-	        }
-	        & > .save{
-	            width: 34%;                            
-	        }
-	        & > .cancel{
-	            margin-left: 75px;
-	            width: 30%;
-	            margin-right: 10px;
-	        }
+    h1 {
+       
+        padding-left:$space_sm;
+        padding-bottom:$space_sm;
+    }
+    
+} // end of the .content_container
+.edit__title__bar {
+		position:relative;
+        font-size: 18px;
+        font-family: $base_font_family;
+        font-weight: 900;
+        background-color: $profile_edit_title_color;
+        height: 50px;
+        box-sizing: border-box;
+        padding-left: $space_lg;
+        line-height: 50px;
+        border-radius: 0px $base_border_radius $base_border_radius 0px;
+       
+}
+.edit_group{
+
+	float:left;
+	width:100%;
+	clear:both;
+	padding-bottom:$space_xs;
+}
+
+
+.hint {
+
+	width: 20px;
+    height: 20px;
+    display:block;
+    background-color: $grayscale_dark_cl;
+    color:$grayscale_6 ;
+    border-radius: 50%;
+    font-size: $base_font_size;
+    line-height: 21px;
+    text-align: center;
+    position: absolute;
+    margin-top:-10px;
+    top: 50%;
+    right: 30px;
+    cursor:pointer;
+
+     &:hover .hint__inner{
+			display:block;
+        }
+
+   	.hint__inner {
+   		display:none;
+   		z-index:100;
+   		box-shadow:0 0 20px rgba(0,0,0,0.2);
+   	}
+
+    &:after {
+    	content:"i";
+    	display:block;
+    	cursor:pointer;
+    	color:$base_white;
+    	width:100%;
+    	height:100%;
+    	position:absolute;
+
+    }
+            
+}
+
+.hint__inner {
+	background:$base_white;
+	position: absolute;
+	top:-15px;
+	left:60px;
+	width:25vw;
+	max-width:360px;
+	border-radius:$base_border_radius;
+	padding:$space_xs;
+
+	h5 {
+		color:$grayscale_dark_cl;
+		text-align: left;
+		padding-bottom:$space_xs;
+	}
+
+	p {
+		text-align: left;
+		font-size:$sm_font;
+		color:$grayscale_md_cl;
+
+	}
+}
+
+.edit__input__inner {
+    	margin-top: $space_sm;
+        padding-left:$space_lg;       
+}
+
+.edit__input-image {
+	float:left;
+	clear:both;
+}
+.edit__input-profile-image {
+	display:block;
+	float:left;
+}
+.edit__input-profile-image-info{
+    padding-left: $space_md;
+    padding-top: $space_md;
+    float:left;
+    display:block;
+    & .input {
+        position: absolute;
+        left: -9999px;
+    }
+    & span {
+        font-size: $base_input_font_size;
+    }
+    & .btn {
+    	margin:$space_xxs 0;
+    }
+}
+
+.edit__input__inner { //need to remove
+
+	
+	.photo_container {
+	   	border-radius:$base_border_radius;
+	   	border:none;
+	   	overflow:hidden;
+	    height: 175px;
+	    background-color: $grayscale_5;
+	    position: relative;
+	    width: 100%;
+	    & img {
+
+	        object-fit: cover;
+	        position:absolute;
+
+
 	    }
+	    & .btn{
+	       width:80%;
+	       margin:20% auto 0;
+
+	       
+	    }
+	}
+   
+}
+	
+	  
 	    .company_info {
 	        position: relative;
 	        .title {
@@ -252,6 +295,8 @@
 	                    top: 16px;
 	                    right: 30px;
 	                }
+
+	               
 	            }
 	        }
 	        .input_container {
@@ -395,7 +440,7 @@
 	                    width: 21px;
 	                    height: 21px;
 	                    background-color: $grayscale_dark_cl;
-	                    color:$grayscale_5;
+	                    color: $grayscale_6;
 	                    border-radius: 50%;
 	                    font-size: $base_font_size;
 	                    line-height: 21px;
@@ -519,7 +564,7 @@
 
 	        } //.input_container
 	    } //.social_network
-	} // end of the .content_container
+
 	.reminder{
 		&:hover{
 			& .hint_container{
@@ -548,5 +593,5 @@
 	        }
 	    }
 	} //.reminder
- }   
+ 
 
