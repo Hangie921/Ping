@@ -3,19 +3,12 @@ extends ../templates/three_columns_sidebar.jade
 
 block css
 	link(rel="stylesheet"  href="/css/profile.css")
-	link(rel="stylesheet"  href="/css/inputDropdownStyles.css")
 	link(rel="stylesheet" ,href='/css/dnd.css')
 block script
 	script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
 	script(type='text/javascript',src='/js/company_profile_edit.js')
 	script.
 		var data = !{JSON.stringify(user.custom._profile)};
-		//- if(!{JSON.stringify(user.custom._profile.links)}){
-		//- 	var data_link = !{JSON.stringify(user.custom._profile.links)};	
-		//- }else{
-		//- 	var data_link = null;
-		//- }
-		
 block body_class
 	body.profile.edit.social(ng-app="profile_edit_app",ng-controller='social_media_controller',ng-click="container_click()")
 		-

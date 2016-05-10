@@ -4,10 +4,10 @@
 [type="text"],[type='email'],[type='password'],[type='textarea'],textarea{
 	outline:none;
 	border-radius:$base_border_radius;
-	min-height:$input_height_base;
+	min-height:50px;
 	border:none;
 	font-size: $base_input_font_size;
-	padding:$base_padding_vertical $base_padding_horizontal;
+	padding:0 $space_xs;
 	width: 100%;
 	height:$btn_pri_height;
 	box-sizing:border-box;
@@ -17,14 +17,19 @@
 
 .input_single{
 	box-sizing:border-box;
+	margin-bottom:$space_sm;
 	& label{
+		float:left;
 		font-size: $base_input_label_font_size;
+		clear:both;
 		width: 100%;
-		display:inline-block;
-		margin-bottom:8px;
+		display:block;
+		
 	}
 	& input[type='text']{
-		display:inline-block;
+		float:left;
+		margin-top:$space_xxs;
+		display:block;
 	}
 }
 
@@ -81,6 +86,15 @@
 
 //If you wanna use a select,use a container to contain <select>
 //to customize it
+
+
+
+.edit_error {
+	display:block;
+	float:left;
+	font-size:$sm_font;
+	margin-bottom:$space_xxs;
+}
 .select_container{
 	label{
 		font-size: $base_input_label_font_size;

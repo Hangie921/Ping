@@ -1,12 +1,16 @@
-.row.col-md-2
-	.side_bar.base_white_bg.grayscale_dark_cl
-		ul.menu
-			li.menu_item.focus
-				i.lnr.lnr-smile
-				a(href='/companies/profile/edit/') Company&nbspBranding
-			li.menu_item
-				i.lnr.lnr-license 
-				a(href='/companies/profile/edit?section=detail') Detail/Description
-			li.menu_item
-				i.lnr.lnr-earth 
-				a(href='/companies/profile/edit?section=social') Social&nbspNetworks
+.row
+	.side_bar-left.col-md-2
+		.base_white_bg.grayscale_dark_cl
+			ul.side_bar_menu.menu
+				li.menu_item.icon_set.icon_set--sm.focus
+					a(href='/companies/profile/edit/')
+						i.lnr.lnr-smile
+						span Company&nbspBranding
+				li.menu_item.icon_set.icon_set--sm.icon_set
+					a(href='/companies/profile/edit?section=detail')
+						i.lnr.lnr-license
+						span Detail/Description
+				li.menu_item.icon_set.icon_set--sm
+					a(href='/companies/profile/edit?section=social')
+						i.lnr.lnr-earth
+						span Social&nbspNetworks

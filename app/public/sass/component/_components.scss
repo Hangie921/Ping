@@ -50,20 +50,44 @@
 
 
 //================== Icons with titles ====================
+.icon_set{
+    
+    & i.lnr {
+        color: $third_cl;
+        position:relative;
+        top:5px;
+    }
+    & span{
+        padding:0 20px 0 10px;
+        color: $grayscale_dark_cl;
+    }
+}
+
 .icon_set--rg {
     
     & i.lnr {
         font-size: 24px;
         line-height: 24px;
-        color: $third_cl;
-        position:relative;
         top:5px;
     }
-    & .company__icon__info {
+    & span{
         padding:0 20px 0 10px;
         font-size: 14px;
         line-height: 14px;
-        color: $grayscale_dark_cl;
+    }
+}
+
+.icon_set--sm {
+    
+    & i.lnr {
+        font-size: 18px;
+        line-height: 18px;
+        top:5px;
+    }
+    & span{
+        padding:0 20px 0 10px;
+        font-size: 16px;
+        line-height: 16px;
     }
 }
 

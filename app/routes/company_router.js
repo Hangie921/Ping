@@ -44,7 +44,7 @@ router.get(url + '/:username', function(req, res, next) {
             if (err) {
                 next(new Error('CompanyProfile.findOne()'));
 
-            } else if (company == null) {
+            } else if (company === null) {
                 res.render('error', {
                     message: 'Can\'t find this user',
                     error: {}
@@ -58,7 +58,7 @@ router.get(url + '/:username', function(req, res, next) {
                     company: company
                 });
             }
-        })
+        });
 });
 
 router.get(url + '/profile/edit', function(req, res) {
@@ -83,7 +83,7 @@ router.get(url + '/profile/edit', function(req, res) {
 //  setting upload configs
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, './uploads')
+        cb(null, './uploads');
     },
     filename: function(req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + file.mimetype.replace('image/', '.'));
@@ -114,7 +114,7 @@ router.post(url + '/profile/edit', function(req, res, next) {
             console.log(__filename, req.body);
             console.log(__filename, typeof req.body);
 
-            for (key in req.files) {
+            for (var key in req.files) {
                 if (req.files[key][0]) {
                     var fileType = ".jpg";
                     if (req.files[key][0].mimetype === 'image/jpeg') {
@@ -171,15 +171,15 @@ router.post(url + '/profile/edit', function(req, res, next) {
                 req.session.user.custom._profile = originCompany;
                 res.json(resJson);
 
-            })
-        })
-    })
+            });
+        });
+    });
 });
 
 router.get(url, function(req, res) {
     CompanyProfile.find(function(err, companies) {
         res.render('companies', { companies: companies });
-    })
+    });
 });
 
 module.exports = router;

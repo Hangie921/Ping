@@ -35,16 +35,34 @@ var app = angular.module('profile_edit_app', ['dndLists']);
 
 app.factory('percentage', function() {
     return {
-        total: 15,
         counter: "",
-        value: ""
+        value: "",
+        links: ""
     };
 });
 
+
 app.service('percentage_service', function() {
     var out_this = this;
-    var links = [];
-    var key_list_to_cal = ["username","establish_year","type","time","pic","cover_pic","footer_pic","links","technology","culture","location","industry","size","tagline","what_u_do","who_u_r"];
+    var links = {};
+    var key_list_to_cal = [
+        "username",
+        "establish_year",
+        "type",
+        "time",
+        "pic",
+        "cover_pic",
+        "footer_pic",
+        "links",
+        "technology",
+        "culture",
+        "location",
+        "industry",
+        "size",
+        "tagline",
+        "what_u_do",
+        "who_u_r"
+    ];
     // The object contains the url of five sections of all the edit_profile page
 
     //1.先判斷doc 裡面哪些key 是跟 edit mode 相關的,listed
@@ -54,8 +72,8 @@ app.service('percentage_service', function() {
 
     var section_links_temp = {
 
-        tagline: [{
-                url: "/companies/profile/edit#profile_tagline",
+        profile_setting: [{
+                url: "/companies/profile/edit#profile_setting",
                 url_exist: false
             },
             "tagline"
@@ -92,14 +110,15 @@ app.service('percentage_service', function() {
     };
 
     out_this.calculate = function(doc, percentage) {
-        var counter = -2;
-        var doc2= new Object();
+        var counter = -4; //扣掉 username, type, length,time這四個key
+        var doc2 = { length: 0 };
 
-        //1.把要用的key篩選出來，因為以後可能profile裡面會加更多的keys
-        for(var key in doc){
-            for(var i = 0; i<key_list_to_cal.length;i++){
-                if(key == key_list_to_cal[i]){
-                    doc2[key]= doc[key];
+        //1.把要用的key篩選出來變成doc2，因為以後可能profile裡面會加更多的keys
+        for (var key in doc) {
+            for (var i = 0; i < key_list_to_cal.length; i++) {
+                if (key == key_list_to_cal[i]) {
+                    doc2[key] = doc[key];
+                    doc2.length++;
                 }
             }
         }
@@ -122,12 +141,11 @@ app.service('percentage_service', function() {
                 }
             }
         }
-        console.log(doc);
-        console.log(doc2.length);
-        console.log("counter", counter);
-        console.log("total = ", doc2);
-        var temp_percentage = ((counter) / 15 * 100).toString() + '%';
 
+        console.log("counter", counter);
+        console.log("doc2 = ", doc2);
+        var temp_percentage = ((counter) / 13 * 100).toString() + '%';
+        console.log("percentage:", temp_percentage);
         percentage.counter = counter;
         percentage.value = temp_percentage;
 
@@ -137,26 +155,26 @@ app.service('percentage_service', function() {
 
 
         //Set the section anchor links to the links[] to following the data from DB 
-        out_this.section_links_to_show(section_links_temp);
+        out_this.section_links_to_show(section_links_temp, percentage);
     };
 
     out_this.percentage = function() {
         return {
-            total: 15,
             counter: "",
             value: ""
         };
     };
 
 
-    out_this.section_links_to_show = function(section_links_temp) {
-        
+    out_this.section_links_to_show = function(section_links_temp, percentage) {
+
         for (var key in section_links_temp) {
             if (section_links_temp[key][0].url_exist) {
                 links[key] = section_links_temp[key][0].url;
             }
         }
         console.log(links);
+        percentage.links = links;
     };
 
 });
@@ -165,15 +183,21 @@ app.service('percentage_service', function() {
 // 1st controller of the edit mode with profile_edit_controller
 app.controller('profile_edit_controller', ['$scope', '$http', 'percentage_service', function($scope, $http, percentage_service) {
 
+    $scope.links = null;
+    $scope.doc = null;
+    $scope.test = 'test in profile_edit_controller';
+    $scope.res = {};
     //data was called in the company_profile_edit.jade , line10
 
     $scope.init = function() {
-        $scope.doc = data;
         percentage_service.calculate(data, percentage_service.percentage);
+        $scope.doc = data;
+        var value = percentage_service.percentage.value.split(".");
+        $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
+        $scope.links = percentage_service.percentage.links;
     };
 
-    $scope.test = 'test in profile_edit_controller';
-    $scope.res = {};
+
 
 
 
