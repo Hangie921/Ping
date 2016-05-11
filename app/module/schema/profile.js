@@ -31,17 +31,17 @@ var companyProfileSchema = new mongoose.Schema({
         type: { type: String, enum: ['Text', 'List', 'Quote'] },
         content: Mixed
     }],
-    tagline: {type:String,default:""},
+    tagline: { type: String, default: "" },
     size: {
         type: String,
         default: '1-10',
         enum: ['1-10', '10-50', '50-100', '100+', '1000+']
     },
-    industry: {type:String,default:""},
+    industry: { type: String, default: "" },
     establish_year: Number,
     location: {
-        country: {type:String,default:""},
-        city: {type:String,default:""}
+        country: { type: String, default: "" },
+        city: { type: String, default: "" }
     },
     culture: [String],
     technology: [String],
@@ -88,7 +88,7 @@ var talentProfileSchema = new mongoose.Schema({
         title: String,
         industry: String,
         start_date: Date,
-        end_date: Date,
+        end_date: { type: Date, default: Date.now },
         location: {
             country: String,
             city: String
@@ -99,7 +99,7 @@ var talentProfileSchema = new mongoose.Schema({
         degree: String,
         school: String,
         start_date: Date,
-        end_date: Date,
+        end_date: { type: Date, default: Date.now },
         location: {
             country: String,
             city: String

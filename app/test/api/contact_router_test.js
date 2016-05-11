@@ -31,9 +31,7 @@ describe('POST /api/contact', function() {
                 .expect(200)
                 .end(function(err, res) {
                     console.log(res.body);
-                    var profile = res.body.data;
-                    console.log(profile._id);
-                    should.exist(profile._id);
+                    (res.body.code).should.be(200);
                     done();
                 });
         });
