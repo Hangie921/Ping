@@ -24,7 +24,7 @@
 
 // var app = angular.module('profile_edit_app', []);
 
-var app = angular.module('profile_edit_app', ['dndLists']);
+var app = angular.module('profile_edit_app', ['dndLists','ngSanitize', 'ui.select']);
 
 
 
@@ -173,7 +173,7 @@ app.service('percentage_service', function() {
                 links[key] = section_links_temp[key][0].url;
             }
         }
-        console.log(links);
+        console.log("links= ",links);
         percentage.links = links;
     };
 

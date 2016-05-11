@@ -6,6 +6,8 @@ block css
 	link(rel="stylesheet" ,href='/css/dnd.css')
 block script
 	script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
+	script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js")
+	script(src ="/js/select.js")
 	script(type='text/javascript',src='/js/company_profile_edit.js')
 	script.
 		var data = !{JSON.stringify(user.custom._profile)};
