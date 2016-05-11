@@ -98,30 +98,7 @@ h1 Testing
 				br
 				button#post_btn Send
 
-script(src='/js/jquery-2.2.3.js')
-script(type='text/javascript').
-	$(document).ready(function() {
-		$('#post_btn').click(function() {
 
-			var myData = new FormData();
-			myData.append("key", "value");
-			myData.append("key2", "value2");
-
-			myData.append('uploadfile', $('input[type=file]')[0].files[0]); 
-			$.ajax({
-					url: "/",
-					type: "POST",
-					data: myData,
-					crossDomain: true,
-					contentType: "multipart/form-data",
-					processData: false,
-				})
-				.done(function response(data) {
-					console.log(data);
-				});
-		});
-		
-	});
 
 
 
