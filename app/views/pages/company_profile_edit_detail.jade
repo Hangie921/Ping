@@ -7,6 +7,7 @@ block script
 	script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
 	script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js")
 	script(src ="/js/select.js")
+	script(src ="/js/location.js")
 	script(type='text/javascript',src='/js/company_profile_edit.js')
 	script.
 		var data = !{JSON.stringify(user.custom._profile)};
@@ -38,24 +39,26 @@ block content
 						.input_row.industry
 							.select_container
 								label Industry
+								
+
 								select(name='industry')
-									option(value="#{profile.industry}") #{profile.industry}
+									option(value="{{profile.industry}}") {{profile.industry}}
 									option(value="test1") option1
 									option(value="test2") option2
 						.input_row.location
 							.select_container
 								label Location
-								select(name='city')
-									option(value="#{profile.location.city}") #{profile.location.city}
-									option(value="city1") option1
-									option(value="city2") option2
-									option(value="city3") option4
+								//- ui-select(ng-model='selectedCountry')
+								//- 	ui-select-match(placeholder='Select a country or enter one') {{selectedCountry}
+								//- 	ui-select-choices(repeat="country in defaultCountry")
+								//- 		span(ng-bind-html="country | highlight: $select.search")
+								select(name='country',id="country",ng-init="populateCountries('country','city')",onchange="populateCity('country','city')")
+									
 							.select_container
-								select(name='country')
-									option(value="#{profile.location.country}") #{profile.location.country}
-									option(value="country1") option1
-									option(value="country2") option2
-									option(value="country3") option3
+								select(name='city', id = "city")
+									option {{profile.location.city}}
+									
+							
 							//- .select_container(ng-controller="InputDropdownController as dropdownCtrl")
 							//- input-dropdown(selected-item="dropdownCtrl.selectedDropdownItem" , default-dropdown-items="dropdownCtrl.dropdownItems")
 						.input_row.size

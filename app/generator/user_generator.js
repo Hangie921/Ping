@@ -143,7 +143,7 @@ function newCompany(index) {
         size: "1-10",
         industry: "Technolegy",
         establish_year: 2014,
-        location: { country: "Taipei", city: "Taiwan" },
+        location: { country: "Taiwan", city: "Taipei" },
         culture: ["Fun in life", "HoHoHo", "Banana", "Kumamon"],
         technology: ["Pokemon", "Spy", "Beer", "Holiday", "Javascipt", "PHP"],
         links: { facebook: "www.facebook.com", google: "www.goole.com", official: "www.ping.com.sg" },

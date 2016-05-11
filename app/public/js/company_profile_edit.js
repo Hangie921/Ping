@@ -24,7 +24,7 @@
 
 // var app = angular.module('profile_edit_app', []);
 
-var app = angular.module('profile_edit_app', ['dndLists','ngSanitize', 'ui.select']);
+var app = angular.module('profile_edit_app', ['dndLists', 'ngSanitize', 'ui.select']);
 
 
 
@@ -173,7 +173,7 @@ app.service('percentage_service', function() {
                 links[key] = section_links_temp[key][0].url;
             }
         }
-        console.log("links= ",links);
+        console.log("links= ", links);
         percentage.links = links;
     };
 
@@ -339,8 +339,9 @@ app.directive("contentDirective", function($compile) {
 
 
 // 2nd controller of the edit mode with the detail_controller
-app.controller('detail_controller', ['$scope', '$compile', 'percentage_service', function($scope, $compile, percentage_service) {
+app.controller('detail_controller', ['$scope', '$compile', 'percentage_service', '$timeout', '$interval', function($scope, $compile, percentage_service) {
     $scope.test = 'test in detail_controller';
+    $scope.profile = data;
     $scope.compile_to_node = function(DOM) {
         var jq = $(DOM); // compile the dynamic DOM and 
         var link = $compile(jq); // set the $scope into it
@@ -350,7 +351,7 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
 
     $scope.initial = function() {
         console.log("init");
-        $scope.profile = data;
+
         $scope.who_u_r = data.who_u_r;
         $scope.what_u_do = data.what_u_do;
         $scope.who_u_r_to_DB = [];
@@ -362,21 +363,72 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     };
 
 
-    //=================== Company instro section ====================
+    //=================== Company info section ====================
+    // variable "data" is from the jade
+    // variable "country_arr", "s_a" are from location.js
+    // function "populateCountries" and "populateCity" are also
 
+
+    $scope.selectedCountry = data.location.country?data.location.country:null;
+    $scope.selectedCity = data.location.city?data.location.city:null;
+
+    $scope.defaultCountry = country_arr;
+    $scope.defaultCity = s_a;
+
+    $scope.populateCountries = function populateCountries(countryElementId, stateElementId) {
+        // given the id of the <select> tag as function argument, it inserts <option> tags
+        var countryElement = document.getElementById(countryElementId);
+        countryElement.length = 0;
+        countryElement.options[0] = data.location.country? new Option(data.location.country, data.location.country) : new Option('Select Country', '-1');
+        countryElement.selectedIndex = 0;
+        for (var i = 0; i < country_arr.length; i++) {
+            countryElement.options[countryElement.length] = new Option(country_arr[i], country_arr[i]);
+        }
+
+        // Assigned all countries. Now assign event listener for the states.
+
+        if (stateElementId) {
+            countryElement.onchange = function() {
+                $scope.populateCity(countryElementId, stateElementId);
+            };
+        }
+    };
+
+    $scope.populateCity = function populateCity(countryElementId, stateElementId) {
+
+        var selectedCountryIndex = document.getElementById(countryElementId).selectedIndex;
+
+        var stateElement = document.getElementById(stateElementId);
+
+        stateElement.length = 0; // Fixed by Julian Woods
+        stateElement.options[0] = new Option('Select State', '');
+        stateElement.selectedIndex = 0;
+
+        var state_arr = s_a[selectedCountryIndex].split("|");
+
+        for (var i = 0; i < state_arr.length; i++) {
+            stateElement.options[stateElement.length] = new Option(state_arr[i], state_arr[i]);
+        }
+    };
+    //以上可正常運作
+
+
+
+
+
+
+
+
+    //=================== Company info section ====================
 
 
 
     // generate a <li> contains a section of the input bar including .menu_bar , 
     // .content and .functions_bar
     $scope.genSection = function($event) {
-        // @Todo: add class to the DOM
-        //        add function to the menu btns
         console.log("genSection");
         var node = $scope.compile_to_node(`<li><div class='input_single'><div class='menu_bar col-md-10'><ul><li><i class='lnr lnr-circle-minus grayscale_dark_cl'></i><a ng-click='hide_menu_bar($event)'>btn</a></li><li><a ng-click='genInput($event,"Text")'>Text</a></li><li><a ng-click='genInput($event,"List")'>List</a></li><li><a ng-click='genInput($event,"Quote")'>Quote</a></li></ul></div></div></li>`);
         $($event.target).siblings("ul").children("li:last-child").after(node);
-
-
     };
 
 
