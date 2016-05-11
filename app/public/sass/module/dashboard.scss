@@ -31,15 +31,24 @@ body.edit {
             display: block;
             width: 100%;
             & a {
-                color: $grayscale_dark_cl;
-                display: block;
-                padding: $space_sm 0 $space_sm $space_sm;
-                font-size: $rg_font;
+            	display:block;
+            	padding:$space_sm;
+				@include prefix(( box-sizing:border-box ), webkit moz ms);
+                
+                &:hover span{
+                	color:$base_white;
+                }
+
+
             }
             &:hover a,
             &.active a {
-                color: $base_white;
+                color: $base_white ;
                 background-color: $pri_cl;
+            }
+
+            &.active span {
+				color: $base_white ;
             }
             &:hover .lnr,
             &.active .lnr {

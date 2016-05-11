@@ -82,7 +82,7 @@
     & i.lnr {
         font-size: 18px;
         line-height: 18px;
-        top:5px;
+        top:3px;
     }
     & span{
         padding:0 20px 0 10px;
@@ -91,7 +91,17 @@
     }
 }
 
+.icon_set-edit-heading {
+    position:relative;
+    margin-left:-32px;
+    & i.lnr {
 
+    }
+
+    & span {
+       font-size: $md-font;
+    }
+}
 
 // =============== social icons ===========================
 & .social_icons {
