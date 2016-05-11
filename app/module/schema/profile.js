@@ -8,7 +8,7 @@ var resCode = pinglib.response.codeEnum;
 var PingUser = pinglib.User;
 
 // local module
-var Viewed = require('./viewed.js');
+var Contact = require('./contact.js');
 
 // variables
 var options = { discriminatorKey: 'type' };
@@ -142,16 +142,17 @@ var talentProfileSchema = new mongoose.Schema({
     }]
 }, options);
 
+
 profileSchema.methods.viewSomeone = function(who, cb) {
-    return Viewed.findById(this._id, (err, viewed) => {
+    return Contact.findById(this._id, (err, contact) => {
         if (err) cb(err);
-        if (viewed === null) {
-            viewed = new Viewed();
-            viewed._id = this._id;
+        if (contact === null) {
+            contact = new Contact();
+            contact._id = this._id;
 
         }
-        viewed.view.push({ _id: who });
-        viewed.save((err, someone) => {
+        contact.view.push({ _id: who });
+        contact.save((err, someone) => {
             if (err) cb(err);
             who.viewedBy(this, function(err, doc) {
                 cb(err, { iView: someone, someoneViewBy: doc });
@@ -161,10 +162,10 @@ profileSchema.methods.viewSomeone = function(who, cb) {
 };
 
 profileSchema.methods.viewedBy = function(who, cb) {
-    return Viewed.findById(this._id, (err, doc) => {
+    return Contact.findById(this._id, (err, doc) => {
         if (err) cb(err);
         if (doc === null) {
-            doc = new Viewed();
+            doc = new Contact();
             doc._id = this._id;
         }
         doc.viewed_by.push({ _id: who });
@@ -174,12 +175,38 @@ profileSchema.methods.viewedBy = function(who, cb) {
     });
 };
 
+profileSchema.statics.findByUsername = function(username) {
+    return new Promise((resolve, reject) => {
+        this.findOne({ username: username }, (err, doc) => {
+            if (err) reject(err);
+            resolve(doc);
+        });
+    });
+};
+
 var Skill = require('./skill.js');
+
+
+profileSchema.statics.findContactByUsername = function(username) {
+    return new Promise((resolve, reject) => {
+        this.findOne({ username: username }).exec()
+            .then((doc) => {
+                if (!doc) reject("Can't find username:" + username);
+                return this.db.model('contact').findByIdAndUpdate(doc, { _id: doc }, { new: true, upsert: true }).exec();
+            })
+            .then((doc) => {
+                resolve(doc);
+            })
+            .catch(function(err) {
+                reject(err);
+            });
+    });
+};
 
 // profileSchema.pre('save', function(next) {
 //     var doc = this;
 
-profileSchema.post('save', function(doc, next) {
+profileSchema.post('update', function(doc, next) {
     // Update collection('skills')
     if (doc.skills) {
         var requests = doc.skills.map((value) => {
@@ -202,11 +229,19 @@ profileSchema.post('save', function(doc, next) {
     }
 });
 
+// var Contact = require('./contact.js');
 
-// profileSchema.post('save', function(doc, next) {
-//     console.log("hi");
-//     next();
-// });
+profileSchema.methods.findContact = function(callback) {
+    return this.db.model('contact').findByIdAndUpdate(this, { _id: this }, { new: true, upsert: true }, callback);
+};
+
+profileSchema.post('save', (doc, next) => {
+    //  initail 新的用戶時，要新增一筆 contact
+    doc.findContact(function(err, doc) {
+        if (err) console.log(err);
+        next();
+    });
+});
 
 // profileSchema.save(function(err) {
 //     console.log(err);
@@ -217,10 +252,10 @@ profileSchema.post('save', function(doc, next) {
 // });
 
 // profileSchema.methods.updatePosition = function(position, cb) {
-//     return Viewed.findById(this._id, (err, doc) => {
+//     return Contact.findById(this._id, (err, doc) => {
 //         if (err) cb(err);
 //         if (doc == null) {
-//             doc = new Viewed();
+//             doc = new Contact();
 //             doc._id = this._id;
 //         }
 //         doc.viewed_by.push({ _id: who });

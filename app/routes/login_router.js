@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var upload = require('multer')();
 var session = require('express-session');
 
 // pinglib
@@ -31,7 +30,7 @@ router.get('/login', function(req, res, next) {
 });
 
 
-router.post('/login', upload.single(), function(req, res, next) {
+router.post('/login', function(req, res, next) {
     var acc = req.body.mem_acc,
         pwd = req.body.mem_pwd;
 

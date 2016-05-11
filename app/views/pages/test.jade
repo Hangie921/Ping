@@ -60,7 +60,30 @@ h1 Testing
 			a(href="/api/search") api/search
 		li
 			a(href="/api/search?position=PM&seniority=1") api/search?position=PM&seniority=1
-			
+		li
+			a(href="/api/contact") api/contact
+		li
+			a(href="/api/contact/Company") api/contact/:Company
+	h2 Session
+	ul
+		if user.custom
+			- var profile = user.custom._profile
+			li profile._id = #{profile._id}
+			li profile.username = #{profile.username}
+			li #{JSON.stringify(user)};
+		else
+			li=user
+	h2 Contact
+	ul
+		li Contact Someone
+			form(method="post", action='/api/contact')
+				| Who:
+				input(type='text',name="contact_someone", placeholder='Talent' value='Talent')
+				br
+				| Message:
+				input(type='text',name="msg", placeholder='msg your wanna say' value='Hello Talent')
+				br
+				input(type='submit',value='Contact!!!!!!')
 	h2 Others
 	ul
 		li 

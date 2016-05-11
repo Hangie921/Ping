@@ -35,7 +35,7 @@ main.createUser = function(email, pwd, username, type) {
 
         newProfile.save()
             .then(function(doc) {
-console.log("in")
+// console.log("in")
                 return newUser.save();
             })
             .then(function(doc) {

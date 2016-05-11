@@ -4,5 +4,7 @@ each talent in talents
 	ul
 		li 
 			a(href='/talents/'+c.username) #{c.username}
+		li 
+			a(href='/api/contact/'+c.username) /api/contact/#{c.username}
 		each v,k in c
 			li <strong>#{k}:</strong> #{JSON.stringify(v)}

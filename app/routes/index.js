@@ -17,6 +17,7 @@ router.use(require('./search_router'));
 router.use(require('./user_router'));
 router.use(require('./company_router'));
 router.use(require('./talent_router'));
+router.use(require('./contact_router'));
 
 
 /* GET home page. */

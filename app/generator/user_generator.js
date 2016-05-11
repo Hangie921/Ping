@@ -174,16 +174,21 @@ function newCompany(index) {
     });
 }
 
+function removeCollection(collectionName) {
+    return new Promise((resolve, reject) => {
+        mongoose.connection.collections[collectionName].remove(function(err) {
+            if (err) reject(err);
+            console.log("drop " + collectionName);
+            resolve();
+        });
+    });
+}
+
 function dropDatabase() {
     return new Promise((resolve, reject) => {
         if (process.argv[2] === "--drop") {
-            mongoose.connection.collections.users.remove(function(err) {
-                if (err) reject(err);
-                mongoose.connection.collections.profiles.remove(function(err) {
-                    if (err) reject(err);
-                    resolve(err);
-                });
-            });
+            Promise.all([removeCollection('users'), removeCollection('profiles'), removeCollection('contacts')])
+                .then(resolve).catch(reject);
         } else {
             resolve();
         }

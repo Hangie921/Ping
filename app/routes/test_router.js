@@ -15,19 +15,25 @@ router.get('/test2', function(req, res, next) {
 });
 
 router.get('/test', function(req, res, next) {
-    res.render('test');
+    var resJson = {};
+    if (req.session.user) {
+        resJson.user = req.session.user;
+    } else {
+        resJson.user = 'no session';
+    }
+    res.render('test', resJson);
 });
 
 router.get('/positions', function(req, res, next) {
     Position.find(function(err, positions) {
         res.render('positions', { positions: positions });
-    })
+    });
 });
 
 router.get('/skills', function(req, res, next) {
     Skill.find(function(err, skills) {
         res.render('skills', { skills: skills });
-    })
+    });
 });
 
 router.get('/mail', function(req, res, next) {

@@ -47,46 +47,43 @@ describe('CompanyProfile', function() {
     afterEach(function() {
         mongoose.disconnect();
     });
-    it('try it', function(done) {
-        return Promise.resolve(2 + 2).should.eventually.equal(5)
-            .then(function(v) {
-                console.log("ininin");
-            });
 
-        // done();
+    describe.skip('done case', function() {
+        it('duplate username will not save anything', function() {
+
+            return profileUtil.createUser('test@ping.com.sg', 'qwer1234', 'test', 'Company')
+                .then(function(value, some) {
+                    should.exist(value);
+                    return profileUtil.createUser('test@ping.com.sg', 'qwer1234', 'test2', 'Company');
+                })
+                .then(function(value) {
+                    should.not.exist(value);
+                }, function(err) {
+                    (err.message).should.include('E11000 duplicate key error collection: test.users index: system_parameter_1_email_1 dup');
+                })
+                .catch(function(err) {
+                    console.log("err", err);
+                    should.not.exist(err);
+                });
+        });
     });
 
-    it.skip('duplate username will not save anything', function(done) {
-
-        profileUtil.createUser('test@ping.com.sg', 'qwer1234', 'test', 'Company')
-            .then(function(value, some) {
-                console.log(value);
-                // should.not.exist(value);
-                // expect(value.user.email).to.equal('test@ping.com.sg2');
-                // (value.user.email).should.be.equal('test@ping.com.sg2');
-                return profileUtil.createUser('test@ping.com.sg', 'qwer1234', 'test2', 'Company');
+    it('findByUsername', function() {
+        var profile;
+        return profileUtil.createUser('test@ping.com.sg', 'qwer1234', 'test', 'Company')
+            .then(function(value) {
+                should.exist(value);
+                profile = value.profile;
+                return Profile.findByUsername('test');
             })
             .then(function(value) {
-                console.log("in2");
+                should.exist(value);
+                (value._id).should.deep.equal(profile._id);
             })
             .catch(function(err) {
                 console.log("err", err);
-                // should.exist(err);
-                // should.not.exist(err);
-                done();
+                should.not.exist(err);
             });
-
-
-
-
-        // a.should.be.null;
-
-        // .catch(function(err) {
-        //     // should.not.exist(err);
-        //     console.log("err", err);
-        //     expect(423).equal(42);
-        //     // expect(err).be.an('object2').to.throw("hi");
-        // });
 
 
     });
