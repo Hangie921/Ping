@@ -25,16 +25,16 @@ block content
 						span #{profile.location.country+','+profile.location.city}
 					.company__icon__set.col-md-4.clearfix
 						ul.company__icon__list
-							li.company__icon__single.icon_set--rg 
+							li.company__icon__single.icon_set.icon_set--rg 
 								i.lnr.lnr-users
 								span.company__icon__info #{profile.size}
-							li.company__icon__single.icon_set--rg  
+							li.company__icon__single.icon_set.icon_set--rg  
 								i.lnr.lnr-apartment
 								span.company__icon__info #{profile.establish_year}
-							li.company__icon__single.icon_set--rg  
+							li.company__icon__single.icon_set.icon_set--rg  
 								i.lnr.lnr-tag
 								span.company__icon__info #{profile.industry}
-					.profile__photo.round_container
+					.profile__photo.round_container.round_container--rg
 
 						img(src='/#{profile.pic}')
 					.social_icons.pull_right.col-md-4
@@ -85,7 +85,7 @@ block content
 									.profile__content.profile__list.row_space--xs
 										ul.list
 											each sub_item in item.content
-													li.item
+													li.list__item
 														span.lnr.lnr-location
 														span= sub_item
 					.what_we_do
@@ -101,7 +101,7 @@ block content
 									.profile__content.profile__list.row_space--xs
 										ul.list
 											each sub_item in item.content
-													li.item
+													li.list__item
 														span.lnr.lnr-location
 														span= sub_item
 	section.profile_bottom_banner_section
