@@ -6,12 +6,8 @@ var Position = require('../module/schema/position.js');
 var Skill = require('../module/schema/skill.js');
 
 /* GET home page. */
-router.get('/test1', function(req, res, next) {
-    res.send({ test: 'test1' });
-});
-
-router.get('/test2', function(req, res, next) {
-    res.send({ test: 'test2' });
+router.get('/test_angular', function(req, res, next) {
+    res.render('index');
 });
 
 router.get('/test', function(req, res, next) {

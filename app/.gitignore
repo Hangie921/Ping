@@ -4,3 +4,4 @@ uploads
 *.log
 bower_components*.log
 public/css/
+public/bower_components/

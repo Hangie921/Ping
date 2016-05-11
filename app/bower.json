@@ -1,0 +1,19 @@
+{
+  "name": "ping",
+  "description": "",
+  "authors": [
+    "Rammus Xu <comte_ken@hotmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Hangie921/Ping",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.5"
+  }
+}
