@@ -143,3 +143,35 @@
         margin:0
     }
 }
+
+// ============== Tags ======================
+
+.tag_single{
+    float: left;
+    margin-bottom: $space_xs;
+    height: 40px;
+    margin-right: 10px;
+    position: relative;
+    .tag{
+        display:block;
+        line-height:40px;
+        padding-right:$space_lg;
+        text-align:left;
+        border-radius:20px;
+        font-size: $base_font_size;
+    }
+    i{
+        display:block;
+        height:40px;
+        width:30px;
+        position: absolute;
+        top: 0;
+        right:0;
+        padding-top:20px;
+        padding-right:10px;
+        font-size: $base_font_size;
+        cursor:pointer;
+
+    }
+}
+

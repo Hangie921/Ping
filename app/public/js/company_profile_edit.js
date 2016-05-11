@@ -340,6 +340,9 @@ app.directive("contentDirective", function($compile) {
 
 // 2nd controller of the edit mode with the detail_controller
 app.controller('detail_controller', ['$scope', '$compile', 'percentage_service', function($scope, $compile, percentage_service) {
+    $scope.profile = data;
+    $scope.who_u_r = data.who_u_r;
+    $scope.what_we_do = data.what_we_do;
     $scope.test = 'test in detail_controller';
     $scope.compile_to_node = function(DOM) {
         var jq = $(DOM); // compile the dynamic DOM and 

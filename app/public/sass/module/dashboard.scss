@@ -119,13 +119,16 @@ body.edit {
             text-decoration: none;
         }
     }
-}
+}//====== Progress Bar Ends==========
+
+
+//======== Edit Profile General =============
 
 .content_container-three-col {
     padding-left: 0;
     padding-top: $space_sm;
     h1 {
-        padding-left: $space_sm;
+        padding-left: $space_md;
         padding-bottom: $space_sm;
     }
 } // end of the .content_container
@@ -142,6 +145,7 @@ body.edit {
     border-radius: 0px $base_border_radius $base_border_radius 0px;
 }
 
+//edit sections
 .edit_group {
     float: left;
     width: 100%;
@@ -212,8 +216,9 @@ body.edit {
 .edit__input-image {
     float: left;
     clear: both;
-}
+} //====== Profile Edit General Ends =======
 
+//======== Displayed Images Section ============
 .edit__input-profile-image {
     display: block;
     float: left;
@@ -268,155 +273,40 @@ body.edit {
             left: -9999px;
         }
     }
+} //======== Displayed Images Section Ends ============
+
+//========= About Your Company ==========
+
+.add_content {
+	float:left;
+	width:100%; 
+	display:block;
+	min-height:36px;
+	
+	a {
+		float:left;
+		padding:10px 0 0 24px;
+		display:block;
+		text-align:left;
+		width:100%;
+		height:100%;
+
+		&:before {
+			content:"\f055";
+			font-family: fontawesome;
+			color:$pri_cl;
+			font-size:36px;
+			display:inline-block;
+			position:absolute;
+			text-align: left;
+			left:0;
+		}
+	}
 }
 
-.company_info {
-    position: relative;
-    .title {
-        & a {
-            & .reminder {
-                width: 21px;
-                height: 21px;
-                background-color: $grayscale_dark_cl;
-                color: $grayscale_6;
-                border-radius: 50%;
-                font-size: $base_font_size;
-                line-height: 21px;
-                text-align: center;
-                position: absolute;
-                top: 16px;
-                right: 30px;
-            }
-        }
-    }
-    .input_container {
-        margin-top: 40px;
-        padding: 40px 207px 0px 73px;
-        & .input_row {
-            margin-bottom: 42px;
-            overflow: visible;
-            position: relative;
-            &.industry {
-                & .select_container {
-                    height: 50px;
-                    margin-top: 24px;
-                    width: 100%;
-                    @include prefix(( background-position: 97% 50%, ), webkit moz);
-                    & select {
-                        height: 100%;
-                    }
-                    & label {
-                        position: absolute;
-                        top: -22px;
-                        left: 1px;
-                        color: $grayscale_dark_cl;
-                    }
-                }
-            } //end of the .industry
-            &.location {
-                .select_container {
-                    display: inline-block;
-                    margin-right: 18px;
-                    height: 50px;
-                    width: 204px;
-                    & select {
-                        height: 100%;
-                    }
-                    & label {
-                        position: absolute;
-                        top: -22px;
-                        left: 1px;
-                        color: $grayscale_dark_cl;
-                    }
-                }
-            } //end of the .location
-            &.size {
-                & .select_container {
-                    height: 50px;
-                    margin-top: 24px;
-                    width: 204px;
-                    & select {
-                        height: 100%;
-                    }
-                    & label {
-                        position: absolute;
-                        top: -22px;
-                        left: 1px;
-                        color: $grayscale_dark_cl;
-                    }
-                }
-            } //end of .size
-            &.years {
-                & .select_container {
-                    height: 50px;
-                    margin-top: 24px;
-                    width: 204px;
-                    & select {
-                        height: 100%;
-                    }
-                    & label {
-                        position: absolute;
-                        top: -22px;
-                        left: 1px;
-                        color: $grayscale_dark_cl;
-                    }
-                }
-            } //end of .years
-        } //end of the .select_container
-    } //end of the .input_container
-} //end of the .company_info
-.company_tags {
-    .input_container {
-        padding: 40px 207px 40px 73px;
-        .input_single {
-            min-height: 100px;
-            margin-bottom: 70px;
-            & input {
-                width: 100%;
-                height: 100%;
-            }
-            & .tag_group {
-                line-height: 3.5;
-                min-height: 1px;
-            }
-        } // .input_single
-    } // .input_container
-} // .company_tags
-.company_instro {
-    .input_container {
-        margin-top: 40px;
-        padding: 40px 207px 40px 73px;
-        .input_single {
-            max-width: initial;
-            width: 100%;
-            height: 321px;
-            margin-bottom: 50px;
-            & textarea {
-                width: 100%;
-                height: 100%;
-            }
-        }
-        & > .btn {
-            text-transform: uppercase;
-            display: inline-block;
-            vertical-align: top;
-            width: 149px;
-            height: 50px;
-            margin-right: 10px;
-            font-size: $base_font_size;
-            &.cancel {
-                background-color: $grayscale_cl;
-                color: $base_white;
-            }
-            &.save {
-                width: 172px;
-            }
-            &.save.disable {
-                background-color: #ADC8C5;
-            }
-        }
-    }
-} //end of the .company_instro
+       
+
+
 .social_network {
     position: relative;
     .title {
@@ -531,31 +421,3 @@ body.edit {
         }
     } //.input_container
 } //.social_network
-.reminder {
-    &:hover {
-        & .hint_container {
-            display: block;
-        }
-    }
-    .hint_container {
-        display: none;
-        position: absolute;
-        width: 288px;
-        left: 70px;
-        top: -17px;
-        border-radius: $base_border_radius;
-        vertical-align: top;
-        background-color: $base_white;
-        padding: 12px 15px;
-        & h3 {
-            font-size: $base_font_size;
-            color: $grayscale_dark_cl;
-        }
-        & p {
-            font-size: $base_input_font_size;
-            color: $grayscale_cl;
-            font-weight: $base_font_weight;
-            text-align: left;
-        }
-    }
-} //.reminder
