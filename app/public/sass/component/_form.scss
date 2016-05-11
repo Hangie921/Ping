@@ -1,7 +1,7 @@
 //Initial the universal style
 @import "../base/_mixins.scss";
 
-[type="text"],[type='email'],[type='password'],[type='textarea'],textarea{
+[type="text"],[type='email'],[type='password'],select,[type='textarea'],textarea{
 	outline:none;
 	border-radius:$base_border_radius;
 	min-height:50px;
@@ -12,6 +12,8 @@
 	height:$btn_pri_height;
 	box-sizing:border-box;
 	font-family: $base_font_family;
+	background-color:$base_white;
+	float:left;
 }
 
 
@@ -29,10 +31,42 @@
 	& input[type='text']{
 		float:left;
 		margin-top:$space_xxs;
+		width:100%;
 		display:block;
 	}
 }
 
+
+.input_select {
+
+	&:before {
+		content:'\25bc';
+		font-family: fontawesome ;
+		font-size:8px;
+		display:block;
+		width:5px;
+		height:5px;
+		color:$grayscale_dark_cl;
+		position:absolute;
+		z-index:10;
+		right:30px;
+		bottom:25px;
+	}
+
+	& select{
+		vertical-align:bottom;
+		display:block;
+		position:relative;
+		width:100%;
+		margin-top:$space_xxs;
+		border: none;
+		box-shadow: none;
+		background-image: none;
+		-webkit-appearance: none;
+		   -moz-appearance: none;
+		        appearance: none;
+		    }
+}
 // If you wanna use a checkbox or radio btn, have a <label> followed and 
 //assign the Id of the checkbox or radio to the <label> 
 //
@@ -95,33 +129,9 @@
 	font-size:$sm_font;
 	margin-bottom:$space_xxs;
 }
-.select_container{
-	label{
-		font-size: $base_input_label_font_size;
-	}
-	width: 120px;
-	padding: 0;
-	margin: 0;
-	border-radius:$input_border_radius;
-	overflow:hidden;
-	background-color:#ccc;
-	@include prefix((
-		background:#fff url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") ,
-		background-position:90% 50%
-	),moz);
-	background-repeat:no-repeat;
-	& select{
-		padding: 5px 10px;
-		width: 100%;
-		border: none;
-		box-shadow: none;
-		background-color: transparent;
-		background-image: none;
-		-webkit-appearance: none;
-		   -moz-appearance: none;
-		        appearance: none;
-		&:focus{
-		  outline:none;
-		}
-	}
+
+.input_inline {
+	float:left;
+	display:block;
+	clear:none;
 }
