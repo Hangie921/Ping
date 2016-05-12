@@ -45,7 +45,7 @@ router.get(url + '/:username', function(req, res, next) {
                 next(new Error('CompanyProfile.findOne()'));
 
             } else if (company === null) {
-                res.render('error', {
+                res.render('pages/error', {
                     message: 'Can\'t find this user',
                     error: {}
                 });
@@ -53,7 +53,7 @@ router.get(url + '/:username', function(req, res, next) {
             } else {
 
                 // res.json(company);
-                res.render('company_profile', {
+                res.render('pages/company_profile', {
                     user: req.session.user,
                     company: company
                 });
@@ -64,17 +64,17 @@ router.get(url + '/:username', function(req, res, next) {
 router.get(url + '/profile/edit', function(req, res) {
     var section = req.query.section;
     if (section === "detail") {
-        res.render("company_profile_edit_detail", {
+        res.render("pages/company_profile_edit_detail", {
             user: req.session.user
         });
 
     } else if (section === "social") {
-        res.render("company_profile_edit_social", {
+        res.render("pages/company_profile_edit_social", {
             user: req.session.user
         });
 
     } else {
-        res.render("company_profile_edit", {
+        res.render("pages/company_profile_edit", {
             user: req.session.user
         });
     }
@@ -178,7 +178,7 @@ router.post(url + '/profile/edit', function(req, res, next) {
 
 router.get(url, function(req, res) {
     CompanyProfile.find(function(err, companies) {
-        res.render('companies', { companies: companies });
+        res.render('pages/companies', { companies: companies });
     });
 });
 

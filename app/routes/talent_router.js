@@ -33,9 +33,9 @@ router.get(url + '/:username', function(req, res) {
     TalentProfile.findOne({ username: req.params.username }, function(err, talent) {
         if (err) console.log(err);
         resJson.talent = talent;
-        console.log(resJson)
+        console.log(resJson);
         res.json(resJson);
-    })
+    });
 });
 
 router.post(url + '/:username/edit', function(req, res) {
@@ -45,7 +45,7 @@ router.post(url + '/:username/edit', function(req, res) {
 
 
         console.log("msg", req.body);
-        for (key in req.body) {
+        for (var key in req.body) {
             if (originCompany[key])
                 originCompany[key] = req.body[key];
 
@@ -62,14 +62,14 @@ router.post(url + '/:username/edit', function(req, res) {
             console.log("talent", status);
             res.json(status);
 
-        })
-    })
+        });
+    });
 });
 
 router.get(url, function(req, res) {
     TalentProfile.find(function(err, talents) {
-        res.render('talents', { talents: talents });
-    })
+        res.render('pages/talents', { talents: talents });
+    });
 });
 
 router.get(urlApi, function(req, res) {
@@ -87,13 +87,13 @@ router.get(urlApi, function(req, res) {
         // res.json(ret);
         TalentProfile.findById(ret, function(err, talent) {
             res.json(talent);
-        })
+        });
     });
 
     PingUser.find(function(err, users) {
         if (err) console.log(err);
         // console.log(users);
-        // res.render(routerName, { users: users });
+        // res.render(pages/routerName, { users: users });
     });
 });
 

@@ -26,7 +26,7 @@ router.get('/login', function(req, res, next) {
         renderData.error = req.session.error;
         delete req.session.error;
     }
-    res.render('login', renderData);
+    res.render('pages/login', renderData);
 });
 
 
@@ -41,8 +41,6 @@ router.post('/login', function(req, res, next) {
     user.pwd = pwd;
 
     var resJson = { code: 200 };
-    // console.log("user= ", user);
-    // console.log("s1",req.session.user)
     // UserService.getUser(user, function(data) {
     SessionService.login(req, res, user, function(data) {
 

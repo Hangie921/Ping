@@ -25,13 +25,13 @@ router.get(url, function(req, res, next) {
         .find()
         .exec(function(err, users) {
             if (err) return next(err);
-            res.render(routerName, { users: users });
+            res.render('pages/' + routerName, { users: users });
         });
 });
 
 // @Useless
 router.get(url + '/new', function(req, res) {
-    res.render(routerName + '_new');
+    res.render('pages/' + routerName + '_new');
 });
 
 // @Useless

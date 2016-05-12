@@ -13,7 +13,7 @@ router.get('/dashboard', function(req, res, next) {
             req.session.user.custom._profile = data;
         }
 
-        res.render('dashboard', {
+        res.render('pages/dashboard', {
             user: req.session.user
         });
     })
