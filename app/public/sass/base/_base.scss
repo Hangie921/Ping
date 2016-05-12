@@ -50,6 +50,32 @@ div {
         ),moz webkit ms o);
 }
 
+// ======== Grid 14 ==============
+.container_lg {
+		margin-right: auto;
+	    margin-left: auto;
+	    padding-left: 15px;
+	    padding-right: 15px;
+	}
+
+@media (min-width: 992px) {
+
+	.container_lg {
+		width:1130px;
+		
+	}
+}
+
+@media (min-width: 768px) {
+
+	.container_lg {
+		width:750px;
+		
+	}
+}
+
+//=======================
+
 .no_pad {
 	padding-left:0 !important;
 	padding-right:0 !important;

@@ -1,0 +1,34 @@
+extends ../templates/layout.jade
+block css 
+	link(rel="stylesheet"  href="/css/search.css")
+prepend body
+	
+
+block body_class
+	body.profile.view
+block menu
+		//- include ../modules/menu.jade
+block content
+	section.searchbar_section
+		.container_lg
+			.row
+				.col-md-12
+					.searchbar
+						form
+							.search__input__single.input_single
+								input(type="text", placeholder="Pinger Type")
+							.search__input__single.input_single
+								select
+							.search__input__single.input_single
+								select
+							button.submit_pinger
+					.search_extra_setting_bar
+						a(href="#") Advance Search
+						a(href="#") Set Defult Preference
+
+
+	section.pinger_search_results
+		.container_lg
+			.row
+				.col-md-12
+					.pinger_search_inner

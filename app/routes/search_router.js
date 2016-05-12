@@ -26,7 +26,8 @@ router.get(url + '/*', function(req, res, next) {
 });
 
 router.get(url, function(req, res, next) {
-    res.send("This is search page, need use res.render()");
+    // res.send("This is search page, need use res.render()");
+    res.render("find_talent");
 });
 
 router.get(urlApi, function(req, res, next) {
