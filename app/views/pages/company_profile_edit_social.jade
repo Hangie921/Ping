@@ -2,7 +2,7 @@ extends ../templates/three_columns_sidebar.jade
 
 
 block css
-	link(rel="stylesheet"  href="/css/profile.css")
+	link(rel="stylesheet"  href="/css/dashboard.css")
 	link(rel="stylesheet" ,href='/css/dnd.css')
 block script
 	script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
@@ -12,52 +12,86 @@ block script
 	script.
 		var data = !{JSON.stringify(user.custom._profile)};
 block body_class
-	body.profile.edit.social(ng-app="profile_edit_app",ng-controller='social_media_controller',ng-click="container_click()")
+	body.edit.social(ng-app="profile_edit_app",ng-controller='social_media_controller',ng-click="container_click()")
 		-
 			var profile = user.custom._profile;
 			var type = user.custom._profile.type;
 block menu
 	include ../modules/menu.jade
-block sidebar
-	include ../modules/sidebar.jade
+
+//- block sidebar
+//- 	include ../modules/sidebar.jade
 block content
-	.row.col-md-10
-		.content_container.col-md-10.row
-				h2 Edit Profile
-				form(id='social_network',name='social_form',enctype='multipart/form-data')
-					section#social_network.social_network.edit_section
-						.title.col-md-10
-							h3 Social Networks
-							a(href='#')
-								span.reminder i
-									.hint_container.container.col-md-2
-										h3 How to make your profile shine
-										p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
-						.input_container.col-md-7(ng-init="initial(#{JSON.stringify(user.custom._profile.links)})")
+	.container-fluid
+		.row
+			//- Left Column /////////////
+			.side_bar-left.col-md-2.clearfix.no_pad
+				.base_white_bg.grayscale_dark_cl
+					ul.side_bar_menu.menu
+						li.menu_item.icon_set.icon_set--sm.active
+							a(href='/companies/profile/edit/')
+								i.lnr.lnr-smile
+								span Company&nbspBranding
+						li.menu_item.icon_set.icon_set--sm.icon_set
+							a(href='/companies/profile/edit?section=detail')
+								i.lnr.lnr-license
+								span Detail/Description
+						li.menu_item.icon_set.icon_set--sm
+							a(href='/companies/profile/edit?section=social')
+								i.lnr.lnr-earth
+								span Social&nbspNetworks
+			//- Center Column //////////////
+			.content_container-three-col.col-md-7
+				h1 Edit Profile
+					form(method='POST',id='company_branding',action='',enctype='multipart/form-data',name='test')
+						//- Profile ////////////  
+				.edit_social_network.edit_group#social_network
+					.edit__title__bar
+						h3.icon_set.icon_set-edit-heading.icon_set--rg 
+							i.lnr.lnr-smile
+							span Social Networks
+						a.hint(href='#')									
+								.hint__inner
+									h5 How to make your profile shine
+									p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
+					.edit__input__inner
+						.edit__input.input_single.col-md-9(ng-init="initial(#{JSON.stringify(user.custom._profile.links)})")
 							a.btn.social_media_btn.offical.lnr.lnr-checkmark-circle(ng-show="official.show_btn",ng-click="btn_click('official'); $event.stopPropagation();",data-name='offical',ng-class="{'active':official.has_active,'checked':official.data_from_server}") official site
 							.input_single(ng-show="!official.show_btn")
 								input(type='text', name='official',placeholder=('Add your official URL here. (Start with http/https)'),ng-model="official.data",ng-click='$event.stopPropagation();')
-
+						.edit__input.input_single.col-md-9
 							a.btn.social_media_btn.facebook.lnr.lnr-checkmark-circle(ng-show="facebook.show_btn",ng-click="btn_click('facebook');$event.stopPropagation();",data-name='facebook',ng-class="{'active':facebook.has_active,'checked':facebook.data_from_server}") 
 							.input_single(ng-show="!facebook.show_btn")
 								input(type='text', name='facebook',placeholder=('Add your facebook URL here. (Start with http/https)'),ng-model="facebook.data",ng-click='$event.stopPropagation();')
-
+						.edit__input.input_single.col-md-9
 							a.btn.social_media_btn.linkedin.lnr.lnr-checkmark-circle(ng-show="linkedin.show_btn",ng-click="btn_click('linkedin');$event.stopPropagation();",data-name='linkedin',ng-class="{'active':linkedin.has_active,'checked':linkedin.data_from_server}")
 							.input_single(ng-show="!linkedin.show_btn")
 								input(type='text', name='linkedin',placeholder=('Add your linkedin URL here. (Start with http/https)'),ng-model="linkedin.data",ng-click='$event.stopPropagation();')
-
+						.edit__input.input_single.col-md-9
 							a.btn.social_media_btn.twitter.lnr.lnr-checkmark-circle(ng-show="twitter.show_btn",ng-click="btn_click('twitter');$event.stopPropagation();",data-name='twitter',ng-class="{'active':twitter.has_active,'checked':twitter.data_from_server}")
 							.input_single(ng-show="!twitter.show_btn")
 								input(type='text', name='twitter',placeholder=('Add your twitter URL here. (Start with http/https)'),ng-model="twitter.data", ng-click='$event.stopPropagation();')
-
+						.edit__input.input_single.col-md-9
 							a.btn.social_media_btn.google.lnr.lnr-checkmark-circle(ng-show="google.show_btn",ng-click="btn_click('google');$event.stopPropagation();",data-name='google',ng-class="{'active':google.has_active,'checked':google.data_from_server}") 
 							.input_single(ng-show="!google.show_btn")
 								input(type='text', name='google',placeholder=('Add your google URL here. (Start with http/https)'),ng-model="google.data", ng-click='$event.stopPropagation();')
+				.btn_group.row_space-bottom--md.pull-right.col-md-6
+							.col-md-5
+								a.btn.cancel.btn--sm.btn--gray.btn_block(href='/dashboard') cancel
+							.col-md-7.no_pad
+								a.btn.btn_pri.save.btn--sm.btn--pri.btn_block#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event)") save changes			
 
-					.btn_group.col-md-6
-						a.btn.cancel(href='/dashboard') cancel
-						a.btn.btn_pri.save#update_btn_third.disable(data-router='/companies/profile/edit',href='javascript:void(0);',ng-click="upload('social_form',$event)") save&nbspchanges
+			.col-md-3
+				.profile_progress.round_corner.clearfix
+					h5 Profile Completion
+					span.profile__progress__percentage {{percentage}}
+					.profile__progress__bar.progress_bar_container.round_corner
+						#profile_progress_bar.progress_bar(ng-style="{width:percentage}") 
+
+					p You can access to our full feature after you complete the profile.
+					ul.progress__unfilled__list.clearfix
+						li(ng-repeat="(key,value) in links").progress__unfilled__list__item
+							a(href='{{value}}') {{key}}  
 
 
-
-
+			

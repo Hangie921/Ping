@@ -324,7 +324,7 @@ app.directive("contentDirective", function($compile) {
                     ul += "<li>" + scope.current.content[i] + "</li>";
                 }
                 ul += "</ul>";
-                ul = "<div class='list_container " + scope.current.type + "' contenteditable='true'>" + ul + "</div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div>";
+                ul = "<div class='list_container "  + scope.current.type + "' contenteditable='true'>" + ul + "</div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div>";
                 ul = $(ul);
                 var link_ul = $compile(ul);
                 var node_ul = link_ul(scope);
@@ -425,6 +425,7 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
 
 
 
+<<<<<<< HEAD
 
     // $scope.populateOptions = function populateOptions(selectElementId, defaultArr) {
     //     var selectElement = document.getElementById(selectElementId);
@@ -440,6 +441,10 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     // };
 
 
+=======
+    $scope.defaultCountry = countryArr;
+    $scope.defaultCity = s_a;
+>>>>>>> design
 
     $scope.populateCountries = function populateCountries(countryElementId, stateElementId) {
         // given the id of the <select> tag as function argument, it inserts <option> tags
@@ -495,7 +500,7 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     // .content and .functions_bar
     $scope.genSection = function($event) {
         console.log("genSection");
-        var node = $scope.compile_to_node(`<li><div class='input_single'><div class='menu_bar col-md-10'><ul><li><i class='lnr lnr-circle-minus grayscale_dark_cl'></i><a ng-click='hide_menu_bar($event)'>btn</a></li><li><a ng-click='genInput($event,"Text")'>Text</a></li><li><a ng-click='genInput($event,"List")'>List</a></li><li><a ng-click='genInput($event,"Quote")'>Quote</a></li></ul></div></div></li>`);
+        var node = $scope.compile_to_node(`<div class='input_single'><div class='menu_bar col-md-10'><ul><li><i class='lnr lnr-circle-minus grayscale_dark_cl'></i><a ng-click='hide_menu_bar($event)'>btn</a></li><li><a ng-click='genInput($event,"Text")'>Text</a></li><li><a ng-click='genInput($event,"List")'>List</a></li><li><a ng-click='genInput($event,"Quote")'>Quote</a></li></ul></div></div>`);
         $($event.target).siblings("ul").children("li:last-child").after(node);
     };
 

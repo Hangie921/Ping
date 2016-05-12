@@ -137,7 +137,7 @@ body.edit {
     font-size: 18px;
     font-family: $base_font_family;
     font-weight: 900;
-    background-color: $profile_edit_title_color;
+    background-color: $grayscale_7;
     height: 50px;
     box-sizing: border-box;
     padding-left: $space_lg;
@@ -277,15 +277,31 @@ body.edit {
 
 //========= About Your Company ==========
 
-.add_content {
+.new_content {
 	float:left;
 	width:100%; 
 	display:block;
-	min-height:36px;
+	height:60px;
+	clear:both;
+	margin:$space_xs 0;
+
+	.add__content {
+			float:left;
+			display:block;
+			cursor:pointer;
+			padding:12px 20px 20px $space_xs;
+			border-radius:30px;
+			@include prefix(( box-sizing:border-box ), webkit moz ms);
+
+			&:hover {
+				background-color:$grayscale_7;
+			}
+	}
 	
-	a {
+	.add__content__btn {
+		position:relative;
 		float:left;
-		padding:10px 0 0 24px;
+		padding:10px 0 0 40px;
 		display:block;
 		text-align:left;
 		width:100%;
@@ -299,63 +315,132 @@ body.edit {
 			display:inline-block;
 			position:absolute;
 			text-align: left;
-			left:0;
+			left:0px;
 		}
 	}
-}
 
+	.cancel__content__btn {
+
+		position:relative;
+		float:left;		
+		display:block;
+		text-align:left;
+		width:36px;
+		height:36px;
+
+		&:before {
+			content:"\f056";
+			font-family: fontawesome;
+			color:$pri_cl;
+			font-size:36px;
+			display:inline-block;
+			position:absolute;
+			text-align: left;
+			top:-5px;
+		}
+	}
+
+	.add__content__menu {
+			float:left;
+			display:block;
+			background-color:$grayscale_7;
+			padding:10px 5px 10px $space_xs;
+			border-radius:30px;
+			ul{
+			padding-left:$space_md;
+			float:left;
+			display:block;
+
+			li {
+				display:block;
+				float:left;
+
+
+
+				a {
+					display:block;
+					text-transform: capitalize;	
+					float:left;
+					border-radius:20px;
+					padding:2px 3px 5px 15px ;
+					margin-right:$space_xs;
+					
+					
+					&:hover {
+						background: $base_white;
+						cursor: pointer;
+					}
+				
+				}
+
+
+			}
+		} //ul
+	}//add content menu
+}//new content
+
+.new__content__input__group {
+	float:left;
+
+}
+.new__content__input__single {
+	float:left;
+	display:block;
+	clear:both;
+	width:100%;
+	margin-bottom:$space_sm;
+	position:relative;
+
+	&:hover .new__content__input__function__bar{
+			display: block;
+			color:$pri_light_cl;
+
+		}
+}
+.new__content__input {
+	
+	float:left;
+	width:100%;
+	clear:both;
+	textarea {
+		padding:$space_xs;
+		height:auto;
+	}
+}
+.new__content__input-text textarea{
+	min-height:200px;
+	height:auto;
+
+
+}
+.new__content__input-quote textarea{
+	min-height:100px;
+}
+.new__content__input__function__bar {
+	display:none;
+	position:absolute;
+	right:$space_xxs;
+	bottom:$space_xxs;
+
+	a {
+		color:$pri_dark_cl;
+		float:left;
+		display:block;
+		padding:3px;
+		cursor:pointer;
+
+		
+	}
+}
        
 
 
-.social_network {
+.edit_social_network {
     position: relative;
-    .title {
-        & a {
-            & .reminder {
-                width: 21px;
-                height: 21px;
-                background-color: $grayscale_dark_cl;
-                color: $grayscale_6;
-                border-radius: 50%;
-                font-size: $base_font_size;
-                line-height: 21px;
-                text-align: center;
-                position: absolute;
-                top: 16px;
-                right: 30px;
-            }
-        }
-    }
-    .input_container {
-        padding: 66px 207px 40px 73px;
-        & > .btn_pri {
-            margin-top: 166px;
-            text-transform: uppercase;
-            display: inline-block;
-            vertical-align: top;
-            width: 149px;
-            height: 50px;
-            margin-right: 10px;
-            font-size: $base_font_size;
-            &.cancel {
-                background-color: $grayscale_cl;
-                color: $base_white;
-            }
-            &.save {
-                width: 172px;
-            }
-            &.save.disable {
-                background-color: #ADC8C5;
-            }
-        }
         .btn.social_media_btn {
             width: 100%;
-            max-width: initial;
             height: 50px;
-            margin-bottom: 20px;
             position: relative;
-            line-height: 63px;
-            padding: 0px 0px;
             color: $base_white;
             background-color: $grayscale_cl;
             &.lnr-checkmark-circle:before {
@@ -415,9 +500,6 @@ body.edit {
                 }
             }
         }
-        & .input_single {
-            width: 100%;
-            margin-bottom: 21px;
-        }
-    } //.input_container
+        
+  
 } //.social_network
