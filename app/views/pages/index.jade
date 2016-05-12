@@ -1,18 +1,43 @@
-h1 This is for angular.js
+html(ng-app='pingApp')
+	head
+		script(src="bower_components/angular/angular.js")
+		script(src="bower_components/angular-route/angular-route.js")
+		script(src="js/controller.js")
 
-<html ng-app="phonecatApp">
-<head>
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="js/controllers.js"></script>
-</head>
-<body ng-controller="PhoneListCtrl">
+	body
+	h1 This is for angular.js
+	table
+		tr
+			th row number
+		tr(ng-repeat="i in [0, 1, 2, 3, 4, 5, 6, 7]")
+			td
+				{{i}}
 
-  <ul>
-    <li ng-repeat="phone in phones">
-      <span>{{phone.name}}</span>
-      <p>{{phone.snippet}}</p>
-    </li>
-  </ul>
+	div
+		p Name:
+			input(type="text" ng-model="name")
+		h1 Hello {{name}}
+	div(ng-controller="myCtrl")
+		p {{name}}
 
-</body>
-</html>
+	ul
+		li
+			a(href="#/") /
+		li
+			a(href="#/home") home.jade
+	div(ng-view)
+
+//- <head>
+//-   <script src="public/bower_components/angular/angular.js"></script>
+//-   //- <script src="public/js/controllers.js"></script>
+//- </head>
+//- <body ng-controller="PhoneListCtrl">
+
+//-   <ul>
+//-     <li ng-repeat="phone in phones">
+//-       <span>{{phone.name}}</span>
+//-       <p>{{phone.snippet}}</p>
+//-     </li>
+//-   </ul>
+
+//- </body>

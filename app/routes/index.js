@@ -27,9 +27,15 @@ router.get('/', function(req, res, next) {
         res.redirect('/dashboard');
     } else {
         res.redirect('/login');
+
     }
 });
 
+router.get('/partials/:name', function(req, res) {
+    var name = req.params.name;
+    console.log("in:", name);
+    res.render('partials/' + name);
+});
 
 var fs = require('fs');
 var dir = './uploads';
