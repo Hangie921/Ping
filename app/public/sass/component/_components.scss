@@ -30,24 +30,6 @@
 
 
 
-// ================ Tags =============================
-
-.tag {
-    float: left;
-    display:block;
-    height: 40px;
-    line-height: 40px;
-    padding: 1px 15px;
-    border-radius: 20px;
-    margin-right: 8px;
-    margin-top: 8px;
-    font-size: 16px;
-    &:last-child {
-        margin-right: 0px;
-    }
-}
-
-
 
 //================== Icons with titles ====================
 .icon_set{
@@ -91,6 +73,11 @@
     }
 }
 
+.icon_set.icon_set--gray {
+    & i.lnr {
+        color: $grayscale_dark_cl;
+    }
+}
 .icon_set-edit-heading {
     position:relative;
     margin-left:-32px;
@@ -146,20 +133,23 @@
 
 // ============== Tags ======================
 
+.tag_group {
+    margin-top: $space_sm;
+}
 .tag_single{
     float: left;
-    margin-bottom: $space_xs;
-    height: 40px;
-    margin-right: 10px;
     position: relative;
+   
+    
+}
+
+// == Tags Edit Group ======================
+.tag_group.edit_tag_group {
+
     .tag{
-        display:block;
-        line-height:40px;
-        padding-right:$space_lg;
-        text-align:left;
-        border-radius:20px;
-        font-size: $base_font_size;
+        padding-right:50px;
     }
+
     i{
         display:block;
         height:40px;
@@ -174,4 +164,23 @@
 
     }
 }
+
+// ================ Tags =============================
+
+.tag {
+    float: left;
+    display:block;
+    height: 40px;
+    line-height: 40px;
+    padding: 1px 15px;
+    border-radius: 20px;
+    margin-right: 8px;
+    margin-top: 8px;
+    font-size: 16px;
+    &:last-child {
+        margin-right: 0px;
+    }
+}
+
+
 

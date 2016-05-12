@@ -102,7 +102,7 @@ block content
 							.edit__input.input_single.col-md-9
 								label Company Culture
 								input(type='text',ng-model='culture',ng-keyup="$event.keyCode == '13' && update_tags('culture')",placeholder='Create some tags for your company! Hit Enter to add tag')
-								.tag_group
+								.tag_group.edit_tag_group
 									.tag_single(ng-repeat='culture in profile.culture')
 										a.tag.base_white.pri_cl_bg {{culture}}
 										a(ng-click='delete_tags(profile.culture,$index)')
@@ -111,7 +111,7 @@ block content
 								.input_single
 									label Company Technology
 									input(type='text',ng-model='technology',ng-keyup="$event.keyCode == '13' && update_tags('technology')",placeholder='Enter the technology tags you wanna add')
-									.tag_group
+									.tag_group.edit_tag_group
 										.tag_single(ng-repeat='technology in profile.technology')
 											a.tag.base_white.pri_cl_bg {{technology}}
 											a(ng-click='delete_tags(profile.technology,$index)')
@@ -125,11 +125,56 @@ block content
 							.edit__input.input_single.col-md-9
 								.input_single#who_u_r
 								label Who you are
-								.add_content.icon_set.icon_set--rg 
-									a.add_content__btn.btn(ng-click='genSection($event)') Add Content
-								ul(dnd-list="who_u_r")
-									li(ng-repeat="doc in who_u_r",dnd-draggable='doc',dnd-moved='who_u_r.splice($index,1)',dnd-effect-allowed='move',ng-init="current = doc")
-										.input_single
+
+							//- Add New Content Menu Bar
+							.new_content.icon_set.icon_set--gray.icon_set--rg
+								.add__content.clearfix
+									a.add__content__btn.btn(ng-click='genSection($event)') Add Content
+								.add__content__menu.clearfix.hidden
+									a.cancel__content__btn(href="#")
+									ul
+										li
+											a(href="#")
+												.icon_set.icon_set--rg
+													i.lnr.lnr-text-align-left
+													span text
+										li
+											a(href="#")
+												.icon_set.icon_set--rg
+													i.lnr.lnr-list
+													span list
+										li
+											a(href="#")
+												.icon_set.icon_set--rg
+													i.lnr.lnr-pushpin
+													span quote
+
+							.new__content__input__group.col-md-9
+								ul
+									li.new__content__input__single.clearfix
+										.new__content__input.new__content__input-text
+											textarea
+										.new__content__input__function__bar
+											a.new__content__move__btn.lnr.lnr-move.grayscale_dark_cl
+											a.new__content__trash__btn.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
+									li.new__content__input__single.clearfix
+										.new__content__input.new__content__input-list
+											textarea
+										.new__content__input__function__bar
+											a.new__content__move__btn.lnr.lnr-move.grayscale_dark_cl
+											a.new__content__trash__btn.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
+									li.new__content__input__single.clearfix
+										.new__content__input.new__content__input-quote
+											textarea
+										.new__content__input__function__bar
+											a.new__content__move__btn.lnr.lnr-move.grayscale_dark_cl
+											a.new__content__trash__btn.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
+
+
+
+								//- ul(dnd-list="who_u_r")
+								//- 	li(ng-repeat="doc in who_u_r",dnd-draggable='doc',dnd-moved='who_u_r.splice($index,1)',dnd-effect-allowed='move',ng-init="current = doc")
+								//- 		.input_single
 											//- .menu_bar.col-md-10
 											//- 	ul
 											//- 		li
@@ -151,15 +196,15 @@ block content
 											//- 	i.lnr.lnr-move.grayscale_dark_cl
 											//- 	i.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
 
-							.input_group#what_u_do
-								label What&nbspu&nbspdo
-								ul
-									li(ng-repeat="doc in what_u_do ",ng-attr-data-index="{{$index}}",ng-init="current = doc")
-										.input_single
+							//- .input_group#what_u_do
+							//- 	label What&nbspu&nbspdo
+							//- 	ul
+							//- 		li(ng-repeat="doc in what_u_do ",ng-attr-data-index="{{$index}}",ng-init="current = doc")
+							//- 			.input_single
 											
-											content-directive
+							//- 				content-directive
 											
-								a.btn.clear_both(ng-click='genSection($event)') Add Content
+							//- 	a.btn.clear_both(ng-click='genSection($event)') Add Content
 					.btn_group.row_space-bottom--md.pull-right.col-md-6
 							.col-md-5
 								a.btn.cancel.btn--sm.btn--gray.btn_block(href='/dashboard') cancel

@@ -324,7 +324,7 @@ app.directive("contentDirective", function($compile) {
                     ul += "<li>" + scope.current.content[i] + "</li>";
                 }
                 ul += "</ul>";
-                ul = "<div class='list_container " + scope.current.type + "' contenteditable='true'>" + ul + "</div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div>";
+                ul = "<div class='list_container "  + scope.current.type + "' contenteditable='true'>" + ul + "</div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div>";
                 ul = $(ul);
                 var link_ul = $compile(ul);
                 var node_ul = link_ul(scope);
@@ -370,14 +370,14 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
 
     //=================== Company info section ====================
     // variable "data" is from the jade
-    // variable "country_arr", "s_a" are from location.js
+    // variable "countryArr", "s_a" are from location.js
     // function "populateCountries" and "populateCity" are also
 
 
     $scope.selectedCountry = data.location.country?data.location.country:null;
     $scope.selectedCity = data.location.city?data.location.city:null;
 
-    $scope.defaultCountry = country_arr;
+    $scope.defaultCountry = countryArr;
     $scope.defaultCity = s_a;
 
     $scope.populateCountries = function populateCountries(countryElementId, stateElementId) {
@@ -386,8 +386,8 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         countryElement.length = 0;
         countryElement.options[0] = data.location.country? new Option(data.location.country, data.location.country) : new Option('Select Country', '-1');
         countryElement.selectedIndex = 0;
-        for (var i = 0; i < country_arr.length; i++) {
-            countryElement.options[countryElement.length] = new Option(country_arr[i], country_arr[i]);
+        for (var i = 0; i < countryArr.length; i++) {
+            countryElement.options[countryElement.length] = new Option(countryArr[i], countryArr[i]);
         }
 
         // Assigned all countries. Now assign event listener for the states.
@@ -432,7 +432,7 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     // .content and .functions_bar
     $scope.genSection = function($event) {
         console.log("genSection");
-        var node = $scope.compile_to_node(`<li><div class='input_single'><div class='menu_bar col-md-10'><ul><li><i class='lnr lnr-circle-minus grayscale_dark_cl'></i><a ng-click='hide_menu_bar($event)'>btn</a></li><li><a ng-click='genInput($event,"Text")'>Text</a></li><li><a ng-click='genInput($event,"List")'>List</a></li><li><a ng-click='genInput($event,"Quote")'>Quote</a></li></ul></div></div></li>`);
+        var node = $scope.compile_to_node(`<div class='input_single'><div class='menu_bar col-md-10'><ul><li><i class='lnr lnr-circle-minus grayscale_dark_cl'></i><a ng-click='hide_menu_bar($event)'>btn</a></li><li><a ng-click='genInput($event,"Text")'>Text</a></li><li><a ng-click='genInput($event,"List")'>List</a></li><li><a ng-click='genInput($event,"Quote")'>Quote</a></li></ul></div></div>`);
         $($event.target).siblings("ul").children("li:last-child").after(node);
     };
 
