@@ -370,14 +370,14 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
 
     //=================== Company info section ====================
     // variable "data" is from the jade
-    // variable "country_arr", "s_a" are from location.js
+    // variable "countryArr", "s_a" are from location.js
     // function "populateCountries" and "populateCity" are also
 
 
     $scope.selectedCountry = data.location.country?data.location.country:null;
     $scope.selectedCity = data.location.city?data.location.city:null;
 
-    $scope.defaultCountry = country_arr;
+    $scope.defaultCountry = countryArr;
     $scope.defaultCity = s_a;
 
     $scope.populateCountries = function populateCountries(countryElementId, stateElementId) {
@@ -386,8 +386,8 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         countryElement.length = 0;
         countryElement.options[0] = data.location.country? new Option(data.location.country, data.location.country) : new Option('Select Country', '-1');
         countryElement.selectedIndex = 0;
-        for (var i = 0; i < country_arr.length; i++) {
-            countryElement.options[countryElement.length] = new Option(country_arr[i], country_arr[i]);
+        for (var i = 0; i < countryArr.length; i++) {
+            countryElement.options[countryElement.length] = new Option(countryArr[i], countryArr[i]);
         }
 
         // Assigned all countries. Now assign event listener for the states.
