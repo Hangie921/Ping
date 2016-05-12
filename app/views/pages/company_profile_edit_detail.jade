@@ -160,11 +160,24 @@ block content
 											content-directive
 											
 								a.btn.clear_both(ng-click='genSection($event)') Add Content
-					.btn_group.col-md-6
-						a.btn.cancel(href='/dashboard') cancel
-						a.btn.btn_pri.save#update_btn_second.disable(data-router='/companies/profile/edit',ng-click="pack_details()") save&nbspchanges
+					.btn_group.row_space-bottom--md.pull-right.col-md-6
+							.col-md-5
+								a.btn.cancel.btn--sm.btn--gray.btn_block(href='/dashboard') cancel
+							.col-md-7.no_pad
+								a.btn.btn_pri.save.btn--sm.btn--pri.btn_block#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event)") save changes			
 
 
+			.col-md-3
+				.profile_progress.round_corner.clearfix
+					h5 Profile Completion
+					span.profile__progress__percentage {{percentage}}
+					.profile__progress__bar.progress_bar_container.round_corner
+						#profile_progress_bar.progress_bar(ng-style="{width:percentage}") 
+
+					p You can access to our full feature after you complete the profile.
+					ul.progress__unfilled__list.clearfix
+						li(ng-repeat="(key,value) in links").progress__unfilled__list__item
+							a(href='{{value}}') {{key}}  
 
 
 			

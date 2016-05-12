@@ -285,7 +285,7 @@ body.edit {
 	
 	a {
 		float:left;
-		padding:10px 0 0 24px;
+		padding:10px 0 0 40px;
 		display:block;
 		text-align:left;
 		width:100%;
@@ -299,7 +299,7 @@ body.edit {
 			display:inline-block;
 			position:absolute;
 			text-align: left;
-			left:0;
+			left:15px;
 		}
 	}
 }
@@ -307,47 +307,8 @@ body.edit {
        
 
 
-.social_network {
-    position: relative;
-    .title {
-        & a {
-            & .reminder {
-                width: 21px;
-                height: 21px;
-                background-color: $grayscale_dark_cl;
-                color: $grayscale_6;
-                border-radius: 50%;
-                font-size: $base_font_size;
-                line-height: 21px;
-                text-align: center;
-                position: absolute;
-                top: 16px;
-                right: 30px;
-            }
-        }
-    }
-    .input_container {
-        padding: 66px 207px 40px 73px;
-        & > .btn_pri {
-            margin-top: 166px;
-            text-transform: uppercase;
-            display: inline-block;
-            vertical-align: top;
-            width: 149px;
-            height: 50px;
-            margin-right: 10px;
-            font-size: $base_font_size;
-            &.cancel {
-                background-color: $grayscale_cl;
-                color: $base_white;
-            }
-            &.save {
-                width: 172px;
-            }
-            &.save.disable {
-                background-color: #ADC8C5;
-            }
-        }
+.edit_social_network {
+    position: relative;       
         .btn.social_media_btn {
             width: 100%;
             max-width: initial;
@@ -415,9 +376,6 @@ body.edit {
                 }
             }
         }
-        & .input_single {
-            width: 100%;
-            margin-bottom: 21px;
-        }
-    } //.input_container
+        
+  
 } //.social_network
