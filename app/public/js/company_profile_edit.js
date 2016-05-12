@@ -339,31 +339,79 @@ app.directive("contentDirective", function($compile) {
 
 
 // 2nd controller of the edit mode with the detail_controller
+//
+// 1.所有變數要宣告在外面才是這個controller的全域變數
+// 2.funciton 功用如下
+// $scope = $;
+// $.compile_to_node():將動態插入的DOM compile 過後再插入，這樣可以註冊$scope的function和變數，
+//     類似js的 註冊事件效果
+// $.initial():將DB資料插入變數，並排除空值會出現undefined的狀況
+// $.populateCity(),$.populateCountries(),$.populateOptions()三個function是用來
+//      列印出所有select的option,
+// $.genSection 是用來新增 who_u_r & what_u_do 的區塊
+// 其他function就如同function name所寫的
+
 
 app.controller('detail_controller', ['$scope', '$compile', 'percentage_service', function($scope, $compile, percentage_service) {
     $scope.profile = data;
-    $scope.who_u_r = data.who_u_r;
-    $scope.what_we_do = data.what_we_do;
+    $scope.who_u_r = data.who_u_r ? data.who_u_r : [];
+    $scope.what_we_do = data.what_we_do ? data.what_we_do : [];
+    $scope.who_u_r_to_DB = [];
+    $scope.what_u_do_to_DB = [];
 
-    $scope.test = 'test in detail_controller';
-    $scope.profile = data;
+    //All xxxArr are loaded from loaction.js
+    $scope.defaultCountry = countryArr;
+    $scope.defaultCity = s_a;
+    $scope.defaultIndustry = industryArr;
+    $scope.defaultSize = sizeArr;
+    $scope.defaultYear = yearArr;
+    //All xxxArr are loaded from loaction.js
+
+
+    $scope.selected = {
+        location: { country: "", city: "" },
+        year: "",
+        size: "",
+        industry: ""
+    };
+
+// ================== set the variables above ============================
+
     $scope.compile_to_node = function(DOM) {
         var jq = $(DOM); // compile the dynamic DOM and 
         var link = $compile(jq); // set the $scope into it
         return link($scope);
-
     };
+
+    $scope.industryOptions = {
+        options:industryArr,
+        selected: data.industry,
+    };
+
+    $scope.sizeOptions = {
+        options:sizeArr,
+        selected:data.size
+    };
+    $scope.yearOptions = {
+        options:yearArr,
+        selected:data.establish_year
+    };
+
+
 
     $scope.initial = function() {
         console.log("init");
+        console.log($scope.industryOptions.options);
+        $scope.selected.location.country = data.location.country ? data.location.country : [];
+        $scope.selected.location.city = data.location.city ? data.location.city : [];
+        
+        $scope.selected.year = data.establish_year ? data.establish_year : "";
+        $scope.selected.size = data.size ? data.size : "";
+        $scope.industryOptions.options[0].value = data.industry ? data.industry : "";
 
-        $scope.who_u_r = data.who_u_r;
-        $scope.what_u_do = data.what_u_do;
-        $scope.who_u_r_to_DB = [];
-        $scope.what_u_do_to_DB = [];
+        $scope.industryOptions.options[0].value = data.industry ? data.industry : "Select Industry";
 
         percentage_service.calculate(data, percentage_service.percentage);
-        //@To do: show the percentage on the page
 
     };
 
@@ -372,19 +420,34 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     // variable "data" is from the jade
     // variable "countryArr", "s_a" are from location.js
     // function "populateCountries" and "populateCity" are also
+    
+    
 
 
-    $scope.selectedCountry = data.location.country?data.location.country:null;
-    $scope.selectedCity = data.location.city?data.location.city:null;
 
-    $scope.defaultCountry = countryArr;
-    $scope.defaultCity = s_a;
+
+    // $scope.populateOptions = function populateOptions(selectElementId, defaultArr) {
+    //     var selectElement = document.getElementById(selectElementId);
+    //     console.log(selectElement);
+    //     selectElement.length = 0;
+
+    //     selectElement.options[0] = $scope.selected[selectElementId] ? new Option($scope.selected[selectElementId], $scope.selected[selectElementId]) : new Option('Select ' + selectElementId, '-1');
+    //     for (var i = 0; i < defaultArr.length; i++) {
+    //         selectElement.options[selectElement.length] = new Option(defaultArr[i], defaultArr[i]);
+    //     }
+    //     selectElement.selectedIndex = 2;
+
+    // };
+
+
 
     $scope.populateCountries = function populateCountries(countryElementId, stateElementId) {
         // given the id of the <select> tag as function argument, it inserts <option> tags
         var countryElement = document.getElementById(countryElementId);
         countryElement.length = 0;
-        countryElement.options[0] = data.location.country? new Option(data.location.country, data.location.country) : new Option('Select Country', '-1');
+        
+
+        countryElement.options[0] = data.location.country ? new Option(data.location.country, data.location.country) : new Option('Select Country', '-1');
         countryElement.selectedIndex = 0;
         for (var i = 0; i < countryArr.length; i++) {
             countryElement.options[countryElement.length] = new Option(countryArr[i], countryArr[i]);
@@ -582,6 +645,20 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
 
     //=================== Update all the info in the page ===============
     $scope.update_to_DB = function() {
+        // var dataToDb = {
+        //     culture: $scope.profile.culture,
+        //     technology: $scope.profile.technology,
+        //     who_u_r: $scope.who_u_r_to_DB,
+        //     what_u_do: $scope.what_u_do_to_DB,
+
+        //     location: $scope.selected.location,
+        //     industry: $scope.selected.industry,
+        //     size: $scope.selected.size,
+        //     establish_year: $scope.selected.year
+        // };
+
+
+
         var formData = new FormData();
 
         formData.append("CustomField", "This is some example data");
@@ -589,6 +666,12 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         formData.append("technology", JSON.stringify($scope.profile.technology));
         formData.append("who_u_r", JSON.stringify($scope.who_u_r_to_DB));
         formData.append("what_u_do", JSON.stringify($scope.what_u_do_to_DB));
+
+        formData.append("location", $scope.selected.location);
+        formData.append("industry", $scope.selected.industry);
+        formData.append("size", $scope.selected.size);
+        formData.append("establish_year", $scope.selected.year);
+
 
         var oReq = new XMLHttpRequest();
         oReq.onreadystatechange = function() {
@@ -608,7 +691,9 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
             }
         };
         oReq.open("POST", "/companies/profile/edit", true);
+
         oReq.send(formData);
+
     };
     $scope.delete_tags = function(array, index) {
         // splice the tags data from the $scope.profile.culture or 

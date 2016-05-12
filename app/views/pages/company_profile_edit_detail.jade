@@ -12,7 +12,7 @@ block script
 	script.
 		var data = !{JSON.stringify(user.custom._profile)};
 block body_class
-	body.edit.detail(ng-app="profile_edit_app",ng-controller='detail_controller')
+	body.edit.detail(ng-app="profile_edit_app",ng-controller='detail_controller',ng-init='initial()')
 		-
 			var profile = user.custom._profile;
 			var type = user.custom._profile.type;
@@ -28,11 +28,11 @@ block content
 			.side_bar-left.col-md-2.clearfix.no_pad
 				.base_white_bg.grayscale_dark_cl
 					ul.side_bar_menu.menu
-						li.menu_item.icon_set.icon_set--sm.active
+						li.menu_item.icon_set.icon_set--sm
 							a(href='/companies/profile/edit/')
 								i.lnr.lnr-smile
 								span Company&nbspBranding
-						li.menu_item.icon_set.icon_set--sm.icon_set
+						li.menu_item.icon_set.icon_set--sm.icon_set.active
 							a(href='/companies/profile/edit?section=detail')
 								i.lnr.lnr-license
 								span Detail/Description
@@ -43,7 +43,7 @@ block content
 			//- Center Column //////////////
 			.content_container-three-col.col-md-7
 				h1 Edit Profile
-				form(id='details_description',action='')
+				form(name='details_description',id='details_description',action='',enctype='multipart/form-data')
 					//- Company Info Section //////////
 					.edit_company_info.edit_group#company_info
 						.edit__title__bar
@@ -58,10 +58,8 @@ block content
 							//- Industry //////////
 							.edit__input.input_single.input_select.col-md-9
 									label Industry <br/>
-									select(name='industry')
-										option(value="#{profile.industry}") #{profile.industry}
-										option(value="test1") option1
-										option(value="test2") option2
+									select(name='industry',id ='industry')
+										option(ng-repeat="option in industryOptions.options",value="{{option.value}}") {{option.name}}
 							.edit__input.input_single.input_select.col-md-9
 									.row
 										.col-md-12
@@ -74,24 +72,17 @@ block content
 											select(name='country',id="country",ng-init="populateCountries('country','city')",onchange="populateCity('country','city')")
 										.input_inline.col-md-4
 											select(name='city', id = "city")
-												option {{profile.location.city}}
 												
 							.edit__input.input_single.input_select.no_label.col-md-5
 									
 							.edit__input.input_single.input_select.col-md-9
 									label Company Size <br/>
-									select(name='size')
-										option(value="1-10") 1-10
-										option(value="11-20") 11-20
-										option(value="21-30") 21-30
-										option(value="31-40") 31-40
+									select(name='size',id ='size')
+										option(ng-repeat="option in sizeOptions.options", value="{{option.value}}") {{option.name}}
 							.edit__input.input_single.input_select.col-md-9
 									label Year of Establishment <br/>
-									select(name='establish_year')
-										option(value="0-3") 0-3
-										option(value="4-6") 4-6
-										option(value="7-10") 7-10
-										option(value="10up") 10UP
+									select(name='establish_year',id = "year")
+										option(ng-repeat="option in yearOptions.options",value="{{option.value}}") {{option.name}}
 					//- Company Tags Section /////////
 					.edit_company_info.edit_group#company_tags
 						.edit__title__bar

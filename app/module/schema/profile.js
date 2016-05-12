@@ -38,7 +38,7 @@ var companyProfileSchema = new mongoose.Schema({
         enum: ['1-10', '10-50', '50-100', '100+', '1000+']
     },
     industry: { type: String, default: "" },
-    establish_year: Number,
+    establish_year: {type:Number,default:""},
     location: {
         country: { type: String, default: "" },
         city: { type: String, default: "" }
