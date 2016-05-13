@@ -58,8 +58,9 @@ block content
 							//- Industry //////////
 							.edit__input.input_single.input_select.col-md-9
 									label Industry <br/>
-									select(name='industry',id ='industry')
-										option(ng-repeat="option in industryOptions.options",value="{{option.value}}") {{option.name}}
+									select(name='industry',id ='industry',ng-model="changedIndustry")
+										option(value='selected.industry.value') {{selected.industry.name}}
+										option(ng-selected="selected.industry.value == option.value",ng-repeat="option in industryOptions.options",value="{{option.value}}") {{option.name}}
 							.edit__input.input_single.input_select.col-md-9
 									.row
 										.col-md-12
@@ -77,12 +78,13 @@ block content
 									
 							.edit__input.input_single.input_select.col-md-9
 									label Company Size <br/>
-									select(name='size',id ='size')
-										option(ng-repeat="option in sizeOptions.options", value="{{option.value}}") {{option.name}}
+									select(name='size',id ='size',ng-model = "changedSize")
+										option(value='selected.size.value') {{selected.size.name}}
+										option(ng-selected="seleted.size.value == option.value",ng-repeat="option in sizeOptions.options", value="{{option.value}}") {{option.name}}
 							.edit__input.input_single.input_select.col-md-9
 									label Year of Establishment <br/>
-									select(name='establish_year',id = "year")
-										option(ng-repeat="option in yearOptions.options",value="{{option.value}}") {{option.name}}
+									select(name='establish_year',id = "year",ng-model='changedYear')
+										option(ng-selected=" selected.year.value == option.value",ng-repeat="option in yearOptions.options",value="{{option.value}}") {{option.name}}
 					//- Company Tags Section /////////
 					.edit_company_info.edit_group#company_tags
 						.edit__title__bar
@@ -112,95 +114,110 @@ block content
 							h3.icon_set.icon_set-edit-heading.icon_set--rg  
 								i.lnr.lnr-smile
 								span About Your Company
-						.edit__input__inner(ng-init="")
+						.edit__input__inner
 							.edit__input.input_single.col-md-9
 								.input_single#who_u_r
 								label Who you are
 
 							//- Add New Content Menu Bar
 							.new_content.icon_set.icon_set--gray.icon_set--rg
-								.add__content.clearfix
-									a.add__content__btn.btn(ng-click='genSection($event)') Add Content
-								.add__content__menu.clearfix.hidden
-									a.cancel__content__btn(href="#")
+								.add__content.clearfix#add__content(ng-class='{hidden:showWhoMenu}')
+									a.add__content__btn.btn(ng-click="toShow('who')") Add Content
+								.add__content__menu.clearfix.hidden#add__content__menu(ng-class='{editAddContentShow:showWhoMenu}')
+									a.cancel__content__btn(ng-click="toHide('who')")#abord_add_content
 									ul
 										li
-											a(href="#")
+											a(ng-click="genContent($event,'t','who')")
 												.icon_set.icon_set--rg
 													i.lnr.lnr-text-align-left
 													span text
 										li
-											a(href="#")
+											a(ng-click="genContent($event,'l','who')")
 												.icon_set.icon_set--rg
 													i.lnr.lnr-list
 													span list
 										li
-											a(href="#")
+											a(ng-click="genContent($event,'q','who')")
 												.icon_set.icon_set--rg
 													i.lnr.lnr-pushpin
 													span quote
 
 							.new__content__input__group.col-md-9
-								ul
-									li.new__content__input__single.clearfix
-										.new__content__input.new__content__input-text
-											textarea
-										.new__content__input__function__bar
-											a.new__content__move__btn.lnr.lnr-move.grayscale_dark_cl
-											a.new__content__trash__btn.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
-									li.new__content__input__single.clearfix
-										.new__content__input.new__content__input-list
-											textarea
-										.new__content__input__function__bar
-											a.new__content__move__btn.lnr.lnr-move.grayscale_dark_cl
-											a.new__content__trash__btn.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
-									li.new__content__input__single.clearfix
-										.new__content__input.new__content__input-quote
-											textarea
-										.new__content__input__function__bar
-											a.new__content__move__btn.lnr.lnr-move.grayscale_dark_cl
-											a.new__content__trash__btn.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
-
-
 
 								//- ul(dnd-list="who_u_r")
 								//- 	li(ng-repeat="doc in who_u_r",dnd-draggable='doc',dnd-moved='who_u_r.splice($index,1)',dnd-effect-allowed='move',ng-init="current = doc")
-								//- 		.input_single
-											//- .menu_bar.col-md-10
-											//- 	ul
-											//- 		li
-											//- 			i.lnr.lnr-circle-minus.grayscale_dark_cl
-											//- 			a 
-											//- 		li
-											//- 			i.lnr.lnr-text-align-left.grayscale_dark_cl
-											//- 			a Text
-											//- 		li
-											//- 			i.lnr.lnr-list.grayscale_dark_cl
-											//- 			a List
-											//- 		li
-											//- 			i.lnr.lnr-pushpin.grayscale_dark_cl
-											//- 			a Quote
 											content-directive
-											//- .content(class="{{doc.type}}")
-											//- 	textarea(rows='10',cols='40',).input {{doc.content}}
-											//- .functions_bar
-											//- 	i.lnr.lnr-move.grayscale_dark_cl
-											//- 	i.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
+								ul#content_pool_of_who(dnd-list="who_u_r")
+									li.new__content__input__single.clearfix(ng-repeat="doc in who_u_r",ng-init=" current = doc ",dnd-draggable='doc',dnd-moved='who_u_r.splice($index,1)',,dnd-effect-allowed='move')
+										content-directive
+										.new__content__input__function__bar
+											a.new__content__move__btn.lnr.lnr-move.grayscale_dark_cl
+											a.new__content__trash__btn.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
 
-							//- .input_group#what_u_do
-							//- 	label What&nbspu&nbspdo
-							//- 	ul
-							//- 		li(ng-repeat="doc in what_u_do ",ng-attr-data-index="{{$index}}",ng-init="current = doc")
-							//- 			.input_single
-											
-							//- 				content-directive
-											
-							//- 	a.btn.clear_both(ng-click='genSection($event)') Add Content
+									//- Following is the original code from Janet
+									//-
+									//- li.new__content__input__single.clearfix
+									//- 	.new__content__input.new__content__input-text(data-type='text')
+									//- 		textarea
+									//- 	.new__content__input__function__bar
+									//- 		a.new__content__move__btn.lnr.lnr-move.grayscale_dark_cl
+									//- 		a.new__content__trash__btn.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
+									//- li.new__content__input__single.clearfix(data-type='list')
+									//- 	.new__content__input.new__content__input-list(contenteditable="true")(data-type='list')
+									//- 		ul
+									//- 			li 123
+									//- 			li 234
+									//- 	.new__content__input__function__bar
+									//- 		a.new__content__move__btn.lnr.lnr-move.grayscale_dark_cl
+									//- 		a.new__content__trash__btn.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
+									//- li.new__content__input__single.clearfix
+									//- 	.new__content__input.new__content__input-quote(data-type='quote')
+									//- 		textarea
+									//- 	.new__content__input__function__bar
+									//- 		a.new__content__move__btn.lnr.lnr-move.grayscale_dark_cl
+									//- 		a.new__content__trash__btn.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
+						.edit__input__inner
+							.edit__input.input_single.col-md-9
+								.input_single#what_u_do
+								label What you do
+
+							//- Add New Content Menu Bar
+							.new_content.icon_set.icon_set--gray.icon_set--rg
+								.add__content.clearfix#add__content(ng-class='{hidden:showWhatMenu}')
+									a.add__content__btn.btn(ng-click="toShow('what')") Add Content
+								.add__content__menu.clearfix.hidden#add__content__menu(ng-class='{editAddContentShow:showWhatMenu}')
+									a.cancel__content__btn(ng-click="toHide('what')")#abord_add_content
+									ul
+										li
+											a(ng-click="genContent($event,'t','what')")
+												.icon_set.icon_set--rg
+													i.lnr.lnr-text-align-left
+													span text
+										li
+											a(ng-click="genContent($event,'l','what')")
+												.icon_set.icon_set--rg
+													i.lnr.lnr-list
+													span list
+										li
+											a(ng-click="genContent($event,'q','what')")
+												.icon_set.icon_set--rg
+													i.lnr.lnr-pushpin
+													span quote
+
+							.new__content__input__group.col-md-9
+								ul#content_pool_of_what(dnd-list = 'what_u_do')
+									li.new__content__input__single.clearfix(ng-repeat="doc in what_u_do",ng-init="current = doc",dnd-draggable='doc',dnd-moved='what_u_do.splice($index,1)',,dnd-effect-allowed='move')
+										content-directive
+										.new__content__input__function__bar
+											a.new__content__move__btn.lnr.lnr-move.grayscale_dark_cl
+											a.new__content__trash__btn.lnr.lnr-trash.grayscale_dark_cl(ng-click='dropSection($event)')
+
+
 					.btn_group.row_space-bottom--md.pull-right.col-md-6
 							.col-md-5
 								a.btn.cancel.btn--sm.btn--gray.btn_block(href='/dashboard') cancel
 							.col-md-7.no_pad
-								a.btn.btn_pri.save.btn--sm.btn--pri.btn_block#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event)") save changes			
+								a.btn.btn_pri.save.btn--sm.btn--pri.btn_block#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="pack_details()") save changes			
 
 
 			.col-md-3

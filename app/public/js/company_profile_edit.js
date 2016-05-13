@@ -14,7 +14,7 @@
 // 2. Modify DOM in angular, not in jade to reduce the server loading,
 //    remove the code in jade to clearify
 //     list:
-//     # Who_u_r and what_we_do in the view mode
+//     # Who_u_r and what_u_do in the view mode
 //     # Company culture in the view mode
 //     # Determine which part of the menu to show in menu.jade
 //     # Use angular to fully replace jQuery , set the sidebar menu initial as
@@ -131,7 +131,7 @@ app.service('percentage_service', function() {
                 counter++;
             } else {
                 //3. 如果不存在，找出它屬於哪個section,把那個section的url記錄下來
-                console.log("type of ", key, "= ", typeof doc2[key]);
+                // console.log("type of ", key, "= ", typeof doc2[key]);
                 for (var inner_key in section_links_temp) {
                     for (var j = 1; j < section_links_temp[inner_key].length; j++) {
                         if (key == section_links_temp[inner_key][j]) {
@@ -142,8 +142,8 @@ app.service('percentage_service', function() {
             }
         }
 
-        console.log("counter", counter);
-        console.log("doc2 = ", doc2);
+        // console.log("counter", counter);
+        // console.log("doc2 = ", doc2);
         var temp_percentage = ((counter) / 13 * 100).toString() + '%';
         console.log("percentage:", temp_percentage);
         percentage.counter = counter;
@@ -184,6 +184,7 @@ app.service('percentage_service', function() {
 app.controller('profile_edit_controller', ['$scope', '$http', 'percentage_service', function($scope, $http, percentage_service) {
 
     $scope.links = null;
+    $scope.percentage = null;
     $scope.doc = null;
     $scope.test = 'test in profile_edit_controller';
     $scope.res = {};
@@ -247,12 +248,13 @@ app.controller('profile_edit_controller', ['$scope', '$http', 'percentage_servic
 
     // };
 
-    $scope.upload = function(formName, event) {
-        var btn = event.currentTarget;
+    $scope.upload = function(formName) {
+
         var formData = new FormData(document.forms.namedItem(formName));
         formData.append("CustomField", "This is some extra data");
+
         var oReq = new XMLHttpRequest();
-        oReq.onreadystatechange = function(resp_inside) {
+        oReq.onreadystatechange = function() {
 
             if (oReq.readyState == 4 && oReq.status == 200) {
                 var res = JSON.parse(oReq.response);
@@ -274,7 +276,7 @@ app.controller('profile_edit_controller', ['$scope', '$http', 'percentage_servic
         };
 
 
-        oReq.open("POST", btn.getAttribute("data-router"), true);
+        oReq.open("POST", '/companies/profile/edit)', true);
         oReq.send(formData);
 
     };
@@ -309,26 +311,22 @@ app.directive("contentDirective", function($compile) {
     return {
         restrict: 'E',
         replace: true,
-        template: "<div class='content'></div>",
+        template: "<div class='new__content__input new__content__input-text'></div>",
         link: function(scope, element, attrs) {
-            if (scope.current.type == 'Text' || scope.current.type == 'Quote') {
-                var DOM = "<textarea class='" + scope.current.type + "' rows='10',cols='40'>" + scope.current.content + "</textarea><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div>";
-                DOM = $(DOM);
-                var link = $compile(DOM);
-                var node = link(scope);
-                element.append(node);
-            } else {
+            if (scope.current.type === 'Text') {
+                var DOM = "<textarea>" + scope.current.content + "</textarea>";
+                element.append(DOM);
+            } else if (scope.current.type === 'Quote') {
+                var DOM = "<textarea>" + scope.current.content + "</textarea>";
+                element.append(DOM);
+            } else if (scope.current.type === 'List') {
                 // @Todo 20160426: set class to this lists
                 var ul = "<ul>";
                 for (var i = 0; i < scope.current.content.length; i++) {
                     ul += "<li>" + scope.current.content[i] + "</li>";
                 }
                 ul += "</ul>";
-                ul = "<div class='list_container "  + scope.current.type + "' contenteditable='true'>" + ul + "</div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div>";
-                ul = $(ul);
-                var link_ul = $compile(ul);
-                var node_ul = link_ul(scope);
-                element.append(node_ul);
+                element.append(ul);
             }
         }
     };
@@ -353,66 +351,71 @@ app.directive("contentDirective", function($compile) {
 
 
 app.controller('detail_controller', ['$scope', '$compile', 'percentage_service', function($scope, $compile, percentage_service) {
+    $scope.links = null;
+    $scope.percentage = null;
     $scope.profile = data;
     $scope.who_u_r = data.who_u_r ? data.who_u_r : [];
-    $scope.what_we_do = data.what_we_do ? data.what_we_do : [];
+    $scope.what_u_do = data.what_u_do ? data.what_u_do : [];
     $scope.who_u_r_to_DB = [];
     $scope.what_u_do_to_DB = [];
 
     //All xxxArr are loaded from loaction.js
     $scope.defaultCountry = countryArr;
     $scope.defaultCity = s_a;
-    $scope.defaultIndustry = industryArr;
-    $scope.defaultSize = sizeArr;
-    $scope.defaultYear = yearArr;
     //All xxxArr are loaded from loaction.js
 
+    $scope.changedYear = null;
+    $scope.changedIndustry = null;
+    $scope.changedSize = null;
 
-    $scope.selected = {
-        location: { country: "", city: "" },
-        year: "",
-        size: "",
-        industry: ""
-    };
+    $scope.selected = {};
 
-// ================== set the variables above ============================
 
-    $scope.compile_to_node = function(DOM) {
-        var jq = $(DOM); // compile the dynamic DOM and 
-        var link = $compile(jq); // set the $scope into it
-        return link($scope);
-    };
+
+    // ================== set the variables above ============================
+
+
 
     $scope.industryOptions = {
-        options:industryArr,
-        selected: data.industry,
+        options: industryArr
     };
 
     $scope.sizeOptions = {
-        options:sizeArr,
-        selected:data.size
+        options: sizeArr
     };
     $scope.yearOptions = {
-        options:yearArr,
-        selected:data.establish_year
+        options: yearArr
     };
 
 
 
     $scope.initial = function() {
         console.log("init");
-        console.log($scope.industryOptions.options);
-        $scope.selected.location.country = data.location.country ? data.location.country : [];
-        $scope.selected.location.city = data.location.city ? data.location.city : [];
-        
-        $scope.selected.year = data.establish_year ? data.establish_year : "";
-        $scope.selected.size = data.size ? data.size : "";
-        $scope.industryOptions.options[0].value = data.industry ? data.industry : "";
 
-        $scope.industryOptions.options[0].value = data.industry ? data.industry : "Select Industry";
+        $scope.selected = {
+            location: {
+                country: data.location.country ? data.location.country : "",
+                city: data.location.city ? data.location.city : "",
+            },
+            year: {
+                name: data.establish_year.toString() ? data.establish_year.toString() : "Select Establish Year",
+                value: data.establish_year ? data.establish_year : -1
+            },
+            size: {
+                name: data.size ? data.size : "Select Size",
+                value: data.size ? data.size : -1
+            },
+            industry: {
+                name: data.industry ? data.industry : "Select Industry",
+                value: data.industry ? data.industry : -1
+            }
+        };
+
 
         percentage_service.calculate(data, percentage_service.percentage);
-
+        var value = percentage_service.percentage.value.split(".");
+        $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
+        $scope.links = percentage_service.percentage.links;
     };
 
 
@@ -420,37 +423,16 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     // variable "data" is from the jade
     // variable "countryArr", "s_a" are from location.js
     // function "populateCountries" and "populateCity" are also
-    
-    
 
 
 
-<<<<<<< HEAD
 
-    // $scope.populateOptions = function populateOptions(selectElementId, defaultArr) {
-    //     var selectElement = document.getElementById(selectElementId);
-    //     console.log(selectElement);
-    //     selectElement.length = 0;
-
-    //     selectElement.options[0] = $scope.selected[selectElementId] ? new Option($scope.selected[selectElementId], $scope.selected[selectElementId]) : new Option('Select ' + selectElementId, '-1');
-    //     for (var i = 0; i < defaultArr.length; i++) {
-    //         selectElement.options[selectElement.length] = new Option(defaultArr[i], defaultArr[i]);
-    //     }
-    //     selectElement.selectedIndex = 2;
-
-    // };
-
-
-=======
-    $scope.defaultCountry = countryArr;
-    $scope.defaultCity = s_a;
->>>>>>> design
 
     $scope.populateCountries = function populateCountries(countryElementId, stateElementId) {
         // given the id of the <select> tag as function argument, it inserts <option> tags
         var countryElement = document.getElementById(countryElementId);
         countryElement.length = 0;
-        
+
 
         countryElement.options[0] = data.location.country ? new Option(data.location.country, data.location.country) : new Option('Select Country', '-1');
         countryElement.selectedIndex = 0;
@@ -463,6 +445,8 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         if (stateElementId) {
             countryElement.onchange = function() {
                 $scope.populateCity(countryElementId, stateElementId);
+                $scope.selected.location.country = countryElement.value;
+                console.log("value", countryElement.value);
             };
         }
     };
@@ -482,6 +466,13 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         for (var i = 0; i < state_arr.length; i++) {
             stateElement.options[stateElement.length] = new Option(state_arr[i], state_arr[i]);
         }
+
+        if (stateElementId) {
+            stateElement.onchange = function() {
+                $scope.selected.location.city = stateElement.value;
+                console.log("value", stateElement.value);
+            }
+        }
     };
     //以上可正常運作
 
@@ -495,13 +486,57 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     //=================== Company info section ====================
 
 
+    $scope.compile_to_node = function(DOM) {
+        var jq = $(DOM); // compile the dynamic DOM and 
+        var link = $compile(jq); // set the $scope into it
+        return link($scope);
+    };
 
-    // generate a <li> contains a section of the input bar including .menu_bar , 
-    // .content and .functions_bar
-    $scope.genSection = function($event) {
-        console.log("genSection");
-        var node = $scope.compile_to_node(`<div class='input_single'><div class='menu_bar col-md-10'><ul><li><i class='lnr lnr-circle-minus grayscale_dark_cl'></i><a ng-click='hide_menu_bar($event)'>btn</a></li><li><a ng-click='genInput($event,"Text")'>Text</a></li><li><a ng-click='genInput($event,"List")'>List</a></li><li><a ng-click='genInput($event,"Quote")'>Quote</a></li></ul></div></div>`);
-        $($event.target).siblings("ul").children("li:last-child").after(node);
+    $scope.showWhoMenu = false;
+    $scope.showWhatMenu = false;
+
+    $scope.toShow = function(sectionName) {
+        if (sectionName === 'who') {
+            $scope.showWhoMenu = true;
+        } else {
+            $scope.showWhatMenu = true;
+        }
+    };
+    $scope.toHide = function(sectionName) {
+        if (sectionName === 'who') {
+            $scope.showWhoMenu = false;
+        } else {
+            $scope.showWhatMenu = false;
+        }
+    };
+
+
+
+    $scope.genContent = function($event, type, where) {
+        console.log("genContent");
+        var content;
+        var DOM = `<li class="new__content__input__single clearfix">`;
+
+        if (type === 't') {
+            content = "<div class='new__content__input new__content__input-text'><textarea></textarea></div>";
+        } else if (type === 'l') {
+            content = "<div class='new__content__input new__content__input-list' contenteditable='true'><ul><li>generated dynamically</li></ul></div>";
+        } else if (type === 'q') {
+            content = "<div class='new__content__input new__content__input-quote'><textarea></textarea></div>";
+        }
+
+        var DOM2 = `<div class="new__content__input__function__bar"><a class="new__content__move__btn lnr lnr-move grayscale_dark_cl"></a><a class="new__content__trash__btn lnr lnr-trash grayscale_dark_cl" ng-click='dropSection($event)'"</div></li>`;
+        var node = DOM + content + DOM2;
+        node = $scope.compile_to_node(node);
+
+        if (where === 'who') {
+            angular.element(document.querySelector("#content_pool_of_who")).append(node);
+            $scope.toHide('who');
+        } else if (where === 'what') {
+            angular.element(document.querySelector("#content_pool_of_what")).append(node);
+            $scope.toHide('what');
+        }
+
     };
 
 
@@ -509,29 +544,10 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     // lik text, quote or list
 
     // @Todo: add class to the added DOM
-    $scope.genInput = function($event, type) {
-        console.log("genInput");
-        var node;
-        if (type == 'Text' || type == 'Quote') {
-            console.log(type);
-            node = $scope.compile_to_node("<div class ='content clear_both'><textarea class='" + type + " ng-scope'></textarea><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div></div>");
-            $($event.target).parent().parent().parent().parent().append(node);
-            $scope.hide_menu_bar($event);
-        } else {
-            console.log(type);
-            node = $scope.compile_to_node("<div class ='content clear_both'><div class='list_container " + type + " ng-scope' contenteditable='true'><ul><li></li></ul></div><div class='functions_bar'><i class='lnr lnr-move grayscale_dark_cl'></i><i class='lnr lnr-trash grayscale_dark_cl' ng-click='dropSection($event)'></i></div></div>");
-            $($event.target).parent().parent().parent().parent().append(node);
-            $scope.hide_menu_bar($event);
-
-        }
-    };
-    $scope.hide_menu_bar = function($event) {
-        $($event.target).parent().parent().parent().fadeOut();
-    };
 
     $scope.dropSection = function($event) {
         console.log("dropSection");
-        $($event.target).parent().parent().parent().parent().remove();
+        $($event.target).parent().parent().remove();
     };
 
 
@@ -585,50 +601,50 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     // Pack them and upload to DB
     $scope.pack_details = function() {
 
-        var ary = angular.element(document).find('#who_u_r ul > li .input_single .content').children().not(".functions_bar");
-        // console.log(ary2);
-        // console.log(angular.element(ary[0])[0].className);
-
+        var ary = $('#content_pool_of_who > li');
+        console.log(ary);
 
         for (var i = 0; i < ary.length; i++) {
 
-            if (angular.element(ary[i])[0].className == 'Text ng-scope') {
-                $scope.pack_non_list(angular.element(ary[i])[0].value, 't', 'who');
-            } else if (angular.element(ary[i])[0].className == 'Quote ng-scope') {
-                $scope.pack_non_list(angular.element(ary[i])[0].value, 'q', 'who');
+            if (ary[i].childNodes[0].className === "new__content__input new__content__input-text") {
+                $scope.pack_non_list(ary[i].childNodes[0].childNodes[0].value, 't', 'who');
+            } else if (ary[i].childNodes[0].className === "new__content__input new__content__input-quote") {
+                $scope.pack_non_list(ary[i].childNodes[0].childNodes[0].value, 'q', 'who');
             } else {
                 var li_ary = [];
-                //pack the value from the <li> to an array
-                for (var j = 0; j < angular.element(ary[i])[0].children[0].children.length; j++) {
-                    li_ary[j] = angular.element(ary[i])[0].children[0].children[j].innerHTML;
+
+                for (var j = 0; j < ary[i].childNodes[0].childNodes[0].childNodes.length; j++) {
+                    li_ary[j] = ary[i].childNodes[0].childNodes[0].childNodes[j].innerHTML;
                 }
+
                 $scope.pack_list(li_ary, 'who');
             }
         }
 
 
-        var ary2 = angular.element(document).find('#what_u_do ul > li .input_single .content').children().not(".functions_bar");
+        var ary2 = $('#content_pool_of_what > li');
 
-        // console.log(ary2);
+        for (var i = 0; i < ary2.length; i++) {
 
-        for (var k = 0; k < ary2.length; k++) {
-            if (angular.element(ary2[k])[0].className == 'Text ng-scope') {
-                $scope.pack_non_list(angular.element(ary2[k])[0].value, 't', 'what');
-            } else if (angular.element(ary2[k])[0].className == 'Quote ng-scope') {
-                $scope.pack_non_list(angular.element(ary2[k])[0].value, 'q', 'what');
+            if (ary2[i].childNodes[0].className === "new__content__input new__content__input-text") {
+                $scope.pack_non_list(ary2[i].childNodes[0].childNodes[0].value, 't', 'what');
+            } else if (ary2[i].childNodes[0].className === "new__content__input new__content__input-quote") {
+                $scope.pack_non_list(ary2[i].childNodes[0].childNodes[0].value, 'q', 'what');
             } else {
                 var li_ary2 = [];
-                //pack the value from the <li> to an array
-                for (var l = 0; l < angular.element(ary2[k])[0].children[0].children.length; l++) {
-                    li_ary2[l] = angular.element(ary2[k])[0].children[0].children[l].innerHTML;
+
+                for (var j = 0; j < ary2[i].childNodes[0].childNodes[0].childNodes.length; j++) {
+                    li_ary2[j] = ary2[i].childNodes[0].childNodes[0].childNodes[j].innerHTML;
                 }
                 $scope.pack_list(li_ary2, 'what');
             }
         }
-        // console.log("who u r :", $scope.who_u_r_to_DB);
-        // console.log("what u do :", $scope.what_u_do_to_DB);
 
-        $scope.update_to_DB();
+
+        console.log("who u r :", $scope.who_u_r_to_DB);
+        console.log("what u do :", $scope.what_u_do_to_DB);
+
+        // $scope.update_to_DB();
     };
 
 
@@ -662,7 +678,10 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         //     establish_year: $scope.selected.year
         // };
 
-
+        console.log("industry", $scope.changedIndustry);
+        console.log("size", $scope.changedSize);
+        console.log("year", $scope.changedYear);
+        console.log("location", $scope.selected.location);
 
         var formData = new FormData();
 
@@ -673,9 +692,18 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         formData.append("what_u_do", JSON.stringify($scope.what_u_do_to_DB));
 
         formData.append("location", $scope.selected.location);
-        formData.append("industry", $scope.selected.industry);
-        formData.append("size", $scope.selected.size);
-        formData.append("establish_year", $scope.selected.year);
+
+        if ($scope.changedIndustry) {
+            formData.append("industry", $scope.changedIndustry);
+        }
+        if ($scope.changedSize) {
+            formData.append("size", $scope.changedSize);
+        }
+        if ($scope.changedYear) {
+            formData.append("establish_year", $scope.changedYear);
+        }
+
+
 
 
         var oReq = new XMLHttpRequest();
@@ -723,7 +751,8 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
 
 app.controller('social_media_controller', ['$scope', 'percentage_service', function($scope, percentage_service) {
     // variable data is called in the company_profile_edit_social.jade
-
+    $scope.links = null;
+    $scope.percentage = null;
     $scope.initial = function(data_link) {
         // Only add the .checked when the data from the server exists,
         // the "doc" varaible is the data from server
@@ -794,6 +823,9 @@ app.controller('social_media_controller', ['$scope', 'percentage_service', funct
         //Calculate the percentage using percentage_service
         percentage_service.calculate(data, percentage_service.percentage);
         //@To do: show the percentage on the page
+        var value = percentage_service.percentage.value.split(".");
+        $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
+        $scope.links = percentage_service.percentage.links;
     };
     //variables
 
@@ -811,7 +843,6 @@ app.controller('social_media_controller', ['$scope', 'percentage_service', funct
         $scope.twitter.show_btn = true;
         $scope.google.show_btn = true;
 
-
         $scope.check_active($scope.official);
         $scope.check_active($scope.facebook);
         $scope.check_active($scope.linkedin);
@@ -821,6 +852,7 @@ app.controller('social_media_controller', ['$scope', 'percentage_service', funct
     };
     $scope.btn_click = function(name) {
         console.log("btn_click");
+        $scope.container_click();
         $scope.switch(name);
         // $scope.switch(name);
     };
