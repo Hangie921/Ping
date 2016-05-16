@@ -106,11 +106,23 @@ router.post(url + '/profile/edit', function(req, res, next) {
 
     CompanyProfile.findOne({ username: req.session.user.custom._profile.username }, function(err, originCompany) {
 
-        if (err) next(new Error('CompanyProfile.findOne()'));
+        if (err) {
+            // @todo add in logger
+            console.log("in error CompanyProfile.findOne(): ", err);
+            resJson.code = 400;
+            resJson.errmsg = 'CompanyProfile.findOne() error';
+            return res.json(resJson);
+        }
 
 
         upload(req, res, (err) => {
-            if (err) next(new Error('upload'));
+            if (err) {
+                // @todo add in logger
+                console.log("in error upload: ", err);
+                resJson.code = 400;
+                resJson.errmsg = 'upload error';
+                return res.json(resJson);
+            }
             console.log(__filename, req.body);
             console.log(__filename, typeof req.body);
 
@@ -160,7 +172,14 @@ router.post(url + '/profile/edit', function(req, res, next) {
             console.log("after", originCompany);
 
             CompanyProfile.update({ _id: originCompany._id }, originCompany, function(err, status) {
-                if (err) next(new Error('CompanyProfile.update()'));
+                console.log("in update");
+                if (err) {
+                    // @todo add in logger
+                    console.log("in error CompanyProfile.update ", err);
+                    resJson.code = 400;
+                    resJson.errmsg = 'CompanyProfile.update error';
+                    return res.json(resJson);
+                }
                 // if change
                 // { ok: 1, nModified: 1, n: 1 }
                 // if not change
@@ -169,6 +188,7 @@ router.post(url + '/profile/edit', function(req, res, next) {
                 // { ok: 1, nModified: 0, n: 1 }
                 resJson.data.company = status;
                 req.session.user.custom._profile = originCompany;
+                console.log("send json");
                 res.json(resJson);
 
             });

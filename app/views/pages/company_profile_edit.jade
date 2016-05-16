@@ -84,7 +84,7 @@ block content
 										img#photo(src='/#{profile.pic}',onchange="angular.element(this).scope().read_url(this,'#photo')")
 									.edit__input-profile-image-info
 										span Upload Your Profile Picture	
-										input.input#upload_photo(type='file',name='uploadFile',file-model='myFile',onchange="angular.element(this).scope().read_url(this,'#photo')")
+										input.input#upload_photo(type='file',name='pic',file-model='myFile',onchange="angular.element(this).scope().read_url(this,'#photo')")
 										a(ng-click="click_the_file_input('#upload_photo');").btn.btn--sm.btn--pri.btn_block.upload_photo_btn upload image
 										span.sec_cl Image Formats: JPEG,GIF,PNG
 
