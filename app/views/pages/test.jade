@@ -57,7 +57,7 @@ h1 Testing
 		li
 			a(href="/api/dashboard") api/dashboard
 		li
-			a(href="/api/search") api/search
+			a(href="/search") search
 		li
 			a(href="/api/search?position=PM&seniority=1") api/search?position=PM&seniority=1
 		li
@@ -84,6 +84,12 @@ h1 Testing
 				input(type='text',name="msg", placeholder='msg your wanna say' value='Hello Talent')
 				br
 				input(type='submit',value='Contact!!!!!!')
+
+	h2 views/pages
+	ul
+		each val in pages
+			li 
+				a(href='pages/'+val) #{val}
 	h2 Others
 	ul
 		li 

@@ -1,13 +1,15 @@
 extends ../templates/layout.jade
 block css 
-	link(rel="stylesheet"  href="/css/search.css")
+	//- link(rel="stylesheet"  href="/css/search.css")
 prepend body
 	
 
 block body_class
-	body.profile.view
+	body.profile.view(ng-controller='SearchTalentCtrl')
 block menu
 		//- include ../modules/menu.jade
+
+
 block content
 	section.searchbar_section
 		.container_lg
@@ -15,15 +17,24 @@ block content
 				.searchbar.col-md-12.no_pad.clearfix
 						form
 							.search__input__single.input_select.input_single.col-md-4
-								select(placeholder="Pinger Type")
-									option(default value="default") Pinger Type
+								select(ng-model="position" ng-change="updateQueryString()")
+									option(value="") Pinger Type
+									option(value="PM") PM
+									option(value="Designer") Designer
+									option(value="RD") RD
 							.search__input__single.input_select.input_single.col-md-3
-								select
-									option(default value="default") Work Type
+								select(ng-model="work_type" ng-change="updateQueryString()")
+									option(value="") Work Type
+									option(value="Freelance") Freelance
+									option(value="Full-time") Full-time
 							.search__input__single.input_select.input_single.col-md-3
-								select
-									option(default value="default") Year of Experience
-							button.submit_pinger.btn.btn--pri.btn--rg.col-md-2.no_pad Search
+								select(ng-model="seniority" ng-change="updateQueryString()")
+									option(value="") Year of Experience
+									option(value="1") 1
+									option(value="2") 2
+							//- a.submit_pinger.btn.btn--pri.btn--rg.col-md-2.no_pad(ng-href="#/search?position={{position}}") Search
+							//- {{searchUrl = position+','+work_type}}
+							a.submit_pinger.btn.btn--pri.btn--rg.col-md-2.no_pad(ng-href="{{queryString}}") Search
 					.search_extra_setting_bar.pull-right
 						a(href="#") Advance Search
 						a(href="#") Set Defult Preference
@@ -36,123 +47,27 @@ block content
 					.pinger_search_inner
 						//- Pinger card
 						.row
-							.col-md-3
+							//- h1 Data {{data}}
+							.col-md-3(ng-repeat="man in data")
 								.pinger_card
 									.profile__photo.pinger__card__element.round_container.round_container--rg
-										img(src='/img/alpaca.jpg')
-									.profile__name.pinger__card__element Travis Hubbard
-									.profile__title.pinger__card__element Frontend Developer
+										img(src='{{man.pic}}')
+									.profile__name.pinger__card__element {{man.username}}
+									.profile__title.pinger__card__element {{man.pinger_type}}
 									.profile__card__tags.pinger__card__element
 										ul.tag_list
-											li.tag photoshop
-											li.tag sketch
-											ll.tag node.js
+											li.tag(ng-repeat="skill in man.skills") {{skill}}
 									.profile__card__intro.pinger__card__element
-										p I am a multidisciplinary and versatile person who loves a challenge, thrives in a creative process and excels in project management...
+										p {{man.description}}
 									.profile__card__info.pinger__card__element
 										.profile__info__element.profile__location.col-md-6.no_pad
 											.icon_set.icon_set--sm
 												i.lnr.lnr-calendar-full
-												span Full-time
+												span {{man.aspiration.work_type}}
 										.profile__info__element.profile__location.col-md-6.no_pad
 											.icon_set.icon_set--sm
 												i.lnr.lnr-map-marker
-												span Taiwan
+												span {{man.location.city}}, {{man.location.country}}
 									.profile__mask.pinger__card__element
 										a.btn.btn--pri.btn--rg Contact Ping!
-							.col-md-3
-								.pinger_card
-									.profile__photo.pinger__card__element.round_container.round_container--rg
-										img(src='/img/alpaca.jpg')
-									.profile__name.pinger__card__element Travis Hubbard
-									.profile__title.pinger__card__element Frontend Developer
-									.profile__card__tags.pinger__card__element
-										ul.tag_list
-											li.tag photoshop
-											li.tag sketch
-											ll.tag node.js
-									.profile__card__intro.pinger__card__element
-										p I am a multidisciplinary and versatile person who loves a challenge, thrives in a creative process and excels in project management...
-									.profile__card__info.pinger__card__element
-										.profile__info__element.profile__location.col-md-6.no_pad
-											.icon_set.icon_set--sm
-												i.lnr.lnr-calendar-full
-												span Full-time
-										.profile__info__element.profile__location.col-md-6.no_pad
-											.icon_set.icon_set--sm
-												i.lnr.lnr-map-marker
-												span Taiwan
-									.profile__mask.pinger__card__element
-										a.btn.btn--pri.btn--rg Contact Ping!
-							.col-md-3
-								.pinger_card
-									.profile__photo.pinger__card__element.round_container.round_container--rg
-										img(src='/img/alpaca.jpg')
-									.profile__name.pinger__card__element Travis Hubbard
-									.profile__title.pinger__card__element Frontend Developer
-									.profile__card__tags.pinger__card__element
-										ul.tag_list
-											li.tag photoshop
-											li.tag sketch
-											ll.tag node.js
-									.profile__card__intro.pinger__card__element
-										p I am a multidisciplinary and versatile person who loves a challenge, thrives in a creative process and excels in project management...
-									.profile__card__info.pinger__card__element
-										.profile__info__element.profile__location.col-md-6.no_pad
-											.icon_set.icon_set--sm
-												i.lnr.lnr-calendar-full
-												span Full-time
-										.profile__info__element.profile__location.col-md-6.no_pad
-											.icon_set.icon_set--sm
-												i.lnr.lnr-map-marker
-												span Taiwan
-									.profile__mask.pinger__card__element
-										a.btn.btn--pri.btn--rg Contact Ping!
-							.col-md-3
-								.pinger_card
-									.profile__photo.pinger__card__element.round_container.round_container--rg
-										img(src='/img/alpaca.jpg')
-									.profile__name.pinger__card__element Travis Hubbard
-									.profile__title.pinger__card__element Frontend Developer
-									.profile__card__tags.pinger__card__element
-										ul.tag_list
-											li.tag photoshop
-											li.tag sketch
-											ll.tag node.js
-									.profile__card__intro.pinger__card__element
-										p I am a multidisciplinary and versatile person who loves a challenge, thrives in a creative process and excels in project management...
-									.profile__card__info.pinger__card__element
-										.profile__info__element.profile__location.col-md-6.no_pad
-											.icon_set.icon_set--sm
-												i.lnr.lnr-calendar-full
-												span Full-time
-										.profile__info__element.profile__location.col-md-6.no_pad
-											.icon_set.icon_set--sm
-												i.lnr.lnr-map-marker
-												span Taiwan
-									.profile__mask.pinger__card__element
-										a.btn.btn--pri.btn--rg Contact Ping!
-							.col-md-3
-								.pinger_card
-									.profile__photo.pinger__card__element.round_container.round_container--rg
-										img(src='/img/alpaca.jpg')
-									.profile__name.pinger__card__element Travis Hubbard
-									.profile__title.pinger__card__element Frontend Developer
-									.profile__card__tags.pinger__card__element
-										ul.tag_list
-											li.tag photoshop
-											li.tag sketch
-											ll.tag node.js
-									.profile__card__intro.pinger__card__element
-										p I am a multidisciplinary and versatile person who loves a challenge, thrives in a creative process and excels in project management...
-									.profile__card__info.pinger__card__element
-										.profile__info__element.profile__location.col-md-6.no_pad
-											.icon_set.icon_set--sm
-												i.lnr.lnr-calendar-full
-												span Full-time
-										.profile__info__element.profile__location.col-md-6.no_pad
-											.icon_set.icon_set--sm
-												i.lnr.lnr-map-marker
-												span Taiwan
-									.profile__mask.pinger__card__element
-										a.btn.btn--pri.btn--rg Contact Ping!
+							

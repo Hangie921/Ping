@@ -31,10 +31,17 @@ router.get('/', function(req, res, next) {
     }
 });
 
+// static partials jade for Angular.js
 router.get('/partials/:name', function(req, res) {
     var name = req.params.name;
-    console.log("in:", name);
     res.render('partials/' + name);
+});
+
+// static pages jade for Angular.js
+router.get('/pages/:name', function(req, res) {
+    var name = req.params.name;
+    console.log("in:", name);
+    res.render('pages/' + name);
 });
 
 var fs = require('fs');

@@ -2,30 +2,22 @@ html(ng-app='pingApp')
 	head
 		script(src="bower_components/angular/angular.js")
 		script(src="bower_components/angular-route/angular-route.js")
+		script(src="js/app.js")
 		script(src="js/controller.js")
 
 	body
-	h1 This is for angular.js
-	table
-		tr
-			th row number
-		tr(ng-repeat="i in [0, 1, 2, 3, 4, 5, 6, 7]")
-			td
-				{{i}}
-
-	div
-		p Name:
-			input(type="text" ng-model="name")
-		h1 Hello {{name}}
-	div(ng-controller="myCtrl")
-		p {{name}}
-
-	ul
-		li
-			a(href="#/") /
-		li
-			a(href="#/home") home.jade
-	div(ng-view)
+		.row
+			.col-md-1
+				a(href="#/") /
+			.col-md-1
+				a(href="#/home") home.jade
+			.col-md-1
+				a(href="#/search") find_talent.jade
+			.col-md-1
+				a(href="#/search?work_type=Freelance") find_talent Freelance
+			.col-md-1
+				a(href="#/search?position=Designer") find_talent Designer
+		div(ng-view)
 
 //- <head>
 //-   <script src="public/bower_components/angular/angular.js"></script>

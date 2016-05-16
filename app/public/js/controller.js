@@ -1,14 +1,30 @@
-var app = angular.module('pingApp', ['ngRoute'])
-    .config(['$routeProvider', function($routeProvider) {
-        $routeProvider
-            .when('/', { template: '这是index.jade' })
-            .when('/home', {
-                templateUrl: 'partials/home',
-            })
-            .otherwise({ template: '这是index.jade' });
-        // .otherwise({ redirectTo: '/' });
-    }]);
+var searchControllers = angular.module('searchControllers', []);
 
-app.controller('myCtrl', function($scope) {
-    $scope.name = "John Doe";
-});
+searchControllers.controller('SearchTalentCtrl', ['$scope', '$http', '$location', '$window',
+    function($scope, $http, $location, $window) {
+
+        // $scope.pinger_type='Pinger';
+        $http.get('api' + $location.url()).then(function(res) {
+            $scope.data = res.data.data;
+            if (res.data.code === 200) {
+                // console.log('success');
+            }
+        });
+
+        $scope.queryString = "#/search?";
+        $scope.updateQueryString = function() {
+            $scope.queryString = "#/search?";
+            if ($scope.position) {
+                $scope.queryString += "position=" + $scope.position + "&";
+            }
+            if ($scope.work_type) {
+                $scope.queryString += "work_type=" + $scope.work_type + "&";
+            }
+            if ($scope.seniority) {
+                $scope.queryString += "seniority=" + $scope.seniority + "&";
+            }
+        };
+    }
+
+
+]);
