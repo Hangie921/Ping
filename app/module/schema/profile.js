@@ -46,11 +46,11 @@ var companyProfileSchema = new mongoose.Schema({
     culture: [String],
     technology: [String],
     links: {
-        official: String,
-        facebook: String,
-        linkedin: String,
-        twitter: String,
-        google: String,
+        official: {type:String,default:""},
+        facebook: {type:String,default:""},
+        linkedin: {type:String,default:""},
+        twitter: {type:String,default:""},
+        google: {type:String,default:""}
     }
 }, options);
 

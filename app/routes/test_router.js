@@ -37,4 +37,13 @@ router.get('/mail', function(req, res, next) {
     res.send("send mail");
 });
 
+
+
+//added by Walter to build talent_profile
+router.get('/pinger',function(req,res,next){
+    res.render('pages/pinger_profile');
+});
+//added by Walter to build talent_profile
+
+
 module.exports = router;

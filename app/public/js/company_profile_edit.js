@@ -72,13 +72,13 @@ app.service('percentage_service', function() {
 
     var section_links_temp = {
 
-        profile_setting: [{
+        General_information: [{
                 url: "/companies/profile/edit#profile_setting",
                 url_exist: false
             },
             "tagline"
         ],
-        company_info: [{
+        Company_information: [{
                 url: "/companies/profile/edit?section=detail#company_info",
                 url_exist: false
             },
@@ -87,21 +87,21 @@ app.service('percentage_service', function() {
             "size",
             "establish_year"
         ],
-        company_tags: [{
+        Company_tags: [{
                 url: "/companies/profile/edit?section=detail#company_tags",
                 url_exist: false
             },
             "culture",
             "technology",
         ],
-        company_instro: [{
-                url: "/companies/profile/edit?section=detail#company_instro",
+        About_your_company: [{
+                url: "/companies/profile/edit?section=detail#company_intro",
                 url_exist: false
             },
             "what_u_do",
             "who_u_r",
         ],
-        social_network: [{
+        Social_networks: [{
                 url: "/companies/profile/edit?section=social#social_network",
                 url_exist: false
             },
@@ -113,6 +113,7 @@ app.service('percentage_service', function() {
         var counter = -4; //扣掉 username, type, length,time這四個key
         var doc2 = { length: 0 };
 
+        console.log(doc["links"]);
         //1.把要用的key篩選出來變成doc2，因為以後可能profile裡面會加更多的keys
         for (var key in doc) {
             for (var i = 0; i < key_list_to_cal.length; i++) {
@@ -127,7 +128,7 @@ app.service('percentage_service', function() {
         for (var key in doc2) {
             //2. 判斷值是否存在，如果存在就counter++
 
-            if (doc2[key] && doc2[key].length !== 0) {
+            if (doc2[key] && doc2[key].length !== 0 && key !== 'links') {
                 counter++;
             } else {
                 //3. 如果不存在，找出它屬於哪個section,把那個section的url記錄下來
@@ -141,6 +142,24 @@ app.service('percentage_service', function() {
                 }
             }
         }
+
+        // ============計算links 裡面的 每個link 物件裡面有沒有值=================
+        var linkCounter = 0;
+
+        for (var key in doc2.links) {
+            if (doc2.links[key]) {
+                linkCounter++;
+            }
+        }
+        if (linkCounter !== 0) {
+            section_links_temp.Social_networks[0].url_exist = false;
+
+        } else {
+            counter--;
+        }
+        // ============計算links 裡面的 每個link 物件裡面有沒有值=================
+
+
 
         // console.log("counter", counter);
         // console.log("doc2 = ", doc2);
@@ -276,7 +295,7 @@ app.controller('profile_edit_controller', ['$scope', '$http', 'percentage_servic
         };
 
 
-        oReq.open("POST", '/companies/profile/edit)', true);
+        oReq.open("POST", '/companies/profile/edit', true);
         oReq.send(formData);
 
     };
@@ -314,14 +333,14 @@ app.directive("contentDirective", function($compile) {
         template: "<div class='new__content__input new__content__input-text'></div>",
         link: function(scope, element, attrs) {
             if (scope.current.type === 'Text') {
-                var DOM = "<textarea>" + scope.current.content + "</textarea>";
+                var DOM = "<textarea data-type = 'text'>" + scope.current.content + "</textarea>";
                 element.append(DOM);
             } else if (scope.current.type === 'Quote') {
-                var DOM = "<textarea>" + scope.current.content + "</textarea>";
+                var DOM = "<textarea data-type = 'quote'>" + scope.current.content + "</textarea>";
                 element.append(DOM);
             } else if (scope.current.type === 'List') {
                 // @Todo 20160426: set class to this lists
-                var ul = "<ul>";
+                var ul = "<ul data-type = 'list'>";
                 for (var i = 0; i < scope.current.content.length; i++) {
                     ul += "<li>" + scope.current.content[i] + "</li>";
                 }
@@ -376,6 +395,8 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
 
 
 
+
+
     $scope.industryOptions = {
         options: industryArr
     };
@@ -392,24 +413,24 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     $scope.initial = function() {
         console.log("init");
 
-        $scope.selected = {
-            location: {
-                country: data.location.country ? data.location.country : "",
-                city: data.location.city ? data.location.city : "",
-            },
-            year: {
-                name: data.establish_year.toString() ? data.establish_year.toString() : "Select Establish Year",
-                value: data.establish_year ? data.establish_year : -1
-            },
-            size: {
-                name: data.size ? data.size : "Select Size",
-                value: data.size ? data.size : -1
-            },
-            industry: {
-                name: data.industry ? data.industry : "Select Industry",
-                value: data.industry ? data.industry : -1
-            }
-        };
+        // $scope.selected = {
+        //     location: {
+        //         country: data.location.country ? data.location.country : "",
+        //         city: data.location.city ? data.location.city : "",
+        //     },
+        //     establish_year: {
+        //         name: (data.establish_year || data.establish_year === "-1") ? data.establish_year.toString() : "Select Establish Year",
+        //         value: (data.establish_year || data.establish_year === "-1") ? data.establish_year : -1
+        //     },
+        //     size: {
+        //         name: (data.size || data.size === "-1") ? data.size : "Select Size",
+        //         value: (data.size || data.size === "-1") ? data.size : -1
+        //     },
+        //     industry: {
+        //         name: (data.industry || data.industry === "-1") ? data.industry : "Select Industry",
+        //         value: (data.industry || data.industry === "-1") ? data.industry : -1
+        //     }
+        // };
 
 
         percentage_service.calculate(data, percentage_service.percentage);
@@ -424,6 +445,39 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     // variable "countryArr", "s_a" are from location.js
     // function "populateCountries" and "populateCity" are also
 
+    $scope.populateSelect = function populateSelect(selectElementId) {
+        // given the id of the <select> tag as function argument, it inserts <option> tags
+        var selectElement = document.getElementById(selectElementId);
+        var defaultArr;
+        var defaultValue = {
+            name: data[selectElementId] && data[selectElementId] !== '-1' ? data[selectElementId] : "Select " + selectElementId,
+            value: data[selectElementId] ? data[selectElementId] : -1
+        };
+
+
+        if (selectElementId === 'establish_year') {
+            defaultArr = yearArr;
+        } else if (selectElementId === 'size') {
+            defaultArr = sizeArr;
+        } else if (selectElementId === 'industry') {
+            defaultArr = industryArr;
+        }
+
+        selectElement.length = 0;
+
+        selectElement.options[0] = new Option(defaultValue.name, defaultValue.value, true);
+        selectElement.selectedIndex = 0;
+        for (var i = 0; i < defaultArr.length; i++) {
+            selectElement.options[selectElement.length] = new Option(defaultArr[i].name, defaultArr[i].value);
+        }
+
+
+        selectElement.onchange = function() {
+            $scope.selected[selectElementId].value = selectElement.value;
+            console.log("value", selectElement.value);
+        };
+
+    };
 
 
 
@@ -458,7 +512,7 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         var stateElement = document.getElementById(stateElementId);
 
         stateElement.length = 0; // Fixed by Julian Woods
-        stateElement.options[0] = new Option('Select State', '');
+        stateElement.options[0] = new Option('Select City', '');
         stateElement.selectedIndex = 0;
 
         var state_arr = s_a[selectedCountryIndex].split("|");
@@ -518,11 +572,11 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         var DOM = `<li class="new__content__input__single clearfix">`;
 
         if (type === 't') {
-            content = "<div class='new__content__input new__content__input-text'><textarea></textarea></div>";
+            content = "<div class='new__content__input new__content__input-text'><textarea data-type='text'></textarea></div>";
         } else if (type === 'l') {
-            content = "<div class='new__content__input new__content__input-list' contenteditable='true'><ul><li>generated dynamically</li></ul></div>";
+            content = "<div class='new__content__input new__content__input-list' contenteditable='true'><ul data-type='list'><li>generated dynamically</li></ul></div>";
         } else if (type === 'q') {
-            content = "<div class='new__content__input new__content__input-quote'><textarea></textarea></div>";
+            content = "<div class='new__content__input new__content__input-quote'><textarea data-type='quote'></textarea></div>";
         }
 
         var DOM2 = `<div class="new__content__input__function__bar"><a class="new__content__move__btn lnr lnr-move grayscale_dark_cl"></a><a class="new__content__trash__btn lnr lnr-trash grayscale_dark_cl" ng-click='dropSection($event)'"</div></li>`;
@@ -606,31 +660,32 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
 
         for (var i = 0; i < ary.length; i++) {
 
-            if (ary[i].childNodes[0].className === "new__content__input new__content__input-text") {
+            if (ary[i].childNodes[0].childNodes[0].getAttribute("data-type") === "text") {
                 $scope.pack_non_list(ary[i].childNodes[0].childNodes[0].value, 't', 'who');
-            } else if (ary[i].childNodes[0].className === "new__content__input new__content__input-quote") {
+            } else if (ary[i].childNodes[0].childNodes[0].getAttribute("data-type") === "quote") {
                 $scope.pack_non_list(ary[i].childNodes[0].childNodes[0].value, 'q', 'who');
-            } else {
+            } else if (ary[i].childNodes[0].childNodes[0].getAttribute("data-type") === 'list') {
                 var li_ary = [];
 
                 for (var j = 0; j < ary[i].childNodes[0].childNodes[0].childNodes.length; j++) {
                     li_ary[j] = ary[i].childNodes[0].childNodes[0].childNodes[j].innerHTML;
                 }
-
                 $scope.pack_list(li_ary, 'who');
             }
+
         }
 
 
         var ary2 = $('#content_pool_of_what > li');
 
+        console.log(ary2);
         for (var i = 0; i < ary2.length; i++) {
 
-            if (ary2[i].childNodes[0].className === "new__content__input new__content__input-text") {
+            if (ary2[i].childNodes[0].childNodes[0].getAttribute("data-type") === "text") {
                 $scope.pack_non_list(ary2[i].childNodes[0].childNodes[0].value, 't', 'what');
-            } else if (ary2[i].childNodes[0].className === "new__content__input new__content__input-quote") {
+            } else if (ary2[i].childNodes[0].childNodes[0].getAttribute("data-type") === "quote") {
                 $scope.pack_non_list(ary2[i].childNodes[0].childNodes[0].value, 'q', 'what');
-            } else {
+            } else if (ary2[i].childNodes[0].childNodes[0].getAttribute("data-type") === 'list') {
                 var li_ary2 = [];
 
                 for (var j = 0; j < ary2[i].childNodes[0].childNodes[0].childNodes.length; j++) {
@@ -638,13 +693,19 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
                 }
                 $scope.pack_list(li_ary2, 'what');
             }
+
         }
 
 
         console.log("who u r :", $scope.who_u_r_to_DB);
         console.log("what u do :", $scope.what_u_do_to_DB);
 
-        // $scope.update_to_DB();
+        // console.log("industry", document.getElementById('industry').value);
+        // console.log("size", document.getElementById('size').value);
+        // console.log("establish_year", document.getElementById('establish_year').value);
+
+        // console.log("location", $scope.selected.location);
+        $scope.update_to_DB();
     };
 
 
@@ -678,7 +739,7 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         //     establish_year: $scope.selected.year
         // };
 
-        console.log("industry", $scope.changedIndustry);
+        console.log("industry", document.getElementById('industry').value);
         console.log("size", $scope.changedSize);
         console.log("year", $scope.changedYear);
         console.log("location", $scope.selected.location);
@@ -693,14 +754,14 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
 
         formData.append("location", $scope.selected.location);
 
-        if ($scope.changedIndustry) {
-            formData.append("industry", $scope.changedIndustry);
+        if (document.getElementById('industry').value) {
+            formData.append("industry", document.getElementById('industry').value);
         }
-        if ($scope.changedSize) {
-            formData.append("size", $scope.changedSize);
+        if (document.getElementById('size').value) {
+            formData.append("size", document.getElementById('size').value);
         }
-        if ($scope.changedYear) {
-            formData.append("establish_year", $scope.changedYear);
+        if (document.getElementById('establish_year').value) {
+            formData.append("establish_year", document.getElementById('establish_year').value);
         }
 
 

@@ -53,6 +53,11 @@ gulp.task('sass',function(){   // to transfer the .scss to .css
 		.pipe(sass().on('error',sass.logError))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest("public/css/"));
+	gulp.src("public/sass/module/pinger_profile.scss")
+		.pipe(sourcemaps.init())
+		.pipe(sass().on('error',sass.logError))
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest("public/css/"));
 
 });
 

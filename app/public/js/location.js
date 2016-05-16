@@ -262,25 +262,29 @@ s_a[252] = "Bulawayo|Harare|ManicalandMashonaland Central|Mashonaland East|Masho
 
 
 var industryArr = [
-    { id: "1", name: "industry",value: "industry"},
-    { id: "2", name: "education",value:"education" },
-    { id: "3", name: "technology",value:"technology" }
+    // { id: "0", name: "Select Industry", value: -1 },
+    { id: "1", name: "industry", value: "industry" },
+    { id: "2", name: "education", value: "education" },
+    { id: "3", name: "technology", value: "technology" }
 ];
 
 var sizeArr = [
-    { id: "1", name: "1-20",value:"1-20" },
-    { id: "2", name: "21-50",value:"21-50" },
-    { id: "3", name: "51-100",value:"51-100" },
-    { id: "4", name: "100up",value:"100up" }
+    // { id: "0", name: "Select company size", value: -1 },
+    { id: "1", name: "1-20", value: "1-20" },
+    { id: "2", name: "21-50", value: "21-50" },
+    { id: "3", name: "51-100", value: "51-100" },
+    { id: "4", name: "100up", value: "100up" }
 ];
 
-var yearArr = [{id:0,name:"Selecte Establish Year",value:-1}];
+var yearArr1 = [
+    // { id: 0, name: "Selecte Establish Year", value: -1 }
+];
 var year = 2016;
 for (var i = 1; i < 37; i++) {
-    yearArr.push({id:i.toString(),name:year,value:year});
+    yearArr1.push({ id: i.toString(), name: year, value: year });
     year--;
 }
-
+var yearArr = yearArr1;
 
 
 

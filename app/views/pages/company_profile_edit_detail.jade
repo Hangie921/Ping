@@ -58,33 +58,31 @@ block content
 							//- Industry //////////
 							.edit__input.input_single.input_select.col-md-9
 									label Industry <br/>
-									select(name='industry',id ='industry',ng-model="changedIndustry")
-										option(value='selected.industry.value') {{selected.industry.name}}
-										option(ng-selected="selected.industry.value == option.value",ng-repeat="option in industryOptions.options",value="{{option.value}}") {{option.name}}
+									select(name='industry',id ='industry',ng-init="populateSelect('industry')")
+										//- option(value='selected.industry.value') {{selected.industry.name}}
+										//- option(ng-selected="selected.industry.value == option.value",ng-repeat="option in industryOptions.options",value="{{option.value}}") {{option.name}}
+							//- Location ///////////
 							.edit__input.input_single.input_select.col-md-9
 									.row
 										.col-md-12
 											label Location <br/>
 										.input_inline.col-md-8
-											//- ui-select(ng-model='selectedCountry')
-											//- 	ui-select-match(placeholder='Select a country or enter one') {{selectedCountry}
-											//- 	ui-select-choices(repeat="country in defaultCountry")
-											//- 		span(ng-bind-html="country | highlight: $select.search")
 											select(name='country',id="country",ng-init="populateCountries('country','city')",onchange="populateCity('country','city')")
 										.input_inline.col-md-4
 											select(name='city', id = "city")
-												
+												option {{selected.location.city}}
 							.edit__input.input_single.input_select.no_label.col-md-5
-									
+							//- Size //////////////
 							.edit__input.input_single.input_select.col-md-9
 									label Company Size <br/>
-									select(name='size',id ='size',ng-model = "changedSize")
-										option(value='selected.size.value') {{selected.size.name}}
-										option(ng-selected="seleted.size.value == option.value",ng-repeat="option in sizeOptions.options", value="{{option.value}}") {{option.name}}
+									select(name='size',id ='size',ng-init="populateSelect('size')")
+										//- option(value='selected.size.value',selected='true') {{selected.size.name}}
+										//- option(ng-selected="seleted.size.value == option.value",ng-repeat="option in sizeOptions.options", value="{{option.value}}") {{option.name}}
+							//- Establish year
 							.edit__input.input_single.input_select.col-md-9
 									label Year of Establishment <br/>
-									select(name='establish_year',id = "year",ng-model='changedYear')
-										option(ng-selected=" selected.year.value == option.value",ng-repeat="option in yearOptions.options",value="{{option.value}}") {{option.name}}
+									select(name='establish_year',id = "establish_year",ng-init="populateSelect('establish_year')")
+										//- option(ng-selected=" selected.year.value == option.value",ng-repeat="option in yearOptions.options",value="{{option.value}}") {{option.name}}
 					//- Company Tags Section /////////
 					.edit_company_info.edit_group#company_tags
 						.edit__title__bar
@@ -109,7 +107,7 @@ block content
 											a.tag.base_white.pri_cl_bg {{technology}}
 											a(ng-click='delete_tags(profile.technology,$index)')
 												i.lnr.lnr-cross.base_white
-					.edit_company_info.edit_group#edit_company_intro_section
+					.edit_company_info.edit_group#company_intro
 						.edit__title__bar
 							h3.icon_set.icon_set-edit-heading.icon_set--rg  
 								i.lnr.lnr-smile
@@ -143,10 +141,11 @@ block content
 													span quote
 
 							.new__content__input__group.col-md-9
-
+								//- Drag and drop example:
+								//-
 								//- ul(dnd-list="who_u_r")
 								//- 	li(ng-repeat="doc in who_u_r",dnd-draggable='doc',dnd-moved='who_u_r.splice($index,1)',dnd-effect-allowed='move',ng-init="current = doc")
-											content-directive
+											
 								ul#content_pool_of_who(dnd-list="who_u_r")
 									li.new__content__input__single.clearfix(ng-repeat="doc in who_u_r",ng-init=" current = doc ",dnd-draggable='doc',dnd-moved='who_u_r.splice($index,1)',,dnd-effect-allowed='move')
 										content-directive

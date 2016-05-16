@@ -1,7 +1,5 @@
-
 // =============== Quote Items =====================
-
-.quotation{
+.quotation {
     p {
         font-family: 'Avenir-BlackOblique';
         font-style: oblique;
@@ -20,54 +18,48 @@
 // =============== List items =======================
 .list {
     & .list__item {
-        font-size:$rgs_font;
+        font-size: $rgs_font;
         .lnr {
-            margin-right:8px;
-            color:$third_cl;
+            margin-right: 8px;
+            color: $third_cl;
         }
     }
 }
 
-
-
-
 //================== Icons with titles ====================
-.icon_set{
-    
+.icon_set {
     & i.lnr {
         color: $third_cl;
-        position:relative;
-        top:5px;
+        position: relative;
+        top: 5px;
     }
-    & span{
-        padding:0 20px 0 10px;
+    & span {
+        padding: 0 20px 0 10px;
         color: $grayscale_dark_cl;
     }
 }
 
 .icon_set--rg {
-    
     & i.lnr {
         font-size: 24px;
         line-height: 24px;
-        top:5px;
+        top: 5px;
     }
-    & span{
-        padding:0 20px 0 10px;
+    & span {
+        padding: 0 20px 0 10px;
         font-size: 14px;
         line-height: 14px;
     }
 }
 
 .icon_set--sm {
-    
     & i.lnr {
         font-size: 18px;
         line-height: 18px;
-        top:3px;
+        top: 3px;
     }
-    & span{
-        padding:0 20px 0 10px;
+    & span {
+        padding: 0 20px 0 10px;
         font-size: 16px;
         line-height: 16px;
     }
@@ -78,98 +70,85 @@
         color: $grayscale_dark_cl;
     }
 }
+
 .icon_set-edit-heading {
-    position:relative;
-    margin-left:-32px;
-    & i.lnr {
-
-    }
-
+    position: relative;
+    margin-left: -32px;
+    & i.lnr {}
     & span {
-       font-size: $md-font;
+        font-size: $md-font;
     }
 }
 
 // =============== social icons ===========================
 & .social_icons {
-
     & ul {
-        float:right;
+        float: right;
     }
-    
     & li {
         width: 35px;
         height: 35px;
         float: left;
-        display:block;
+        display: block;
         margin-right: 10px;
-        & .fa {                      
+        & .fa {
             font-size: 20px;
             color: #FEFEFE;
-            display:block;
-            line-height:35px;
+            display: block;
+            line-height: 35px;
             text-align: center;
         }
-        
     }
-
     & .icon_fb {
-            background-color: #547BBC;
-        }
+        background-color: #547BBC;
+    }
     & .icon_tw {
-            background-color: #78CBEF;
-        }
+        background-color: #78CBEF;
+    }
     & .icon_ld {
-            background-color: #1485C7;
-        }
+        background-color: #1485C7;
+    }
     & .icon_site {
-            background-color: #4A90E2;
-           
-        }
+        background-color: #4A90E2;
+    }
     & li:last-child {
-        margin:0
+        margin: 0
     }
 }
 
 // ============== Tags ======================
-
 .tag_group {
     margin-top: $space_sm;
 }
-.tag_single{
+
+.tag_single {
     float: left;
     position: relative;
-   
-    
 }
 
 // == Tags Edit Group ======================
 .tag_group.edit_tag_group {
-
-    .tag{
-        padding-right:50px;
+    .tag {
+        padding-right: 50px;
     }
-
-    i{
-        display:block;
-        height:40px;
-        width:30px;
+    i {
+        display: block;
+        height: 40px;
+        width: 30px;
         position: absolute;
         top: 0;
-        right:0;
-        padding-top:20px;
-        padding-right:10px;
+        right: 0;
+        padding-top: 20px;
+        padding-right: 10px;
         font-size: $base_font_size;
-        cursor:pointer;
-
+        cursor: pointer;
     }
 }
 
 // ================ Tags =============================
-
 .tag {
     float: left;
-    display:block;
+    display: block;
     height: 40px;
     line-height: 40px;
     padding: 1px 15px;
@@ -182,5 +161,8 @@
     }
 }
 
-
-
+// ================ Tabs =============================
+.tab {
+    color: $grayscale_dark_cl;
+    font-size: 18px;
+}
