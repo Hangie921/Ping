@@ -446,6 +446,7 @@ body.edit {
             position: relative;
             color: $base_white;
             background-color: $grayscale_cl;
+
             &.lnr-checkmark-circle:before {
                 font-family: $lnr_font;
                 display: block;
@@ -454,8 +455,18 @@ body.edit {
                 color: $third_cl;
                 font-size: 24px;
                 line-height: 50px;
+				@include prefix((text-shadow:none), webkit moz ms o);
+				font-weight:900;
+                
             }
             &.offical {
+
+            	font-family: $base_font_family;
+            	font-weight:900;
+            	@include prefix(( text-shadow:0px 0px 20px rgba(0,0,0,0.7)), webkit moz ms o);
+            	text-transform: uppercase;
+            	background:url('../../img/logo_background.jpg') no-repeat center center;
+            	background-size:150% auto;
                 &.active {
                     background-color: $pri_cl;
                 }
@@ -488,7 +499,7 @@ body.edit {
             }
             &.google {
                 &.active {
-                    background-color: $pri_cl;
+                    background-color:#d73d32;
                 }
                 background-image: url(/img/profile_img/googleplus.png);
                 background-repeat: no-repeat;

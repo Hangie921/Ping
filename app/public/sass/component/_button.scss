@@ -9,11 +9,13 @@
   border-radius:$btn_border_radius_base;
   line-height:$base_input_font_size;
   font-size: $base_input_font_size;
+  font-family:$base_font_family;
   padding:0 20px;
   white-space:no-wrap;
   font-weight:900;
   cursor:pointer;
   text-transform:uppercase;
+  border:none;
 }
 
 // Button Style 2

@@ -81,7 +81,10 @@
 }
 
 // =============== social icons ===========================
-& .social_icons {
+
+.social_icons {
+
+
     & ul {
         float: right;
     }
@@ -161,8 +164,163 @@
     }
 }
 
+
 // ================ Tabs =============================
 .tab {
     color: $grayscale_dark_cl;
     font-size: 18px;
 }
+
+
+// =========== Search Bar =========
+.searchbar {
+    margin-top:$space_sm;
+    margin-bottom:$space_xs;
+    background:$base_white;
+    width:100%;
+    border-radius:$base_border_radius;
+
+    .btn {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+}
+
+.search__input__single, .submit_pinger, .search__input__single select,.search__input__single input[type="text"] {
+    margin-top:0;
+    margin-bottom:0;
+}
+
+.search_extra_setting_bar {
+    a {
+        color:$pri_cl;
+        font-size:$sm_font;
+        text-decoration:underline;
+        margin-left:$space_xs;
+    }
+}
+
+
+
+// ================= Pinger Card =========
+.pinger_search_inner .col-md-3 {
+ padding-right:0;
+}
+.pinger_card {
+    float:left;
+    display:block;
+    position:relative;
+    background:$base_white;
+    padding-top:70px;
+    padding-bottom:50px;
+    padding-left:0;
+    padding-left:10px;
+    padding-right:10px;
+    margin-top:$space_lg;
+    box-shadow:0 0 20px rgba(0,0,0,0);
+    transition: all 0.25s;
+    
+
+    // Pinger card Hover Mask
+    &:hover {
+        box-shadow:0 0 20px rgba(0,0,0,0.2);
+    
+        .profile__mask {
+            opacity:1;
+        }
+    }
+    // Pinger card hover mask ends
+}
+
+.pinger__card__element {
+    float:left;
+    clear:both;
+    
+     &.profile__photo {
+        position:absolute;
+        top:-40px;
+        left:50%;
+        margin-left:-50px;
+        width:100px;
+        height:100px;
+        display:block;
+        border:3px solid $grayscale_6;
+        z-index:10;
+    }
+
+    &.profile__name {
+        color:$pri_cl;
+        font-weight:900;
+        text-align:center;
+        display:block;
+        float:none;
+    }
+    &.profile__title {
+        text-align:center;
+        display:block;
+        float:none;
+
+    }
+
+    &.profile__card__tags {
+        text-align:center;
+        .tag-list {
+            text-align:center;
+        }
+    .tag{
+        display:inline-block;
+        text-align:center;
+        padding:$space_xxs $space_xs;
+        height:auto;
+        line-height:initial;
+        border:1px solid $pri_light_cl;
+        color:$pri_cl;
+        font-size:$xs_font;
+        }
+    }// profile card tags ends
+
+    &.profile__card__intro {
+        padding:$space_xs 0 ;
+        p {
+            color:$grayscale_cl;
+            font-size:$sm_font;
+        }
+    }
+
+    &.profile__card__info {
+        padding:5px 15px 10px ;
+        position:absolute;
+        bottom:0;
+        left:0;
+        width:100%;
+        background:$grayscale_8;
+        span {
+                font-size:$sm_font;
+            }
+
+    } // profile card info
+
+    &.profile__mask {
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        height:100%;
+        background:rgba(255,255,255,0.9);
+        opacity:0;
+         transition: all 0.25s;
+
+        .btn {
+            margin:0 auto;
+            width:200px;
+            display:block;
+            margin-top:130px;
+            whitespace:no-wrap;
+        }
+
+    }
+}
+
+//======= Pinger Card Ends ===================
+
