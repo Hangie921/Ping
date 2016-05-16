@@ -452,7 +452,7 @@ body.edit {
                 color: $third_cl;
                 font-size: 24px;
                 line-height: 50px;
-				@include prefix(( text-shadow:none)), webkit moz ms o);
+				@include prefix((text-shadow:none), webkit moz ms o);
 				font-weight:900;
                 
             }

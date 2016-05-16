@@ -3,7 +3,7 @@ body{
 	color:$grayscale_dark_cl;
 	font-size: $base_font_size;
 	line-height:$base_line_height;
-	background-color:$base_white;
+	background-color:$grayscale_6;
 	box-sizing:border-box;
 	font-weight: $base_font_weight;
 	-webkit-font-smoothing:antialiased;
@@ -56,23 +56,18 @@ div {
 	    margin-left: auto;
 	    padding-left: 15px;
 	    padding-right: 15px;
+
+	    
+		@media (min-width: 768px) {
+			width:750px;
+		}
+		@media (min-width: 992px) { 
+	    	width:1130px; 
+	    }
+
 	}
 
-@media (min-width: 992px) {
 
-	.container_lg {
-		width:1130px;
-		
-	}
-}
-
-@media (min-width: 768px) {
-
-	.container_lg {
-		width:750px;
-		
-	}
-}
 
 //=======================
 
