@@ -141,7 +141,7 @@ router.post(url + '/profile/edit', function(req, res, next) {
                         return res.json(resJson);
                     }
                     console.log(__filename, req.files[key][0]);
-                    originCompany[key] = req.files[key][0].path;
+                    originCompany[key] = '/' + req.files[key][0].path;
                 }
             }
 

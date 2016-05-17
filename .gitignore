@@ -3,5 +3,9 @@ try
 uploads
 *.log
 bower_components*.log
-public/css/
+public/css/dashboard.css
+public/css/login_page.css
+public/css/main.css
+public/css/pinger_profile.css
+public/css/profile.css
 public/bower_components/

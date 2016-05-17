@@ -13,7 +13,7 @@ block menu
 block content
 	section.profile_banner_section 
 		.container
-				img.profile__cover__photo.image_insert.round_container--rg(src='../img/profile_img/cover-photo.jpg')
+				img.profile__cover__photo.image_insert.round_container--rg(src='#{profile.cover_pic}')
 				h1.profile__name.base_white #{company.username}
 				h2.profile__tagline #{profile.tagline}
 	section.company_info_section
@@ -35,7 +35,7 @@ block content
 								i.lnr.lnr-tag
 								span.company__icon__info #{profile.industry}
 					.profile__photo.round_container.round_container--rg
-						img(src='/#{profile.pic}')
+						img(src='#{profile.pic}')
 					.social_icons.pull_right.col-md-4
 						ul.clearfix
 							li.icon_fb.round_container
@@ -104,7 +104,7 @@ block content
 														span.lnr.lnr-location
 														span= sub_item
 	section.profile_bottom_banner_section
-		img.profile__bottom__photo.image_insert(src='../img/profile_img/bottom_image.jpg')
+		img.profile__bottom__photo.image_insert(src='#{profile.footer_pic}')
 
 
 

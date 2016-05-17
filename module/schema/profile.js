@@ -12,12 +12,11 @@ var Contact = require('./contact.js');
 
 // variables
 var options = { discriminatorKey: 'type' };
-
 var profileSchema = new mongoose.Schema({
     time: { type: Date, default: Date.now },
-    pic: { type: String, default: "img/alpaca2.jpg" },
-    cover_pic: { type: String, default: "img/profile_img/cover-photo.jpg" },
-    footer_pic: { type: String, default: "img/profile_img/cover-photo.jpg" }
+    pic: { type: String, default: "/img/alpaca2.jpg" },
+    cover_pic: { type: String, default: "/img/profile_img/cover-photo.jpg" },
+    footer_pic: { type: String, default: "/img/profile_img/cover-photo.jpg" }
 }, options);
 
 
@@ -38,7 +37,7 @@ var companyProfileSchema = new mongoose.Schema({
         enum: ['1-10', '10-50', '50-100', '100+', '1000+']
     },
     industry: { type: String, default: "" },
-    establish_year: {type:Number,default:""},
+    establish_year: { type: Number, default: "" },
     location: {
         country: { type: String, default: "" },
         city: { type: String, default: "" }
@@ -46,11 +45,11 @@ var companyProfileSchema = new mongoose.Schema({
     culture: [String],
     technology: [String],
     links: {
-        official: {type:String,default:""},
-        facebook: {type:String,default:""},
-        linkedin: {type:String,default:""},
-        twitter: {type:String,default:""},
-        google: {type:String,default:""}
+        official: { type: String, default: "" },
+        facebook: { type: String, default: "" },
+        linkedin: { type: String, default: "" },
+        twitter: { type: String, default: "" },
+        google: { type: String, default: "" }
     }
 }, options);
 

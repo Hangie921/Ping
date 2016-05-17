@@ -81,7 +81,7 @@ block content
 								//- Edit Profile Pic ///////////
 								.edit__input-image.edit__input-profile-image.edit__input.input_single
 									.edit__input-profile-image.round_container.round_container--rg.round_container--rg
-										img#photo(src='/#{profile.pic}',onchange="angular.element(this).scope().read_url(this,'#photo')")
+										img#photo(src='#{profile.pic}',onchange="angular.element(this).scope().read_url(this,'#photo')")
 									.edit__input-profile-image-info
 										span Upload Your Profile Picture	
 										input.input#upload_photo(type='file',name='pic',file-model='myFile',onchange="angular.element(this).scope().read_url(this,'#photo')")
@@ -111,11 +111,11 @@ block content
 									.edit__input-image-cover.photo_container.input_single
 										a(ng-click="click_the_file_input('#upload_cover_photo');").btn.btn--sm.btn--pri.btn_block upload cover photo
 										input.input#upload_cover_photo(type='file',name='cover_pic',ng-model='cover_photo',onchange="angular.element(this).scope().read_url(this,'#cover_photo')")
-										img#cover_photo(src='/#{profile.cover_pic}')
+										img#cover_photo(src='#{profile.cover_pic}')
 									.edit__input-image-bottom.photo_container.input_single
 										a(ng-click="click_the_file_input('#upload_footer_photo');").btn.btn--sm.btn--pri.btn_block upload footer photo
 										input.input#upload_footer_photo(type='file',name='footer_pic',ng-model='footer_photo',onchange="angular.element(this).scope().read_url(this,'#footer_photo')")
-										img#footer_photo(src='/#{profile.footer_pic}')
+										img#footer_photo(src='#{profile.footer_pic}')
 						.btn_group.row_space-bottom--md.pull-right.col-md-6
 							.col-md-5
 								a.btn.cancel.btn--sm.btn--gray.btn_block(href='/dashboard') cancel
