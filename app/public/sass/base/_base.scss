@@ -50,6 +50,15 @@ div {
         ),moz webkit ms o);
 }
 
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+	}
+
 // ======== Grid 14 ==============
 .container_lg {
 		margin-right: auto;

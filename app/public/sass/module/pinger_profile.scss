@@ -1,0 +1,204 @@
+@import "../base/_variables.scss";
+@import "../base/_mixins.scss";
+.profile {
+    font-size: $rg_font;
+    h1 {
+        font-size: $xxlg_font;
+        text-align: center;
+    } //48px
+    h2 {
+        font-size: $xlg_font;
+        text-align: center;
+    } //36px
+    h3 {
+        font-size: $xlg_font;
+        text-align: center;
+    } //28px
+    p {
+        font-size: $rg_font;
+    }
+}
+
+//Profile Banner Section
+.profile_banner_section {
+    height: 360px;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    z-index: -5;
+    & .profile__name {
+        text-shadow: 0px 2px 15px rgba(0, 0, 0, .5);
+        z-index: 120;
+        position: relative;
+        margin: 70px auto 0;
+        display: block;
+    }
+    & .profile__tagline {
+        z-index: 120;
+        position: relative;
+        margin: 35px auto 0;
+        display: block;
+        color: rgba(245, 243, 242, .8);
+        text-shadow: 0px 0px 11px rgba(0, 0, 0, .5);
+    }
+}
+
+// Pinger_info_section
+.pinger_info-photo {
+    border: 6px solid $base-white;
+    margin-top: -75px;
+}
+
+.pinger_social_icons {
+    margin-top: -127px;
+}
+
+.pinger_info-details {
+    border-bottom: 1px solid $grayscale_light_cl;
+    .pinger__icon__list {
+        width: 100%;
+        padding-left: 63px;
+        >.pinger__icon__single {
+            float: left;
+            padding-left: 10px;
+            padding-right: 10px;
+            line-height: $base_line_height;
+            > span {
+                font-size: $rg_font;
+            }
+        }
+    }
+}
+
+.pinger_info-character {
+    margin-top: -26px;
+    margin-bottom: 55px;
+}
+
+//Profile Main Profile
+.pinger_main_profile {
+    background-color: $base_white;
+}
+
+.profile_tab_nav {
+    padding: 1px;
+    border-bottom: 1px solid $grayscale_light_cl;
+    .nav_tabs {
+        border-color: transparent;
+    }
+    .nav_tabs .tab {
+        margin-bottom: -5px;
+        border: none;
+        box-sizing: content-box;
+        font-weight: $base_font_weight_bold;
+        position: relative;
+        > a {
+            text-transform: uppercase;
+            border: none;
+            margin-right: 0px;
+            &:hover {
+                border-bottom: 5px solid $grayscale_dark_cl;
+            }
+        }
+        &.active > a {
+            &,
+            &:hover,
+            &:focus {
+                border: none;
+                border-bottom: 5px solid $grayscale_dark_cl;
+            }
+        }
+    }
+}
+
+.profile__about {
+    box-sizing: border-box;
+    background-color: $base_white;
+}
+
+.profile__about__footer {
+    width: 100%;
+    max-height: 350px;
+    img {
+        width: 100%;
+        object-fit: fill;
+    }
+}
+
+
+// Profile Portfolio 
+
+.portfolio__single {
+    position: relative;
+    margin-top: 20px;
+    padding:0px 11px;
+    // @include prefix(( background:url('/img/profile_img/eiffel-tower-paris.jpg') no-repeat,background-size:), webkit moz ms);
+    > div {
+        width: 100%;
+        height: 240px;
+    }
+
+    .thumbnail{
+        position: relative;
+        img{
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .brief_info{
+        height: 100%;
+        display:none;
+        box-sizing:border-box;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color:rgba(107,180,173,.8);  //$pri_cl
+        
+        .brief__single{
+            width: 100%;
+        }
+    
+        .brief__title{
+            color:$base_white;
+            text-align: center;
+            padding:60px 0px 0px;
+            & h4{
+                font-weight: bold;
+                font-size: $md_font;
+                text-transform: uppercase;
+                margin-bottom:10px;
+            }
+            & span{
+                opacity:0.8;
+                text-transform: capitalize;
+            }
+        }
+        .brief__tag{
+            opacity:0.8;
+            padding:0px 15px;
+            & .tag{
+                height: 25px;
+                line-height:25px;
+            }
+        }
+
+    }
+    &:hover .brief_info{
+        display:block;
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

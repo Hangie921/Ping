@@ -1,0 +1,205 @@
+extends ../templates/layout1.jade
+block css 
+	link(rel="stylesheet"  href="/css/main.css")
+	link(rel="stylesheet"  href="/css/pinger_profile.css")
+	link(rel="stylesheet" href="https://cdn.rawgit.com/igorlino/fancybox-plus/1.3.6/css/jquery.fancybox-plus.css" type="text/css" media="screen")
+block scripts
+	script(type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js")
+	script(type="text/javascript" src="https://cdn.rawgit.com/igorlino/fancybox-plus/1.3.6/src/jquery.fancybox-plus.js")
+//- prepend body
+	-
+		var profile = company;
+		var type = company.type;
+block body_class
+	body.pinger.profile.view
+//- block menu
+	h3 hi The menu is diabled for now
+		//- include ../modules/menu.jade
+block content
+	section.profile_banner_section 
+		.container
+			img.profile__cover__photo.image_insert.round_container--rg(src='/img/profile_img/cover-photo.jpg')
+			h1.profile__name.base_white username from DB
+			h2.profile__tagline job from DB
+	section.pinger_info_section
+		.container
+			.row
+				.pinger_info-photo.round_container.round_container--rg.col-centered
+					img(src='/img/alpaca2.jpg')
+				.pinger_social_icons.social_icons.pull_right.col-md-4
+					ul.clear_both
+						li.icon_fb.round_container
+							a
+								i.fa.fa-facebook-f
+						li.icon_tw.round_container
+							a
+								i.fa.fa-twitter
+						li.icon_ld.round_container
+							a
+								i.fa.fa-linkedin
+						li.icon_site.round_container
+							a
+								i.fa.fa-globe
+				
+				.pinger_info-details.row_space--md.clearfix
+					.col-md-8.col-centered
+						ul.pinger__icon__list
+							li.pinger__icon__single.icon_set.icon_set--rg
+								i.lnr.lnr-users
+								span.pinger__icon__info 2-3
+							li.pinger__icon__single.icon_set.icon_set--rg
+								i.lnr.lnr-users
+								span.pinger__icon__info Ping
+							li.pinger__icon__single.icon_set.icon_set--rg
+								i.lnr.lnr-users
+								span.pinger__icon__info School
+							li.pinger__icon__single.icon_set.icon_set--rg
+								i.lnr.lnr-users
+								span.pinger__icon__info Location,hoho
+				.pinger_info-skills.col-md-8.col-centered.clearfix
+					ul.tag_group
+						li.tag.base_white.pri_light_cl_bg test
+						li.tag.base_white.pri_light_cl_bg tesasdfasdft
+						li.tag.base_white.pri_light_cl_bg testasfasdf
+						li.tag.base_white.pri_light_cl_bg testasfasdf
+						li.tag.base_white.pri_light_cl_bg testasfasdf
+				.pinger_info-character.col-md-8.col-centered.clearfix
+					ul.tag_group
+						li.tag.base_white.pri_cl_bg testasfasdf
+						li.tag.base_white.pri_cl_bg testasfasdf
+						li.tag.base_white.pri_cl_bg testasfasdf
+						li.tag.base_white.pri_cl_bg testasfasdf
+						li.tag.base_white.pri_cl_bg testasfasdf
+
+	section.pinger_main_profile
+		.container
+			.row
+				.profile_tab_nav.col-md-12
+					ul.nav_tabs.col-md-8.col-centered.clearfix
+						li.tab.active.col-md-4.no_pad
+							a.row_space--sm(href='#') about
+						li.tab.col-md-4.no_pad
+							a.row_space--sm(href='#') experience
+						li.tab.col-md-4.no_pad
+							a.row_space--sm(href='#') portfolio 
+							
+		.profile_about_tabs.tab_content_group
+			.profile__about.tab_content_single.row_space--lg
+				.containter
+					.row
+						p.col-md-6.col-centered I am a kickass designer hell yea. is a full circle design and web development agency looking for an exceptional Mid-weight Graphic Designer with Front-End Web Development skills to become a part of our close-knit team. Blick has a diverse range of clients, from government to corporate, with a special focus on the not-for-profit sector.
+			.profile__about__footer
+				img(src='/img/profile_img/bottom_image.jpg')
+			.profile_working_experience.tab_content_single.working_experience_group
+					.working__single.experience
+					.working__single.education
+					.working__single.skill
+					.working__single.award
+					.working__single.career_aspiration
+			.profile_portfolio.tab_content_single.portfolio_group.row_space--lg
+				.container
+					.row
+						.portfolio__single.col-md-4
+							.thumbnail
+								img(src='/img/profile_img/eiffel-tower-paris.jpg')
+								.brief_info.brief_group
+									.brief__title.brief__single.clearfix
+										h4 pear delivery
+										span web design
+									.brief__tag.brief__single.clearfix
+										ul.tag_group
+											li.tag.base_white.pri_light_cl_bg HTML/CSS
+											li.tag.base_white.pri_light_cl_bg Logo Design
+											li.tag.base_white.pri_light_cl_bg Brand
+											li.tag.base_white.pri_light_cl_bg Invision
+											li.tag.base_white.pri_light_cl_bg jQuery
+
+						.portfolio__single.col-md-4
+							.thumbnail
+								img(src='/img/profile_img/eiffel-tower-paris.jpg')
+								.brief_info.brief_group
+									.brief__title.brief__single.clearfix
+										h4 pear delivery
+										span web design
+									.brief__tag.brief__single.clearfix
+										ul.tag_group
+											li.tag.base_white.pri_light_cl_bg HTML/CSS
+											li.tag.base_white.pri_light_cl_bg Logo Design
+											li.tag.base_white.pri_light_cl_bg Brand
+											li.tag.base_white.pri_light_cl_bg Invision
+											li.tag.base_white.pri_light_cl_bg jQuery
+
+						.portfolio__single.col-md-4
+							.thumbnail
+								img(src='/img/profile_img/eiffel-tower-paris.jpg')
+								.brief_info.brief_group
+									.brief__title.brief__single.clearfix
+										h4 pear delivery
+										span web design
+									.brief__tag.brief__single.clearfix
+										ul.tag_group
+											li.tag.base_white.pri_light_cl_bg HTML/CSS
+											li.tag.base_white.pri_light_cl_bg Logo Design
+											li.tag.base_white.pri_light_cl_bg Brand
+											li.tag.base_white.pri_light_cl_bg Invision
+											li.tag.base_white.pri_light_cl_bg jQuery
+
+						.portfolio__single.col-md-4
+							.thumbnail
+								img(src='/img/profile_img/eiffel-tower-paris.jpg')
+								.brief_info.brief_group
+									.brief__title.brief__single.clearfix
+										h4 pear delivery
+										span web design
+									.brief__tag.brief__single.clearfix
+										ul.tag_group
+											li.tag.base_white.pri_light_cl_bg HTML/CSS
+											li.tag.base_white.pri_light_cl_bg Logo Design
+											li.tag.base_white.pri_light_cl_bg Brand
+											li.tag.base_white.pri_light_cl_bg Invision
+											li.tag.base_white.pri_light_cl_bg jQuery
+
+						.portfolio__single.col-md-4
+							.thumbnail
+								img(src='/img/profile_img/eiffel-tower-paris.jpg')
+								.brief_info.brief_group
+									.brief__title.brief__single.clearfix
+										h4 pear delivery
+										span web design
+									.brief__tag.brief__single.clearfix
+										ul.tag_group
+											li.tag.base_white.pri_light_cl_bg HTML/CSS
+											li.tag.base_white.pri_light_cl_bg Logo Design
+											li.tag.base_white.pri_light_cl_bg Brand
+											li.tag.base_white.pri_light_cl_bg Invision
+											li.tag.base_white.pri_light_cl_bg jQuery
+
+						.portfolio__single.col-md-4
+							.thumbnail
+								img(src='/img/profile_img/eiffel-tower-paris.jpg')
+								.brief_info.brief_group
+									.brief__title.brief__single.clearfix
+										h4 pear delivery
+										span web design
+									.brief__tag.brief__single.clearfix
+										ul.tag_group
+											li.tag.base_white.pri_light_cl_bg HTML/CSS
+											li.tag.base_white.pri_light_cl_bg Logo Design
+											li.tag.base_white.pri_light_cl_bg Brand
+											li.tag.base_white.pri_light_cl_bg Invision
+											li.tag.base_white.pri_light_cl_bg jQuery
+
+
+					
+
+
+
+
+
+
+
+
+
+
+
+

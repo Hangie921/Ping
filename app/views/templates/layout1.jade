@@ -1,0 +1,22 @@
+doctype html
+html
+	head
+		//- 1514(GMT+8) 280416 Janet  
+		title= title
+		meta(charset='UTF-8')
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(rel='stylesheet', href='/css/main.css')
+		script(src='/js/jquery-2.2.3.js')
+		script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js')
+		//- link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css")
+		link(rel='stylesheet', href='/css/font-awesome.min.css')
+		link(rel="stylesheet", href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css")
+		block css
+		block scripts 
+	
+	block body
+		block body_class
+			body
+		//- include ../modules/menu.jade
+		block content
+			h1 This is default
