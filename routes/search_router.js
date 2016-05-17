@@ -31,7 +31,7 @@ router.get(url, function(req, res, next) {
 });
 
 router.get(urlApi, function(req, res, next) {
-    var resJson = resCode.OK;
+    var resJson = {code:200};
     var condition = {};
 
     if (req.query.position) {

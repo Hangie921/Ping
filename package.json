@@ -8,7 +8,7 @@
     "redeploy": "NODE_ENV=\"production\" pm2 restart app.js",
     "debug": "supervisor app.js",
     "test": "mocha $(find test/api -name '*.js' ! -path '*try*')",
-    "updateping": "npm install ../../Ping_Library",
+    "updateping": "npm install ../Ping_Library",
     "gen": "node generator/user_generator.js",
     "regen": "node generator/user_generator.js --drop"
   },
