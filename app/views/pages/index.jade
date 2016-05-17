@@ -6,11 +6,14 @@ html(ng-app='pingApp')
 		script(src="js/controller.js")
 
 	body
-		.row
+		//- include ../modules/menu.jade
+		//- .row
 			.col-md-1
 				a(href="#/") /
 			.col-md-1
 				a(href="#/home") home.jade
+			.col-md-1
+				a(href="#/login") login
 			.col-md-1
 				a(href="#/search") find_talent.jade
 			.col-md-1
@@ -19,17 +22,3 @@ html(ng-app='pingApp')
 				a(href="#/search?position=Designer") find_talent Designer
 		div(ng-view)
 
-//- <head>
-//-   <script src="public/bower_components/angular/angular.js"></script>
-//-   //- <script src="public/js/controllers.js"></script>
-//- </head>
-//- <body ng-controller="PhoneListCtrl">
-
-//-   <ul>
-//-     <li ng-repeat="phone in phones">
-//-       <span>{{phone.name}}</span>
-//-       <p>{{phone.snippet}}</p>
-//-     </li>
-//-   </ul>
-
-//- </body>

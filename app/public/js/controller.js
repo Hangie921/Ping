@@ -24,6 +24,22 @@ searchControllers.controller('SearchTalentCtrl', ['$scope', '$http', '$location'
                 $scope.queryString += "seniority=" + $scope.seniority + "&";
             }
         };
+
+        $scope.contactTalent = function(username) {
+        	console.log("in");
+            $http.post('api/contact', { contact_someone: username, msg: 'Ping it' }).then(function(res) {
+            	console.log(res.data);
+                switch (res.data.code) {
+                    case 200:
+                        $window.alert('Ping ' + username);
+                        break;
+                    default:
+                        $window.alert(res.data.errmsg);
+                }
+
+            });
+
+        };
     }
 
 
