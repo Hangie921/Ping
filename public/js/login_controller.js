@@ -1,59 +1,61 @@
-var loginControllers = angular.module('loginControllers', []);
+var loginControllers = angular.module('loginControllers', ['angular-storage']);
 
-
-loginControllers.run(['$rootScope', '$location', 'Auth', function($rootScope, $location, Auth) {
+loginControllers.run(['$rootScope', '$location', '$window', 'Auth0Store', function($rootScope, $location, $window, Auth0Store) {
+    console.log("run once ");
     $rootScope.$on('$routeChangeStart', function(event) {
-
-        if (!Auth.isLoggedIn()) {
+        console.log('Auth0Store.getUser()', Auth0Store.getUser());
+        console.log('log', Auth0Store.isLoggedIn());
+        if (!Auth0Store.isLoggedIn()) {
             console.log('DENY');
-            event.preventDefault();
-            $location.path('#/login');
+            // event.preventDefault();
+            // @Todo need warning
+            $window.alert('need login');
+            $location.path("login");
         } else {
             console.log('ALLOW');
-            $location.path('#/home');
+            // $location.path('#/');
         }
     });
 }]);
 
+// store: Module['angular-storage']
+// loginControllers.service('Auth0Store', function(store) {
+//     this.getUser = function() {
+//         return store.get('user');
+//     };
+//     this.setUser = function(user) {
+//         return store.set('user', user);
+//     };
+//     this.isLoggedIn = function(user) {
+//         return store.get('user') ? true : false;
+//     };
+// });
 
-loginControllers.factory('Auth', function() {
-    var user;
-
-    return {
-        setUser: function(aUser) {
-            user = aUser;
-        },
-        isLoggedIn: function() {
-            return (user) ? user : false;
-        }
-    };
-});
-
-
-
-loginControllers.controller('loginCtrl', ['$scope', 'Auth', function($scope, Auth) {
-    //submit
+loginControllers.controller('loginCtrl', ['$scope', 'Auth0Store', function($scope, Auth0Store) {
+    
     $scope.login = function() {
-        // Ask to the server, do your job and THEN set the user
+        var user = { name: 'Rammus', title: 'RD' };
+        Auth0Store.setUser(user);
+    };
 
-        Auth.setUser(user); //Update the state of the user in the app
+    $scope.logout = function() {
+        Auth0Store.clean();
     };
 }]);
 
-loginControllers.controller('mainCtrl', ['$scope', 'Auth', '$location', function($scope, Auth, $location) {
-
-    $scope.$watch(Auth.isLoggedIn, function(value, oldValue) {
-
-        if (!value && oldValue) {
-            console.log("Disconnect");
-            $location.path('#/login');
-        }
-
-        if (value) {
-            console.log("Connect");
-            //Do something when the user is connected
-        }
-
-    }, true);
-
+loginControllers.config(['$provide', function($provide) {
+    $provide.service('Auth0Store', function(store) {
+        this.getUser = function() {
+            return store.get('user');
+        };
+        this.setUser = function(user) {
+            return store.set('user', user);
+        };
+        this.clean = function(user) {
+            return store.remove('user');
+        };
+        this.isLoggedIn = function(user) {
+            return store.get('user') ? true : false;
+        };
+    });
 }]);

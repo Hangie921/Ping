@@ -1,8 +1,9 @@
 
 h1 This is for angular.js
 {{ 1+1 }}
-
 div(ng-controller="myCtrl")
 	p {{name}}
-div(ng-controller='SearchTalentCtrl')
+div(ng-controller='loginCtrl')
 	h1 {{code}}
+	button(ng-click="login()") login
+	button(ng-click="logout()") logout
