@@ -95,7 +95,7 @@ block content
 								input(type='text',ng-model='culture',ng-keyup="$event.keyCode == '13' && update_tags('culture')",placeholder='Create some tags for your company! Hit Enter to add tag')
 								.tag_group.edit_tag_group
 									.tag_single(ng-repeat='culture in profile.culture')
-										a.tag.base_white.pri_cl_bg {{culture}}
+										a.tag.tag--pri {{culture}}
 										a(ng-click='delete_tags(profile.culture,$index)')
 											i.lnr.lnr-cross.base_white
 							.edit__input.input_single.col-md-9
@@ -104,7 +104,7 @@ block content
 									input(type='text',ng-model='technology',ng-keyup="$event.keyCode == '13' && update_tags('technology')",placeholder='Enter the technology tags you wanna add')
 									.tag_group.edit_tag_group
 										.tag_single(ng-repeat='technology in profile.technology')
-											a.tag.base_white.pri_cl_bg {{technology}}
+											a.tag.tag--pri {{technology}}
 											a(ng-click='delete_tags(profile.technology,$index)')
 												i.lnr.lnr-cross.base_white
 					.edit_company_info.edit_group#company_intro

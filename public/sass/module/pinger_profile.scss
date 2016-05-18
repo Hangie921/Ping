@@ -44,7 +44,7 @@
     }
 }
 
-// Pinger_info_section
+// pinger_profile_top_section   
 .pinger_info-photo {
     border: 6px solid $base-white;
     margin-top: -75px;
@@ -54,7 +54,7 @@
     margin-top: -127px;
 }
 
-.pinger_info-details {
+.pinger__icon__group {
     border-bottom: 1px solid $grayscale_light_cl;
     .pinger__icon__list {
         width: 100%;
@@ -71,21 +71,22 @@
     }
 }
 
-.pinger_info-character {
+.pinger__character__tags {
     margin-top: -26px;
     margin-bottom: 55px;
 }
 
-//Profile Main Profile
-.pinger_main_profile {
+//pinger_main_section
+.pinger_main_section {
     background-color: $base_white;
 }
 
-.profile_tab_nav {
+.pinger__main__section__tabs {
     padding: 1px;
     border-bottom: 1px solid $grayscale_light_cl;
     .nav_tabs {
         border-color: transparent;
+        height: 76px;
     }
     .nav_tabs .tab {
         margin-bottom: -5px;
@@ -95,13 +96,18 @@
         position: relative;
         > a {
             text-transform: uppercase;
-            border: none;
+            // border: none;
             margin-right: 0px;
+            width: 100%;
+            display:block;
             &:hover {
                 border-bottom: 5px solid $grayscale_dark_cl;
             }
         }
         &.active > a {
+            width: 100%;
+            display:block;
+
             &,
             &:hover,
             &:focus {
@@ -112,12 +118,148 @@
     }
 }
 
-.profile__about {
+.pinger__about__inner {
     box-sizing: border-box;
     background-color: $base_white;
+    margin-top: 5px;
 }
 
-.profile__about__footer {
+
+
+// Profile Portfolio 
+.portfolio__single {
+    position: relative;
+    margin-top: 20px;
+    padding: 0px 11px;
+    height: 240px;
+    .portfolio__single__inner{
+        position: relative;
+    }
+    // @include prefix(( background:url('/img/profile_img/eiffel-tower-paris.jpg') no-repeat,background-size:), webkit moz ms)
+    .thumbnail {
+        position: absolute;
+        width: 100%;
+        height: 240px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .portfolio__single__intro {
+        height: 240px;
+        width: 100%;
+        display: none;
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        background-color: rgba(107, 180, 173, .8); //$pri_cl
+        .brief__single {
+            width: 100%;
+        }
+        .portfolio__title {
+            color: $base_white;
+            text-align: center;
+            padding: 60px 0px 0px;
+            & h4 {
+                font-weight: bold;
+                font-size: $md_font;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+            }
+            & span {
+                opacity: 0.8;
+                text-transform: capitalize;
+            }
+        }
+        .portfolio__tags {
+            opacity: 0.8;
+            padding: 0px 15px;
+            & .tag {
+                height: 25px;
+                line-height: 25px;
+            }
+        }
+    }
+    &:hover .portfolio__single__intro {
+        display: block;
+    }
+} //portfolio_single ends
+//Light box section
+
+
+
+
+.portfolio_popup{
+    height:auto;
+    margin-bottom: 120px;
+}
+.portfolio__popup__header {
+    .title h3 {
+        font-size: $xlg_font;
+        color: $pri_cl;
+        text-transform: capitalize;
+    }
+    .portfolio_popup_type {
+        font-size: $sm_font;
+        color: $grayscale_cl;
+        text-align: center;
+    }
+    .functions {
+        margin-top: -50px;
+        margin-right: 20px;
+        float: right;
+        > div {
+            float: left;
+            margin-right: $space_sm;
+            > a {
+                color: #FFBC4E;
+                font-size: 24px;
+            }
+        }
+        height: 100%;
+        min-width: 100px;
+    }
+}
+
+.portfolio__popup__photo {
+    img {
+        width: 100%;
+        object-fit: cover;
+        height: 400px;
+    }
+}
+
+.portfolio__popup__content {
+    padding-left: 110px;
+    padding-right: 110px;
+    .content_banner {
+        img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+    }
+    .content_code {
+        background-color: $grayscale_6;
+    }
+}
+
+
+
+
+// footer
+.pinger_footer {
     width: 100%;
     max-height: 350px;
     img {
@@ -125,80 +267,3 @@
         object-fit: fill;
     }
 }
-
-
-// Profile Portfolio 
-
-.portfolio__single {
-    position: relative;
-    margin-top: 20px;
-    padding:0px 11px;
-    // @include prefix(( background:url('/img/profile_img/eiffel-tower-paris.jpg') no-repeat,background-size:), webkit moz ms);
-    > div {
-        width: 100%;
-        height: 240px;
-    }
-
-    .thumbnail{
-        position: relative;
-        img{
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
-    }
-    .brief_info{
-        height: 100%;
-        display:none;
-        box-sizing:border-box;
-        position: absolute;
-        left: 0;
-        top: 0;
-        background-color:rgba(107,180,173,.8);  //$pri_cl
-        
-        .brief__single{
-            width: 100%;
-        }
-    
-        .brief__title{
-            color:$base_white;
-            text-align: center;
-            padding:60px 0px 0px;
-            & h4{
-                font-weight: bold;
-                font-size: $md_font;
-                text-transform: uppercase;
-                margin-bottom:10px;
-            }
-            & span{
-                opacity:0.8;
-                text-transform: capitalize;
-            }
-        }
-        .brief__tag{
-            opacity:0.8;
-            padding:0px 15px;
-            & .tag{
-                height: 25px;
-                line-height:25px;
-            }
-        }
-
-    }
-    &:hover .brief_info{
-        display:block;
-        
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-

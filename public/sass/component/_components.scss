@@ -116,86 +116,8 @@
     }
 }
 
-// ============== Tags ======================
-.tag_group {
-    margin-top: $space_sm;
-}
 
-.tag_single {
-    float: left;
-    position: relative;
-}
 
-// == Tags Edit Group ======================
-.tag_group.edit_tag_group {
-    .tag {
-        padding-right: 50px;
-    }
-    i {
-        display: block;
-        height: 40px;
-        width: 30px;
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding-top: 20px;
-        padding-right: 10px;
-        font-size: $base_font_size;
-        cursor: pointer;
-    }
-}
-
-// ================ Tags =============================
-.tag {
-    float: left;
-    display: block;
-    height: 40px;
-    line-height: 40px;
-    padding: 1px 15px;
-    border-radius: 20px;
-    margin-right: 8px;
-    margin-top: 8px;
-    font-size: 16px;
-    &:last-child {
-        margin-right: 0px;
-    }
-}
-
-// ================ Tabs =============================
-.nav_tabs {
-    border-bottom: 1px solid $grayscale_light_cl;
-    > li {
-        width: 33%;
-        float: left;
-        // Make the list-items overlay the bottom border
-        margin-bottom: -1px;
-        // Actual tabs (as links)
-        > a {
-            margin-right: 2px;
-            line-height: $base_line_height;
-            border: 1px solid transparent;
-            color: $grayscale_light_cl;
-            box-sizing:border-box;
-            display:block;
-            text-align:center;
-            &:hover {
-                border-bottom: 1px solid $grayscale_dark_cl;
-                color: $grayscale_dark_cl;
-            }
-        }
-        // Active state, and its :hover to override normal :hover
-        &.active > a {
-            &,
-            &:hover,
-            &:focus {
-                color: $grayscale_dark_cl;
-                border: 1px solid transparent;
-                border-bottom-color: $grayscale_dark_cl;
-                cursor: default;
-            }
-        }
-    }
-}
 
 // =========== Search Bar =========
 .searchbar {

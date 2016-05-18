@@ -57,7 +57,7 @@ block content
 						h4 Company Culture
 							ul.tag_list
 								for culture in profile.culture
-									li.tag.base_white_bg.grayscale_cl=culture
+									li.tag.tag--white=culture
 									//- li.tag.base_white_bg.grayscale_cl Beer
 									//- li.tag.base_white_bg.grayscale_cl Banana
 									//- li.tag.base_white_bg.grayscale_cl Kumamon
@@ -66,7 +66,7 @@ block content
 						h4 Company Technology
 							ul.tag_list
 								for technology in profile.technology
-									li.tag.base_white=technology
+									li.tag.tag--gray5=technology
 	section.profile_main_section.row_space--lg
 		.container
 			.row

@@ -72,13 +72,13 @@ app.service('percentage_service', function() {
 
     var section_links_temp = {
 
-        General_information: [{
+        Profile_setting: [{
                 url: "/companies/profile/edit#profile_setting",
                 url_exist: false
             },
             "tagline"
         ],
-        Company_information: [{
+        General_information: [{
                 url: "/companies/profile/edit?section=detail#company_info",
                 url_exist: false
             },
@@ -113,7 +113,7 @@ app.service('percentage_service', function() {
         var counter = -4; //扣掉 username, type, length,time這四個key
         var doc2 = { length: 0 };
 
-        console.log(doc["links"]);
+        console.log(doc.links);
         //1.把要用的key篩選出來變成doc2，因為以後可能profile裡面會加更多的keys
         for (var key in doc) {
             for (var i = 0; i < key_list_to_cal.length; i++) {
@@ -161,9 +161,9 @@ app.service('percentage_service', function() {
 
 
 
-        // console.log("counter", counter);
-        // console.log("doc2 = ", doc2);
-        var temp_percentage = ((counter) / 13 * 100).toString() + '%';
+        console.log("counter", counter);
+        console.log("doc2 = ", doc2);
+        var temp_percentage = ((counter) / 12 * 100).toString() + '%';
         console.log("percentage:", temp_percentage);
         percentage.counter = counter;
         percentage.value = temp_percentage;
@@ -386,17 +386,6 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
     $scope.changedYear = null;
     $scope.changedIndustry = null;
     $scope.changedSize = null;
-
-    $scope.selected = {};
-
-
-
-    // ================== set the variables above ============================
-
-
-
-
-
     $scope.industryOptions = {
         options: industryArr
     };
@@ -410,27 +399,30 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
 
 
 
+    // ================== set the variables above ============================
+
+
     $scope.initial = function() {
         console.log("init");
 
-        // $scope.selected = {
-        //     location: {
-        //         country: data.location.country ? data.location.country : "",
-        //         city: data.location.city ? data.location.city : "",
-        //     },
-        //     establish_year: {
-        //         name: (data.establish_year || data.establish_year === "-1") ? data.establish_year.toString() : "Select Establish Year",
-        //         value: (data.establish_year || data.establish_year === "-1") ? data.establish_year : -1
-        //     },
-        //     size: {
-        //         name: (data.size || data.size === "-1") ? data.size : "Select Size",
-        //         value: (data.size || data.size === "-1") ? data.size : -1
-        //     },
-        //     industry: {
-        //         name: (data.industry || data.industry === "-1") ? data.industry : "Select Industry",
-        //         value: (data.industry || data.industry === "-1") ? data.industry : -1
-        //     }
-        // };
+        $scope.selected = {
+            location: {
+                country: data.location.country ? data.location.country : "",
+                city: data.location.city ? data.location.city : "",
+            },
+            establish_year: {
+                name: (data.establish_year || data.establish_year === "-1") ? data.establish_year.toString() : "Select Establish Year",
+                value: (data.establish_year || data.establish_year === "-1") ? data.establish_year : -1
+            },
+            size: {
+                name: (data.size || data.size === "-1") ? data.size : "Select Size",
+                value: (data.size || data.size === "-1") ? data.size : -1
+            },
+            industry: {
+                name: (data.industry || data.industry === "-1") ? data.industry : "Select Industry",
+                value: (data.industry || data.industry === "-1") ? data.industry : -1
+            }
+        };
 
 
         percentage_service.calculate(data, percentage_service.percentage);
@@ -525,7 +517,7 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
             stateElement.onchange = function() {
                 $scope.selected.location.city = stateElement.value;
                 console.log("value", stateElement.value);
-            }
+            };
         }
     };
     //以上可正常運作
@@ -752,7 +744,7 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         formData.append("who_u_r", JSON.stringify($scope.who_u_r_to_DB));
         formData.append("what_u_do", JSON.stringify($scope.what_u_do_to_DB));
 
-        formData.append("location", $scope.selected.location);
+        formData.append("location", JSON.stringify($scope.selected.location));
 
         if (document.getElementById('industry').value) {
             formData.append("industry", document.getElementById('industry').value);

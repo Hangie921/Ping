@@ -96,34 +96,50 @@ div {
 
 }
 
+// ============== column spaces =====================
+
+.col_space--sm{
+	padding-left:$space_sm;
+	padding-right: $space_sm;
+}
+
+
+
 // ============== row spaces ========================
 
-
-
-
-.row_space--xs {
-	padding-top:10px;
-	padding-bottom:10px;
-	}
+// .row_space-top--XX
 .row_space-top--xs {
-	margin-top:10px;
+	margin-top:$space_xs;
 }
-.row_space--sm{
-	padding-top:26px;
-	padding-bottom:26px;
+.row_space-top--md{
+	margin-top: $space_md;
 }
 
-.row_space--md {
-	padding-top:35px;
-	padding-bottom:35px;
-}
+// .row_space-bottom--XX
 .row_space-bottom--md {
-	padding-bottom:35px;
+	padding-bottom:$space_md;
 }
+
+// .row_space--XX
+.row_space--xs {
+	padding-top:$space_xs;
+	padding-bottom:$space_xs;
+	}
+.row_space--sm{
+	padding-top:$space_sm;
+	padding-bottom:$space_sm;
+}
+.row_space--md {
+	padding-top:$space_md;
+	padding-bottom:$space_md;
+}
+
 .row_space--lg {
-	padding-top:70px;
-	padding-bottom:70px;
+	padding-top:$space_lg;
+	padding-bottom:$space_lg;
 }
+
+
 
 // ============= Hide & Show ==============
 

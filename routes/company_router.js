@@ -156,7 +156,7 @@ router.post(url + '/profile/edit', function(req, res, next) {
                 // 狀況二：只有檔案之外的其他input
                 // 狀況三：mixed
 
-                if (key == 'links' || key == 'culture' || key == 'technology' || key == 'who_u_r' || key == 'what_u_do') {
+                if (key == 'links' || key == 'culture' || key == 'technology' || key == 'who_u_r' || key == 'what_u_do'||key ==='location') {
                     console.log(key, ': ', req.body[key]);
                     originCompany[key] = JSON.parse(req.body[key]);
                 } else {

@@ -1,0 +1,63 @@
+// ============== Tags ======================
+.tag_group {
+    margin-top: $space_sm;
+}
+
+.tag_single {
+    float: left;
+    position: relative;
+}
+
+// == Tags Edit Group ======================
+.tag_group.edit_tag_group {
+    .tag {
+        padding-right: 50px;
+    }
+    i {
+        display: block;
+        height: 40px;
+        width: 30px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding-top: 20px;
+        padding-right: 10px;
+        font-size: $base_font_size;
+        cursor: pointer;
+    }
+}
+
+// ================ Tags =============================
+.tag {
+    float: left;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    padding: 1px 15px;
+    border-radius: 20px;
+    margin-right: 8px;
+    margin-top: 8px;
+    font-size: 16px;
+    &:last-child {
+        margin-right: 0px;
+    }
+}
+
+.tag--pri{
+    color:$base_white;
+    background-color: $pri_cl;
+}
+.tag--pri_light{
+    color:$base_white;
+    background-color: $pri_light_cl;
+}
+
+.tag--gray5{
+    background-color:$grayscale_5;
+    color:$base_white;
+}
+
+.tag--white{
+    color:$grayscale_cl;
+    background-color:$base_white;
+}

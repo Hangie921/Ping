@@ -40,8 +40,15 @@
 		}
 	}
 	& .btn{
+		width: 100%;
 		margin-left: auto;
 		margin-right: auto;
+		background-color: $pri_cl;
+		color:$base_white;
+		height: 50px;
+		margin-top: 20px;
+		line-height: 50px;
+		font-size: $rgs_font;
 	}
 	& .forget_pwd{
 		display:none;
