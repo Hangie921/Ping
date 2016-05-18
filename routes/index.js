@@ -40,8 +40,13 @@ router.get('/partials/:name', function(req, res) {
 // static pages jade for Angular.js
 router.get('/pages/:name', function(req, res) {
     var name = req.params.name;
-    console.log("in:", name);
     res.render('pages/' + name);
+});
+
+// static pages jade for Angular.js
+router.get('/modules/:name', function(req, res) {
+    var name = req.params.name;
+    res.render('modules/' + name);
 });
 
 var fs = require('fs');

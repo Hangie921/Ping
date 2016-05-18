@@ -11,28 +11,40 @@ router.get('/test_angular', function(req, res, next) {
     res.render('pages/index', { layout: false });
 });
 
-router.get('/test', function(req, res, next) {
-    fs.readdir(process.env.PWD + '/views/pages', (err, data) => {
-        if (err) console.log(err);
-        var pages = [];
-        data.forEach(function(value, index) {
-            if (value.endsWith('.jade')) {
-                pages.push(value.slice(0, -5));
-            }
+function getJades(path) {
+    return new Promise(function(resolve, reject) {
+
+        fs.readdir(process.env.PWD + path, (err, data) => {
+            if (err) reject(err);
+            var pages = [];
+            data.forEach(function(value, index) {
+                if (value.endsWith('.jade')) {
+                    pages.push(value.slice(0, -5));
+                }
+            });
+            return resolve(pages);
+
         });
-        console.log(pages);
-
-        var resJson = {};
-        if (req.session.user) {
-            resJson.user = req.session.user;
-        } else {
-            resJson.user = 'no session';
-        }
-        resJson.pages = pages;
-
-        res.render('pages/test', resJson);
-
     });
+}
+
+router.get('/test', function(req, res, next) {
+
+    var resJson = {};
+    if (req.session.user) {
+        resJson.user = req.session.user;
+    } else {
+        resJson.user = 'no session';
+    }
+
+    getJades('/views/pages').then(function(pages) {
+            resJson.pages = pages;
+            return getJades('/views/modules');
+        })
+        .then(function(modules) {
+            resJson.modules = modules;
+            res.render('pages/test', resJson);
+        });
 });
 
 router.get('/positions', function(req, res, next) {

@@ -1,19 +1,20 @@
-include ../modules/head
-		link(rel='stylesheet', href='/css/login_page.css')
-		script(src='/js/login_page.js')
+//- include ../modules/head
+
+//- block css
+link(rel='stylesheet', href='/css/login_page.css')
 
 block content
-	.container(ng-app)
+	.container(ng-controller='loginCtrl')
 		.brand_container
-			img(src='../img/branding.png')
+			img(src='/img/branding.png')
 		#login_form.col-md-4.col-centered
 			form(type='multipart/form-data',method="post", action='/login',id='login_form1')
 				.input_single
-					input#mem_acc(type='email',name="mem_acc", placeholder='username',value='company@ping.com.sg')
+					input#mem_acc(type='email', placeholder='username',value='company@ping.com.sg',ng-model="acc")
 				.input_single
-					input#mem_pwd(type='password',name="mem_pwd", placeholder='password',value='qwer1234')
+					input#mem_pwd(type='password', placeholder='password',value='qwer1234',ng-model="pwd")
 				//- input(type='submit')
-				a.btn#login_btn(href='javascript:void(0);') Login
+			button.btn.btn_pri#login_btn(ng-click="login()") Login
 			span.forget_pwd
 				a.sec_cl(href='#') forget password
 		#feedback.col-md-8.col-centered

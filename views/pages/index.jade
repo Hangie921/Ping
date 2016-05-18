@@ -1,19 +1,28 @@
 html(ng-app='pingApp')
 	head
+		title Ping
+		meta(charset='UTF-8')
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+			
+		link(rel='stylesheet', href='/css/main.css')
+		link(rel='stylesheet', href='/bower_components/font-awesome/css/font-awesome.min.css')
+		link(rel="stylesheet", href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css")
+
 		script(src="bower_components/angular/angular.js")
 		script(src="bower_components/angular-route/angular-route.js")
 		script(src="bower_components/a0-angular-storage/dist/angular-storage.min.js")
 		script(src="js/app.js")
 		script(src="js/controller.js")
 		script(src="js/login_controller.js")
-
-	body
+	body(class="{{bodyClass}}")
 		//- include ../modules/menu.jade
-		.row
+		.row(ng-controller="debugCtrl" ng-show="{{debug}}")
 			.col-md-1
 				a(href="#/") /
 			.col-md-1
 				a(href="#/home") home.jade
+			.col-md-1
+				a(href="#/dashboard") dashboard
 			.col-md-1
 				a(href="#/login") login
 			.col-md-1
