@@ -28,7 +28,7 @@ block content
 			.side_bar-left.col-md-2.clearfix.no_pad
 				.base_white_bg.grayscale_dark_cl
 					ul.side_bar_menu.menu
-						li.menu_item.icon_set.icon_set--sm.active
+						li.menu_item.icon_set.icon_set--sm
 							a(href='/companies/profile/edit/')
 								i.lnr.lnr-smile
 								span Company&nbspBranding
@@ -36,7 +36,7 @@ block content
 							a(href='/companies/profile/edit?section=detail')
 								i.lnr.lnr-license
 								span Detail/Description
-						li.menu_item.icon_set.icon_set--sm
+						li.menu_item.icon_set.icon_set--sm.active
 							a(href='/companies/profile/edit?section=social')
 								i.lnr.lnr-earth
 								span Social&nbspNetworks
@@ -58,23 +58,32 @@ block content
 						.edit__input.input_single.col-md-9(ng-init="initial(#{JSON.stringify(user.custom._profile.links)})")
 							a.btn.social_media_btn.offical.lnr.lnr-checkmark-circle(ng-show="official.show_btn",ng-click="btn_click('official'); $event.stopPropagation();",data-name='offical',ng-class="{'active':official.has_active,'checked':official.data_from_server}") official site
 							.input_single(ng-show="!official.show_btn")
-								input(type='text', name='official',placeholder=('Add your official URL here. (Start with http/https)'),ng-model="official.data",ng-click='$event.stopPropagation();')
+								input(type='url', name='official',placeholder=('Add your official URL here. (Start with http/https)'),ng-model="official.data",ng-click='$event.stopPropagation();',pattern="https?://.+" )
+								span Please enter the valid url starting with http:// or https://
 						.edit__input.input_single.col-md-9
 							a.btn.social_media_btn.facebook.lnr.lnr-checkmark-circle(ng-show="facebook.show_btn",ng-click="btn_click('facebook');$event.stopPropagation();",data-name='facebook',ng-class="{'active':facebook.has_active,'checked':facebook.data_from_server}") 
 							.input_single(ng-show="!facebook.show_btn")
-								input(type='text', name='facebook',placeholder=('Add your facebook URL here. (Start with http/https)'),ng-model="facebook.data",ng-click='$event.stopPropagation();')
+								input(type='url', name='facebook',placeholder=('Add your facebook URL here. (Start with http/https)'),ng-model="facebook.data",ng-click='$event.stopPropagation();',pattern="https?://.+" )
+								span Please enter the valid url starting with http:// or https://
+
 						.edit__input.input_single.col-md-9
 							a.btn.social_media_btn.linkedin.lnr.lnr-checkmark-circle(ng-show="linkedin.show_btn",ng-click="btn_click('linkedin');$event.stopPropagation();",data-name='linkedin',ng-class="{'active':linkedin.has_active,'checked':linkedin.data_from_server}")
 							.input_single(ng-show="!linkedin.show_btn")
-								input(type='text', name='linkedin',placeholder=('Add your linkedin URL here. (Start with http/https)'),ng-model="linkedin.data",ng-click='$event.stopPropagation();')
+								input(type='url', name='linkedin',placeholder=('Add your linkedin URL here. (Start with http/https)'),ng-model="linkedin.data",ng-click='$event.stopPropagation();',pattern="https?://.+" )
+								span Please enter the valid url starting with http:// or https://
+
 						.edit__input.input_single.col-md-9
 							a.btn.social_media_btn.twitter.lnr.lnr-checkmark-circle(ng-show="twitter.show_btn",ng-click="btn_click('twitter');$event.stopPropagation();",data-name='twitter',ng-class="{'active':twitter.has_active,'checked':twitter.data_from_server}")
 							.input_single(ng-show="!twitter.show_btn")
-								input(type='text', name='twitter',placeholder=('Add your twitter URL here. (Start with http/https)'),ng-model="twitter.data", ng-click='$event.stopPropagation();')
+								input(type='url', name='twitter',placeholder=('Add your twitter URL here. (Start with http/https)'),ng-model="twitter.data", ng-click='$event.stopPropagation();',pattern="https?://.+" )
+								span Please enter the valid url starting with http:// or https://
+
 						.edit__input.input_single.col-md-9
 							a.btn.social_media_btn.google.lnr.lnr-checkmark-circle(ng-show="google.show_btn",ng-click="btn_click('google');$event.stopPropagation();",data-name='google',ng-class="{'active':google.has_active,'checked':google.data_from_server}") 
 							.input_single(ng-show="!google.show_btn")
-								input(type='text', name='google',placeholder=('Add your google URL here. (Start with http/https)'),ng-model="google.data", ng-click='$event.stopPropagation();')
+								input(type='url', name='google',placeholder=('Add your google URL here. (Start with http/https)'),ng-model="google.data", ng-click='$event.stopPropagation();',pattern="https?://.+" )
+								span Please enter the valid url starting with http:// or https://
+								
 				.btn_group.row_space-bottom--md.pull-right.col-md-6
 							.col-md-5
 								a.btn.cancel.btn--sm.btn--gray.btn_block(href='/dashboard') cancel

@@ -1,7 +1,7 @@
 //Initial the universal style
 @import "../base/_mixins.scss";
 
-[type="text"],[type='email'],[type='password'],select,[type='textarea'],textarea{
+[type='url'],[type="text"],[type='email'],[type='password'],select,[type='textarea'],textarea{
 	outline:none;
 	border-radius:$base_border_radius;
 	min-height:50px;

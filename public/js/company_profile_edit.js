@@ -163,7 +163,7 @@ app.service('percentage_service', function() {
 
         console.log("counter", counter);
         console.log("doc2 = ", doc2);
-        var temp_percentage = ((counter) / 12 * 100).toString() + '%';
+        var temp_percentage = ((counter) / 12 * 100).toString();
         console.log("percentage:", temp_percentage);
         percentage.counter = counter;
         percentage.value = temp_percentage;
@@ -340,7 +340,7 @@ app.directive("contentDirective", function($compile) {
                 element.append(DOM);
             } else if (scope.current.type === 'List') {
                 // @Todo 20160426: set class to this lists
-                var ul = "<ul data-type = 'list'>";
+                var ul = "<ul data-type = 'list' contenteditable>";
                 for (var i = 0; i < scope.current.content.length; i++) {
                     ul += "<li>" + scope.current.content[i] + "</li>";
                 }
@@ -365,7 +365,6 @@ app.directive("contentDirective", function($compile) {
 // $.initial():將DB資料插入變數，並排除空值會出現undefined的狀況
 // $.populateCity(),$.populateCountries(),$.populateOptions()三個function是用來
 //      列印出所有select的option,
-// $.genSection 是用來新增 who_u_r & what_u_do 的區塊
 // 其他function就如同function name所寫的
 
 
@@ -566,7 +565,7 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
         if (type === 't') {
             content = "<div class='new__content__input new__content__input-text'><textarea data-type='text'></textarea></div>";
         } else if (type === 'l') {
-            content = "<div class='new__content__input new__content__input-list' contenteditable='true'><ul data-type='list'><li>generated dynamically</li></ul></div>";
+            content = "<div class='new__content__input new__content__input-list' contenteditable='true'><ul data-type='list'><li>Enter what you want here</li></ul></div>";
         } else if (type === 'q') {
             content = "<div class='new__content__input new__content__input-quote'><textarea data-type='quote'></textarea></div>";
         }
@@ -881,7 +880,9 @@ app.controller('social_media_controller', ['$scope', 'percentage_service', funct
         $scope.links = percentage_service.percentage.links;
     };
     //variables
+    $scope.checkUrl = function(btn){
 
+    };
     $scope.check_active = function(btn) {
         // To add "active" class to the btn if btn.data has value.
         btn.has_active = (btn.data !== undefined && btn.data) ? true : false;

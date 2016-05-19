@@ -65,6 +65,8 @@ function createUser(acc, pwd, username, type, callback) {
     if (type === "company") {
         profile = new CompanyProfile();
         profile.username = username;
+        profile.who_u_r.push({content:"You haven't entered anything about you",type:'Text'});
+        profile.what_u_do.push({content:"You haven't entered anything about you",type:'Text'});
         newPingUser.custom = { _profile: profile._id };
 
     } else if (type === "talent") {

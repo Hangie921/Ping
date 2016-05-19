@@ -24,17 +24,18 @@ var companyProfileSchema = new mongoose.Schema({
     username: { type: String, unique: true },
     who_u_r: [{
         type: { type: String, enum: ['Text', 'List', 'Quote'] },
-        content: Mixed
+        content: { type: Mixed, default: {} }
     }],
     what_u_do: [{
-        type: { type: String, enum: ['Text', 'List', 'Quote'] },
-        content: Mixed
+        type: { type: String, enum: ['Text', 'List', 'Quote'], default: "Text" },
+        content: { type: Mixed, default: {} }
+
     }],
     tagline: { type: String, default: "" },
     size: {
         type: String,
-        default: '1-10',
-        enum: ['1-10', '10-50', '50-100', '100+', '1000+']
+        default: "",
+        enum: ["",'1-10', '10-50', '50-100', '100+', '1000+']
     },
     industry: { type: String, default: "" },
     establish_year: { type: Number, default: "" },

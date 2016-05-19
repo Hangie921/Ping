@@ -44,6 +44,7 @@
             
 // end of Banner Section
 
+
 //Middle gray area company info top section, icons, profile pic, social icons
 .company_info_section {
     background:$grayscale_6;
@@ -81,6 +82,25 @@
 
             }
 }// Company Top Section Ends
+
+//social_icons 
+.social_icons{
+    .disable{
+        
+        background-color:$grayscale_cl !important;
+        a{
+            cursor:default;
+        }
+        i{
+             color:$base_white !important;
+        }
+    }
+}
+
+
+
+
+
 
 //Company info tags sections
 .company_info_section-bottom {
@@ -123,6 +143,10 @@
     position:relative;
 
 }
+
+
+
+
 // =======
 //             & .detail {
 //                 width: 35%;

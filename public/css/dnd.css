@@ -45,6 +45,7 @@ ul[dnd-list] .dndPlaceholder {
  * browsers we can use event.offsetY for this.
  */
 ul[dnd-list] li {
+    /* outline:none; */
     background-color: #fff;
     border: 1px solid #ddd;
     border-top-right-radius: 4px;
@@ -54,6 +55,10 @@ ul[dnd-list] li {
     margin-bottom: -1px;
 }
 
+[contenteditable = "true"],
+[contenteditable]{
+    outline:none;
+}
 /**
  * Show selected elements in green
  */
