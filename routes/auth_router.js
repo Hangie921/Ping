@@ -29,6 +29,25 @@ var Profile = require('../module/schema/profile.js');
 //     res.render('pages/login', renderData);
 // });
 
+/* GET users listing. */
+router.post('/api/logout', function(req, res, next) {
+    var resJson = { code: 200 };
+    try {
+        req.session.destroy(function() {
+            req.session = null;
+            res.clearCookie('connect.sid', { "path": '/' });
+            res.redirect("/");
+            resJson.msg = 'logout success';
+            res.json(resJson);
+        });
+
+    } catch (e) {
+        resJson.code = 500;
+        resJson.errmsg = e;
+        res.json(resJson);
+    }
+});
+
 
 router.post('/api/login', function(req, res, next) {
     var acc = req.body.acc,

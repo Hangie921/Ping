@@ -21,14 +21,14 @@ app.config(['$routeProvider', function($routeProvider) {
         .when('/login', {
             templateUrl: 'pages/login',
             // templateUrl: 'partials/home',
-            controller: 'loginCtrl',
+            controller: 'LoginCtrl',
             data: {
                 bodyClass: "login"
             }
         })
         .when('/dashboard', {
-            templateUrl: 'modules/menu',
-            // templateUrl: 'pages/dashboard',
+            // templateUrl: 'modules/menu',
+            templateUrl: 'pages/dashboard',
             // templateUrl: 'partials/home',
             // controller: 'dashboardCtrl'
         })

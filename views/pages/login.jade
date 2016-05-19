@@ -1,24 +1,20 @@
-//- include ../modules/head
-
-//- block css
 link(rel='stylesheet', href='/css/login_page.css')
 
-block content
-	.container(ng-controller='loginCtrl')
-		.brand_container
-			img(src='/img/branding.png')
-		#login_form.col-md-4.col-centered
-			form(type='multipart/form-data',method="post", action='/login',id='login_form1')
-				.input_single
-					input#mem_acc(type='email', placeholder='username',ng-model="acc",ng-init="acc='company@ping.com.sg';")
-				.input_single
-					input#mem_pwd(type='password', placeholder='password',ng-model="pwd",ng-init="pwd='qwer1234';")
-				//- input(type='submit')
-			button.btn.btn_pri#login_btn(ng-click="login()") Login
-			span.forget_pwd
-				a.sec_cl(href='#') forget password
-		#feedback.col-md-8.col-centered
-			//- a(href="/users/new") 
-				button Register
-			span.sec_cl #{feedback_msg}
+.container
+	.brand_container
+		img(src='/img/branding.png')
+	#login_form.col-md-4.col-centered
+		form
+			.input_single
+				input#mem_acc(type='email', placeholder='username',ng-model="acc",ng-init="acc='company@ping.com.sg';")
+			.input_single
+				input#mem_pwd(type='password', placeholder='password',ng-model="pwd",ng-init="pwd='qwer1234';")
+			//- input(type='submit')
+		button.btn.btn_pri#login_btn(ng-click="login()") Login
+		span.forget_pwd
+			a.sec_cl(href='#') forget password
+	#feedback.col-md-8.col-centered
+		//- a(href="/users/new") 
+			button Register
+		span.sec_cl #{feedback_msg}
 

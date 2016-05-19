@@ -4,7 +4,8 @@ h1 This is for angular.js
 {{user}}
 div(ng-controller="myCtrl")
 	p {{name}}
-div(ng-controller='loginCtrl')
+div(ng-controller='LoginCtrl')
 	h1 {{code}}
+	button(ng-click="try('login')") try login
 	button(ng-click="login()") login
 	button(ng-click="logout()") logout

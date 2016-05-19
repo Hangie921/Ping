@@ -2,6 +2,7 @@ var loginControllers = angular.module('loginControllers', ['angular-storage']);
 
 loginControllers.run(['$rootScope', '$location', '$window', 'Auth0Store', function($rootScope, $location, $window, Auth0Store) {
     console.log("run once ");
+
     $rootScope.$on('$routeChangeStart', function(event) {
         if (!Auth0Store.isLoggedIn()) {
             console.log('DENY');
@@ -18,8 +19,7 @@ loginControllers.run(['$rootScope', '$location', '$window', 'Auth0Store', functi
     });
 }]);
 
-loginControllers.controller('loginCtrl', ['$scope', '$http', '$window', 'Auth0Store', function($scope, $http, $window, Auth0Store) {
-
+loginControllers.controller('LoginCtrl', ['$scope', '$http', '$window', '$location', 'Auth0Store', function($scope, $http, $window, $location, Auth0Store) {
     $scope.login = function() {
         console.log("login!!!!", $scope.acc, $scope.pwd);
 
@@ -28,7 +28,8 @@ loginControllers.controller('loginCtrl', ['$scope', '$http', '$window', 'Auth0St
             switch (res.data.code) {
                 case 200:
                     Auth0Store.setUser(res.data.data);
-                    $window.alert('登入成功> 導向/dashboard');
+                    $location.path('dashboard');
+                    // $window.alert('登入成功> 導向/dashboard');
                     break;
                 default:
                     $window.alert(res.data.errmsg);
@@ -39,6 +40,16 @@ loginControllers.controller('loginCtrl', ['$scope', '$http', '$window', 'Auth0St
 
     $scope.logout = function() {
         Auth0Store.clean();
+    };
+
+
+    $scope.try = function(routePath) {
+        $http.post('api/' + routePath, {}).then(function(res) {
+            switch (res.data.code) {
+                default: console.log("try:" + routePath, res.data);
+            }
+
+        });
     };
 }]);
 

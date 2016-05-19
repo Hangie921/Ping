@@ -8,11 +8,13 @@ var session = require('express-session');
 var multer = require('multer');
 
 // @Todo need add production setting
-router.use(require('./test_router'));
+var ifDebug = true;
 
-router.use(require('./login_router'));
-router.use(require('./logout_router'));
-router.use(require('./dashboard_router'));
+if (ifDebug) {
+    router.use(require('./test_router'));
+}
+
+router.use(require('./auth_router'));
 router.use(require('./search_router'));
 router.use(require('./user_router'));
 router.use(require('./company_router'));
