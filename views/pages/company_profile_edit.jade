@@ -13,7 +13,7 @@ block menu
 //- block sidebar
 //- 	include ../modules/sidebar.jade
 block content
-	.container-fluid
+	.container-fluid(ng-init="init()")
 		.row
 			//- Left Column /////////////
 			.side_bar-left.col-md-2.clearfix.no_pad

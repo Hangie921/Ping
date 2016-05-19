@@ -48,6 +48,20 @@ app.config(['$routeProvider', function($routeProvider) {
                 bodyClass:"edit"
             }
         })
+        .when('/companies/profile/edit_detail',{
+            templateUrl:'pages/company_profile_edit_detail',
+            controller:'EditCompanyDetailCtrl',
+            data:{
+                bodyClass:"edit detail"
+            }
+        })
+        .when('/companies/profile/edit_social',{
+            templateUrl:'pages/company_profile_edit_social',
+            controller:'EditSocialBtnsCtrl',
+            data:{
+                bodyClass:"edit social"
+            }
+        })
         .otherwise({ template: '这是index.jade' });
     // .otherwise({ redirectTo: '/' });
 }]);

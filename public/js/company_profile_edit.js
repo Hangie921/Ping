@@ -200,30 +200,37 @@ app.service('percentage_service', function() {
 
 
 // 1st controller of the edit mode with EditSettingAndImageCtrl
-app.controller('EditSettingAndImageCtrl', ['$scope', '$http', 'percentage_service', function($scope, $http, percentage_service) {
+app.controller('EditSettingAndImageCtrl', ['$rootScope', '$scope', '$http', 'percentage_service', function($rootScope, $scope, $http, percentage_service) {
 
     $scope.links = null;
     $scope.percentage = null;
-    $scope.profile = null;
+    $scope.profile = $rootScope.user;
     $scope.test = 'test in EditSettingAndImageCtrl';
     $scope.res = {};
     //data was called in the company_profile_edit.jade , line10
+    console.log($rootScope.user);
 
+    $scope.init = function() {
+        $scope.links = $scope.profile.links;
+        percentage_service.calculate($scope.profile, percentage_service.percentage);
+        var value = percentage_service.percentage.value.split(".");
+        $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
+        $scope.links = percentage_service.percentage.links;
+    };
+    // $scope.$on('$viewContentLoaded', function() {
+    //     $http.get('/companies/profile/edit')
+    //         .then(function(res) {
+    //             $scope.profile = res.data.data.custom._profile;
+    //             $scope.links = $scope.profile;
+    //             percentage_service.calculate($scope.profile, percentage_service.percentage);
+    //             var value = percentage_service.percentage.value.split(".");
+    //             $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
+    //             $scope.links = percentage_service.percentage.links;
 
-    $scope.$on('$viewContentLoaded', function() {
-        $http.get('/companies/profile/edit')
-            .then(function(res) {
-                $scope.profile = res.data.data.custom._profile;
-                $scope.links = $scope.profile;
-                percentage_service.calculate($scope.profile, percentage_service.percentage);
-                var value = percentage_service.percentage.value.split(".");
-                $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
-                $scope.links = percentage_service.percentage.links;
-
-            }, function(err) {
-                console.log(err);
-            });
-    });
+    //         }, function(err) {
+    //             console.log(err);
+    //         });
+    // });
 
 
 
@@ -375,12 +382,14 @@ app.directive("contentDirective", function($compile) {
 // 其他function就如同function name所寫的
 
 
-app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_service', function($scope, $compile, percentage_service) {
+app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_service','$rootScope', function($scope, $compile, percentage_service,$rootScope) {
     $scope.links = null;
     $scope.percentage = null;
-    $scope.profile = data;
-    $scope.who_u_r = data.who_u_r ? data.who_u_r : [];
-    $scope.what_u_do = data.what_u_do ? data.what_u_do : [];
+    $scope.profile = $rootScope.user;
+    
+
+    $scope.who_u_r = $scope.profile.who_u_r ? $scope.profile.who_u_r : [];
+    $scope.what_u_do = $scope.profile.what_u_do ? $scope.profile.what_u_do : [];
     $scope.who_u_r_to_DB = [];
     $scope.what_u_do_to_DB = [];
 
@@ -408,30 +417,30 @@ app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_servi
     // ================== set the variables above ============================
 
 
-    $scope.initial = function() {
+    $scope.init = function() {
         console.log("init");
 
         $scope.selected = {
             location: {
-                country: data.location.country ? data.location.country : "",
-                city: data.location.city ? data.location.city : "",
+                country: $scope.profile.location.country ? $scope.profile.location.country : "",
+                city: $scope.profile.location.city ? $scope.profile.location.city : "",
             },
             establish_year: {
-                name: (data.establish_year || data.establish_year === "-1") ? data.establish_year.toString() : "Select Establish Year",
-                value: (data.establish_year || data.establish_year === "-1") ? data.establish_year : -1
+                name: ($scope.profile.establish_year || $scope.profile.establish_year === "-1") ? $scope.profile.establish_year.toString() : "Select Establish Year",
+                value: ($scope.profile.establish_year || $scope.profile.establish_year === "-1") ? $scope.profile.establish_year : -1
             },
             size: {
-                name: (data.size || data.size === "-1") ? data.size : "Select Size",
-                value: (data.size || data.size === "-1") ? data.size : -1
+                name: ($scope.profile.size || $scope.profile.size === "-1") ? $scope.profile.size : "Select Size",
+                value: ($scope.profile.size || $scope.profile.size === "-1") ? $scope.profile.size : -1
             },
             industry: {
-                name: (data.industry || data.industry === "-1") ? data.industry : "Select Industry",
-                value: (data.industry || data.industry === "-1") ? data.industry : -1
+                name: ($scope.profile.industry || $scope.profile.industry === "-1") ? $scope.profile.industry : "Select Industry",
+                value: ($scope.profile.industry || $scope.profile.industry === "-1") ? $scope.profile.industry : -1
             }
         };
 
 
-        percentage_service.calculate(data, percentage_service.percentage);
+        percentage_service.calculate($scope.profile, percentage_service.percentage);
         var value = percentage_service.percentage.value.split(".");
         $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
         $scope.links = percentage_service.percentage.links;
@@ -439,7 +448,7 @@ app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_servi
 
 
     //=================== Company info section ====================
-    // variable "data" is from the jade
+    // variable "$scope.profile" is from the jade
     // variable "countryArr", "s_a" are from location.js
     // function "populateCountries" and "populateCity" are also
 
@@ -448,8 +457,8 @@ app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_servi
         var selectElement = document.getElementById(selectElementId);
         var defaultArr;
         var defaultValue = {
-            name: data[selectElementId] && data[selectElementId] !== '-1' ? data[selectElementId] : "Select " + selectElementId,
-            value: data[selectElementId] ? data[selectElementId] : -1
+            name: $scope.profile[selectElementId] && $scope.profile[selectElementId] !== '-1' ? $scope.profile[selectElementId] : "Select " + selectElementId,
+            value: $scope.profile[selectElementId] ? $scope.profile[selectElementId] : -1
         };
 
 
@@ -486,7 +495,7 @@ app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_servi
         countryElement.length = 0;
 
 
-        countryElement.options[0] = data.location.country ? new Option(data.location.country, data.location.country) : new Option('Select Country', '-1');
+        countryElement.options[0] = $scope.profile.location.country ? new Option($scope.profile.location.country, $scope.profile.location.country) : new Option('Select Country', '-1');
         countryElement.selectedIndex = 0;
         for (var i = 0; i < countryArr.length; i++) {
             countryElement.options[countryElement.length] = new Option(countryArr[i], countryArr[i]);
@@ -808,10 +817,12 @@ app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_servi
 
 // 3rd controller of the edit mode with the EditSocialBtnsCtrl
 
-app.controller('EditSocialBtnsCtrl', ['$scope', 'percentage_service', function($scope, percentage_service) {
+app.controller('EditSocialBtnsCtrl', ['$scope', 'percentage_service', '$rootScope',function($scope, percentage_service,$rootScope) {
     // variable data is called in the company_profile_edit_social.jade
+    $scope.profile = $rootScope.user;
     $scope.links = null;
     $scope.percentage = null;
+    
     $scope.initial = function(data_link) {
         // Only add the .checked when the data from the server exists,
         // the "doc" varaible is the data from server
@@ -880,7 +891,7 @@ app.controller('EditSocialBtnsCtrl', ['$scope', 'percentage_service', function($
         }
 
         //Calculate the percentage using percentage_service
-        percentage_service.calculate(data, percentage_service.percentage);
+        percentage_service.calculate($scope.profile, percentage_service.percentage);
         //@To do: show the percentage on the page
         var value = percentage_service.percentage.value.split(".");
         $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';

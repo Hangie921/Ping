@@ -19,6 +19,11 @@ html(ng-app='pingApp')
 		script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js")
 		script(src ="/js/select.js")
 		script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
+		
+		//- This is the data arys for the location
+		script(src ="/js/location.js")
+		//- This is the data arys for the location
+		
 		script(src='js/company_profile_edit.js')
 
 	body(class="{{bodyClass}}")
@@ -36,6 +41,10 @@ html(ng-app='pingApp')
 				a(href="#/profile") company_profile.jade
 			.col-md-3
 				a(href="#/companies/profile/edit") company_profile_edit.jade
+			.col-md-3
+				a(href="#/companies/profile/edit_detail") company_profile_edit_detail.jade
+			.col-md-3
+				a(href="#/companies/profile/edit_social") company_profile_edit_social.jade
 			.col-md-3
 				a(href="#/search") find_talent.jade
 			.col-md-3

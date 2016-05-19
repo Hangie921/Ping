@@ -7,22 +7,15 @@ block script
 	script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
 	script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js")
 	script(src ="/js/select.js")
-	script(src ="/js/location.js")
+	
 	script(type='text/javascript',src='/js/company_profile_edit.js')
-	script.
-		var data = !{JSON.stringify(user.custom._profile)};
 block body_class
-	body.edit.detail(ng-app="profile_edit_app",ng-controller='detail_controller',ng-init='initial()')
-		-
-			var profile = user.custom._profile;
-			var type = user.custom._profile.type;
-		
-		
+	body.edit.detail(ng-controller='EditCompanyDetailCtrl',ng-init='initial()')
 block menu
 	include ../modules/menu.jade
 
 block content
-	.container-fluid
+	.container-fluid(ng-init='init()')
 		.row
 			//- Left Column /////////////
 			.side_bar-left.col-md-2.clearfix.no_pad

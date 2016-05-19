@@ -25,6 +25,8 @@ app.controller('viewCtrl', ['$scope', '$http', '$route', '$routeParams', '$locat
     };
 
 
+
+
     $scope.$on('$viewContentLoaded', function() {
         $http.get('/api/companies/' + $routeParams.profileId)
             .then(function(res) {
