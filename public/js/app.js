@@ -33,7 +33,7 @@ app.config(['$routeProvider', function($routeProvider) {
             // templateUrl: 'partials/home',
             // controller: 'dashboardCtrl'
         })
-        .when('/profile/:profileId',{
+        .when('/companies/:profileId',{
             templateUrl: 'pages/company_profile',
             controller:'viewCtrl',
 

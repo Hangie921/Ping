@@ -36,6 +36,9 @@ section.pinger_search_results
 				.pinger_search_inner
 					//- Pinger card
 					.row
+						.col-md-12
+							h1 {{'Total:' + data.length}}
+					.row
 						//- h1 Data {{data}}
 						.col-md-3(ng-repeat="man in data")
 							.pinger_card

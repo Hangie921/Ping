@@ -24,13 +24,7 @@ router.use(require('./contact_router'));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    console.log(__filename, req.session.user);
-    if (req.session.user) {
-        res.redirect('/dashboard');
-    } else {
-        res.redirect('/login');
-
-    }
+    res.render('pages/index');
 });
 
 // static partials jade for Angular.js

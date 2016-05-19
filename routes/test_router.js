@@ -8,7 +8,8 @@ var Skill = require('../module/schema/skill.js');
 
 /* GET home page. */
 router.get('/test_angular', function(req, res, next) {
-    res.render('pages/index', { layout: false });
+    res.render('pages/index');
+    // res.render('pages/index', { layout: false });
 });
 
 function getJades(path) {
