@@ -5,6 +5,7 @@ var app = angular.module('pingApp', ['ngRoute',
     'profileEditControllers'
 ]);
 
+
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/', {
@@ -60,27 +61,25 @@ app.controller('debugCtrl', function($scope) {
 });
 
 app.run(['$rootScope', '$location', 'Auth0Store', function($rootScope, $location, Auth0Store) {
+    $rootScope.autoRedirectLogin = false;
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
+        if (!Auth0Store.isLoggedIn()) {
+            console.log('DENY');
+            if ($rootScope.autoRedirectLogin)
+                $location.path('login');
+        } else
+            console.log('ALLOW');
+
         if (next.data)
             $rootScope.bodyClass = next.data.bodyClass;
         else
             $rootScope.bodyClass = "";
     });
-    console.log('Auth0Store.getUser123()', Auth0Store.getUser());
 
-    // $rootScope.$watch(Auth0Store.isLoggedIn, function(value, oldValue) {
-    //     console.log('app run', value,oldValue);
-    //     // if (!value && oldValue) {
-    //     //     console.log("Disconnect");
-    //     //     $location.path('#/login');
-    //     // }
-
-    //     // if (value) {
-    //     //     console.log("Connect");
-    //     //     //Do something when the user is connected
-    //     // }
-
-    // }, true);
+    $rootScope.logout = function() {
+        console.log("rootScope. logout");
+        Auth0Store.clean();
+    };
 
 
 }]);

@@ -1,28 +1,22 @@
 var loginControllers = angular.module('loginControllers', ['angular-storage']);
 
 loginControllers.run(['$rootScope', '$location', '$window', 'Auth0Store', function($rootScope, $location, $window, Auth0Store) {
-    console.log("run once ");
 
-    $rootScope.$on('$routeChangeStart', function(event) {
-        if (!Auth0Store.isLoggedIn()) {
-            console.log('DENY');
-            // event.preventDefault();
 
-            // @Todo need warning
-            // $window.alert('need login');
-            // $location.path("login");
-        } else {
-            console.log('ALLOW');
-            // $location.path('#/');
+    $rootScope.$watch(Auth0Store.isLoggedIn, function(value) {
+        if (value)
             $rootScope.user = Auth0Store.getUser();
+        else {
+            console.log("Disconnect");
+            $location.path('login');
         }
-    });
+
+    }, true);
+
 }]);
 
 loginControllers.controller('LoginCtrl', ['$scope', '$http', '$window', '$location', 'Auth0Store', function($scope, $http, $window, $location, Auth0Store) {
     $scope.login = function() {
-        console.log("login!!!!", $scope.acc, $scope.pwd);
-
         $http.post('api/login', { acc: $scope.acc, pwd: $scope.pwd }).then(function(res) {
             console.log(res.data);
             switch (res.data.code) {
@@ -39,9 +33,9 @@ loginControllers.controller('LoginCtrl', ['$scope', '$http', '$window', '$locati
     };
 
     $scope.logout = function() {
+        console.log("loginControllers. logout");
         Auth0Store.clean();
     };
-
 
     $scope.try = function(routePath) {
         $http.post('api/' + routePath, {}).then(function(res) {
@@ -52,6 +46,12 @@ loginControllers.controller('LoginCtrl', ['$scope', '$http', '$window', '$locati
         });
     };
 }]);
+
+// loginControllers.controller('LogoutCtrl', ['$scope', '$http', '$window', '$location', 'Auth0Store', function($scope, $http, $window, $location, Auth0Store) {
+//     $scope.$on('$routeChangeStart',function() {
+//         console.log("logout ");
+//     });
+// }]);
 
 loginControllers.config(['$provide', function($provide) {
     // store: Module['angular-storage']

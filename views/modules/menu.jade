@@ -22,7 +22,7 @@ header.primary_header.zindex--300
 						li.menu_item
 							a(href='#') Privacy&nbspPolicy
 						li.menu_item
-							a(href='/logout') Logout
+							a(ng-click="logout()") Logout
 		
 nav.dashboard_menu.zindex--200
 	.container
@@ -35,9 +35,9 @@ nav.dashboard_menu.zindex--200
 							ul.sub_menu.menu_dropdown
 								li.menu_item 
 									//- a() View Profile
-									a(ng-href="/companies/{{user.username}}") View Profile
+									a(ng-href="#/companies/{{user.username}}") View Profile
 								li.menu_item 
-									a(href='/companies/profile/edit') Edit Profile
+									a(href='#/companies/profile/edit') Edit Profile
 						li.menu_item 
 							a(href='/test_angular#/search') Find Pingers
 						li.menu_item 
@@ -59,7 +59,7 @@ nav.dashboard_menu.zindex--200
 						li.menu_item Awards/Races
 						li.menu_item Project History
 						li.menu_item
-							a(href='/logout') Logout
+							button(ng-click="logout()") Logout
 
 				else 
 					h2 nothing la
