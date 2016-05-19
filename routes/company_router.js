@@ -17,46 +17,29 @@ var routerName = 'companies';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
 
+var ifDebug= true;
 // @Todo 之後看是不是要放在更外層
-router.get(url + '/*', function(req, res, next) {
+router.all('/api/companies/*', function(req, res, next) {
     console.log(__filename, url + " middle");
-    if (req.session.user == undefined) {
-        return res.redirect('/login');
+    if (req.session.user || ifDebug) {
+        next();
+    } else {
+        return res.json({ code: 401, errmsg: "no session.user" });
     }
-    next();
 });
 
-
-// @Todo 之後看是不是要放在更外層
-router.post(url + '/*', function(req, res, next) {
-    console.log(__filename, url + " middle");
-    if (req.session.user == undefined) {
-        return res.json({ code: 200, errmsg: "no session.user" });
-    }
-    next();
-});
-
-router.get(url + '/:username', function(req, res, next) {
-
+router.get('/api/companies/:username', function(req, res, next) {
     // user router's username to find a User , and find his company
     CompanyProfile.findOne({ username: req.params.username })
         .exec(function(err, company) {
             if (err) {
-                next(new Error('CompanyProfile.findOne()'));
+                return res.json({ code: 500, errmsg: "CompanyProfile.findOne" });
 
-            } else if (company === null) {
-                res.render('pages/error', {
-                    message: 'Can\'t find this user',
-                    error: {}
-                });
+            } else if (company) {
+                return res.json({ code: 200, data: company });
 
             } else {
-
-                // res.json(company);
-                res.render('pages/company_profile', {
-                    user: req.session.user,
-                    company: company
-                });
+                return res.json({ code: 400, errmsg: "Can't find this user" });
             }
         });
 });
@@ -74,9 +57,10 @@ router.get(url + '/profile/edit', function(req, res) {
         });
 
     } else {
-        res.render("pages/company_profile_edit", {
-            user: req.session.user
-        });
+        res.json({code:200,data:req.session.user});
+        // res.render("pages/company_profile_edit", {
+        //     user: req.session.user
+        // });
     }
 });
 
@@ -156,7 +140,7 @@ router.post(url + '/profile/edit', function(req, res, next) {
                 // 狀況二：只有檔案之外的其他input
                 // 狀況三：mixed
 
-                if (key == 'links' || key == 'culture' || key == 'technology' || key == 'who_u_r' || key == 'what_u_do'||key ==='location') {
+                if (key == 'links' || key == 'culture' || key == 'technology' || key == 'who_u_r' || key == 'what_u_do' || key === 'location') {
                     console.log(key, ': ', req.body[key]);
                     originCompany[key] = JSON.parse(req.body[key]);
                 } else {

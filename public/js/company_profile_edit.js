@@ -1,8 +1,8 @@
 // I made the three pages of the edit mode into one app and three controllers.
 //
-// 1st is called profile_edit_app
-// 2nd is called detail_controller
-// 3rd is called social_media_controller
+// 1st is called EditSettingAndImageCtrl
+// 2nd is cEditCompanyDetailCtrl
+// 3rd is called EditSocialBtnsCtrl
 //
 // The contentDirective is used to generate HTML tags in the 2nd page.
 // The countrySelect app is used to generate all options of the country select
@@ -22,9 +22,9 @@
 
 
 
-// var app = angular.module('profile_edit_app', []);
+// var app = angular.module('profileEditControllers', []);
 
-var app = angular.module('profile_edit_app', ['dndLists', 'ngSanitize', 'ui.select']);
+var app = angular.module('profileEditControllers', ['dndLists', 'ngSanitize', 'ui.select']);
 
 
 
@@ -199,24 +199,31 @@ app.service('percentage_service', function() {
 });
 
 
-// 1st controller of the edit mode with profile_edit_controller
-app.controller('profile_edit_controller', ['$scope', '$http', 'percentage_service', function($scope, $http, percentage_service) {
+// 1st controller of the edit mode with EditSettingAndImageCtrl
+app.controller('EditSettingAndImageCtrl', ['$scope', '$http', 'percentage_service', function($scope, $http, percentage_service) {
 
     $scope.links = null;
     $scope.percentage = null;
-    $scope.doc = null;
-    $scope.test = 'test in profile_edit_controller';
+    $scope.profile = null;
+    $scope.test = 'test in EditSettingAndImageCtrl';
     $scope.res = {};
     //data was called in the company_profile_edit.jade , line10
 
-    $scope.init = function() {
-        percentage_service.calculate(data, percentage_service.percentage);
-        $scope.doc = data;
-        var value = percentage_service.percentage.value.split(".");
-        $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
-        $scope.links = percentage_service.percentage.links;
-    };
 
+    $scope.$on('$viewContentLoaded', function() {
+        $http.get('/companies/profile/edit')
+            .then(function(res) {
+                $scope.profile = res.data.data.custom._profile;
+                $scope.links = $scope.profile;
+                percentage_service.calculate($scope.profile, percentage_service.percentage);
+                var value = percentage_service.percentage.value.split(".");
+                $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
+                $scope.links = percentage_service.percentage.links;
+
+            }, function(err) {
+                console.log(err);
+            });
+    });
 
 
 
@@ -355,7 +362,7 @@ app.directive("contentDirective", function($compile) {
 
 
 
-// 2nd controller of the edit mode with the detail_controller
+// 2nd controller of the edit mode with tEditCompanyDetailCtrl
 //
 // 1.所有變數要宣告在外面才是這個controller的全域變數
 // 2.funciton 功用如下
@@ -368,7 +375,7 @@ app.directive("contentDirective", function($compile) {
 // 其他function就如同function name所寫的
 
 
-app.controller('detail_controller', ['$scope', '$compile', 'percentage_service', function($scope, $compile, percentage_service) {
+app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_service', function($scope, $compile, percentage_service) {
     $scope.links = null;
     $scope.percentage = null;
     $scope.profile = data;
@@ -799,9 +806,9 @@ app.controller('detail_controller', ['$scope', '$compile', 'percentage_service',
 
 
 
-// 3rd controller of the edit mode with the social_media_controller
+// 3rd controller of the edit mode with the EditSocialBtnsCtrl
 
-app.controller('social_media_controller', ['$scope', 'percentage_service', function($scope, percentage_service) {
+app.controller('EditSocialBtnsCtrl', ['$scope', 'percentage_service', function($scope, percentage_service) {
     // variable data is called in the company_profile_edit_social.jade
     $scope.links = null;
     $scope.percentage = null;
@@ -880,7 +887,7 @@ app.controller('social_media_controller', ['$scope', 'percentage_service', funct
         $scope.links = percentage_service.percentage.links;
     };
     //variables
-    $scope.checkUrl = function(btn){
+    $scope.checkUrl = function(btn) {
 
     };
     $scope.check_active = function(btn) {
@@ -1004,34 +1011,6 @@ app.controller('social_media_controller', ['$scope', 'percentage_service', funct
 
 
 //======================= Following is jQuery ==============
-
-$(document).ready(function() {
-
-    //modify the .focus of the sideBar
-
-    if ($("body").hasClass("detail")) {
-        $('.side_bar .menu .menu_item ').removeClass('focus');
-        $('.side_bar .menu .menu_item:nth-child(2)').addClass('focus');
-    } else if ($("body").hasClass("social")) {
-        $('.side_bar .menu .menu_item ').removeClass('focus');
-        $('.side_bar .menu .menu_item:nth-child(3)').addClass('focus');
-    } else {
-        $('.side_bar .menu .menu_item ').removeClass('focus');
-        $('.side_bar .menu .menu_item:nth-child(1)').addClass('focus');
-    }
-    var btn = $("#update_btn_first");
-
-
-    // //upload and preview the photo
-    // $('.upload_photo_btn').click(function() {
-    //     $('#upload_photo').click();
-    // });
-
-    // $('#upload_photo').change(function() {
-    //     readURL(this, $('#photo'));
-    // });
-
-});
 
 
 

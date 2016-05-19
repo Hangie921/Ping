@@ -1,6 +1,8 @@
 var app = angular.module('pingApp', ['ngRoute',
     'searchControllers',
     'loginControllers',
+    'profileViewCtrls',
+    'profileEditControllers'
 ]);
 
 app.config(['$routeProvider', function($routeProvider) {
@@ -29,6 +31,21 @@ app.config(['$routeProvider', function($routeProvider) {
             // templateUrl: 'pages/dashboard',
             // templateUrl: 'partials/home',
             // controller: 'dashboardCtrl'
+        })
+        .when('/profile/:profileId',{
+            templateUrl: 'pages/company_profile',
+            controller:'viewCtrl',
+
+            data:{
+                bodyClass:"view profile"
+            }
+        })
+        .when('/companies/profile/edit',{
+            templateUrl:'pages/company_profile_edit',
+            controller:'EditSettingAndImageCtrl',
+            data:{
+                bodyClass:"edit"
+            }
         })
         .otherwise({ template: '这是index.jade' });
     // .otherwise({ redirectTo: '/' });

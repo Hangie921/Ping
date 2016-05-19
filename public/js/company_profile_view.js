@@ -1,7 +1,10 @@
-var app = angular.module('profileViewApp', []);
+var app = angular.module('profileViewCtrls', []);
 
-app.controller('viewCtrl', ['$scope', function($scope) {
-    $scope.links= data.links;
+app.controller('viewCtrl', ['$scope', '$http', '$route', '$routeParams', '$location', function($scope, $http, $route, $routeParams, $location) {
+
+    $scope.profile = "";
+    $scope.test = "test";
+    $scope.links = "";
     $scope.active = {
         fb: {
             value: false,
@@ -21,9 +24,17 @@ app.controller('viewCtrl', ['$scope', function($scope) {
         }
     };
 
-    $scope.init = function() {
-        $scope.checkSocialActive();
-    };
+
+    $scope.$on('$viewContentLoaded', function() {
+        $http.get('/api/companies/' + $routeParams.profileId)
+            .then(function(res) {
+                $scope.profile = res.data.data;
+                $scope.links = res.data.data.links;
+                $scope.checkSocialActive();
+            }, function(err) {
+                console.log(err);
+            });
+    });
 
 
     $scope.checkSocialActive = function() {
@@ -57,5 +68,13 @@ app.controller('viewCtrl', ['$scope', function($scope) {
 
         console.log("active:", $scope.active);
     };
+
+    $scope.getType = function(type){
+        if(type ==='Text'){
+
+        }
+    };
+
+
 
 }]);

@@ -1,46 +1,35 @@
-extends ../templates/layout.jade
+//- extends ../templates/layout.jade
+include ../modules/menu.jade
 block css 
 	link(rel="stylesheet"  href="/css/profile.css")
 block scripts
-	script.
-		var data = !{JSON.stringify(user.custom._profile)};
-		//- console.log(data);
 	script(src='/js/company_profile_view.js')
-prepend body
-	-
-		var profile = company;
-		var type = company.type;
-
-block body_class
-	body.profile.view(ng-app ='profileViewApp',ng-controller='viewCtrl',ng-init='init()')
-block menu
-		include ../modules/menu.jade
 block content
-	section.profile_banner_section 
+	section.profile_banner_section
 		.container
-				img.profile__cover__photo.image_insert.round_container--rg(src='#{profile.cover_pic}')
-				h1.profile__name.base_white #{company.username}
-				h2.profile__tagline #{profile.tagline}
+				img.profile__cover__photo.image_insert.round_container--rg(src='{{profile.cover_pic}}')
+				h1.profile__name.base_white {{profile.username}}
+				h2.profile__tagline {{profile.tagline}}
 	section.company_info_section
 		.container
 			.company_info_section-top.row_space--sm.clearfix
 				.row
 					.location.base_white
 						i.lnr-map-marker.lnr 
-						span #{profile.location.country+" "+profile.location.city}
+						span {{profile.location.country+" "+profile.location.city}}
 					.company__icon__set.col-md-4.clearfix
 						ul.company__icon__list
 							li.company__icon__single.icon_set.icon_set--rg 
 								i.lnr.lnr-users
-								span.company__icon__info #{profile.size}
+								span.company__icon__info {{profile.size}}
 							li.company__icon__single.icon_set.icon_set--rg  
 								i.lnr.lnr-apartment
-								span.company__icon__info #{profile.establish_year}
+								span.company__icon__info {{profile.establish_year}}
 							li.company__icon__single.icon_set.icon_set--rg  
 								i.lnr.lnr-tag
-								span.company__icon__info #{profile.industry}
+								span.company__icon__info {{profile.industry}}
 					.profile__photo.round_container.round_container--rg
-						img(src='#{profile.pic}')
+						img(src='{{profile.pic}}')
 					.social_icons.pull_right.col-md-4
 						ul.clearfix
 							li.icon_fb.round_container(ng-class='{disable:!active.fb.value}')
@@ -61,40 +50,45 @@ block content
 					.company_culture.col-md-6.clearfix
 						h4 Company Culture
 							ul.tag_list
-								for culture in profile.culture
-									li.tag.tag--white=culture
-									//- li.tag.base_white_bg.grayscale_cl Beer
-									//- li.tag.base_white_bg.grayscale_cl Banana
-									//- li.tag.base_white_bg.grayscale_cl Kumamon
-									//- li.tag.base_white_bg.grayscale_cl Ichiro
+								li.tag.tag--white(ng-repeat ='culture in profile.culture') {{culture}}
 					.company_tec.col-md-6
 						h4 Company Technology
 							ul.tag_list
-								for technology in profile.technology
-									li.tag.tag--gray5=technology
+								li.tag.tag--gray5(ng-repeat = 'technology in profile.technology') {{technology}}
 	section.profile_main_section.row_space--lg
 		.container
 			.row
 				.col-md-8.col-centered
 					.who_we_are
 						h3.row_space-bottom--md Who We Are
-						each item in profile.who_u_r
-							if item.type=='Text'
-									.profile__content.profile__text
-										p=item.content
-							else if item.type=='Quote'
-									.profile__content.profile__quotation.quotation.row_space--xs
-										p.quote=item.content
-							else if item.type=='List'
-									.profile__content.profile__list.row_space--xs
-										ul.list
-											each sub_item in item.content
-													li.list__item
-														span.lnr.lnr-location
-														span= sub_item
+						.profile__content__group(ng-repeat="doc in profile.who_u_r",ng-switch='doc.type')
+							.profile__content.profile__text(ng-switch-when='Text')
+								p
+									{{doc.content}}
+							.profile__content.profile__quotation.quotation.row_space--xs(ng-switch-when='Quote')
+								p
+									{{doc.content}}
+							.profile__content.profile__list.row_space--xs(ng-switch-when='List')
+								ul.list
+									li.list_item(ng-repeat="sub_doc in doc.content")
+										span.lnr.lnr-location
+										span {{sub_doc}}
 					.what_we_do
 						h3.row_space-bottom--md What We Do
-						each item in profile.what_u_do
+						.profile__content__group(ng-repeat="doc in profile.what_u_do",ng-switch='doc.type')
+							.profile__content.profile__text(ng-switch-when='Text')
+								p
+									{{doc.content}}
+							.profile__content.profile__quotation.quotation.row_space--xs(ng-switch-when='Quote')
+								p
+									{{doc.content}}
+							.profile__content.profile__list.row_space--xs(ng-switch-when='List')
+								ul.list
+									li.list_item(ng-repeat="sub_doc in doc.content")
+										span.lnr.lnr-location
+										span {{sub_doc}}
+
+						//- each item in profile.what_u_do
 							if item.type=='Text'
 									.profile__content.profile__text
 										p=item.content
@@ -109,7 +103,7 @@ block content
 														span.lnr.lnr-location
 														span= sub_item
 	section.profile_bottom_banner_section
-		img.profile__bottom__photo.image_insert(src='#{profile.footer_pic}')
+		img.profile__bottom__photo.image_insert(src='{{profile.footer_pic}}')
 
 
 
