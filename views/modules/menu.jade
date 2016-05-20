@@ -2,6 +2,32 @@
 -
 	var type = "Company";
 
+mixin menu_company()
+	ul.menu.col-md-8.no_pad(ng-switch-when="Company")
+		li.menu_item
+			a(ng-href="#/companies/{{user.username}}") Profile
+			ul.sub_menu.menu_dropdown
+				li.menu_item 
+					//- a() View Profile
+					a(ng-href="#/companies/{{user.username}}") View Profile
+				li.menu_item 
+					a(href='#/companies/profile/edit') Edit Profile
+		li.menu_item 
+			a(href='#/search') Find Pingers
+		li.menu_item 
+			a(href='#/') Projects
+		li.menu_item
+			a(href='#/') Resources
+		li.menu_item
+			a(href='#/') More
+			ul.sub_menu.menu_dropdown
+				li.menu_item 
+					a(href='#/') More1
+				li.menu_item 
+					a(href='#/') More2
+
+	.pull_right(ng-switch-when="Company")
+		a.btn.btn--pri.btn--sm.row_space-top--xs(href='#/companies/profile/edit') Edit Profile
 
 header.primary_header.zindex--300
 	.container
@@ -11,57 +37,35 @@ header.primary_header.zindex--300
 				.header_account.pull_right
 					.img_container.round_container.round_container--sm
 						img(src="{{user.pic}}",alt='profile')
-					a.header_user_name.base_white(href='#') {{user.username}}
+					a.header_user_name.base_white(href='#/') {{user.username}}
 						//- a.header_user_name.base_white(href='#') #{{user.username}}
 						i(aria-hidden="true").fa.fa-chevron-down
 					ul.my_account_menu.menu_dropdown.round_corner-bottom
 						li.menu_item
-							a(href='#') My&nbspAccount
+							a(href='#/') My&nbspAccount
 						li.menu_item
-							a(href='#') Settings
+							a(href='#/') Settings
 						li.menu_item
-							a(href='#') Privacy&nbspPolicy
+							a(href='#/') Privacy&nbspPolicy
 						li.menu_item
 							a(ng-click="logout()") Logout
 		
 nav.dashboard_menu.zindex--200
 	.container
 		.row
-			.col-md-12.no_pad
-				if (type == "Company") 
-					ul.menu.col-md-8.no_pad
-						li.menu_item
-							a(href='#') Profile
-							ul.sub_menu.menu_dropdown
-								li.menu_item 
-									//- a() View Profile
-									a(ng-href="#/companies/{{user.username}}") View Profile
-								li.menu_item 
-									a(href='#/companies/profile/edit') Edit Profile
-						li.menu_item 
-							a(href='#/search') Find Pingers
-						li.menu_item 
-							a(href='#') Projects
-						li.menu_item
-							a(href='#') Resources
-						li.menu_item
-							a(href='#') More
-							ul.sub_menu.menu_dropdown
-								li.menu_item 
-									a(href='#') More1
-								li.menu_item 
-									a(href='#') More2
+			.col-md-12.no_pad(ng-switch="user.type")
+				+menu_company()
+				h1(ng-switch-when="Talent") Talent
+				h1(ng-switch-default) No user.type
 
-					.pull_right
-						a.btn.btn--pri.btn--sm.row_space-top--xs(href='#/companies/profile/edit') Edit Profile
-				else if (type == "Talent")
+				//- else if (type == "Talent")
 					ul.menu
 						li.menu_item Awards/Races
 						li.menu_item Project History
 						li.menu_item
 							button(ng-click="logout()") Logout
 
-				else 
+				//- else 
 					h2 nothing la
 		//- if (mem_type == "company")
 		//- 	li 
