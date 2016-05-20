@@ -10,56 +10,53 @@ app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/', {
             template: '这是index.jade',
-            // controller: 'mainCtrl'
+            redirectTo: '/dashboard'
         })
         .when('/home', {
             templateUrl: 'partials/home',
         })
         .when('/search', {
             templateUrl: 'pages/find_talent',
-            controller: 'SearchTalentCtrl'
+            controller: 'SearchTalentCtrl',
+            reloadOnSearch: false
         })
         .when('/login', {
             templateUrl: 'pages/login',
-            // templateUrl: 'partials/home',
             controller: 'LoginCtrl',
             data: {
                 bodyClass: "login"
             }
         })
         .when('/dashboard', {
-            // templateUrl: 'modules/menu',
             templateUrl: 'pages/dashboard',
-            // templateUrl: 'partials/home',
-            // controller: 'dashboardCtrl'
         })
-        .when('/companies/:profileId',{
+        .when('/companies/:profileId', {
             templateUrl: 'pages/company_profile',
-            controller:'viewCtrl',
+            controller: 'viewCtrl',
 
-            data:{
-                bodyClass:"view profile"
+            data: {
+                bodyClass: "view profile"
             }
         })
-        .when('/companies/profile/edit',{
-            templateUrl:'pages/company_profile_edit',
-            controller:'EditSettingAndImageCtrl',
-            data:{
-                bodyClass:"edit"
+        .when('/companies/profile/edit', {
+            templateUrl: 'pages/company_profile_edit',
+            controller: 'EditSettingAndImageCtrl',
+            data: {
+                bodyClass: "edit"
             }
         })
-        .when('/companies/profile/edit_detail',{
-            templateUrl:'pages/company_profile_edit_detail',
-            controller:'EditCompanyDetailCtrl',
-            data:{
-                bodyClass:"edit detail"
+        .when('/companies/profile/edit_detail', {
+            templateUrl: 'pages/company_profile_edit_detail',
+            controller: 'EditCompanyDetailCtrl',
+            data: {
+                bodyClass: "edit detail"
             }
         })
-        .when('/companies/profile/edit_social',{
-            templateUrl:'pages/company_profile_edit_social',
-            controller:'EditSocialBtnsCtrl',
-            data:{
-                bodyClass:"edit social"
+        .when('/companies/profile/edit_social', {
+            templateUrl: 'pages/company_profile_edit_social',
+            controller: 'EditSocialBtnsCtrl',
+            data: {
+                bodyClass: "edit social"
             }
         })
         .otherwise({ template: '404 Not Found' });

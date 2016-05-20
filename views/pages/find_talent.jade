@@ -6,24 +6,22 @@ section.searchbar_section
 			.searchbar.col-md-12.no_pad.clearfix
 				form
 					.search__input__single.input_select.input_single.col-md-4
-						select(ng-model="position" ng-change="updateQueryString()")
+						select(ng-model="position" ng-change="search()")
 							option(value="") Pinger Type
 							option(value="PM") PM
 							option(value="Designer") Designer
 							option(value="RD") RD
-					.search__input__single.input_select.input_single.col-md-3
-						select(ng-model="work_type" ng-change="updateQueryString()")
+					.search__input__single.input_select.input_single.col-md-4
+						select(ng-model="work_type" ng-change="search()")
 							option(value="") Work Type
 							option(value="Freelance") Freelance
 							option(value="Full-time") Full-time
-					.search__input__single.input_select.input_single.col-md-3
-						select(ng-model="seniority" ng-change="updateQueryString()")
+					.search__input__single.input_select.input_single.col-md-4
+						select(ng-model="seniority" ng-change="search()")
 							option(value="") Year of Experience
 							option(value="1") 1
 							option(value="2") 2
-					//- a.submit_pinger.btn.btn--pri.btn--rg.col-md-2.no_pad(ng-href="#/search?position={{position}}") Search
-					//- {{searchUrl = position+','+work_type}}
-					a.submit_pinger.btn.btn--pri.btn--rg.col-md-2.no_pad(ng-href="{{queryString}}") Search
+					//- a.submit_pinger.btn.btn--pri.btn--rg.col-md-2.no_pad(ng-href="{{queryString}}") Search
 				.search_extra_setting_bar.pull-right
 					a(href="#") Advance Search
 					a(href="#") Set Defult Preference
@@ -37,29 +35,28 @@ section.pinger_search_results
 					//- Pinger card
 					.row
 						.col-md-12
-							h1 {{'Total:' + data.length}}
+							h1 {{'Total:' + talents.length}}
 					.row
-						//- h1 Data {{data}}
-						.col-md-3(ng-repeat="man in data")
+						.col-md-3(ng-repeat="talent in talents")
 							.pinger_card
 								.profile__photo.pinger__card__element.round_container.round_container--rg
-									img(src='{{man.pic}}')
-								.profile__name.pinger__card__element {{man.username}}
-								.profile__title.pinger__card__element {{man.pinger_type}}
+									img(ng-src="{{talent.pic}}")
+								.profile__name.pinger__card__element {{talent.username}}
+								.profile__title.pinger__card__element {{talent.pinger_type}}
 								.profile__card__tags.pinger__card__element
 									ul.tag_list
-										li.tag(ng-repeat="skill in man.skills") {{skill}}
+										li.tag(ng-repeat="skill in talent.skills") {{skill}}
 								.profile__card__intro.pinger__card__element
-									p {{man.description}}
+									p {{talent.description}}
 								.profile__card__info.pinger__card__element
 									.profile__info__element.profile__location.col-md-6.no_pad
 										.icon_set.icon_set--sm
 											i.lnr.lnr-calendar-full
-											span {{man.aspiration.work_type}}
+											span {{talent.aspiration.work_type}}
 									.profile__info__element.profile__location.col-md-6.no_pad
 										.icon_set.icon_set--sm
 											i.lnr.lnr-map-marker
-											span {{man.location.city}}, {{man.location.country}}
+											span {{talent.location.city}}, {{talent.location.country}}
 								.profile__mask.pinger__card__element
-									a.btn.btn--pri.btn--rg(ng-click="contactTalent(man.username)") Contact Ping!
+									a.btn.btn--pri.btn--rg(ng-click="contactTalent(talent.username)") Contact Ping!
 						
