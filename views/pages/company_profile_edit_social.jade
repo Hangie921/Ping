@@ -15,21 +15,7 @@ block content
 	.container-fluid(ng-controller='EditSocialBtnsCtrl',ng-click="container_click()")
 		.row
 			//- Left Column /////////////
-			.side_bar-left.col-md-2.clearfix.no_pad
-				.base_white_bg.grayscale_dark_cl
-					ul.side_bar_menu.menu
-						li.menu_item.icon_set.icon_set--sm
-							a(href='/companies/profile/edit/')
-								i.lnr.lnr-smile
-								span Company&nbspBranding
-						li.menu_item.icon_set.icon_set--sm.icon_set
-							a(href='/companies/profile/edit?section=detail')
-								i.lnr.lnr-license
-								span Detail/Description
-						li.menu_item.icon_set.icon_set--sm.active
-							a(href='/companies/profile/edit?section=social')
-								i.lnr.lnr-earth
-								span Social&nbspNetworks
+			include ../modules/sidebar
 			//- Center Column //////////////
 			.content_container-three-col.col-md-7
 				h1 Edit Profile
@@ -45,7 +31,7 @@ block content
 									h5 How to make your profile shine
 									p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
 					.edit__input__inner
-						.edit__input.input_single.col-md-9(ng-init="initial($rootScope.user.links)")
+						.edit__input.input_single.col-md-9(ng-init="initial(profile.links)")
 							a.btn.social_media_btn.offical.lnr.lnr-checkmark-circle(ng-show="official.show_btn",ng-click="btn_click('official'); $event.stopPropagation();",data-name='offical',ng-class="{'active':official.has_active,'checked':official.data_from_server}") official site
 							.input_single(ng-show="!official.show_btn")
 								input(type='url', name='official',placeholder=('Add your official URL here. (Start with http/https)'),ng-model="official.data",ng-click='$event.stopPropagation();',pattern="https?://.+" )

@@ -1,5 +1,5 @@
 
-extends ../templates/three_columns_sidebar.jade
+//- extends ../templates/three_columns_sidebar.jade
 
 block css
 	link(rel="stylesheet"  href="/css/profile.css")
@@ -16,21 +16,7 @@ block content
 	.container-fluid(ng-init="init()")
 		.row
 			//- Left Column /////////////
-			.side_bar-left.col-md-2.clearfix.no_pad
-				.base_white_bg.grayscale_dark_cl
-					ul.side_bar_menu.menu
-						li.menu_item.icon_set.icon_set--sm.active
-							a(href='/companies/profile/edit/')
-								i.lnr.lnr-smile
-								span Company&nbspBranding
-						li.menu_item.icon_set.icon_set--sm.icon_set
-							a(href='/companies/profile/edit?section=detail')
-								i.lnr.lnr-license
-								span Detail/Description
-						li.menu_item.icon_set.icon_set--sm
-							a(href='/companies/profile/edit?section=social')
-								i.lnr.lnr-earth
-								span Social&nbspNetworks
+			include ../modules/sidebar
 			//- Center Column //////////////
 			.content_container-three-col.col-md-7
 				

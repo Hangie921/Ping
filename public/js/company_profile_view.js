@@ -25,14 +25,19 @@ app.controller('viewCtrl', ['$scope', '$http', '$route', '$routeParams', '$locat
     };
 
 
-
-
     $scope.$on('$viewContentLoaded', function() {
         $http.get('/api/companies/' + $routeParams.profileId)
             .then(function(res) {
-                $scope.profile = res.data.data;
-                $scope.links = res.data.data.links;
-                $scope.checkSocialActive();
+                if (res.data.code === 200) {
+                    $scope.profile = res.data.data;
+                    $scope.links = res.data.data.links;
+                    $scope.checkSocialActive();
+
+                }else{
+                    console.log(res.data.errmsg);
+
+                }
+
             }, function(err) {
                 console.log(err);
             });
@@ -71,8 +76,8 @@ app.controller('viewCtrl', ['$scope', '$http', '$route', '$routeParams', '$locat
         console.log("active:", $scope.active);
     };
 
-    $scope.getType = function(type){
-        if(type ==='Text'){
+    $scope.getType = function(type) {
+        if (type === 'Text') {
 
         }
     };
