@@ -4,9 +4,8 @@ loginControllers.run(['$rootScope', '$location', '$window', 'Auth0Store', functi
 
 
     $rootScope.$watch(Auth0Store.isLoggedIn, function(value) {
-        if (value)
-            $rootScope.user = Auth0Store.getUser();
-        else {
+        $rootScope.user = Auth0Store.getUser();
+        if (!value) {
             console.log("Disconnect");
             $location.path('login');
         }
