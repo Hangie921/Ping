@@ -1,16 +1,26 @@
 var express = require('express');
-var fs = require('fs');
+var app = express();
 var router = express.Router();
+
+var fs = require('fs');
 var mailer = require('../module/utils/mailer.js');
 
 var Position = require('../module/schema/position.js');
 var Skill = require('../module/schema/skill.js');
 
-/* GET home page. */
-router.get('/test_angular', function(req, res, next) {
-    res.render('pages/index');
-    // res.render('pages/index', { layout: false });
-});
+
+var ifDebug = true;
+if (app.get('env') !== 'development') {
+    ifDebug = false;
+}
+
+if (ifDebug) {
+
+    router.get('/debug', function(req, res, next) {
+        res.render('pages/index', { debug: true });
+        // res.render('pages/index', { layout: false });
+    });
+}
 
 function getJades(path) {
     return new Promise(function(resolve, reject) {

@@ -62,16 +62,12 @@ app.config(['$routeProvider', function($routeProvider) {
                 bodyClass:"edit social"
             }
         })
-        .otherwise({ template: '这是index.jade' });
+        .otherwise({ template: '404 Not Found' });
     // .otherwise({ redirectTo: '/' });
 }]);
 
 app.controller('myCtrl', function($scope) {
     $scope.name = "John Doe";
-});
-
-app.controller('debugCtrl', function($scope) {
-    $scope.debug = true;
 });
 
 app.run(['$rootScope', '$location', 'Auth0Store', function($rootScope, $location, Auth0Store) {

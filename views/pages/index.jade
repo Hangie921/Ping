@@ -1,3 +1,5 @@
+
+
 html(ng-app='pingApp')
 	head
 		title Ping
@@ -8,13 +10,13 @@ html(ng-app='pingApp')
 		link(rel='stylesheet', href='/bower_components/font-awesome/css/font-awesome.min.css')
 		link(rel="stylesheet", href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css")
 
-		script(src="bower_components/angular/angular.js")
-		script(src="bower_components/angular-route/angular-route.js")
-		script(src="bower_components/a0-angular-storage/dist/angular-storage.min.js")
-		script(src="js/app.js")
-		script(src="js/search_controller.js")
-		script(src="js/login_controller.js")
-		script(src="js/company_profile_view.js")
+		script(src="/bower_components/angular/angular.js")
+		script(src="/bower_components/angular-route/angular-route.js")
+		script(src="/bower_components/a0-angular-storage/dist/angular-storage.min.js")
+		script(src="/js/app.js")
+		script(src="/js/search_controller.js")
+		script(src="/js/login_controller.js")
+		script(src="/js/company_profile_view.js")
 		//- company_profile_edit lib
 		script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js")
 		script(src ="/js/select.js")
@@ -24,33 +26,34 @@ html(ng-app='pingApp')
 		script(src ="/js/location.js")
 		//- This is the data arys for the location
 		
-		script(src='js/company_profile_edit.js')
+		script(src='/js/company_profile_edit.js')
 
 	body(class="{{bodyClass}}")
 		//- include ../modules/menu.jade
-		.row(ng-controller="debugCtrl" ng-show="{{debug}}")
-			.col-md-3
-				a(href="#/") /
-			.col-md-3
-				a(href="#/home") home.jade
-			.col-md-3
-				a(href="#/dashboard") dashboard
-			.col-md-3
-				a(href="#/login") login
-			.col-md-3
-				a(href="#/companies/Ping") company_profile.jade
-			.col-md-3
-				a(href="#/companies/profile/edit") company_profile_edit.jade
-			.col-md-3
-				a(href="#/companies/profile/edit_detail") company_profile_edit_detail.jade
-			.col-md-3
-				a(href="#/companies/profile/edit_social") company_profile_edit_social.jade
-			.col-md-3
-				a(href="#/search") find_talent.jade
-			.col-md-3
-				a(href="#/search?work_type=Freelance") find_talent Freelance
-			.col-md-3
-				a(href="#/search?position=Designer") find_talent Designer
-
+		if debug
+			h1 This is debug mode
+			.row
+				.col-md-3
+					a(href="#/") /
+				.col-md-3
+					a(href="#/home") home.jade
+				.col-md-3
+					a(href="#/dashboard") dashboard
+				.col-md-3
+					a(href="#/login") login
+				.col-md-3
+					a(href="#/companies/Ping") company_profile.jade
+				.col-md-3
+					a(href="#/companies/profile/edit") company_profile_edit.jade
+				.col-md-3
+					a(href="#/companies/profile/edit_detail") company_profile_edit_detail.jade
+				.col-md-3
+					a(href="#/companies/profile/edit_social") company_profile_edit_social.jade
+				.col-md-3
+					a(href="#/search") find_talent.jade
+				.col-md-3
+					a(href="#/search?work_type=Freelance") find_talent Freelance
+				.col-md-3
+					a(href="#/search?position=Designer") find_talent Designer
 		div(ng-view)
 
