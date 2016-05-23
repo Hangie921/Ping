@@ -67,15 +67,28 @@ app.controller('myCtrl', function($scope) {
     $scope.name = "John Doe";
 });
 
-app.run(['$rootScope', '$location', 'Auth0Store', function($rootScope, $location, Auth0Store) {
-    $rootScope.autoRedirectLogin = true;
+app.run(['$rootScope', '$location', '$http', '$window', 'Auth0Store', function($rootScope, $location, $http, $window, Auth0Store) {
+    $rootScope.autoRedirectLogin = false;
+
+    // Inspect session exist, clear cookie and redirect
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
+        console.log('Auth0Store.isLoggedIn()', Auth0Store.isLoggedIn());
         if (!Auth0Store.isLoggedIn()) {
-            console.log('DENY');
             if ($rootScope.autoRedirectLogin)
                 $location.path('login');
-        } else
-            console.log('ALLOW');
+        } else {
+            $http.post('api/session/check').then(function(res) {
+                switch (res.data.code) {
+                    case 200:
+                        break;
+                    default:
+                        $window.alert('no session or session expired');
+                        Auth0Store.clean();
+
+                }
+
+            });
+        }
 
         if (next.data)
             $rootScope.bodyClass = next.data.bodyClass;

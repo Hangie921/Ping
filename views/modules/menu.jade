@@ -1,7 +1,3 @@
-//- This file needs member role from DB to show the different menu function list 
--
-	var type = "Company";
-
 mixin menu_company()
 	ul.menu.col-md-8.no_pad(ng-switch-when="Company")
 		li.menu_item
@@ -57,31 +53,3 @@ nav.dashboard_menu.zindex--200
 				+menu_company()
 				h1(ng-switch-when="Talent") Talent
 				h1(ng-switch-default) No user.type
-
-				//- else if (type == "Talent")
-					ul.menu
-						li.menu_item Awards/Races
-						li.menu_item Project History
-						li.menu_item
-							button(ng-click="logout()") Logout
-
-				//- else 
-					h2 nothing la
-		//- if (mem_type == "company")
-		//- 	li 
-		//- 		a(href='/find_talent') Find Talent
-		//- else if (mem_type == "talent")
-		//- 	li 
-		//- 		a(href='/find_project') Find Project
-		//- li 
-		//- 	.setting
-		//- 		span Setting
-		//- 		ul
-		//- 			li My Account
-		//- 				#MyAccount
-		//- 					ul
-		//- 						li Change PWD
-		//- 			li Terns&Condition
-		//- 			li Version
-		//- 			li 
-		//- a(href='/logout') Log out

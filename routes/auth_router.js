@@ -11,26 +11,16 @@ var SessionService = pinglib.SessionService;
 
 var Profile = require('../module/schema/profile.js');
 
-// router.get('/login', function(req, res, next) {
-
-//     // @Todo 之後要在前端redirect
-//     if (req.session.user !== undefined) {
-//         return res.redirect('/dashboard');
-//     }
-
-//     var error = "";
-//     var renderData = {
-//         title: 'Ping'
-//     };
-//     if (req.session.error) {
-//         renderData.error = req.session.error;
-//         delete req.session.error;
-//     }
-//     res.render('pages/login', renderData);
-// });
+router.post('/api/session/check', function(req, res) {
+    if (req.session.user) {
+        return res.json({ code: 200, msg: 'OK' });
+    } else {
+        return res.json({ code: 401, errmsg: "no session.user" });
+    }
+});
 
 /* GET users listing. */
-router.post('/api/logout', function(req, res, next) {
+router.post('/api/logout', function(req, res) {
     var resJson = { code: 200 };
     try {
         req.session.destroy(function() {
@@ -49,7 +39,7 @@ router.post('/api/logout', function(req, res, next) {
 });
 
 
-router.post('/api/login', function(req, res, next) {
+router.post('/api/login', function(req, res) {
     var acc = req.body.acc,
         pwd = req.body.pwd;
 
@@ -59,7 +49,6 @@ router.post('/api/login', function(req, res, next) {
     user.email = acc;
     user.pwd = pwd;
 
-    var resJson = { code: 200 };
     // UserService.getUser(user, function(data) {
     SessionService.login(req, res, user, function(data) {
 
@@ -67,22 +56,16 @@ router.post('/api/login', function(req, res, next) {
             if (data.values[0].custom !== undefined) {
                 Profile.findById(data.values[0].custom._profile, function(err, profile) {
                     if (err) {
-                        resJson.code = 500;
-                        resJson.err = err;
-                        return res.json(resJson);
+                        return res.json({ code: 500, errmsg: 'Profile.findById' });
                     }
                     data.values[0].custom._profile = profile;
-                    // resJson.data = data.values[0];
-                    resJson.data = profile;
                     req.session.user = data.values[0];
-                    res.json(resJson);
+                    return res.json({ code: 200, data: profile });
                 });
             } else
-                res.json(resCode.No_Results);
+                return res.json({ code: 603, errmsg: 'No Results' });
         } else {
-            resJson.code = 400;
-            resJson.errmsg = 'Incorrect username or password';
-            res.json(resJson);
+            return res.json({ code: 400, errmsg: 'Incorrect username or password' });
         }
     });
 

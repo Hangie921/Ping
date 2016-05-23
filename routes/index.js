@@ -1,11 +1,6 @@
-//get the route,call the appropriate module to handle the route, 
-//then receive the result returned from the module and finally,
-//render the right page
-
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
-var multer = require('multer');
 
 // @Todo need add production setting
 var ifDebug = true;
@@ -13,6 +8,15 @@ var ifDebug = true;
 if (ifDebug) {
     router.use(require('./test_router'));
 }
+
+router.all('/api/search*', function(req, res, next) {
+    if (req.session.user) {
+        next();
+    } else {
+        console.log(__filename, "search middle");
+        return res.json({ code: 401, errmsg: "no session.user" });
+    }
+});
 
 router.use(require('./auth_router'));
 router.use(require('./search_router'));

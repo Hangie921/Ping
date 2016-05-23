@@ -32,11 +32,6 @@ loginControllers.controller('LoginCtrl', ['$scope', '$http', '$window', '$locati
         });
     };
 
-    $scope.logout = function() {
-        console.log("loginControllers. logout");
-        Auth0Store.clean();
-    };
-
     $scope.try = function(routePath) {
         $http.post('api/' + routePath, {}).then(function(res) {
             switch (res.data.code) {
@@ -47,11 +42,6 @@ loginControllers.controller('LoginCtrl', ['$scope', '$http', '$window', '$locati
     };
 }]);
 
-// loginControllers.controller('LogoutCtrl', ['$scope', '$http', '$window', '$location', 'Auth0Store', function($scope, $http, $window, $location, Auth0Store) {
-//     $scope.$on('$routeChangeStart',function() {
-//         console.log("logout ");
-//     });
-// }]);
 
 loginControllers.config(['$provide', function($provide) {
     // store: Module['angular-storage']
