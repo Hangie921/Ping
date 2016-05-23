@@ -14,7 +14,8 @@ var TalentProfile = require('../module/schema/profile.js').TalentProfile;
 var pinglib = require('pinglib');
 var User = pinglib.User;
 
-function newTalent(index, positions, pinger_type) {
+function newTalent(name, positions, pinger_type) {
+    var index = name || "";
 
     var talentProfile = new TalentProfile({
         username: "Talent" + index,
@@ -115,7 +116,8 @@ function newTalent(index, positions, pinger_type) {
     });
 }
 
-function newCompany(index) {
+function newCompany(name) {
+    var index = name || '';
 
     var companyProfile = new CompanyProfile({
         username: "Ping" + index,
@@ -188,30 +190,59 @@ function dropDatabase() {
     return new Promise((resolve, reject) => {
         if (process.argv[2] === "--drop") {
             Promise.all([removeCollection('users'), removeCollection('profiles'), removeCollection('contacts')])
-                .then(resolve).catch(reject);
+                .then(function() {
+                    setTimeout(function() {
+                        resolve();
+                    }, 1000);
+                }).catch(reject);
         } else {
             resolve();
         }
     });
 }
 
-var requests = [],
-    USER_COUNTER = 5;
+var requests = [];
 
-requests.push(newCompany(''));
-requests.push(newTalent(''));
-requests.push(newTalent(1, [{ title: 'PM', seniority: 1 }], 'PM'));
-requests.push(newTalent(2, [], 'PM'));
-requests.push(newTalent(3, [{ title: 'Designer', seniority: 3 }], 'PM'));
-requests.push(newTalent(4, []));
-for (var i = 0; i < USER_COUNTER; i++) {
-    requests.push(newCompany(i));
-}
+var addDemoUser = function() {
+}();
+
+var addTalent = function() {
+    var pm_counter = 50,
+        senior_designer_count = 50,
+        designer_count = 50,
+        counter = 0;
+
+    requests.push(newTalent());
+    for (var i = pm_counter; i > 0; i--) {
+        requests.push(newTalent(counter, [{ title: 'PM', seniority: 1 }], 'PM'));
+        counter++;
+    }
+
+    for (var i = senior_designer_count; i > 0; i--) {
+        requests.push(newTalent(counter, [{ title: 'Designer', seniority: 3 }], 'Designer'));
+        counter++;
+    }
+
+    for (var i = designer_count; i > 0; i--) {
+        requests.push(newTalent(counter, []));
+        counter++;
+    }
+}();
+
+var addCompany = function() {
+    var COMPANY_COUNT = 5;
+
+    requests.push(newCompany());
+    for (var i = 0; i < COMPANY_COUNT; i++) {
+        requests.push(newCompany(i));
+    }
+}();
 
 dropDatabase().then(function(value) {
         return Promise.all(requests);
     })
     .then(function(value) {
+        // console.log(value);
         mongoose.disconnect();
     })
     .catch(function(reason) {

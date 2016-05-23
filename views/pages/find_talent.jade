@@ -4,24 +4,24 @@ section.searchbar_section
 	.container_lg
 		.row
 			.searchbar.col-md-12.no_pad.clearfix
-				form
-					.search__input__single.input_select.input_single.col-md-4
-						select(ng-model="position" ng-change="search()")
-							option(value="") Pinger Type
-							option(value="PM") PM
-							option(value="Designer") Designer
-							option(value="RD") RD
-					.search__input__single.input_select.input_single.col-md-4
-						select(ng-model="work_type" ng-change="search()")
-							option(value="") Work Type
-							option(value="Freelance") Freelance
-							option(value="Full-time") Full-time
-					.search__input__single.input_select.input_single.col-md-4
-						select(ng-model="seniority" ng-change="search()")
-							option(value="") Year of Experience
-							option(value="1") 1
-							option(value="2") 2
-					//- a.submit_pinger.btn.btn--pri.btn--rg.col-md-2.no_pad(ng-href="{{queryString}}") Search
+					form
+						.search__input__single.input_select.input_single.col-md-4
+							select(ng-model="position" ng-change="search()")
+								option(value="") Pinger Type
+								option(value="PM") PM
+								option(value="Designer") Designer
+								option(value="RD") RD
+						.search__input__single.input_select.input_single.col-md-4
+							select(ng-model="work_type" ng-change="search()")
+								option(value="") Work Type
+								option(value="Freelance") Freelance
+								option(value="Full-time") Full-time
+						.search__input__single.input_select.input_single.col-md-4
+							select(ng-model="seniority" ng-change="search()")
+								option(value="") Year of Experience
+								option(value="1") 1
+								option(value="2") 2
+						//- a.submit_pinger.btn.btn--pri.btn--rg.col-md-2.no_pad(ng-href="{{queryString}}") Search
 				.search_extra_setting_bar.pull-right
 					a(href="#") Advance Search
 					a(href="#") Set Defult Preference
@@ -35,7 +35,11 @@ section.pinger_search_results
 					//- Pinger card
 					.row
 						.col-md-12
-							h1 {{'Total:' + talents.length}}
+							h1 {{'Total:' + count}}
+							h1 {{'Pages:' + pages}}
+							ul
+								li(ng-repeat="k,v in pages")
+									{{k}} {{v}}
 					.row
 						.col-md-3(ng-repeat="talent in talents")
 							.pinger_card

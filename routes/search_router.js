@@ -10,29 +10,14 @@ var TalentProfile = Profile.TalentProfile;
 var pinglib = require('pinglib');
 var resCode = pinglib.response;
 
-// varaiables
-var routerName = 'search';
-var url = '/' + routerName;
-var urlApi = '/api' + url;
 
-// @Todo 之後看是不是要放在更外層
-// @Todo '/*' should change to '*'
-router.get(url + '/*', function(req, res, next) {
-    console.log(__filename, url + " middle");
-    if (!req.session.user) {
-        return res.redirect('/login');
-    }
-    next();
-});
-
-router.get(url, function(req, res, next) {
-    // res.send("This is search page, need use res.render()");
-    res.render("pages/find_talent");
-});
-
-router.get(urlApi, function(req, res, next) {
-    var resJson = {code:200};
+router.get('/api/search', function(req, res, next) {
+    var resJson = { code: 200 };
     var condition = {};
+    var LIMIT = 16;
+
+    var page = req.query.page - 1 || 0;
+    console.log('page=', page);
 
     if (req.query.position) {
         condition.pinger_type = req.query.position;
@@ -53,20 +38,29 @@ router.get(urlApi, function(req, res, next) {
     if (Object.keys(condition).length === 0) {
         res.json(resCode.Bad_Request);
     } else {
-        TalentProfile.find(condition)
-            .select({
-                _id: 0,
-                username: 1,
-                pic: 1,
-                location: 1,
-                skills: 1,
-                pinger_type: 1,
-                description: 1,
-                "aspiration.work_type": 1
-            })
-            .exec(function(err, docs) {
+        var selection = {
+            _id: 0,
+            username: 1,
+            pic: 1,
+            location: 1,
+            skills: 1,
+            pinger_type: 1,
+            description: 1,
+            "aspiration.work_type": 1
+        };
+        var queryTalent = TalentProfile.find(condition).select(selection).skip(page * LIMIT).limit(LIMIT).exec();
+        var queryTalentCount = TalentProfile.find(condition).select(selection).count().exec();
+        return queryTalent
+            .then(function(docs) {
                 resJson.data = docs;
-                res.json(resJson);
+                return queryTalentCount;
+            })
+            .then(function(count) {
+                resJson.count = count;
+                return res.json(resJson);
+            })
+            .catch(function(err) {
+                return res.json({ code: 500, errmsg: err });
             });
 
     }
