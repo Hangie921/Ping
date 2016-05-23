@@ -24,7 +24,7 @@ app.controller('viewCtrl', ['$scope', '$http', '$route', '$routeParams', '$locat
         }
     };
 
-
+    // @Todo define the ajax loading timing
     $scope.$on('$viewContentLoaded', function() {
         $http.get('/api/companies/' + $routeParams.profileId)
             .then(function(res) {
@@ -33,11 +33,9 @@ app.controller('viewCtrl', ['$scope', '$http', '$route', '$routeParams', '$locat
                     $scope.links = res.data.data.links;
                     $scope.checkSocialActive();
 
-                }else{
+                } else {
                     console.log(res.data.errmsg);
-
                 }
-
             }, function(err) {
                 console.log(err);
             });
@@ -50,25 +48,25 @@ app.controller('viewCtrl', ['$scope', '$http', '$route', '$routeParams', '$locat
 
         if ($scope.links.facebook && $scope.links.facebook !== "") {
             $scope.active.fb.value = true;
-            $scope.active.fb.url = 'https://' + $scope.links.facebook;
+            $scope.active.fb.url = $scope.links.facebook;
 
 
         }
         if ($scope.links.twitter && $scope.links.twitter !== "") {
             $scope.active.tw.value = true;
-            $scope.active.tw.url = 'https://' + $scope.links.twitter;
+            $scope.active.tw.url = $scope.links.twitter;
 
 
         }
         if ($scope.links.linkedin && $scope.links.linkedin !== "") {
             $scope.active.ld.value = true;
-            $scope.active.ld.url = 'https://' + $scope.links.linkedin;
+            $scope.active.ld.url = $scope.links.linkedin;
 
 
         }
         if ($scope.links.official && $scope.links.official !== "") {
             $scope.active.site.value = true;
-            $scope.active.site.url = 'https://' + $scope.links.official;
+            $scope.active.site.url = $scope.links.official;
 
         }
 

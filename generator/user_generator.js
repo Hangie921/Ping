@@ -146,7 +146,7 @@ function newCompany(index) {
         location: { country: "Taiwan", city: "Taipei" },
         culture: ["Fun in life", "HoHoHo", "Banana", "Kumamon"],
         technology: ["Pokemon", "Spy", "Beer", "Holiday", "Javascipt", "PHP"],
-        links: { facebook: "www.facebook.com", google: "www.goole.com", official: "www.ping.com.sg" },
+        links: { facebook: "https://www.facebook.com", google: "https://www.goole.com", official: "http://www.ping.com.sg" },
     });
 
     var company = new User({

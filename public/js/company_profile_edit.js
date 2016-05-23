@@ -24,7 +24,7 @@
 
 // var app = angular.module('profileEditControllers', []);
 
-var app = angular.module('profileEditControllers', ['dndLists', 'ngSanitize', 'ui.select']);
+var app = angular.module('profileEditControllers', ['dndLists', 'ngSanitize']);
 
 
 
@@ -113,7 +113,7 @@ app.service('percentage_service', function() {
         var counter = -4; //扣掉 username, type, length,time這四個key
         var doc2 = { length: 0 };
 
-        console.log(doc.links);
+        // console.log(doc.links);
         //1.把要用的key篩選出來變成doc2，因為以後可能profile裡面會加更多的keys
         for (var key in doc) {
             for (var i = 0; i < key_list_to_cal.length; i++) {
@@ -161,10 +161,10 @@ app.service('percentage_service', function() {
 
 
 
-        console.log("counter", counter);
-        console.log("doc2 = ", doc2);
+        // console.log("counter", counter);
+        // console.log("doc2 = ", doc2);
         var temp_percentage = ((counter) / 12 * 100).toString();
-        console.log("percentage:", temp_percentage);
+        // console.log("percentage:", temp_percentage);
         percentage.counter = counter;
         percentage.value = temp_percentage;
 
@@ -192,7 +192,7 @@ app.service('percentage_service', function() {
                 links[key] = section_links_temp[key][0].url;
             }
         }
-        console.log("links= ", links);
+        // console.log("links= ", links);
         percentage.links = links;
     };
 
@@ -200,91 +200,65 @@ app.service('percentage_service', function() {
 
 
 // 1st controller of the edit mode with EditSettingAndImageCtrl
-app.controller('EditSettingAndImageCtrl', ['$rootScope', '$scope', '$http', 'percentage_service', function($rootScope, $scope, $http, percentage_service) {
+app.controller('EditSettingAndImageCtrl', ['$scope', '$http', 'percentage_service', '$routeParams', '$location', function($scope, $http, percentage_service, $routeParams, $location) {
 
     $scope.links = null;
     $scope.percentage = null;
-    $scope.profile = $rootScope.user;
-    $scope.test = 'test in EditSettingAndImageCtrl';
-    $scope.res = {};
-    //data was called in the company_profile_edit.jade , line10
-    console.log($rootScope.user);
+    $scope.profile = "";
+    $scope.tagline = "";
+    $scope.changed = false;
 
-    $scope.init = function() {
-        $scope.links = $scope.profile.links;
-        percentage_service.calculate($scope.profile, percentage_service.percentage);
-        var value = percentage_service.percentage.value.split(".");
-        $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
-        $scope.links = percentage_service.percentage.links;
-    };
-    // $scope.$on('$viewContentLoaded', function() {
-    //     $http.get('/companies/profile/edit')
-    //         .then(function(res) {
-    //             $scope.profile = res.data.data.custom._profile;
-    //             $scope.links = $scope.profile;
-    //             percentage_service.calculate($scope.profile, percentage_service.percentage);
-    //             var value = percentage_service.percentage.value.split(".");
-    //             $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
-    //             $scope.links = percentage_service.percentage.links;
+    $scope.$on('$viewContentLoaded', function() {
+        $http.get('api/companies/profile/edit')
+            .then(function(res) {
+                if (res.data.code === 200) {
+                    $scope.profile = res.data.data;
+                    $scope.tagline = res.data.data.tagline;
+                    $scope.links = res.data.data.links;
+                    percentage_service.calculate($scope.profile, percentage_service.percentage);
+                    var value = percentage_service.percentage.value.split(".");
+                    $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
+                    $scope.links = percentage_service.percentage.links;
 
-    //         }, function(err) {
-    //             console.log(err);
-    //         });
-    // });
+                } else {
+                    console.log(res.data.errmsg);
+                }
+            }, function(err) {
+                console.log(err);
+            });
+    });
 
 
-
-
-    // @Todo : Ajax upload using angular
-
-    // $scope.upload = function(formName, btn) {
-    //     var formData = new FormData(document.forms.namedItem(formName));
-
-    //     formData.append("CustomField", "This is some extra data");
-
-    //     var request = {
-    //         method: 'POST',
-    //         url: btn.getAttribute("data-router"),
-    //         data: formData,
-    //         headers: {
-    //             'Content-Type': 'multipart/form-data'
-    //         }
-    //     };
-
-    //     $http(request).then(function(response){
-    //         $scope.res = response;
-    //         console.log(response);
-    //         // location.reload();
-    //     },function(response){
-    //         $scope.res = response;
-    //         console.log(response);
-    //     });
-
-
-    //     // var ajax = $http({
-    //     //     headers: {
-    //     //         'Content-type': 'multipart/form-data'
-    //     //     },
-    //     //     url: btn.getAttribute("data-router"),
-    //     //     method: 'POST',
-    //     //     data: formData
-
-    //     // });
-    //     // ajax.success(function(data, status) {
-    //     //     res = data;
-    //     // });
-
-    //     // ajax.error(function(data, status) {
-    //     //     res.code = 400;
-    //     // });
-
-
-    // };
 
     $scope.upload = function(formName) {
 
         var formData = new FormData(document.forms.namedItem(formName));
         formData.append("CustomField", "This is some extra data");
+
+        // @Todo: 目前用$http.post會出現格式錯誤,因為
+        //
+        // By default, the $http service will transform 
+        // the outgoing request by serializing the data as 
+        // JSON and then posting it with the content- type, 
+        // "application/json". When we want to post the value 
+        // as a FORM post, we need to change the serialization 
+        // algorithm and post the data with the content-type, 
+        // "application/x-www-form-urlencoded".
+        // 但是一改了contetnt-type multer又收不到 file
+        // so pending
+        //
+        // $http.post('/companies/profile/edit', formData).then(function(res) {
+        //     if (res.data.code === 200) {
+        //         location.reload();
+        //         console.log("by $scope.upload of the 1st controller", res);
+        //     } else {
+        //         console.log(res);
+        //         console.log(res.data.errmsg);
+        //     }
+        // }, function(err) {
+        //     console.log(err);
+        // });
+
 
         var oReq = new XMLHttpRequest();
         oReq.onreadystatechange = function() {
@@ -302,16 +276,27 @@ app.controller('EditSettingAndImageCtrl', ['$rootScope', '$scope', '$http', 'per
                     console.log(oReq.response);
                     // return res.errmsg;
                     $scope.res = res;
+
+                    console.log("upload failed confirmation");
+                    // $('#confirmBox').show();
+                    $('#update_btn_first').fancybox({
+                        padding: 0,
+                        margin: 120,
+                        scrolling: 'visible',
+                        fitToView: false,
+                    });
+
+
                 }
+
+            } else {
+                console.log(oReq.response);
 
             }
 
         };
-
-
         oReq.open("POST", '/companies/profile/edit', true);
         oReq.send(formData);
-
     };
 
 
@@ -330,9 +315,39 @@ app.controller('EditSettingAndImageCtrl', ['$rootScope', '$scope', '$http', 'per
                 $(panel_selector).attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
+            $scope.changed = true;
         }
     };
 
+    $scope.confirm = function(btn, e) {
+        e.preventDefault();
+
+        if (btn === 'save') {
+            $scope.upload("test");
+        } else if (($scope.changed || $('#profile_tagline').hasClass('ng-dirty')) && btn === 'cancel') {
+            // show the confirmation box 
+            console.log("cancel confirmation");
+            // $('#confirmBox').show();
+            $('#cancelBtn').fancybox({
+                padding: 0,
+                margin: 120,
+                scrolling: 'visible',
+                fitToView: false,
+            });
+        } else {
+            $scope.cancel();
+        }
+    };
+
+    $scope.cancel = function() {
+        $('#confirmBox').hide();
+        $location.path('/dashboard');
+    };
+
+    $scope.hideModal = function(e) {
+        console.log("hideModal");
+        $(e.target).parent().parent().hide();
+    };
 
 }]); // end of the 1st controller
 
@@ -382,16 +397,76 @@ app.directive("contentDirective", function($compile) {
 // 其他function就如同function name所寫的
 
 
-app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_service','$rootScope', function($scope, $compile, percentage_service,$rootScope) {
+app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_service', '$http', function($scope, $compile, percentage_service, $http) {
     $scope.links = null;
     $scope.percentage = null;
-    $scope.profile = $rootScope.user;
-    
+    $scope.profile = "";
+    $scope.selected = {};
 
-    $scope.who_u_r = $scope.profile.who_u_r ? $scope.profile.who_u_r : [];
-    $scope.what_u_do = $scope.profile.what_u_do ? $scope.profile.what_u_do : [];
+
+    $scope.who_u_r = null;
+    $scope.what_u_do = null;
     $scope.who_u_r_to_DB = [];
     $scope.what_u_do_to_DB = [];
+    $scope.arrayModified = false;
+
+
+    $scope.$on('$viewContentLoaded', function() {
+        $http.get('api/companies/profile/edit')
+            .then(function(res) {
+                if (res.data.code === 200) {
+                    $scope.profile = res.data.data;
+                    $scope.links = res.data.data.links;
+
+                    console.log("init");
+                    $scope.selected = {
+                        location: {
+                            country: $scope.profile.location.country ? $scope.profile.location.country : "",
+                            city: $scope.profile.location.city ? $scope.profile.location.city : "",
+                        },
+                        establish_year: {
+                            name: ($scope.profile.establish_year || $scope.profile.establish_year === "-1") ? $scope.profile.establish_year.toString() : "Select Establish Year",
+                            value: ($scope.profile.establish_year || $scope.profile.establish_year === "-1") ? $scope.profile.establish_year : -1
+                        },
+                        size: {
+                            name: ($scope.profile.size || $scope.profile.size === "-1") ? $scope.profile.size : "Select Size",
+                            value: ($scope.profile.size || $scope.profile.size === "-1") ? $scope.profile.size : -1
+                        },
+                        industry: {
+                            name: ($scope.profile.industry || $scope.profile.industry === "-1") ? $scope.profile.industry : "Select Industry",
+                            value: ($scope.profile.industry || $scope.profile.industry === "-1") ? $scope.profile.industry : -1
+                        }
+                    };
+
+
+                    percentage_service.calculate($scope.profile, percentage_service.percentage);
+                    var value = percentage_service.percentage.value.split(".");
+                    $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
+                    $scope.links = percentage_service.percentage.links;
+
+
+                    $scope.who_u_r = $scope.profile.who_u_r ? $scope.profile.who_u_r : [];
+                    $scope.what_u_do = $scope.profile.what_u_do ? $scope.profile.what_u_do : [];
+
+
+                    console.log("selected:", $scope.selected);
+                    console.log("profile:", $scope.profile);
+                    populateCountries('country', 'city');
+
+                    populateSelect('industry');
+                    populateSelect('size');
+                    populateSelect('establish_year');
+
+
+                } else {
+                    console.log(res.data.errmsg);
+                }
+            }, function(err) {
+                console.log(err);
+            });
+    });
+
+
 
     //All xxxArr are loaded from loaction.js
     $scope.defaultCountry = countryArr;
@@ -417,34 +492,11 @@ app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_servi
     // ================== set the variables above ============================
 
 
-    $scope.init = function() {
-        console.log("init");
-
-        $scope.selected = {
-            location: {
-                country: $scope.profile.location.country ? $scope.profile.location.country : "",
-                city: $scope.profile.location.city ? $scope.profile.location.city : "",
-            },
-            establish_year: {
-                name: ($scope.profile.establish_year || $scope.profile.establish_year === "-1") ? $scope.profile.establish_year.toString() : "Select Establish Year",
-                value: ($scope.profile.establish_year || $scope.profile.establish_year === "-1") ? $scope.profile.establish_year : -1
-            },
-            size: {
-                name: ($scope.profile.size || $scope.profile.size === "-1") ? $scope.profile.size : "Select Size",
-                value: ($scope.profile.size || $scope.profile.size === "-1") ? $scope.profile.size : -1
-            },
-            industry: {
-                name: ($scope.profile.industry || $scope.profile.industry === "-1") ? $scope.profile.industry : "Select Industry",
-                value: ($scope.profile.industry || $scope.profile.industry === "-1") ? $scope.profile.industry : -1
-            }
-        };
 
 
-        percentage_service.calculate($scope.profile, percentage_service.percentage);
-        var value = percentage_service.percentage.value.split(".");
-        $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
-        $scope.links = percentage_service.percentage.links;
-    };
+
+
+
 
 
     //=================== Company info section ====================
@@ -452,7 +504,7 @@ app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_servi
     // variable "countryArr", "s_a" are from location.js
     // function "populateCountries" and "populateCity" are also
 
-    $scope.populateSelect = function populateSelect(selectElementId) {
+    var populateSelect = function populateSelect(selectElementId) {
         // given the id of the <select> tag as function argument, it inserts <option> tags
         var selectElement = document.getElementById(selectElementId);
         var defaultArr;
@@ -489,7 +541,7 @@ app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_servi
 
 
 
-    $scope.populateCountries = function populateCountries(countryElementId, stateElementId) {
+    var populateCountries = function populateCountries(countryElementId, stateElementId) {
         // given the id of the <select> tag as function argument, it inserts <option> tags
         var countryElement = document.getElementById(countryElementId);
         countryElement.length = 0;
@@ -515,7 +567,6 @@ app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_servi
     $scope.populateCity = function populateCity(countryElementId, stateElementId) {
 
         var selectedCountryIndex = document.getElementById(countryElementId).selectedIndex;
-
         var stateElement = document.getElementById(stateElementId);
 
         stateElement.length = 0; // Fixed by Julian Woods
@@ -734,66 +785,85 @@ app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_servi
 
     //=================== Update all the info in the page ===============
     $scope.update_to_DB = function() {
-        // var dataToDb = {
-        //     culture: $scope.profile.culture,
-        //     technology: $scope.profile.technology,
-        //     who_u_r: $scope.who_u_r_to_DB,
-        //     what_u_do: $scope.what_u_do_to_DB,
 
-        //     location: $scope.selected.location,
-        //     industry: $scope.selected.industry,
-        //     size: $scope.selected.size,
-        //     establish_year: $scope.selected.year
+        // formData following;
+        // console.log("industry", document.getElementById('industry').value);
+        // console.log("size", $scope.changedSize);
+        // console.log("year", $scope.changedYear);
+        // console.log("location", $scope.selected.location);
+
+        // var formData = new FormData();
+
+        // formData.append("CustomField", "This is some example data");
+        // formData.append("culture", JSON.stringify($scope.profile.culture));
+        // formData.append("technology", JSON.stringify($scope.profile.technology));
+        // formData.append("who_u_r", JSON.stringify($scope.who_u_r_to_DB));
+        // formData.append("what_u_do", JSON.stringify($scope.what_u_do_to_DB));
+
+        // formData.append("location", JSON.stringify($scope.selected.location));
+
+        // if (document.getElementById('industry').value) {
+        //     formData.append("industry", document.getElementById('industry').value);
+        // }
+        // if (document.getElementById('size').value) {
+        //     formData.append("size", document.getElementById('size').value);
+        // }
+        // if (document.getElementById('establish_year').value) {
+        //     formData.append("establish_year", document.getElementById('establish_year').value);
+        // }
+        // formData above
+
+        // var oReq = new XMLHttpRequest();
+        // oReq.onreadystatechange = function() {
+        //     if (oReq.readyState == 4 && oReq.status == 200) {
+        //         var res = JSON.parse(oReq.response);
+        //         console.log(res.code);
+        //         if (res.code == 200) {
+        //             location.reload(); // To run the Unit test, you have to comment this line
+        //             console.log("by $scope.upload of the 2nd controller", res);
+        //             return res;
+        //         } else {
+        //             console.log(oReq.response);
+        //             return false;
+        //         }
+        //     } else {
+        //         return oReq.response;
+        //     }
         // };
+        // oReq.open("POST", "/companies/profile/edit", true);
 
-        console.log("industry", document.getElementById('industry').value);
-        console.log("size", $scope.changedSize);
-        console.log("year", $scope.changedYear);
-        console.log("location", $scope.selected.location);
+        // oReq.send(formData);
 
-        var formData = new FormData();
-
-        formData.append("CustomField", "This is some example data");
-        formData.append("culture", JSON.stringify($scope.profile.culture));
-        formData.append("technology", JSON.stringify($scope.profile.technology));
-        formData.append("who_u_r", JSON.stringify($scope.who_u_r_to_DB));
-        formData.append("what_u_do", JSON.stringify($scope.what_u_do_to_DB));
-
-        formData.append("location", JSON.stringify($scope.selected.location));
+        var uploadData = {
+            "culture": JSON.stringify($scope.profile.culture),
+            "technology": JSON.stringify($scope.profile.technology),
+            "who_u_r": JSON.stringify($scope.who_u_r_to_DB),
+            "what_u_do": JSON.stringify($scope.what_u_do_to_DB),
+            "location": JSON.stringify($scope.selected.location)
+        };
 
         if (document.getElementById('industry').value) {
-            formData.append("industry", document.getElementById('industry').value);
+            uploadData.industry = document.getElementById('industry').value;
         }
         if (document.getElementById('size').value) {
-            formData.append("size", document.getElementById('size').value);
+            uploadData.size = document.getElementById('size').value;
         }
         if (document.getElementById('establish_year').value) {
-            formData.append("establish_year", document.getElementById('establish_year').value);
+            uploadData.establish_year = document.getElementById('establish_year').value;
         }
 
 
-
-
-        var oReq = new XMLHttpRequest();
-        oReq.onreadystatechange = function() {
-            if (oReq.readyState == 4 && oReq.status == 200) {
-                var res = JSON.parse(oReq.response);
-                console.log(res.code);
-                if (res.code == 200) {
-                    location.reload(); // To run the Unit test, you have to comment this line
-                    console.log("by $scope.upload of the 2nd controller", res);
-                    return res;
-                } else {
-                    console.log(oReq.response);
-                    return false;
-                }
+        $http.post('/companies/profile/edit', uploadData).then(function(res) {
+            if (res.data.code === 200) {
+                location.reload();
+                console.log("by $scope.upload of the 2nd controller", res);
             } else {
-                return oReq.response;
+                console.log(res);
+                console.log(res.data.errmsg);
             }
-        };
-        oReq.open("POST", "/companies/profile/edit", true);
-
-        oReq.send(formData);
+        }, function(err) {
+            console.log(err);
+        });
 
     };
     $scope.delete_tags = function(array, index) {
@@ -817,13 +887,49 @@ app.controller('EditCompanyDetailCtrl', ['$scope', '$compile', 'percentage_servi
 
 // 3rd controller of the edit mode with the EditSocialBtnsCtrl
 
-app.controller('EditSocialBtnsCtrl', ['$scope', 'percentage_service', '$rootScope',function($scope, percentage_service,$rootScope) {
+app.controller('EditSocialBtnsCtrl', ['$scope', 'percentage_service', '$rootScope', '$http', function($scope, percentage_service, $rootScope, $http) {
     // variable data is called in the company_profile_edit_social.jade
-    $scope.profile = $rootScope.user;
+    $scope.regex = '^https?://.*';
+
     $scope.links = null;
     $scope.percentage = null;
-    
-    $scope.initial = function(data_link) {
+    $scope.official = {};
+    $scope.facebook = {};
+    $scope.linkedin = {};
+    $scope.twitter = {};
+    $scope.google = {};
+
+
+    $scope.$on('$viewContentLoaded', function() {
+        $http.get('api/companies/profile/edit')
+            .then(function(res) {
+                if (res.data.code === 200) {
+                    $scope.profile = res.data.data;
+                    $scope.links = res.data.data.links;
+
+                    console.log("init");
+                    initial($scope.links);
+
+
+                    percentage_service.calculate($scope.profile, percentage_service.percentage);
+                    var value = percentage_service.percentage.value.split(".");
+                    $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
+                    $scope.links = percentage_service.percentage.links;
+
+
+                } else {
+                    console.log(res.data.errmsg);
+                }
+            }, function(err) {
+                console.log(err);
+            });
+    });
+
+
+
+    var initial = function(data_link) {
+        console.log("in initial");
+        console.log(data_link);
         // Only add the .checked when the data from the server exists,
         // the "doc" varaible is the data from server
         if (data_link) {
@@ -890,12 +996,6 @@ app.controller('EditSocialBtnsCtrl', ['$scope', 'percentage_service', '$rootScop
             };
         }
 
-        //Calculate the percentage using percentage_service
-        percentage_service.calculate($scope.profile, percentage_service.percentage);
-        //@To do: show the percentage on the page
-        var value = percentage_service.percentage.value.split(".");
-        $scope.percentage = value[0].length == 4 ? value[0] : value[0] + '%';
-        $scope.links = percentage_service.percentage.links;
     };
     //variables
     $scope.checkUrl = function(btn) {
@@ -975,39 +1075,73 @@ app.controller('EditSocialBtnsCtrl', ['$scope', 'percentage_service', '$rootScop
     }; //end of switch()
 
 
-    $scope.upload = function(formName, event) {
-        var btn = event.currentTarget;
-        var formData = new FormData(document.forms.namedItem(formName));
+    $scope.upload = function() {
+        // var btn = event.currentTarget;
+        // var formData = new FormData(document.forms.namedItem(formName));
 
-        formData.append("CustomField", "This is some extra data");
-        formData.append("links", JSON.stringify({
-            official: $scope.official.data,
-            facebook: $scope.facebook.data,
-            linkedin: $scope.linkedin.data,
-            twitter: $scope.twitter.data,
-            google: $scope.google.data,
-        }));
+        // formData.append("CustomField", "This is some extra data");
+        // formData.append("links", JSON.stringify({
+        //     official: $scope.official.data,
+        //     facebook: $scope.facebook.data,
+        //     linkedin: $scope.linkedin.data,
+        //     twitter: $scope.twitter.data,
+        //     google: $scope.google.data,
+        // }));
 
-        var oReq = new XMLHttpRequest();
-        oReq.onreadystatechange = function() {
-            if (oReq.readyState == 4 && oReq.status == 200) {
-                var res = JSON.parse(oReq.response);
-                console.log(res.code);
-                if (res.code == 200) {
-                    location.reload(); // To run the Unit test, you have to comment this line
-                    console.log("by $scope.upload of the 3rd controller", res);
-                    return res;
-                } else {
-                    console.log(oReq.response);
-                    return false;
-                }
-            } else {
-                return oReq.response;
+        // var oReq = new XMLHttpRequest();
+        // oReq.onreadystatechange = function() {
+        //     if (oReq.readyState == 4 && oReq.status == 200) {
+        //         var res = JSON.parse(oReq.response);
+        //         console.log(res.code);
+        //         if (res.code == 200) {
+        //             location.reload(); // To run the Unit test, you have to comment this line
+        //             console.log("by $scope.upload of the 3rd controller", res);
+        //             return res;
+        //         } else {
+        //             console.log(oReq.response);
+        //             return false;
+        //         }
+        //     } else {
+        //         return oReq.response;
+        //     }
+        // };
+        // oReq.open("POST", btn.getAttribute("data-router"), true);
+        // oReq.send(formData);
+
+
+        var uploadData = {
+            links: {
+                official: $scope.official.data,
+                facebook: $scope.facebook.data,
+                linkedin: $scope.linkedin.data,
+                twitter: $scope.twitter.data,
+                google: $scope.google.data,
             }
         };
-        oReq.open("POST", btn.getAttribute("data-router"), true);
-        oReq.send(formData);
 
+        console.log(uploadData);
+        $http.post('/companies/profile/edit', uploadData).then(function(res) {
+            if (res.data.code === 200) {
+                location.reload();
+                console.log("by $scope.upload of the 3nd controller", res);
+            } else {
+                console.log(res);
+                console.log(res.data.errmsg);
+            }
+        }, function(err) {
+            console.log(err);
+        });
+
+    };
+
+    $scope.cancelBtnClicked = function(){
+        console.log("cancelBtnClicked");
+
+        if($(socialForm.google).hasClass("ng-dirty")||$(socialForm.facebook).hasClass("ng-dirty")||$(socialForm.twitter).hasClass("ng-dirty")||$(socialForm.official).hasClass("ng-dirty")||$(socialForm.linkedin).hasClass("ng-dirty")){
+            console.log("modified");
+        }else{
+            console.log("no modified");
+        }
     };
 
 

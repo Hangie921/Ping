@@ -1,27 +1,22 @@
-block css
-	link(rel="stylesheet"  href="/css/dashboard.css")
-	link(rel="stylesheet" ,href='/css/dnd.css')
-block script
-	script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
-	script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js")
-	script(src ="/js/select.js")
-	script(type='text/javascript',src='/js/company_profile_edit.js')
-block menu
-	include ../modules/menu.jade
+link(rel="stylesheet"  href="/css/dashboard.css")
+link(rel="stylesheet" ,href='/css/dnd.css')
+script(type='text/javascript',src='/js/angular-drag-and-drop-lists.js')
+script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js")
+script(src ="/js/select.js")
+script(type='text/javascript',src='/js/company_profile_edit.js')
+include ../modules/menu.jade
 
-//- block sidebar
-//- 	include ../modules/sidebar.jade
-block content
-	.container-fluid(ng-controller='EditSocialBtnsCtrl',ng-click="container_click()")
-		.row
-			//- Left Column /////////////
-			include ../modules/sidebar
-			//- Center Column //////////////
-			.content_container-three-col.col-md-7
-				h1 Edit Profile
-					form(method='POST',id='company_branding',action='',enctype='multipart/form-data',name='test')
-						//- Profile ////////////  
-				.edit_social_network.edit_group#social_network
+.container-fluid(ng-click="container_click()")
+	.row
+		//- Left Column /////////////
+		include ../modules/sidebar
+		//- Center Column //////////////
+		.content_container-three-col.col-md-7
+			h1 Edit Profile
+			
+					//- Profile ////////////  
+			.edit_social_network.edit_group#social_network
+				form(method='POST',id='company_branding',action='',enctype='multipart/form-data',name='socialForm',novalidate)
 					.edit__title__bar
 						h3.icon_set.icon_set-edit-heading.icon_set--rg 
 							i.lnr.lnr-smile
@@ -31,52 +26,66 @@ block content
 									h5 How to make your profile shine
 									p If you own an Iphone, you’ve probably already worked out how much fun it is to use it to watch movies-it has that nice big screen, and the sound quality is surprisingly good too. Now imagine if you knew how to download Iphone movies without having to pay.
 					.edit__input__inner
-						.edit__input.input_single.col-md-9(ng-init="initial(profile.links)")
-							a.btn.social_media_btn.offical.lnr.lnr-checkmark-circle(ng-show="official.show_btn",ng-click="btn_click('official'); $event.stopPropagation();",data-name='offical',ng-class="{'active':official.has_active,'checked':official.data_from_server}") official site
+						.edit__input.input_single.col-md-9()
+							a.btn.social_media_btn.offical.lnr.lnr-checkmark-circle(ng-show="official.show_btn",ng-click="btn_click('official'); $event.stopPropagation();",ng-class="{'active':official.has_active,'checked':official.data_from_server}") official site
 							.input_single(ng-show="!official.show_btn")
-								input(type='url', name='official',placeholder=('Add your official URL here. (Start with http/https)'),ng-model="official.data",ng-click='$event.stopPropagation();',pattern="https?://.+" )
+								input(type='url', name='official',placeholder=('Add your official URL here. (Start with http://or https://)'),ng-model="official.data",ng-click='$event.stopPropagation();',ng-pattern="regex" )
 								span Please enter the valid url starting with http:// or https://
 						.edit__input.input_single.col-md-9
-							a.btn.social_media_btn.facebook.lnr.lnr-checkmark-circle(ng-show="facebook.show_btn",ng-click="btn_click('facebook');$event.stopPropagation();",data-name='facebook',ng-class="{'active':facebook.has_active,'checked':facebook.data_from_server}") 
+							a.btn.social_media_btn.facebook.lnr.lnr-checkmark-circle(ng-show="facebook.show_btn",ng-click="btn_click('facebook');$event.stopPropagation();",ng-class="{'active':facebook.has_active,'checked':facebook.data_from_server}") 
 							.input_single(ng-show="!facebook.show_btn")
-								input(type='url', name='facebook',placeholder=('Add your facebook URL here. (Start with http/https)'),ng-model="facebook.data",ng-click='$event.stopPropagation();',pattern="https?://.+" )
-								span Please enter the valid url starting with http:// or https://
+								input(type='text', name='facebook',placeholder=('Add your facebook URL here. (Start with http://or https://)'),ng-model="facebook.data",ng-click='$event.stopPropagation();',ng-pattern="regex")
+								span(ng-show='test.facebook.$invalid||test.facebook.$empty') Please enter the valid url starting with http:// or https://
+
 
 						.edit__input.input_single.col-md-9
-							a.btn.social_media_btn.linkedin.lnr.lnr-checkmark-circle(ng-show="linkedin.show_btn",ng-click="btn_click('linkedin');$event.stopPropagation();",data-name='linkedin',ng-class="{'active':linkedin.has_active,'checked':linkedin.data_from_server}")
+							a.btn.social_media_btn.linkedin.lnr.lnr-checkmark-circle(ng-show="linkedin.show_btn",ng-click="btn_click('linkedin');$event.stopPropagation();",ng-class="{'active':linkedin.has_active,'checked':linkedin.data_from_server}")
 							.input_single(ng-show="!linkedin.show_btn")
-								input(type='url', name='linkedin',placeholder=('Add your linkedin URL here. (Start with http/https)'),ng-model="linkedin.data",ng-click='$event.stopPropagation();',pattern="https?://.+" )
+								input(type='url', name='linkedin',placeholder=('Add your linkedin URL here. (Start with http://or https://)'),ng-model="linkedin.data",ng-click='$event.stopPropagation();',ng-pattern="regex" )
 								span Please enter the valid url starting with http:// or https://
 
 						.edit__input.input_single.col-md-9
-							a.btn.social_media_btn.twitter.lnr.lnr-checkmark-circle(ng-show="twitter.show_btn",ng-click="btn_click('twitter');$event.stopPropagation();",data-name='twitter',ng-class="{'active':twitter.has_active,'checked':twitter.data_from_server}")
+							a.btn.social_media_btn.twitter.lnr.lnr-checkmark-circle(ng-show="twitter.show_btn",ng-click="btn_click('twitter');$event.stopPropagation();",ng-class="{'active':twitter.has_active,'checked':twitter.data_from_server}")
 							.input_single(ng-show="!twitter.show_btn")
-								input(type='url', name='twitter',placeholder=('Add your twitter URL here. (Start with http/https)'),ng-model="twitter.data", ng-click='$event.stopPropagation();',pattern="https?://.+" )
+								input(type='url', name='twitter',placeholder=('Add your twitter URL here. (Start with http://or https://)'),ng-model="twitter.data", ng-click='$event.stopPropagation();',ng-pattern="regex" )
 								span Please enter the valid url starting with http:// or https://
 
 						.edit__input.input_single.col-md-9
-							a.btn.social_media_btn.google.lnr.lnr-checkmark-circle(ng-show="google.show_btn",ng-click="btn_click('google');$event.stopPropagation();",data-name='google',ng-class="{'active':google.has_active,'checked':google.data_from_server}") 
+							a.btn.social_media_btn.google.lnr.lnr-checkmark-circle(ng-show="google.show_btn",ng-click="btn_click('google');$event.stopPropagation();",ng-class="{'active':google.has_active,'checked':google.data_from_server}") 
 							.input_single(ng-show="!google.show_btn")
-								input(type='url', name='google',placeholder=('Add your google URL here. (Start with http/https)'),ng-model="google.data", ng-click='$event.stopPropagation();',pattern="https?://.+" )
+								input(type='url', name='google',placeholder=('Add your google URL here. (Start with http://or https://)'),ng-model="google.data", ng-click='$event.stopPropagation();',ng-pattern="regex" )
 								span Please enter the valid url starting with http:// or https://
-								
-				.btn_group.row_space-bottom--md.pull-right.col-md-6
-							.col-md-5
-								a.btn.cancel.btn--sm.btn--gray.btn_block(href='/dashboard') cancel
-							.col-md-7.no_pad
-								a.btn.btn_pri.save.btn--sm.btn--pri.btn_block#update_btn_first.disable(data-router='/companies/profile/edit',href='javascript:void(0)',ng-click="upload('test',$event)") save changes			
+							
+			.btn_group.row_space-bottom--md.pull-right.col-md-6
+						.col-md-5
+							a.btn.cancel.btn--sm.btn--gray.btn_block(ng-click="cancelBtnClicked()") cancel
+						.col-md-7.no_pad
+						
+							a.btn.btn_pri.save.btn--sm.btn--pri.btn_block#update_btn_first.disable(href='javascript:void(0)',ng-click="upload()") save changes			
 
-			.col-md-3
-				.profile_progress.round_corner.clearfix
-					h5 Profile Completion
-					span.profile__progress__percentage {{percentage}}
-					.profile__progress__bar.progress_bar_container.round_corner
-						#profile_progress_bar.progress_bar(ng-style="{width:percentage}") 
+		.col-md-3
+			.profile_progress.round_corner.clearfix
+				h5 Profile Completion
+				span.profile__progress__percentage {{percentage}}
+				.profile__progress__bar.progress_bar_container.round_corner
+					#profile_progress_bar.progress_bar(ng-style="{width:percentage}") 
 
-					p You can access to our full feature after you complete the profile.
-					ul.progress__unfilled__list.clearfix
-						li(ng-repeat="(key,value) in links").progress__unfilled__list__item
-							a(href='{{value}}') {{key}}  
+				p You can access to our full feature after you complete the profile.
+				ul.progress__unfilled__list.clearfix
+					li(ng-repeat="(key,value) in links").progress__unfilled__list__item
+						a(href='{{value}}') {{key}} 
+		.modal.modal_comfirmation.clearfix#confirmBox
+			.modal__title.col-md-12
+				h3 Are you sure you want to undo all changes?
+			.col-md-5
+				a.btn.cancel.btn--rg.btn--gray.btn_block(ng-click='hideModal($event)') cancel
+			.col-md-7
+				a.btn.btn_pri.save.btn--rg.btn--pri.btn_block(ng-click='cancel()') yes,please
+		.modal.modal_comfirmation.clearfix#warningBox
+			.modal__title.col-md-12
+				h3 Upload failed
+			.col-md-6.col-centered
+				a.btn.btn_pri.save.btn--rg.btn--pri.btn_block(ng-click='hideModal($event)') Ok 
 
 
-			
+		

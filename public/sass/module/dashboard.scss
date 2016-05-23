@@ -444,9 +444,9 @@ body.edit {
         span{
             display:none;
         }
-        input.ng-invalid + span{
-            display:initial;
-        }
+        // input.ng-invalid + span{
+        //     display:initial;
+        // }
     }
         .btn.social_media_btn {
             width: 100%;

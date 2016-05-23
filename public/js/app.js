@@ -68,7 +68,7 @@ app.controller('myCtrl', function($scope) {
 });
 
 app.run(['$rootScope', '$location', 'Auth0Store', function($rootScope, $location, Auth0Store) {
-    $rootScope.autoRedirectLogin = false;
+    $rootScope.autoRedirectLogin = true;
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
         if (!Auth0Store.isLoggedIn()) {
             console.log('DENY');

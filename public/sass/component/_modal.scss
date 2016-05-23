@@ -1,0 +1,83 @@
+// Form
+.advice_required_bubble {
+    display: none;
+    top: 0;
+    left: 105%;
+    position: absolute;
+    border-radius: $base_border_radius;
+    padding: 10px 20px;
+    font-size: $sm_font;
+	box-shadow:rgba(0,0,0,.2) 0px 2px 20px;
+
+    &:before {
+        display: block;
+        content: "";
+        border: 11px solid transparent;
+        border-right: 22px solid;
+        position: absolute;
+        top: 8px;
+        left: -22px;
+    }
+    &.bubble_inline {
+        background-color: $sec_cl;
+        color: $base_white;
+        display:none;
+        &:before{
+        	border-right-color:$sec_cl;
+        }
+    }
+    &.bubble_block{
+    	background-color:$base_white;
+    	color:$sec_cl;
+		display:none;
+		&:before{
+			border-right-color:$base_white;
+		}
+    }
+}
+
+input.ng-invalid {
+    // auto added by angular when it's invalid
+    border: 2px solid $sec_cl;
+    background-color: rgba(217, 81, 97, .2);
+    & + .bubble_inline {
+        display: inline-block;
+    }
+	& + .bubble_block {
+        display: block;
+    }
+
+}
+
+// Advice
+// Modal
+.modal {
+    z-index: 10;
+    display: none;
+    position: fixed;
+    height: 150px;
+    max-width: 500px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background-color: $base_white;
+    border-radius: $base_border_radius;
+    padding: $space_sm;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, .2) 0 2px 20px;
+    &.modal_comfirmation {
+        width: 100%;
+        .modal__title {
+            color: $pri_cl;
+            font-size: $rg_font;
+            height: 25px;
+            line-height: $base_line_height;
+            margin-bottom: 30px;
+            h3 {
+                line-height: 25px;
+            }
+        }
+    }
+}

@@ -17,11 +17,11 @@ var routerName = 'companies';
 var url = '/' + routerName;
 var urlApi = '/api' + url;
 
-var ifDebug= true;
+var ifDebug = true;
 // @Todo 之後看是不是要放在更外層
 router.all('/api/companies/*', function(req, res, next) {
     console.log(__filename, url + " middle");
-    if (req.session.user || ifDebug) {
+    if (req.session.user) {
         next();
     } else {
         return res.json({ code: 401, errmsg: "no session.user" });
@@ -44,24 +44,8 @@ router.get('/api/companies/:username', function(req, res, next) {
         });
 });
 
-router.get(url + '/profile/edit', function(req, res) {
-    var section = req.query.section;
-    if (section === "detail") {
-        res.render("pages/company_profile_edit_detail", {
-            user: req.session.user
-        });
-
-    } else if (section === "social") {
-        res.render("pages/company_profile_edit_social", {
-            user: req.session.user
-        });
-
-    } else {
-        res.json({code:200,data:req.session.user});
-        // res.render("pages/company_profile_edit", {
-        //     user: req.session.user
-        // });
-    }
+router.get('/api/companies/profile/edit', function(req, res) {
+    return res.json({ code: 200, data: req.session.user.custom._profile });
 });
 
 //  setting upload configs
@@ -87,9 +71,13 @@ var upload = multer({ storage: storage }).fields([{
 router.post(url + '/profile/edit', function(req, res, next) {
     console.log(__filename, req.get('Content-Type'));
     var resJson = { code: 200, data: {} };
-
+    console.log("in post132");
+    console.log(req.session.user);
+    console.log(req.session.user.custom);
+    console.log(req.session.user.custom._profile);
+    console.log(req.session.user.custom._profile.username);
     CompanyProfile.findOne({ username: req.session.user.custom._profile.username }, function(err, originCompany) {
-
+        console.log("in findOne");
         if (err) {
             // @todo add in logger
             console.log("in error CompanyProfile.findOne(): ", err);
@@ -140,7 +128,7 @@ router.post(url + '/profile/edit', function(req, res, next) {
                 // 狀況二：只有檔案之外的其他input
                 // 狀況三：mixed
 
-                if (key == 'links' || key == 'culture' || key == 'technology' || key == 'who_u_r' || key == 'what_u_do' || key === 'location') {
+                if ( key == 'culture' || key == 'technology' || key == 'who_u_r' || key == 'what_u_do' || key === 'location') {
                     console.log(key, ': ', req.body[key]);
                     originCompany[key] = JSON.parse(req.body[key]);
                 } else {
@@ -178,6 +166,7 @@ router.post(url + '/profile/edit', function(req, res, next) {
             });
         });
     });
+    console.log("after findOne");
 });
 
 router.get(url, function(req, res) {

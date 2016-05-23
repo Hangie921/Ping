@@ -26,6 +26,7 @@ loginControllers.controller('LoginCtrl', ['$scope', '$http', '$window', '$locati
                     break;
                 default:
                     $window.alert(res.data.errmsg);
+                    $("#mem_acc + .advice_required_bubble").css("display","inline");
             }
 
         });

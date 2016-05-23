@@ -4,11 +4,15 @@ link(rel='stylesheet', href='/css/login_page.css')
 	.brand_container
 		img(src='/img/branding.png')
 	#login_form.col-md-4.col-centered
-		form
+		form(name="loginForm")
 			.input_single
-				input#mem_acc(type='email', placeholder='username',ng-model="acc",ng-init="acc='company@ping.com.sg';")
+				input#mem_acc(name='memAcc',type='email', placeholder='username',ng-model="acc",ng-init="acc='company@ping.com.sg';",ng-required)
+				span.advice_required_bubble.bubble_inline
+					|Oops!&nbspIt's&nbspnot&nbspa&nbspvalid&nbspemail.
 			.input_single
-				input#mem_pwd(type='password', placeholder='password',ng-model="pwd",ng-init="pwd='qwer1234';")
+				input#mem_pwd(name='memPwd',type='password', placeholder='password',ng-model="pwd",ng-init="pwd='qwer1234';", ng-required)
+				span.advice_required_bubble.bubble_inline
+					|Oops!&nbspCheck&nbspyour&nbspor&nbspemail&nbsppassword
 			//- input(type='submit')
 		button.btn.btn_pri#login_btn(ng-click="login()") Login
 		span.forget_pwd
